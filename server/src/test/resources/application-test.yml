@@ -1,0 +1,19 @@
+spring:
+  jpa:
+    show-sql: true
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+        highlight_sql: true
+    hibernate:
+      ddl-auto: none
+    defer-datasource-initialization: true
+
+logging:
+  level:
+    root: INFO
+    pass: DEBUG
+    org.hibernate:
+      SQL: DEBUG
+      type.descriptor.sql.BasicBinder: TRACE

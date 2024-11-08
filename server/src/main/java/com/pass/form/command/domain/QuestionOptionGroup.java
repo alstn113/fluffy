@@ -1,5 +1,7 @@
 package com.pass.form.command.domain;
 
+import com.pass.form.command.domain.excetion.DuplicateQuestionOptionException;
+import com.pass.form.command.domain.excetion.InvalidQuestionOptionSizeException;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;
@@ -45,13 +47,13 @@ public class QuestionOptionGroup {
                 .toList();
 
         if (optionNames.stream().distinct().count() != optionNames.size()) {
-            throw new IllegalArgumentException("중복된 옵션은 허용되지 않습니다.");
+            throw new DuplicateQuestionOptionException();
         }
     }
 
     private void validateOptionSize(List<QuestionOption> options) {
         if (options.size() > MAX_OPTION_SIZE) {
-            throw new IllegalArgumentException("옵션은 10개 이하만 허용됩니다.");
+            throw new InvalidQuestionOptionSizeException(MAX_OPTION_SIZE);
         }
     }
 

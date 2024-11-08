@@ -16,8 +16,7 @@ public class FormQueryService {
 
     @Transactional(readOnly = true)
     public FormResponse getForm(String formId) {
-        FormData formData = formDataDao.findById(formId)
-                .orElseThrow(() -> new IllegalArgumentException("Form not found id:%s".formatted(formId)));
+        FormData formData = formDataDao.getFormById(formId);
 
         return formDataMapper.toResponse(formData);
     }

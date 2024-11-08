@@ -1,5 +1,7 @@
 package com.pass.auth.application;
 
+import com.pass.auth.application.exception.PasswordIncorrectException;
+import com.pass.auth.application.exception.UsernameAlreadyExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.pass.auth.application.dto.LoginAppRequest;
@@ -27,7 +29,7 @@ public class AuthService {
 
     private void validateUsernameAlreadyExists(String username) {
         if (memberRepository.existsByUsername(username)) {
-            throw new IllegalArgumentException("Username already exists");
+            throw new UsernameAlreadyExistsException();
         }
     }
 
@@ -41,7 +43,7 @@ public class AuthService {
 
     private void validatePasswordMatches(LoginAppRequest request, Member member) {
         if (!passwordEncoder.matches(request.password(), member.getPassword())) {
-            throw new IllegalArgumentException("Password is incorrect");
+            throw new PasswordIncorrectException();
         }
     }
 }

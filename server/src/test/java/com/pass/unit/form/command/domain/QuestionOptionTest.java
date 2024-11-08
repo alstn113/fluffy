@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.pass.form.command.domain.QuestionOption;
+import com.pass.form.command.domain.excetion.InvalidQuestionOptionLengthException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -25,8 +26,8 @@ class QuestionOptionTest {
     void failWhenTextIsBlank(String text) {
         // when & then
         assertThatCode(() -> new QuestionOption(text, true))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("옵션의 길이는 1~200자 이어야 합니다.");
+                .isInstanceOf(InvalidQuestionOptionLengthException.class)
+                .hasMessage("질문 옵션의 길이는 1~200자 이어야 합니다.");
     }
 
     @ParameterizedTest
@@ -38,7 +39,7 @@ class QuestionOptionTest {
 
         // then
         assertThatThrownBy(() -> new QuestionOption(text, true))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("옵션의 길이는 1~200자 이어야 합니다.");
+                .isInstanceOf(InvalidQuestionOptionLengthException.class)
+                .hasMessage("질문 옵션의 길이는 1~200자 이어야 합니다.");
     }
 }

@@ -6,6 +6,8 @@ import static org.assertj.core.api.AssertionsForClassTypes.tuple;
 
 import com.pass.form.command.domain.QuestionOption;
 import com.pass.form.command.domain.QuestionOptionGroup;
+import com.pass.form.command.domain.excetion.DuplicateQuestionOptionException;
+import com.pass.form.command.domain.excetion.InvalidQuestionOptionSizeException;
 import java.util.List;
 import java.util.stream.IntStream;
 import org.junit.jupiter.api.DisplayName;
@@ -25,8 +27,8 @@ class QuestionOptionGroupTest {
 
         // when & then
         assertThatThrownBy(() -> new QuestionOptionGroup(options))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("중복된 옵션은 허용되지 않습니다.");
+                .isInstanceOf(DuplicateQuestionOptionException.class)
+                .hasMessage("중복된 질문 옵션은 허용되지 않습니다.");
     }
 
     @Test
@@ -40,8 +42,8 @@ class QuestionOptionGroupTest {
 
         // when & then
         assertThatThrownBy(() -> new QuestionOptionGroup(options))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("옵션은 10개 이하만 허용됩니다.");
+                .isInstanceOf(InvalidQuestionOptionSizeException.class)
+                .hasMessage("질문 옵션은 1~10개만 허용됩니다.");
     }
 
     @Test

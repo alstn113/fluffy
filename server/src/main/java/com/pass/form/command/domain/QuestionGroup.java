@@ -1,5 +1,6 @@
 package com.pass.form.command.domain;
 
+import com.pass.form.command.domain.excetion.InvalidQuestionSizeException;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.OneToMany;
@@ -38,8 +39,7 @@ public class QuestionGroup {
 
     private void validateQuestionSize(List<Question> questions) {
         if (questions.size() > MAX_QUESTION_SIZE) {
-            String message = "질문은 %d개 이하만 허용됩니다.".formatted(MAX_QUESTION_SIZE);
-            throw new IllegalArgumentException(message);
+            throw new InvalidQuestionSizeException(MAX_QUESTION_SIZE);
         }
     }
 

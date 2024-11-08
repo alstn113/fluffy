@@ -1,5 +1,6 @@
 package com.pass.form.command.domain;
 
+import com.pass.form.command.domain.excetion.InvalidQuestionOptionLengthException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -51,8 +52,7 @@ public class QuestionOption {
 
     public void validateTextLength(String text) {
         if (text.isBlank() || text.length() > MAX_TEXT_LENGTH) {
-            String message = "옵션의 길이는 1~%d자 이어야 합니다.".formatted(MAX_TEXT_LENGTH);
-            throw new IllegalArgumentException(message);
+            throw new InvalidQuestionOptionLengthException(MAX_TEXT_LENGTH);
         }
     }
 

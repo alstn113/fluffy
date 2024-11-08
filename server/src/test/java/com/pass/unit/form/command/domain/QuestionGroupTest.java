@@ -7,6 +7,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.tuple;
 import com.pass.form.command.domain.Form;
 import com.pass.form.command.domain.Question;
 import com.pass.form.command.domain.QuestionGroup;
+import com.pass.form.command.domain.excetion.InvalidQuestionSizeException;
 import java.util.List;
 import java.util.stream.IntStream;
 import org.junit.jupiter.api.DisplayName;
@@ -25,8 +26,8 @@ class QuestionGroupTest {
 
         // when & then
         assertThatThrownBy(() -> new QuestionGroup(overSizedQuestions))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("질문은 200개 이하만 허용됩니다.");
+                .isInstanceOf(InvalidQuestionSizeException.class)
+                .hasMessage("질문은 1~200개만 허용됩니다.");
     }
 
     @Test

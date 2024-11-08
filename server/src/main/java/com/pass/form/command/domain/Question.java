@@ -1,5 +1,8 @@
 package com.pass.form.command.domain;
 
+import com.pass.form.command.domain.excetion.InvalidCorrectAnswerLengthException;
+import com.pass.form.command.domain.excetion.InvalidQuestionLengthException;
+import com.pass.form.command.domain.excetion.InvalidSingleChoiceCorrectAnswerSizeException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -52,8 +55,7 @@ public class Question {
 
     public static Question shortAnswer(String text, String correctAnswer, Form form) {
         if (correctAnswer == null || correctAnswer.isBlank() || correctAnswer.length() > MAX_TEXT_LENGTH) {
-            String message = "정답의 길이는 1~%d자 이어야 합니다.".formatted(MAX_TEXT_LENGTH);
-            throw new IllegalArgumentException(message);
+            throw new InvalidCorrectAnswerLengthException(MAX_TEXT_LENGTH);
         }
 
         return answer(text, QuestionType.SHORT_ANSWER, correctAnswer, form);
@@ -65,7 +67,7 @@ public class Question {
 
     public static Question singleChoice(String text, Form form, List<QuestionOption> options) {
         if (options.stream().filter(QuestionOption::isCorrect).count() != 1) {
-            throw new IllegalArgumentException("객관식 단일 선택은 정답이 1개여야 합니다.");
+            throw new InvalidSingleChoiceCorrectAnswerSizeException();
         }
 
         return choice(text, QuestionType.SINGLE_CHOICE, form, options);
@@ -127,8 +129,7 @@ public class Question {
 
     private void validateTextLength(String text) {
         if (text.isBlank() || text.length() > MAX_TEXT_LENGTH) {
-            String message = "질문의 길이는 1~%d자 이어야 합니다.".formatted(MAX_TEXT_LENGTH);
-            throw new IllegalArgumentException(message);
+            throw new InvalidQuestionLengthException(MAX_TEXT_LENGTH);
         }
     }
 

@@ -9,6 +9,9 @@ import com.pass.form.command.domain.Form;
 import com.pass.form.command.domain.Question;
 import com.pass.form.command.domain.QuestionOption;
 import com.pass.form.command.domain.QuestionType;
+import com.pass.form.command.domain.excetion.InvalidCorrectAnswerLengthException;
+import com.pass.form.command.domain.excetion.InvalidQuestionLengthException;
+import com.pass.form.command.domain.excetion.InvalidSingleChoiceCorrectAnswerSizeException;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,7 +26,7 @@ class QuestionTest {
     void failWhenTextIsBlank(String text) {
         // when & then
         assertThatThrownBy(() -> Question.shortAnswer(text, "정답", Form.initial("폼 제목")))
-                .isInstanceOf(IllegalArgumentException.class)
+                .isInstanceOf(InvalidQuestionLengthException.class)
                 .hasMessage("질문의 길이는 1~2000자 이어야 합니다.");
     }
 
@@ -38,7 +41,7 @@ class QuestionTest {
 
         // then
         assertThatThrownBy(() -> Question.shortAnswer(text, "정답", Form.initial("폼 제목")))
-                .isInstanceOf(IllegalArgumentException.class)
+                .isInstanceOf(InvalidQuestionLengthException.class)
                 .hasMessage("질문의 길이는 1~2000자 이어야 합니다.");
     }
 
@@ -53,7 +56,7 @@ class QuestionTest {
 
         // then
         assertThatThrownBy(() -> Question.shortAnswer("질문", correctAnswer, Form.initial("폼 제목")))
-                .isInstanceOf(IllegalArgumentException.class)
+                .isInstanceOf(InvalidCorrectAnswerLengthException.class)
                 .hasMessage("정답의 길이는 1~2000자 이어야 합니다.");
     }
 
@@ -67,7 +70,7 @@ class QuestionTest {
 
         // when & then
         assertThatThrownBy(() -> Question.singleChoice("질문", Form.initial("폼 제목"), options))
-                .isInstanceOf(IllegalArgumentException.class)
+                .isInstanceOf(InvalidSingleChoiceCorrectAnswerSizeException.class)
                 .hasMessage("객관식 단일 선택은 정답이 1개여야 합니다.");
     }
 

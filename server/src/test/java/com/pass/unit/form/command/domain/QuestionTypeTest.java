@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.pass.form.command.domain.QuestionType;
+import com.pass.form.command.domain.excetion.QuestionTypeNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -30,7 +31,7 @@ class QuestionTypeTest {
 
         // when & then
         assertThatThrownBy(() -> QuestionType.from(questionTypeName))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("Unknown question type: NOT_EXIST");
+                .isInstanceOf(QuestionTypeNotFoundException.class)
+                .hasMessage("존재하지 않는 질문 유형입니다.");
     }
 }

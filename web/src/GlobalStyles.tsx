@@ -9,6 +9,7 @@ const GlobalStyles = () => {
           padding: 0;
           margin: 0;
         }
+        -webkit-tap-highlight-color: transparent;
       `}
     />
   );

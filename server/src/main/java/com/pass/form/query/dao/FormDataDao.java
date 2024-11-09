@@ -1,6 +1,6 @@
 package com.pass.form.query.dao;
 
-import com.pass.form.query.application.FormDataNotFoundException;
+import com.pass.form.query.application.exception.FormDataNotFoundException;
 import com.pass.form.query.dto.FormData;
 import java.util.Optional;
 import org.springframework.data.repository.Repository;

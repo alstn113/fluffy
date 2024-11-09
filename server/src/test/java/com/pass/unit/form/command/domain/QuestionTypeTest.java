@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.pass.form.command.domain.QuestionType;
-import com.pass.form.command.domain.excetion.QuestionTypeNotFoundException;
+import com.pass.form.command.domain.exception.QuestionTypeNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

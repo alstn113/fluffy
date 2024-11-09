@@ -9,8 +9,4 @@ public class UsernameAlreadyExistsException extends BadRequestException {
     public UsernameAlreadyExistsException() {
         super(MESSAGE);
     }
-
-    public UsernameAlreadyExistsException(Throwable cause) {
-        super(MESSAGE, cause);
-    }
 }

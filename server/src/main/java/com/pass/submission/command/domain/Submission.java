@@ -1,4 +1,4 @@
-package com.pass.submission.domain;
+package com.pass.submission.command.domain;
 
 import com.pass.global.persistence.AuditableEntity;
 import jakarta.persistence.CascadeType;

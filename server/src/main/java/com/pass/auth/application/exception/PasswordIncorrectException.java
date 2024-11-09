@@ -9,8 +9,4 @@ public class PasswordIncorrectException extends BadRequestException {
     public PasswordIncorrectException() {
         super(MESSAGE);
     }
-
-    public PasswordIncorrectException(Throwable cause) {
-        super(MESSAGE, cause);
-    }
 }

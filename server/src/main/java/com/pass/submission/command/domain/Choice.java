@@ -1,4 +1,4 @@
-package com.pass.submission.domain;
+package com.pass.submission.command.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

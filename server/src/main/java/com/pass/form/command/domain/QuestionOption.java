@@ -1,6 +1,6 @@
 package com.pass.form.command.domain;
 
-import com.pass.form.command.domain.excetion.InvalidQuestionOptionLengthException;
+import com.pass.form.command.domain.exception.InvalidQuestionOptionLengthException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

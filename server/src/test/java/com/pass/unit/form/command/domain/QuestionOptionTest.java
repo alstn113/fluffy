@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.pass.form.command.domain.QuestionOption;
-import com.pass.form.command.domain.excetion.InvalidQuestionOptionLengthException;
+import com.pass.form.command.domain.exception.InvalidQuestionOptionLengthException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

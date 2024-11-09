@@ -1,4 +1,4 @@
-package com.pass.form.command.domain.excetion;
+package com.pass.form.command.domain.exception;
 
 import com.pass.global.exception.BadRequestException;
 
@@ -8,9 +8,5 @@ public class InvalidSingleChoiceCorrectAnswerSizeException extends BadRequestExc
 
     public InvalidSingleChoiceCorrectAnswerSizeException() {
         super(MESSAGE);
-    }
-
-    public InvalidSingleChoiceCorrectAnswerSizeException(Throwable cause) {
-        super(MESSAGE, cause);
     }
 }

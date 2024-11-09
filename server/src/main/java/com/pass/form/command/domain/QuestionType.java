@@ -1,6 +1,6 @@
 package com.pass.form.command.domain;
 
-import com.pass.form.command.domain.excetion.QuestionTypeNotFoundException;
+import com.pass.form.command.domain.exception.QuestionTypeNotFoundException;
 import java.util.Arrays;
 
 public enum QuestionType {

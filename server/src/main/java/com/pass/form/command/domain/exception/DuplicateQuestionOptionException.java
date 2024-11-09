@@ -1,4 +1,4 @@
-package com.pass.form.command.domain.excetion;
+package com.pass.form.command.domain.exception;
 
 import com.pass.global.exception.BadRequestException;
 
@@ -8,9 +8,5 @@ public class DuplicateQuestionOptionException extends BadRequestException {
 
     public DuplicateQuestionOptionException() {
         super(MESSAGE);
-    }
-
-    public DuplicateQuestionOptionException(Throwable cause) {
-        super(MESSAGE, cause);
     }
 }

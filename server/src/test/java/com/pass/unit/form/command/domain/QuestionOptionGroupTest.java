@@ -6,8 +6,8 @@ import static org.assertj.core.api.AssertionsForClassTypes.tuple;
 
 import com.pass.form.command.domain.QuestionOption;
 import com.pass.form.command.domain.QuestionOptionGroup;
-import com.pass.form.command.domain.excetion.DuplicateQuestionOptionException;
-import com.pass.form.command.domain.excetion.InvalidQuestionOptionSizeException;
+import com.pass.form.command.domain.exception.DuplicateQuestionOptionException;
+import com.pass.form.command.domain.exception.InvalidQuestionOptionSizeException;
 import java.util.List;
 import java.util.stream.IntStream;
 import org.junit.jupiter.api.DisplayName;

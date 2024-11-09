@@ -1,4 +1,4 @@
-package com.pass.form.query.application;
+package com.pass.form.query.application.exception;
 
 import com.pass.global.exception.NotFoundException;
 
@@ -8,9 +8,5 @@ public class FormDataNotFoundException extends NotFoundException {
 
     public FormDataNotFoundException(String formId) {
         super(String.format(MESSAGE, formId));
-    }
-
-    public FormDataNotFoundException(String formId, Throwable cause) {
-        super(String.format(MESSAGE, formId), cause);
     }
 }

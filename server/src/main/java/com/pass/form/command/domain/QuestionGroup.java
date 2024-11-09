@@ -1,6 +1,6 @@
 package com.pass.form.command.domain;
 
-import com.pass.form.command.domain.excetion.InvalidQuestionSizeException;
+import com.pass.form.command.domain.exception.InvalidQuestionSizeException;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.OneToMany;

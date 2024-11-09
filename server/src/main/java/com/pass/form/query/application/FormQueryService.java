@@ -2,7 +2,7 @@ package com.pass.form.query.application;
 
 import com.pass.form.query.dao.FormDataDao;
 import com.pass.form.query.dto.FormData;
-import com.pass.form.query.dto.FormResponse;
+import com.pass.form.query.dto.FormDataResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +15,7 @@ public class FormQueryService {
     private final FormDataMapper formDataMapper;
 
     @Transactional(readOnly = true)
-    public FormResponse getForm(String formId) {
+    public FormDataResponse getForm(String formId) {
         FormData formData = formDataDao.getFormById(formId);
 
         return formDataMapper.toResponse(formData);

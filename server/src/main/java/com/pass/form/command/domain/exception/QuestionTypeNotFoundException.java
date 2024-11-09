@@ -1,4 +1,4 @@
-package com.pass.form.command.domain.excetion;
+package com.pass.form.command.domain.exception;
 
 import com.pass.global.exception.BadRequestException;
 
@@ -8,9 +8,5 @@ public class QuestionTypeNotFoundException extends BadRequestException {
 
     public QuestionTypeNotFoundException() {
         super(MESSAGE);
-    }
-
-    public QuestionTypeNotFoundException(Throwable cause) {
-        super(MESSAGE, cause);
     }
 }

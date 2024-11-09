@@ -1,4 +1,4 @@
-package com.pass.form.command.domain.excetion;
+package com.pass.form.command.domain.exception;
 
 import com.pass.global.exception.BadRequestException;
 
@@ -8,9 +8,5 @@ public class InvalidQuestionOptionLengthException extends BadRequestException {
 
     public InvalidQuestionOptionLengthException(int maxLength) {
         super(MESSAGE.formatted(maxLength));
-    }
-
-    public InvalidQuestionOptionLengthException(int maxLength, Throwable cause) {
-        super(MESSAGE.formatted(maxLength), cause);
     }
 }

@@ -3,7 +3,7 @@ package com.pass.form.ui;
 import com.pass.form.command.application.FormService;
 import com.pass.form.command.application.dto.CreateFormResponse;
 import com.pass.form.query.application.FormQueryService;
-import com.pass.form.query.dto.FormResponse;
+import com.pass.form.query.dto.FormDataResponse;
 import com.pass.form.ui.dto.CreateFormWebRequest;
 import com.pass.form.ui.dto.PublishFormWebRequest;
 import jakarta.validation.Valid;
@@ -24,10 +24,10 @@ public class FormController {
     private final FormQueryService formQueryService;
 
     @GetMapping("/api/v1/forms/{formId}")
-    public ResponseEntity<FormResponse> getForm(@PathVariable String formId) {
-        FormResponse formResponse = formQueryService.getForm(formId);
+    public ResponseEntity<FormDataResponse> getForm(@PathVariable String formId) {
+        FormDataResponse formDataResponse = formQueryService.getForm(formId);
 
-        return ResponseEntity.ok(formResponse);
+        return ResponseEntity.ok(formDataResponse);
     }
 
     @PostMapping("/api/v1/forms")

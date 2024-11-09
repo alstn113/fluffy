@@ -4,7 +4,7 @@ import com.pass.form.query.dto.question.QuestionResponse;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public record FormResponse(
+public record FormDataResponse(
         String id,
         String title,
         String description,

@@ -1,8 +1,8 @@
 package com.pass.form.command.domain;
 
-import com.pass.form.command.domain.excetion.InvalidCorrectAnswerLengthException;
-import com.pass.form.command.domain.excetion.InvalidQuestionLengthException;
-import com.pass.form.command.domain.excetion.InvalidSingleChoiceCorrectAnswerSizeException;
+import com.pass.form.command.domain.exception.InvalidCorrectAnswerLengthException;
+import com.pass.form.command.domain.exception.InvalidQuestionLengthException;
+import com.pass.form.command.domain.exception.InvalidSingleChoiceCorrectAnswerSizeException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;

@@ -7,7 +7,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.tuple;
 import com.pass.form.command.domain.Form;
 import com.pass.form.command.domain.Question;
 import com.pass.form.command.domain.QuestionGroup;
-import com.pass.form.command.domain.excetion.InvalidQuestionSizeException;
+import com.pass.form.command.domain.exception.InvalidQuestionSizeException;
 import java.util.List;
 import java.util.stream.IntStream;
 import org.junit.jupiter.api.DisplayName;

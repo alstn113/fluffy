@@ -1,4 +1,4 @@
-package com.pass.submission.domain;
+package com.pass.submission.command.domain;
 
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
@@ -9,7 +9,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;

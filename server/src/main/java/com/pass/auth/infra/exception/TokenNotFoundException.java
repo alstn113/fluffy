@@ -9,8 +9,4 @@ public class TokenNotFoundException extends UnauthorizedException {
     public TokenNotFoundException() {
         super(MESSAGE);
     }
-
-    public TokenNotFoundException(Throwable cause) {
-        super(MESSAGE, cause);
-    }
 }

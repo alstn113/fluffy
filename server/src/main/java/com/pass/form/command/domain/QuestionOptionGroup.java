@@ -1,7 +1,7 @@
 package com.pass.form.command.domain;
 
-import com.pass.form.command.domain.excetion.DuplicateQuestionOptionException;
-import com.pass.form.command.domain.excetion.InvalidQuestionOptionSizeException;
+import com.pass.form.command.domain.exception.DuplicateQuestionOptionException;
+import com.pass.form.command.domain.exception.InvalidQuestionOptionSizeException;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;

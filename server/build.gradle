@@ -25,6 +25,7 @@ repositories {
 
 ext {
     JJWT_VERSION = '0.12.6'
+    QUERYDSL_VERSION = '5.1.0'
 }
 
 dependencies {
@@ -47,6 +48,12 @@ dependencies {
 
     // bcrypt
     implementation 'org.mindrot:jbcrypt:0.4'
+
+    // querydsl
+    implementation "com.querydsl:querydsl-jpa:${QUERYDSL_VERSION}:jakarta"
+    annotationProcessor "com.querydsl:querydsl-apt:${QUERYDSL_VERSION}:jakarta"
+    annotationProcessor 'jakarta.annotation:jakarta.annotation-api'
+    annotationProcessor 'jakarta.persistence:jakarta.persistence-api'
 
     // test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

@@ -23,7 +23,6 @@ const Content = styled.div`
   overflow-x: hidden;
   background: #fff;
   padding-top: 4rem;
-  margin: 4rem auto;
 `;
 
 export default BaseLayout;

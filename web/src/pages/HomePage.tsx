@@ -125,6 +125,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: flex-start;
   gap: 3rem;
+  margin: 2rem auto;
 `;
 
 export default HomePage;

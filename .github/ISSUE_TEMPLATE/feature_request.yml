@@ -1,0 +1,30 @@
+name: 기능 제안
+description: 새로운 기능을 제안해주세요.
+labels: ['Feature']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        새로운 기능을 제안해주셔서 감사합니다! 🙏
+  - type: textarea
+    id: new-feature
+    attributes:
+      label: 어떤 기능을 제안하시나요? 🤔
+      description: 이 새로운 기능으로 어떤 효과를 기대하시나요? 🚀
+      placeholder: 이 기능이 있으면 좋겠다면, 이유를 적어주세요...
+    validations:
+      required: true
+  - type: textarea
+    id: how
+    attributes:
+      label: 이 기능은 어떻게 구현할 수 있을까요? 🛠️
+      description: 필요한 기술 스택이나 구현 방법 등을 알려주세요. 💻
+      placeholder: 이러한 방법으로 구현할 수 있습니다...
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: 동의 👍
+      description: 아래 항목을 모두 확인하고 체크해주세요.
+      options:
+        - label: 다른 이슈가 있는지 확인했습니다. ✅
+          required: true

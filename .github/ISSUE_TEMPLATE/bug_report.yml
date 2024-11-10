@@ -1,0 +1,38 @@
+name: 버그 신고
+description: 버그를 신고해주세요.
+labels: ['Bug']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        버그 신고를 작성해주셔서 감사합니다! 🙏
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: 어떤 일이 발생했나요? 🤔
+      description: 또한, 어떤 결과를 기대했었는지 알려주세요.
+      placeholder: 예상치 못한 버그가 발생했습니다...
+    validations:
+      required: true
+  - type: textarea
+    id: what-caused
+    attributes:
+      label: 왜 발생했을까요?
+      description: 무슨 생각이 드는지 알려주세요.
+      placeholder: 제 생각에는...
+    validations:
+      required: false
+  - type: textarea
+    id: logs
+    attributes:
+      label: 관련 로그 출력
+      description: 관련 로그 출력을 복사하여 붙여넣어주세요. 자동으로 코드 형식으로 서식이 지정됩니다.
+      render: shell
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: 동의 👍
+      description: 아래 항목을 모두 확인하고 체크해주세요.
+      options:
+        - label: 다른 이슈가 있는지 확인했습니다. ✅
+          required: true

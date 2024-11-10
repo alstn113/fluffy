@@ -1,4 +1,4 @@
-package com.pass.auth.ui.cookie;
+package com.pass.global.web.cookie;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

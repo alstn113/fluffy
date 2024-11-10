@@ -46,4 +46,8 @@ public class AuthService {
             throw new PasswordIncorrectException();
         }
     }
+
+    public Long getMemberIdByToken(String token) {
+        return tokenProvider.getMemberId(token);
+    }
 }

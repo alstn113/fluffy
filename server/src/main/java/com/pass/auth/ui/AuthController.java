@@ -1,6 +1,6 @@
 package com.pass.auth.ui;
 
-import com.pass.auth.ui.cookie.CookieProvider;
+import com.pass.global.web.cookie.CookieProvider;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;

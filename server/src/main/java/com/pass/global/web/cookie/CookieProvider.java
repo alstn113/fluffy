@@ -1,9 +1,5 @@
-package com.pass.auth.ui.cookie;
+package com.pass.global.web.cookie;
 
-import jakarta.annotation.Nullable;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
-import java.util.Arrays;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Component;
@@ -30,19 +26,5 @@ public class CookieProvider {
                 .domain(cookieProperties.domain())
                 .maxAge(0)
                 .build();
-    }
-
-    @Nullable
-    public String extractAccessTokenFromCookie(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
-        if (cookies == null) {
-            return null;
-        }
-
-        return Arrays.stream(cookies)
-                .filter(cookie -> cookie.getName().equals(cookieProperties.accessTokenKey()))
-                .map(Cookie::getValue)
-                .findFirst()
-                .orElse(null);
     }
 }

@@ -28,22 +28,30 @@ public class Form extends AuditableEntity {
     @Column(nullable = false)
     private String description;
 
+    @Column(nullable = false)
+    private Long memberId;
+
     @Embedded
     private QuestionGroup questionGroup;
 
-    public static Form initial(String title) {
-        return new Form(title, "", QuestionGroup.empty());
+    public static Form initial(String title, Long memberId) {
+        return new Form(title, "", memberId, QuestionGroup.empty());
     }
 
-    public Form(String title, String description, QuestionGroup questionGroup) {
-        this(null, title, description, questionGroup);
+    public Form(String title, String description, Long memberId, QuestionGroup questionGroup) {
+        this(null, title, description, memberId, questionGroup);
     }
 
-    public Form(String id, String title, String description, QuestionGroup questionGroup) {
+    public Form(String id, String title, String description, Long memberId, QuestionGroup questionGroup) {
         this.id = id;
         this.title = title;
         this.description = description;
+        this.memberId = memberId;
         this.questionGroup = questionGroup;
+    }
+
+    public boolean isNotWrittenBy(Long memberId) {
+        return !this.memberId.equals(memberId);
     }
 
     public void addQuestions(QuestionGroup questionGroup, Form form) {

@@ -8,7 +8,8 @@ public interface FormRepository extends Repository<Form, String> {
 
     List<Form> findAll();
 
-    Form save(Form form);
+    Form
+    save(Form form);
 
     Optional<Form> findById(String id);
 

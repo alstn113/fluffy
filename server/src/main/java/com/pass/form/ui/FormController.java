@@ -6,6 +6,8 @@ import com.pass.form.query.application.FormQueryService;
 import com.pass.form.query.dto.FormDataResponse;
 import com.pass.form.ui.dto.CreateFormWebRequest;
 import com.pass.form.ui.dto.PublishFormWebRequest;
+import com.pass.global.web.Accessor;
+import com.pass.global.web.Auth;
 import jakarta.validation.Valid;
 import java.net.URI;
 import lombok.RequiredArgsConstructor;
@@ -31,8 +33,11 @@ public class FormController {
     }
 
     @PostMapping("/api/v1/forms")
-    public ResponseEntity<CreateFormResponse> create(@RequestBody @Valid CreateFormWebRequest request) {
-        CreateFormResponse response = formService.create(request.toAppRequest());
+    public ResponseEntity<CreateFormResponse> create(
+            @RequestBody @Valid CreateFormWebRequest request,
+            @Auth Accessor accessor
+    ) {
+        CreateFormResponse response = formService.create(request.toAppRequest(accessor));
 
         URI location = URI.create("/api/v1/forms/%s".formatted(response.id()));
         return ResponseEntity.created(location).body(response);
@@ -41,9 +46,10 @@ public class FormController {
     @PostMapping("/api/v1/forms/{formId}/publish")
     public ResponseEntity<Void> publish(
             @PathVariable String formId,
-            @RequestBody @Valid PublishFormWebRequest request
+            @RequestBody @Valid PublishFormWebRequest request,
+            @Auth Accessor accessor
     ) {
-        formService.publish(request.toAppRequest(formId));
+        formService.publish(request.toAppRequest(formId, accessor));
 
         return ResponseEntity.noContent().build();
     }

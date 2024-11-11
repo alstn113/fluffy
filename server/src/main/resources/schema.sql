@@ -1,6 +1,8 @@
 CREATE TABLE member
 (
     id         BIGINT AUTO_INCREMENT NOT NULL,
+    username   VARCHAR(255) NOT NULL,
+    password   VARCHAR(255) NOT NULL,
     created_at TIMESTAMP(6) NOT NULL,
     updated_at TIMESTAMP(6) NOT NULL,
 
@@ -12,10 +14,12 @@ CREATE TABLE form
     id          VARCHAR(255) NOT NULL,
     title       VARCHAR(255) NOT NULL,
     description VARCHAR(255) NOT NULL,
+    member_id   BIGINT       NOT NULL,
     created_at  TIMESTAMP(6) NOT NULL,
     updated_at  TIMESTAMP(6) NOT NULL,
 
-    CONSTRAINT pk_form PRIMARY KEY (id)
+    CONSTRAINT pk_form PRIMARY KEY (id),
+    CONSTRAINT fk_form_member FOREIGN KEY (member_id) REFERENCES member (id)
 );
 
 CREATE TABLE question

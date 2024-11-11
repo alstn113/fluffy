@@ -9,7 +9,7 @@ CREATE TABLE member
     CONSTRAINT pk_member PRIMARY KEY (id)
 );
 
-CREATE TABLE form
+CREATE TABLE exam
 (
     id          VARCHAR(255) NOT NULL,
     title       VARCHAR(255) NOT NULL,
@@ -18,21 +18,21 @@ CREATE TABLE form
     created_at  TIMESTAMP(6) NOT NULL,
     updated_at  TIMESTAMP(6) NOT NULL,
 
-    CONSTRAINT pk_form PRIMARY KEY (id),
-    CONSTRAINT fk_form_member FOREIGN KEY (member_id) REFERENCES member (id)
+    CONSTRAINT pk_exam PRIMARY KEY (id),
+    CONSTRAINT fk_exam_member FOREIGN KEY (member_id) REFERENCES member (id)
 );
 
 CREATE TABLE question
 (
     id             BIGINT AUTO_INCREMENT NOT NULL,
-    form_id        VARCHAR(255) NOT NULL,
+    exam_id        VARCHAR(255) NOT NULL,
     text           VARCHAR(255) NOT NULL,
     type           VARCHAR(50)  NOT NULL,
     sequence       INT          NOT NULL,
     correct_answer VARCHAR(255),
 
     CONSTRAINT pk_question PRIMARY KEY (id),
-    CONSTRAINT fk_question_form FOREIGN KEY (form_id) REFERENCES form (id)
+    CONSTRAINT fk_question_exam FOREIGN KEY (exam_id) REFERENCES exam (id)
 );
 
 CREATE TABLE question_option
@@ -50,13 +50,13 @@ CREATE TABLE question_option
 CREATE TABLE submission
 (
     id         BIGINT AUTO_INCREMENT NOT NULL,
-    form_id    VARCHAR(255) NOT NULL,
+    exam_id    VARCHAR(255) NOT NULL,
     member_id  BIGINT       NOT NULL,
     created_at TIMESTAMP(6) NOT NULL,
     updated_at TIMESTAMP(6) NOT NULL,
 
     CONSTRAINT pk_submission PRIMARY KEY (id),
-    CONSTRAINT fk_submission_form FOREIGN KEY (form_id) REFERENCES form (id),
+    CONSTRAINT fk_submission_exam FOREIGN KEY (exam_id) REFERENCES exam (id),
     CONSTRAINT fk_submission_member FOREIGN KEY (member_id) REFERENCES member (id)
 );
 

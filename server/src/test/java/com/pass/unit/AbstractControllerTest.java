@@ -1,8 +1,8 @@
 package com.pass.unit;
 
-import com.pass.form.ui.FormController;
-import com.pass.form.command.application.FormService;
-import com.pass.form.query.application.FormQueryService;
+import com.pass.exam.ui.ExamController;
+import com.pass.exam.command.application.ExamService;
+import com.pass.exam.query.application.ExamQueryService;
 import io.restassured.mapper.ObjectMapper;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -10,7 +10,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest({
-        FormController.class,
+        ExamController.class,
 })
 @ActiveProfiles("test")
 public abstract class AbstractControllerTest {
@@ -22,8 +22,8 @@ public abstract class AbstractControllerTest {
     protected ObjectMapper objectMapper;
 
     @MockBean
-    protected FormService formService;
+    protected ExamService examService;
 
     @MockBean
-    protected FormQueryService formQueryService;
+    protected ExamQueryService examQueryService;
 }

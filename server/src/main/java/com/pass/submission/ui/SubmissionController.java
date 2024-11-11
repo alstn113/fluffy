@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class SubmissionController {
 
-    @PostMapping("/api/v1/forms/{formId}/submissions")
+    @PostMapping("/api/v1/exams/{examId}/submissions")
     public ResponseEntity<Void> submit(
-            @PathVariable Long formId,
+            @PathVariable Long examId,
             @RequestBody @Valid SubmitWebRequest request
     ) {
         return ResponseEntity.ok().build();

@@ -4,9 +4,9 @@ export const API_V1_URL =
 export const PAGE_LIST = {
   home: '/',
   about: '/about',
-  form: {
-    list: '/forms',
-    edit: '/forms/:id/edit',
+  exam: {
+    list: '/exams',
+    edit: '/exams/:id/edit',
   },
   notFound: '*',
 } as const;

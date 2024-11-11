@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import BaseLayout from '~/components/layouts/BaseLayout';
 import styled from '@emotion/styled';
 
-const FormEditPage = () => {
+const ExamEditPage = () => {
   const { id } = useParams() as { id: string };
   const [problems, setProblems] = useState([...Array(10).keys()].map((i) => `문제 ${i + 1}`));
 
@@ -23,7 +23,7 @@ const FormEditPage = () => {
           </Reorder.Group>
         </Sidebar>
         <MainContent>
-          <Title>FormEditPage {id}</Title>
+          <Title>ExamEditPage {id}</Title>
         </MainContent>
       </Container>
     </BaseLayout>
@@ -61,4 +61,4 @@ const ProblemItem = styled(Reorder.Item)`
   cursor: grab;
 `;
 
-export default FormEditPage;
+export default ExamEditPage;

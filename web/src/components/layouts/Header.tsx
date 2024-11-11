@@ -1,12 +1,13 @@
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
+import { PAGE_LIST } from '~/constants';
 
 const Header = () => {
   const headerItems = [
-    { name: 'Home', path: '/' },
-    { name: 'Forms', path: '/forms' },
-    { name: 'About', path: '/about' },
-    { name: 'Edit', path: '/forms/1/edit' },
+    { name: 'Home', path: PAGE_LIST.home },
+    { name: 'Exams', path: PAGE_LIST.exam.list },
+    { name: 'About', path: PAGE_LIST.about },
+    { name: 'Edit', path: PAGE_LIST.exam.edit },
   ];
 
   return (
@@ -23,20 +24,19 @@ const Header = () => {
 };
 
 const Container = styled.div`
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 4rem;
-  padding: 0px 16px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 4rem;
+    padding: 0 16px;
 
-  display: flex;
-  align-items: center;
-  padding: 0px 16px;
-  margin-bottom: 90px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 90px;
 
-  background-color: rgba(255, 255, 255, 0.6);
-  backdrop-filter: saturate(180%) blur(10px);
-  box-shadow: 0px 5px 20px -5px rgba(2, 1, 1, 0.1);
+    background-color: rgba(255, 255, 255, 0.6);
+    backdrop-filter: saturate(180%) blur(10px);
+    box-shadow: 0 5px 20px -5px rgba(2, 1, 1, 0.1);
 `;
 
 const HeaderItems = styled.div`

@@ -3,6 +3,8 @@ package com.pass.integration.exam.command;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
+import com.pass.auth.domain.Member;
+import com.pass.auth.domain.MemberRepository;
 import com.pass.exam.command.application.ExamService;
 import com.pass.exam.command.application.dto.PublishExamAppRequest;
 import com.pass.exam.command.application.dto.CreateExamAppRequest;
@@ -16,7 +18,9 @@ import com.pass.exam.command.application.dto.question.TrueOrFalseQuestionAppRequ
 import com.pass.exam.command.domain.Exam;
 import com.pass.exam.command.domain.ExamRepository;
 import com.pass.exam.command.domain.QuestionRepository;
+import com.pass.global.web.Accessor;
 import com.pass.integration.AbstractIntegrationTest;
+import com.pass.support.data.MemberTestData;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -33,11 +37,16 @@ class ExamServiceIntegrationTest extends AbstractIntegrationTest {
     @Autowired
     private QuestionRepository questionRepository;
 
+    @Autowired
+    private MemberRepository memberRepository;
+
     @Test
     @DisplayName("초기 시험을 생성할 수 있다.")
     void create() {
         // given
-        CreateExamAppRequest request = new CreateExamAppRequest("시험 제목");
+        Member member = memberRepository.save(MemberTestData.defaultMember().build());
+        Accessor accessor = new Accessor(member.getId());
+        CreateExamAppRequest request = new CreateExamAppRequest("시험 제목", accessor);
 
         // when
         CreateExamResponse response = examService.create(request);
@@ -54,9 +63,12 @@ class ExamServiceIntegrationTest extends AbstractIntegrationTest {
     @DisplayName("시험에 질문들을 추가할 수 있다.")
     void addQuestions() {
         // given
-        Exam existingExam = examRepository.save(Exam.initial("시험 제목"));
+        Member member = memberRepository.save(MemberTestData.defaultMember().build());
+        Exam existingExam = examRepository.save(Exam.initial("시험 제목", member.getId()));
+
+        Accessor accessor = new Accessor(member.getId());
         List<QuestionAppRequest> questionRequests = createQuestionRequests();
-        PublishExamAppRequest request = new PublishExamAppRequest(existingExam.getId(), questionRequests);
+        PublishExamAppRequest request = new PublishExamAppRequest(existingExam.getId(), questionRequests, accessor);
 
         // when
         examService.publish(request);

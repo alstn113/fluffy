@@ -21,7 +21,7 @@ class QuestionGroupTest {
         // given
         int questionSize = 201;
         List<Question> overSizedQuestions = IntStream.range(0, questionSize)
-                .mapToObj(i -> Question.shortAnswer("질문 %d".formatted(i + 1), "정답", Exam.initial("시험")))
+                .mapToObj(i -> Question.shortAnswer("질문 %d".formatted(i + 1), "정답", Exam.initial("시험", 1L)))
                 .toList();
 
         // when & then
@@ -34,7 +34,7 @@ class QuestionGroupTest {
     @DisplayName("질문 그룹 생성 시 순서대로 질문의 순서가 지정된다.")
     void assignQuestionSequenceWhenCreateQuestionGroup() {
         // given
-        Exam exam = Exam.initial("시험");
+        Exam exam = Exam.initial("시험", 1L);
         List<Question> questions = List.of(
                 Question.shortAnswer("질문 1", "정답", exam),
                 Question.shortAnswer("질문 2", "정답", exam),

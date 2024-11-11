@@ -1,5 +1,5 @@
 import { ExamAPI } from '~/api/examAPI';
-import { UseMutationOptionsOf } from './types';
+import { UseMutationOptionsOf } from '../types';
 import { useMutation } from '@tanstack/react-query';
 
 const useCreateExam = (options: UseMutationOptionsOf<typeof ExamAPI.create> = {}) => {

@@ -4,6 +4,10 @@ export const API_V1_URL =
 export const PAGE_LIST = {
   home: '/',
   about: '/about',
+  auth: {
+    signup: '/auth/signup',
+    login: '/auth/login',
+  },
   exam: {
     list: '/exams',
     edit: '/exams/:id/edit',

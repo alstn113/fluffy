@@ -1,5 +1,5 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { UseQueryOptionsOf } from './types';
+import { UseQueryOptionsOf } from '../types';
 import { ExamAPI } from '~/api/examAPI.ts';
 
 const useGetExams = (options: UseQueryOptionsOf<typeof ExamAPI.getAll> = {}) => {

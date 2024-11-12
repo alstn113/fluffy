@@ -25,6 +25,10 @@ public class ExamController {
     private final ExamService examService;
     private final ExamQueryService examQueryService;
 
+    // published exam 리스트 조회
+
+    // my exam 리스트 조회
+
     @GetMapping("/api/v1/exams/{examId}")
     public ResponseEntity<ExamDataResponse> getExam(@PathVariable String examId) {
         ExamDataResponse examDataResponse = examQueryService.getExam(examId);

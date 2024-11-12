@@ -1,7 +1,7 @@
-package com.pass.oauth2.application.exception;
+package com.pass.auth.domain.exception;
 
 import com.pass.global.exception.NotFoundException;
-import com.pass.oauth2.domain.OAuth2Provider;
+import com.pass.auth.domain.OAuth2Provider;
 
 public class OAuth2ProviderNotFoundException extends NotFoundException {
 

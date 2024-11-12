@@ -1,7 +1,7 @@
 package com.pass.oauth2.application;
 
-import com.pass.oauth2.application.exception.OAuth2ProviderNotFoundException;
-import com.pass.oauth2.domain.OAuth2Provider;
+import com.pass.auth.domain.exception.OAuth2ProviderNotFoundException;
+import com.pass.auth.domain.OAuth2Provider;
 import com.pass.oauth2.domain.OAuth2UserInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -17,7 +17,7 @@ public class OAuth2Context {
         return strategy.buildOAuth2LoginUrl(next);
     }
 
-    public OAuth2UserInfo getOAuthUserInfo(OAuth2Provider provider, String code) {
+    public OAuth2UserInfo getOAuth2UserInfo(OAuth2Provider provider, String code) {
         OAuth2Strategy strategy = getOAuth2Strategy(provider);
         return strategy.fetchOAuth2UserInfo(code);
     }

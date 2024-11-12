@@ -1,7 +1,10 @@
 package com.pass.auth.domain;
 
+import com.pass.global.persistence.AuditableEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -9,7 +12,6 @@ import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import com.pass.global.persistence.AuditableEntity;
 
 @Entity
 @Table(name = "member")
@@ -21,19 +23,32 @@ public class Member extends AuditableEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String username;
+    @Column
+    private String email;
 
     @Column(nullable = false)
-    private String password;
+    @Enumerated(EnumType.STRING)
+    private OAuth2Provider provider;
 
-    public Member(String username, String password) {
-        this(null, username, password);
+    @Column(nullable = false)
+    private Long socialId;
+
+    @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
+    private String imageUrl;
+
+    public Member(String email, OAuth2Provider provider, Long socialId, String name, String imageUrl) {
+        this(null, email, provider, socialId, name, imageUrl);
     }
 
-    public Member(Long id, String username, String password) {
+    public Member(Long id, String email, OAuth2Provider provider, Long socialId, String name, String imageUrl) {
         this.id = id;
-        this.username = username;
-        this.password = password;
+        this.email = email;
+        this.provider = provider;
+        this.socialId = socialId;
+        this.name = name;
+        this.imageUrl = imageUrl;
     }
 }

@@ -8,7 +8,6 @@ import com.pass.global.web.cookie.CookieAuthorizationExtractor;
 import com.pass.global.web.cookie.CookieProvider;
 import com.pass.global.web.exception.TokenInvalidException;
 import com.pass.global.web.exception.TokenRequiredException;
-import jakarta.annotation.Nonnull;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -40,7 +39,7 @@ public class AuthArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Override
     public Accessor resolveArgument(
-            @Nonnull MethodParameter parameter,
+            @NonNull MethodParameter parameter,
             ModelAndViewContainer mavContainer,
             @NonNull NativeWebRequest webRequest,
             WebDataBinderFactory binderFactory

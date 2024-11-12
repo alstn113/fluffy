@@ -1,6 +1,6 @@
 package com.pass.oauth2.application;
 
-import com.pass.oauth2.domain.OAuth2Provider;
+import com.pass.auth.domain.OAuth2Provider;
 import com.pass.oauth2.domain.OAuth2UserInfo;
 
 public interface OAuth2Strategy {

@@ -2,7 +2,7 @@ package com.pass.oauth2.application;
 
 import static java.util.stream.Collectors.toMap;
 
-import com.pass.oauth2.domain.OAuth2Provider;
+import com.pass.auth.domain.OAuth2Provider;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;

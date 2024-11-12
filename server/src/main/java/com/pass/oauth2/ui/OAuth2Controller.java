@@ -1,5 +1,6 @@
 package com.pass.oauth2.ui;
 
+import com.pass.auth.application.dto.TokenResponse;
 import com.pass.auth.domain.OAuth2Provider;
 import com.pass.global.web.cookie.CookieProvider;
 import com.pass.oauth2.application.OAuth2Service;
@@ -27,6 +28,7 @@ public class OAuth2Controller {
             HttpServletResponse response
     ) throws IOException {
         String redirectUri = oauth2Service.getOAuth2LoginUrl(provider, next);
+
         response.sendRedirect(redirectUri);
     }
 
@@ -37,8 +39,8 @@ public class OAuth2Controller {
             @RequestParam(value = "next", defaultValue = "/") String next,
             HttpServletResponse response
     ) throws IOException {
-        String accessToken = oauth2Service.oauth2Login(provider, code);
-        ResponseCookie accessTokenCookie = cookieProvider.createAccessTokenCookie(accessToken);
+        TokenResponse tokenResponse = oauth2Service.oauth2Login(provider, code);
+        ResponseCookie accessTokenCookie = cookieProvider.createAccessTokenCookie(tokenResponse.accessToken());
 
         String redirectUri = oauth2Service.getClientRedirectUrl(provider, next);
 

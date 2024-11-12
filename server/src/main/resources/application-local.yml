@@ -17,6 +17,9 @@ spring:
       ddl-auto: none
     defer-datasource-initialization: true
 
+api-host: http://localhost:8080
+client-host: http://localhost:5137
+
 auth:
   jwt:
     secret-key: a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6
@@ -27,6 +30,12 @@ auth:
     secure: false
     domain: localhost
     maxAge: 86400 # 1 day
+  oauth2:
+    github:
+      client-id: ${GITHUB_CLIENT_ID}
+      client-secret: ${GITHUB_CLIENT_SECRET}
+      redirect-uri: ${api-host}/api/v1/auth/oauth2/redirect/github
+      client-uri: ${client-host}
 
 logging:
   level:

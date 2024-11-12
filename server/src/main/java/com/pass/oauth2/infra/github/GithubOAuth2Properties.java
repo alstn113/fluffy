@@ -1,4 +1,13 @@
 package com.pass.oauth2.infra.github;
 
-public record GithubOAuth2Properties() {
+import jakarta.validation.constraints.NotBlank;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+@ConfigurationProperties("auth.oauth2.github")
+public record GithubOAuth2Properties(
+        @NotBlank String clientId,
+        @NotBlank String clientSecret,
+        @NotBlank String redirectUri,
+        @NotBlank String clientUri
+) {
 }

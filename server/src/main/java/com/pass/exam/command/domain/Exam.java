@@ -4,6 +4,8 @@ import com.pass.global.persistence.AuditableEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -28,6 +30,10 @@ public class Exam extends AuditableEntity {
     @Column(nullable = false)
     private String description;
 
+    @Column(nullable = false, columnDefinition = "VARCHAR(20)")
+    @Enumerated(EnumType.STRING)
+    private ExamStatus status;
+
     @Column(nullable = false)
     private Long memberId;
 
@@ -35,17 +41,25 @@ public class Exam extends AuditableEntity {
     private QuestionGroup questionGroup;
 
     public static Exam initial(String title, Long memberId) {
-        return new Exam(title, "", memberId, QuestionGroup.empty());
+        return new Exam(title, "", ExamStatus.DRAFT, memberId, QuestionGroup.empty());
     }
 
-    public Exam(String title, String description, Long memberId, QuestionGroup questionGroup) {
-        this(null, title, description, memberId, questionGroup);
+    public Exam(String title, String description, ExamStatus status, Long memberId, QuestionGroup questionGroup) {
+        this(null, title, description, status, memberId, questionGroup);
     }
 
-    public Exam(String id, String title, String description, Long memberId, QuestionGroup questionGroup) {
+    public Exam(
+            String id,
+            String title,
+            String description,
+            ExamStatus status,
+            Long memberId,
+            QuestionGroup questionGroup
+    ) {
         this.id = id;
         this.title = title;
         this.description = description;
+        this.status = status;
         this.memberId = memberId;
         this.questionGroup = questionGroup;
     }

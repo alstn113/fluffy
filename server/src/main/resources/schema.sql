@@ -5,7 +5,7 @@ CREATE TABLE member
     provider   VARCHAR(20)  NOT NULL,
     social_id  BIGINT       NOT NULL,
     name       VARCHAR(255) NOT NULL,
-    avatar_url  VARCHAR(255) NOT NULL,
+    avatar_url VARCHAR(255) NOT NULL,
     created_at TIMESTAMP(6) NOT NULL,
     updated_at TIMESTAMP(6) NOT NULL,
 
@@ -17,6 +17,7 @@ CREATE TABLE exam
     id          VARCHAR(255) NOT NULL,
     title       VARCHAR(255) NOT NULL,
     description VARCHAR(255) NOT NULL,
+    status      VARCHAR(20)  NOT NULL,
     member_id   BIGINT       NOT NULL,
     created_at  TIMESTAMP(6) NOT NULL,
     updated_at  TIMESTAMP(6) NOT NULL,

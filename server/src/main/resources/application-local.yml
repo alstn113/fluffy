@@ -18,7 +18,7 @@ spring:
     defer-datasource-initialization: true
 
 api-host: http://localhost:8080
-client-host: http://localhost:5137
+client-host: http://localhost:5173
 
 auth:
   jwt:

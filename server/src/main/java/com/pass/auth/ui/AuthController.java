@@ -20,7 +20,7 @@ public class AuthController {
     private final AuthService authService;
     private final CookieManager cookieManager;
 
-    @GetMapping("/api/v1/auth/mine")
+    @GetMapping("/api/v1/auth/me")
     public ResponseEntity<MyInfoResponse> getMyInfo(
             @Auth Accessor accessor
     ) {

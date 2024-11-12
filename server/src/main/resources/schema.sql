@@ -5,7 +5,7 @@ CREATE TABLE member
     provider   VARCHAR(20)  NOT NULL,
     social_id  BIGINT       NOT NULL,
     name       VARCHAR(255) NOT NULL,
-    avatarUrl  VARCHAR(255) NOT NULL,
+    avatar_url  VARCHAR(255) NOT NULL,
     created_at TIMESTAMP(6) NOT NULL,
     updated_at TIMESTAMP(6) NOT NULL,
 

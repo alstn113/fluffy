@@ -8,6 +8,7 @@ public record CookieProperties(
         boolean httpOnly,
         boolean secure,
         String domain,
+        String path,
         int maxAge
 ) {
 }

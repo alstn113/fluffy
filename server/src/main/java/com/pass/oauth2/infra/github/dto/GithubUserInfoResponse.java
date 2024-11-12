@@ -7,7 +7,7 @@ import jakarta.annotation.Nullable;
 
 @JsonNaming(SnakeCaseStrategy.class)
 public record GithubUserInfoResponse(
-        Long socialId,
+        Long id,
         String login,
         String avatarUrl,
         @Nullable String email
@@ -15,7 +15,7 @@ public record GithubUserInfoResponse(
 
     public OAuth2UserInfo toOAuth2UserInfo() {
         return new OAuth2UserInfo(
-                socialId,
+                id,
                 login,
                 email,
                 avatarUrl

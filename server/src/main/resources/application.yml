@@ -5,6 +5,5 @@ spring:
 ---
 spring:
   config:
-    import: optional:file:.env[.properties]
     activate:
       on-profile: local, dev, prod

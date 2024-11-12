@@ -15,6 +15,7 @@ public class CookieProvider {
                 .httpOnly(cookieProperties.httpOnly())
                 .secure(cookieProperties.secure())
                 .domain(cookieProperties.domain())
+                .path(cookieProperties.path())
                 .maxAge(cookieProperties.maxAge())
                 .build();
     }
@@ -24,6 +25,7 @@ public class CookieProvider {
                 .httpOnly(cookieProperties.httpOnly())
                 .secure(cookieProperties.secure())
                 .domain(cookieProperties.domain())
+                .path(cookieProperties.path())
                 .maxAge(0)
                 .build();
     }

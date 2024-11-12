@@ -2,7 +2,7 @@ package com.pass.oauth2.ui;
 
 import com.pass.auth.application.dto.TokenResponse;
 import com.pass.auth.domain.OAuth2Provider;
-import com.pass.global.web.cookie.CookieProvider;
+import com.pass.global.web.cookie.CookieManager;
 import com.pass.oauth2.application.OAuth2Service;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class OAuth2Controller {
 
     private final OAuth2Service oauth2Service;
-    private final CookieProvider cookieProvider;
+    private final CookieManager cookieManager;
 
     @GetMapping("/api/v1/auth/oauth2/redirect/{provider}")
     public void oauth2Redirect(
@@ -40,7 +40,7 @@ public class OAuth2Controller {
             HttpServletResponse response
     ) throws IOException {
         TokenResponse tokenResponse = oauth2Service.oauth2Login(provider, code);
-        ResponseCookie accessTokenCookie = cookieProvider.createAccessTokenCookie(tokenResponse.accessToken());
+        ResponseCookie accessTokenCookie = cookieManager.createAccessTokenCookie(tokenResponse.accessToken());
 
         String redirectUri = oauth2Service.getClientRedirectUrl(provider, next);
 

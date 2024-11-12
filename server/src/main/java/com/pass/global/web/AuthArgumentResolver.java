@@ -4,8 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import com.pass.auth.application.AuthService;
 import com.pass.global.exception.BaseException;
-import com.pass.global.web.cookie.CookieAuthorizationExtractor;
-import com.pass.global.web.cookie.CookieProvider;
+import com.pass.global.web.cookie.CookieManager;
 import com.pass.global.web.exception.TokenInvalidException;
 import com.pass.global.web.exception.TokenRequiredException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,8 +24,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 @RequiredArgsConstructor
 public class AuthArgumentResolver implements HandlerMethodArgumentResolver {
 
-    private final CookieAuthorizationExtractor authorizationExtractor;
-    private final CookieProvider cookieProvider;
+    private final CookieManager cookieManager;
     private final AuthService authService;
 
     @Override
@@ -61,7 +59,7 @@ public class AuthArgumentResolver implements HandlerMethodArgumentResolver {
             return null;
         }
 
-        return authorizationExtractor.extract(request);
+        return cookieManager.extractAccessToken(request);
     }
 
     private Accessor handleNoToken(Auth auth) {
@@ -85,7 +83,7 @@ public class AuthArgumentResolver implements HandlerMethodArgumentResolver {
     }
 
     private void clearAccessTokenCookie(HttpServletResponse response) {
-        ResponseCookie cookie = cookieProvider.createExpiredAccessTokenCookie();
+        ResponseCookie cookie = cookieManager.createExpiredAccessTokenCookie();
 
         response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
     }

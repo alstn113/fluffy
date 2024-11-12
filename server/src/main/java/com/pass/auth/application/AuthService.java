@@ -1,5 +1,6 @@
 package com.pass.auth.application;
 
+import com.pass.auth.application.dto.MyInfoResponse;
 import com.pass.auth.application.dto.TokenResponse;
 import com.pass.auth.domain.Member;
 import com.pass.auth.domain.MemberRepository;
@@ -15,9 +16,17 @@ public class AuthService {
 
     private final TokenProvider tokenProvider;
     private final MemberRepository memberRepository;
+    private final MemberMapper memberMapper;
 
     public Long getMemberIdByToken(String token) {
         return tokenProvider.getMemberId(token);
+    }
+
+    @Transactional(readOnly = true)
+    public MyInfoResponse getMyInfo(Long memberId) {
+        Member member = memberRepository.getById(memberId);
+
+        return memberMapper.toMyInfoResponse(member);
     }
 
     @Transactional

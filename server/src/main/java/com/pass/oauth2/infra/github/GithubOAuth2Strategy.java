@@ -1,7 +1,7 @@
 package com.pass.oauth2.infra.github;
 
-import com.pass.oauth2.application.OAuth2Strategy;
 import com.pass.auth.domain.OAuth2Provider;
+import com.pass.oauth2.application.OAuth2Strategy;
 import com.pass.oauth2.domain.OAuth2UserInfo;
 
 public class GithubOAuth2Strategy implements OAuth2Strategy {

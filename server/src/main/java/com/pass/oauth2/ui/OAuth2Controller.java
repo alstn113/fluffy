@@ -1,8 +1,8 @@
 package com.pass.oauth2.ui;
 
+import com.pass.auth.domain.OAuth2Provider;
 import com.pass.global.web.cookie.CookieProvider;
 import com.pass.oauth2.application.OAuth2Service;
-import com.pass.auth.domain.OAuth2Provider;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import lombok.RequiredArgsConstructor;

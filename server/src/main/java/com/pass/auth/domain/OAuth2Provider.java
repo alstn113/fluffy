@@ -1,6 +1,6 @@
 package com.pass.auth.domain;
 
-import com.pass.oauth2.domain.exception.OAuth2ProviderNotFoundException;
+import com.pass.auth.domain.exception.OAuth2ProviderNotFoundException;
 import java.util.Arrays;
 
 public enum OAuth2Provider {

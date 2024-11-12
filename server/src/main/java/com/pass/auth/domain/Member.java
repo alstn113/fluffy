@@ -26,7 +26,7 @@ public class Member extends AuditableEntity {
     @Column
     private String email;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "VARCHAR(20)")
     @Enumerated(EnumType.STRING)
     private OAuth2Provider provider;
 
@@ -37,18 +37,18 @@ public class Member extends AuditableEntity {
     private String name;
 
     @Column(nullable = false)
-    private String imageUrl;
+    private String avatarUrl;
 
-    public Member(String email, OAuth2Provider provider, Long socialId, String name, String imageUrl) {
-        this(null, email, provider, socialId, name, imageUrl);
+    public Member(String email, OAuth2Provider provider, Long socialId, String name, String avatarUrl) {
+        this(null, email, provider, socialId, name, avatarUrl);
     }
 
-    public Member(Long id, String email, OAuth2Provider provider, Long socialId, String name, String imageUrl) {
+    public Member(Long id, String email, OAuth2Provider provider, Long socialId, String name, String avatarUrl) {
         this.id = id;
         this.email = email;
         this.provider = provider;
         this.socialId = socialId;
         this.name = name;
-        this.imageUrl = imageUrl;
+        this.avatarUrl = avatarUrl;
     }
 }

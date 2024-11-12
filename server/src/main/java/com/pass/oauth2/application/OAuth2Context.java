@@ -1,7 +1,7 @@
 package com.pass.oauth2.application;
 
-import com.pass.auth.domain.exception.OAuth2ProviderNotFoundException;
 import com.pass.auth.domain.OAuth2Provider;
+import com.pass.oauth2.application.exception.OAuth2ProviderNotFoundException;
 import com.pass.oauth2.domain.OAuth2UserInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

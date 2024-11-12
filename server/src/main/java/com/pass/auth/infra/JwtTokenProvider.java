@@ -68,4 +68,5 @@ public class JwtTokenProvider implements TokenProvider {
                 .verifyWith(secretKey)
                 .build()
                 .parseSignedClaims(token);
-    }}
+    }
+}

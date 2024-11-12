@@ -41,11 +41,6 @@ export const UserInfo = styled.div`
     font-weight: 500;
     color: #000000;
   }
-  .displayName {
-    font-size: 12px;
-    color: #787f85;
-    font-weight: 400;
-  }
 `;
 export const MenuItem = styled(motion.div)<{ red?: boolean }>`
   display: flex;

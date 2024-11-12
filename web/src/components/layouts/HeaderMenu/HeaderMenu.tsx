@@ -3,7 +3,9 @@ import useDisclosure from '~/hooks/useDisclosure';
 import useOnClickOutside from '~/hooks/useOnClickOutside';
 import * as S from './HeaderMenu.styles';
 import { motion } from 'framer-motion';
+import { Avatar } from '~/components/common';
 import CaretDown from '~/components/vectors/CaretDown';
+import useGetMe from '~/hooks/useGetMe';
 
 interface HeaderDropdownProps {
   menuItemList: {
@@ -14,6 +16,8 @@ interface HeaderDropdownProps {
 }
 
 const HeaderDropdown = ({ menuItemList }: HeaderDropdownProps) => {
+  const { data: user } = useGetMe();
+
   const { isOpen, onClose, onToggle } = useDisclosure();
   const triggerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -27,7 +31,10 @@ const HeaderDropdown = ({ menuItemList }: HeaderDropdownProps) => {
   return (
     <motion.nav initial={false} animate={isOpen ? 'open' : 'closed'}>
       <S.DropdownButton ref={triggerRef} onClick={onToggle}>
-        <div>Menu</div>
+        <Avatar src={user?.avatarUrl || null} size="md" isBorder />
+        <S.UserInfo>
+          <div className="username">{user?.name}</div>
+        </S.UserInfo>
         <CaretDown />
       </S.DropdownButton>
       <S.DropdownMenu

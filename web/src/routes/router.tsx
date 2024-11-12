@@ -1,8 +1,6 @@
 import { createBrowserRouter, RouteObject, RouterProvider } from 'react-router-dom';
 import { PAGE_LIST } from '~/constants';
 import AboutPage from '~/pages/AboutPage';
-import LoginPage from '~/pages/auth/LoginPage';
-import SignupPage from '~/pages/auth/SignupPage';
 import ExamEditPage from '~/pages/exams/ExamEditPage.tsx';
 import ExamListPage from '~/pages/exams/ExamListPage.tsx';
 import HomePage from '~/pages/HomePage';
@@ -16,14 +14,6 @@ const routes: RouteObject[] = [
   {
     path: PAGE_LIST.about,
     element: <AboutPage />,
-  },
-  {
-    path: PAGE_LIST.auth.signup,
-    element: <SignupPage />,
-  },
-  {
-    path: PAGE_LIST.auth.login,
-    element: <LoginPage />,
   },
   {
     path: PAGE_LIST.exam.list,

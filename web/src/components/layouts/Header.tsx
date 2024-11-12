@@ -1,10 +1,21 @@
 import styled from '@emotion/styled';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Button } from '~/components/common';
+import { GITHUB_OAUTH_LOGIN_URL, PAGE_LIST } from '~/constants';
 import HeaderDropdown from './HeaderMenu/HeaderMenu';
-import { PAGE_LIST } from '~/constants';
+import useLogout from '~/hooks/useLogout';
+import useGetMe from '~/hooks/useGetMe';
 
 const Header = () => {
+  const { data: user } = useGetMe();
+
   const navigate = useNavigate();
+  const logout = useLogout();
+  const location = useLocation();
+
+  const handleGithubLogin = () => {
+    window.location.href = `${GITHUB_OAUTH_LOGIN_URL}?next=${location.pathname}`;
+  };
 
   const menuItemList = [
     {
@@ -23,32 +34,23 @@ const Header = () => {
       red: false,
     },
     {
-      text: 'Exams Editor',
-      onClick: () => navigate(`${PAGE_LIST.exam.edit}`),
-      red: false,
-    },
-    {
-      text: 'Signup',
-      onClick: () => navigate(`${PAGE_LIST.auth.signup}`),
-      red: false,
-    },
-    {
-      text: 'Login',
-      onClick: () => navigate(`${PAGE_LIST.auth.login}`),
-      red: false,
-    },
-    {
       text: 'Logout',
-      onClick: () => navigate(`${PAGE_LIST.auth.login}`),
+      onClick: logout,
       red: true,
     },
   ];
 
   return (
     <Container>
-      <LogoLink to="/">PASS</LogoLink>
+      <LogoLink to="/">Pass</LogoLink>
       <HeaderItems>
-        <HeaderDropdown menuItemList={menuItemList} />
+        {user ? (
+          <HeaderDropdown menuItemList={menuItemList} />
+        ) : (
+          <Button shadow color="primary" size="sm" onClick={handleGithubLogin}>
+            Login
+          </Button>
+        )}
       </HeaderItems>
     </Container>
   );

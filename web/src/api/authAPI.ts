@@ -1,13 +1,8 @@
 import { apiV1Client } from './apiClient';
 
 export const AuthAPI = {
-  signup: async (request: SignupRequest) => {
-    const { data } = await apiV1Client.post<void>('/auth/signup', request);
-    return data;
-  },
-
-  login: async (request: loginRequest) => {
-    const { data } = await apiV1Client.post<void>('/auth/login', request);
+  getMyInfo: async () => {
+    const { data } = await apiV1Client.get<MyInfoResponse>('/auth/me');
     return data;
   },
 
@@ -17,12 +12,9 @@ export const AuthAPI = {
   },
 };
 
-interface SignupRequest {
-  username: string;
-  password: string;
-}
-
-interface loginRequest {
-  username: string;
-  password: string;
+export interface MyInfoResponse {
+  id: number;
+  email: string | null;
+  name: string;
+  avatarUrl: string;
 }

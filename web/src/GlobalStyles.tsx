@@ -1,18 +1,44 @@
-import { css, Global } from '@emotion/react';
+import { Global, css } from '@emotion/react';
 
-const GlobalStyles = () => {
+const GlobalStyle = () => {
   return (
     <Global
       styles={css`
         ${reset}
         * {
           box-sizing: border-box;
+          padding: 0;
+          margin: 0;
           -webkit-tap-highlight-color: transparent; // 모바일에서 클릭 시 파란색 강조 제거
+        }
+        html,
+        body,
+        #root {
+          height: 100%;
+        }
+        input {
+          outline: none;
+          border: none;
+        }
+        input:focus {
+          outline: none;
+        }
+        button {
+          border: none;
+          outline: none;
+          background: none;
+          cursor: pointer;
+        }
+        a {
+          text-decoration: none;
+          color: #000;
         }
       `}
     />
   );
 };
+
+export default GlobalStyle;
 
 const reset = css`
   /* http://meyerweb.com/eric/tools/css/reset/ 
@@ -125,10 +151,10 @@ const reset = css`
   body {
     line-height: 1;
   }
-  ol,
+  /* ol,
   ul {
     list-style: none;
-  }
+  } */
   blockquote,
   q {
     quotes: none;
@@ -145,5 +171,3 @@ const reset = css`
     border-spacing: 0;
   }
 `;
-
-export default GlobalStyles;

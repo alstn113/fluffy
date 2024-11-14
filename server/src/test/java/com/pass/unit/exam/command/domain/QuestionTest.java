@@ -78,7 +78,7 @@ class QuestionTest {
     @DisplayName("True or False 질문을 생성할 수 있다")
     void trueOrFalse() {
         // given
-        Question question = Question.trueOrFalse("질문", Exam.initial("시험 제목", 1L), "참", "거짓", false);
+        Question question = Question.trueOrFalse("질문", Exam.initial("시험 제목", 1L),false);
 
         // then
         List<QuestionOption> options = question.getOptionGroup().toList();
@@ -86,7 +86,7 @@ class QuestionTest {
                 () -> assertThat(question.getText()).isEqualTo("질문"),
                 () -> assertThat(question.getType()).isEqualTo(QuestionType.TRUE_OR_FALSE),
                 () -> assertThat(options).extracting(QuestionOption::getText, QuestionOption::isCorrect)
-                        .containsExactly(tuple("참", false), tuple("거짓", true))
+                        .containsExactly(tuple("TRUE", false), tuple("FALSE", true))
         );
     }
 }

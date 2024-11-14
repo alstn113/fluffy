@@ -7,7 +7,7 @@ public class MemberTestData {
 
     public static MemberBuilder defaultMember() {
         return new MemberBuilder()
-                .withId(1L)
+                .withId(null)
                 .withEmail("example@example.com")
                 .withProvider(OAuth2Provider.GITHUB)
                 .withSocialId(1234567890L)

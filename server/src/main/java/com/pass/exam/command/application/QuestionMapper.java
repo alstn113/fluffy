@@ -75,8 +75,6 @@ public class QuestionMapper {
         return Question.trueOrFalse(
                 request.text(),
                 exam,
-                request.trueText(),
-                request.falseText(),
                 request.trueOrFalse()
         );
     }

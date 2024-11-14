@@ -77,10 +77,10 @@ public class Question {
         return choice(text, QuestionType.MULTIPLE_CHOICE, exam, options);
     }
 
-    public static Question trueOrFalse(String text, Exam exam, String trueText, String falseText, boolean trueOrFalse) {
+    public static Question trueOrFalse(String text, Exam exam, boolean trueOrFalse) {
         return choice(text, QuestionType.TRUE_OR_FALSE, exam, List.of(
-                new QuestionOption(trueText, trueOrFalse),
-                new QuestionOption(falseText, !trueOrFalse)
+                new QuestionOption("TRUE", trueOrFalse),
+                new QuestionOption("FALSE", !trueOrFalse)
         ));
     }
 

@@ -1,6 +1,7 @@
 package com.pass.integration.exam.command;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 import com.pass.auth.domain.Member;
@@ -15,6 +16,7 @@ import com.pass.exam.command.application.dto.question.QuestionAppRequest;
 import com.pass.exam.command.application.dto.question.ShortAnswerQuestionAppRequest;
 import com.pass.exam.command.application.dto.question.SingleChoiceQuestionAppRequest;
 import com.pass.exam.command.application.dto.question.TrueOrFalseQuestionAppRequest;
+import com.pass.exam.command.application.exception.ExamNotWrittenByMemberException;
 import com.pass.exam.command.domain.Exam;
 import com.pass.exam.command.domain.ExamRepository;
 import com.pass.exam.command.domain.QuestionRepository;
@@ -79,6 +81,23 @@ class ExamServiceIntegrationTest extends AbstractIntegrationTest {
         );
     }
 
+    @Test
+    @DisplayName("내가 만든 시험이 아니면 시험에 질문을 추가할 수 없다.")
+    void addQuestionsFailWhenNotWrittenByMember() {
+        // given
+        Member member = memberRepository.save(MemberTestData.defaultMember().build());
+        Exam existingExam = examRepository.save(Exam.initial("시험 제목", member.getId()));
+
+        Member anotherMember = memberRepository.save(MemberTestData.defaultMember().build());
+        Accessor accessor = new Accessor(anotherMember.getId());
+        List<QuestionAppRequest> questionRequests = createQuestionRequests();
+        PublishExamAppRequest request = new PublishExamAppRequest(existingExam.getId(), questionRequests, accessor);
+
+        // when & then
+        assertThatThrownBy(() -> examService.publish(request))
+                .isInstanceOf(ExamNotWrittenByMemberException.class);
+    }
+
     private List<QuestionAppRequest> createQuestionRequests() {
         return List.of(
                 new ShortAnswerQuestionAppRequest("주관식 질문", "SHORT_ANSWER", "주관식 질문 정답"),
@@ -98,8 +117,6 @@ class ExamServiceIntegrationTest extends AbstractIntegrationTest {
                 new TrueOrFalseQuestionAppRequest(
                         "참/거짓 질문",
                         "TRUE_OR_FALSE",
-                        "참 질문",
-                        "거짓 질문",
                         false
                 )
         );

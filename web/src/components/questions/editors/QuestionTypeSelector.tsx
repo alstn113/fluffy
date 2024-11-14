@@ -1,15 +1,14 @@
 import styled from '@emotion/styled';
-import { QUESTION_TYPE, QuestionType } from '~/api/questionAPI';
+import { QUESTION_TYPE } from '~/api/questionAPI';
+import useExamEditorStore from '~/stores/useExamEditorStore';
 
-interface QuestionTypeSelectorProps {
-  onAddQuestion: (type: QuestionType) => void;
-}
+const QuestionTypeSelector = () => {
+  const { handleAddQuestion } = useExamEditorStore();
 
-const QuestionTypeSelector = ({ onAddQuestion }: QuestionTypeSelectorProps) => {
   return (
     <Container>
       {Object.values(QUESTION_TYPE).map((type) => (
-        <StyledButton key={type} onClick={() => onAddQuestion(type)}>
+        <StyledButton key={type} onClick={() => handleAddQuestion(type)}>
           {type}
         </StyledButton>
       ))}

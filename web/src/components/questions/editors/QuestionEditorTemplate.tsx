@@ -1,22 +1,16 @@
-import { QuestionBaseRequest, QuestionType } from '~/api/questionAPI';
+import { QuestionType } from '~/api/questionAPI';
 import ShortAnswerQuestionEditor from './ShortAnswerQuestionEditor';
 import LongAnswerQuestionEditor from './LongAnswerQuestionEditor';
 import SingleChoiceQuestionEditor from './SingleChoiceQuestionEditor';
 import MultipleChoiceQuestionEditor from './MultipleChoiceQuestionEditor';
 import TrueOrFalseQuestionEditor from './TrueOrFalseQuestionEditor';
 import React from 'react';
+import useExamEditorStore from '~/stores/useExamEditorStore';
 
-interface QuestionEditorTemplateProps {
-  currentIndex: number;
-  question: QuestionBaseRequest;
-  onUpdateQuestion: (currentIndex: number, question: QuestionBaseRequest) => void;
-}
+const QuestionEditorTemplate = () => {
+  const { currentIndex, questions } = useExamEditorStore();
+  const question = questions[currentIndex];
 
-const QuestionEditorTemplate = ({
-  currentIndex,
-  question,
-  onUpdateQuestion,
-}: QuestionEditorTemplateProps) => {
   const editorMap: Record<QuestionType, React.ReactNode> = {
     SHORT_ANSWER: <ShortAnswerQuestionEditor />,
     LONG_ANSWER: <LongAnswerQuestionEditor />,

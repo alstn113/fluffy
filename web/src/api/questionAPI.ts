@@ -62,7 +62,5 @@ export interface MultipleChoiceQuestionRequest extends QuestionBaseRequest {
 
 export interface TrueOrFalseQuestionRequest extends QuestionBaseRequest {
   type: typeof QUESTION_TYPE.trueOrFalse;
-  trueText: string;
-  falseText: string;
   trueOrFalse: boolean;
 }

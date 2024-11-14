@@ -1,29 +1,44 @@
 /** @jsxImportSource @emotion/react */
-import { Reorder } from 'framer-motion';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import BaseLayout from '~/components/layouts/BaseLayout';
 import styled from '@emotion/styled';
+import QuestionEditorSidebar from '~/components/questions/QuestionEditorSidebar';
+import ProblemEditor from '~/components/questions/ProblemEditor';
+import ProblemTypeSelector from '~/components/questions/ProblemTypeSelector';
 
 const ExamEditPage = () => {
   const { id } = useParams() as { id: string };
   const [problems, setProblems] = useState([...Array(10).keys()].map((i) => `문제 ${i + 1}`));
+  const [selectedProblem, setSelectedProblem] = useState<string | null>(null);
+  const [showProblemTypeSelector, setShowProblemTypeSelector] = useState(false);
+
+  const handleProblemClick = (problem: string) => {
+    setSelectedProblem(problem);
+  };
+
+  const handleAddProblemType = () => {
+    setShowProblemTypeSelector(true);
+  };
 
   return (
     <BaseLayout>
       <Container>
-        <Sidebar>
-          <h3>문제 목록</h3>
-          <Reorder.Group axis="y" values={problems} onReorder={setProblems}>
-            {problems.map((problem) => (
-              <ProblemItem key={problem} value={problem}>
-                {problem}
-              </ProblemItem>
-            ))}
-          </Reorder.Group>
-        </Sidebar>
+        <QuestionEditorSidebar
+          problems={problems}
+          setProblems={setProblems}
+          onProblemClick={handleProblemClick}
+          onAddProblemType={handleAddProblemType}
+        />
         <MainContent>
           <Title>ExamEditPage {id}</Title>
+          {selectedProblem ? (
+            <ProblemEditor problem={selectedProblem} onClose={() => setSelectedProblem(null)} />
+          ) : (
+            showProblemTypeSelector && (
+              <ProblemTypeSelector onClose={() => setShowProblemTypeSelector(false)} />
+            )
+          )}
         </MainContent>
       </Container>
     </BaseLayout>
@@ -35,13 +50,6 @@ const Container = styled.div`
   height: 100vh; // 전체 높이를 차지하도록 설정
 `;
 
-const Sidebar = styled.div`
-  width: 200px; // 사이드바의 너비
-  padding: 10px;
-  background: #f5f5f5;
-  border-right: 1px solid #ddd; // 오른쪽 경계선
-`;
-
 const MainContent = styled.div`
   flex: 1; // 남은 공간을 차지
   padding: 10px;
@@ -51,14 +59,6 @@ const MainContent = styled.div`
 const Title = styled.div`
   font-size: 24px;
   margin-bottom: 20px;
-`;
-
-const ProblemItem = styled(Reorder.Item)`
-  background: #d7d7d7;
-  padding: 12px;
-  margin: 8px 0;
-  border-radius: 4px;
-  cursor: grab;
 `;
 
 export default ExamEditPage;

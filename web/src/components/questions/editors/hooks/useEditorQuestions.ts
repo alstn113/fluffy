@@ -109,8 +109,7 @@ const UseEditorQuestions = () => {
   const handleReorderQuestions = (newOrder: QuestionBaseRequest[]) => {
     setEditor(
       produce((draft) => {
-        draft.questions = newOrder; // 새로운 순서로 질문 배열 업데이트
-        draft.currentIndex = Math.min(draft.currentIndex, newOrder.length - 1); // 현재 인덱스 조정
+        draft.questions = newOrder;
       }),
     );
   };

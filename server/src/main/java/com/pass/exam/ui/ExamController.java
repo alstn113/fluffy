@@ -10,6 +10,7 @@ import com.pass.global.web.Accessor;
 import com.pass.global.web.Auth;
 import jakarta.validation.Valid;
 import java.net.URI;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,9 +26,12 @@ public class ExamController {
     private final ExamService examService;
     private final ExamQueryService examQueryService;
 
-    // published exam 리스트 조회
+    @GetMapping("/api/v1/exams")
+    public ResponseEntity<List<ExamDataResponse>> getExams() {
+        List<ExamDataResponse> examDataResponses = examQueryService.getExams();
 
-    // my exam 리스트 조회
+        return ResponseEntity.ok(examDataResponses);
+    }
 
     @GetMapping("/api/v1/exams/{examId}")
     public ResponseEntity<ExamDataResponse> getExam(@PathVariable String examId) {

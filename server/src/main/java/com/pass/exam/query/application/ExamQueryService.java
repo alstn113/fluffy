@@ -3,6 +3,7 @@ package com.pass.exam.query.application;
 import com.pass.exam.query.dao.ExamDataDao;
 import com.pass.exam.query.dto.ExamData;
 import com.pass.exam.query.dto.ExamDataResponse;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,5 +20,11 @@ public class ExamQueryService {
         ExamData examData = examDataDao.getExamById(examId);
 
         return examDataMapper.toResponse(examData);
+    }
+
+    public List<ExamDataResponse> getExams() {
+        List<ExamData> examDatas = examDataDao.findAll();
+
+        return examDataMapper.toResponses(examDatas);
     }
 }

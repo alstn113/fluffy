@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
-import { ChoiceQuestionResponse } from '~/api/questionAPI';
+import { ChoiceQuestionResponse } from '~/api/questionAPI.ts';
 
 interface TrueOrFalseQuestionProps {
   question: ChoiceQuestionResponse;

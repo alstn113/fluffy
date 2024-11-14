@@ -1,43 +1,46 @@
-/** @jsxImportSource @emotion/react */
-import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import BaseLayout from '~/components/layouts/BaseLayout';
 import styled from '@emotion/styled';
-import QuestionEditorSidebar from '~/components/questions/QuestionEditorSidebar';
-import ProblemEditor from '~/components/questions/ProblemEditor';
-import ProblemTypeSelector from '~/components/questions/ProblemTypeSelector';
+import ExamEditorSidebar from '~/components/questions/editors/ExamEditorSidebar.tsx';
+import UseEditorQuestions from '~/components/questions/editors/hooks/useEditorQuestions.ts';
+import QuestionEditorTemplate from '~/components/questions/editors/QuestionEditorTemplate';
+import QuestionTypeSelector from '~/components/questions/editors/QuestionTypeSelector';
 
 const ExamEditPage = () => {
   const { id } = useParams() as { id: string };
-  const [problems, setProblems] = useState([...Array(10).keys()].map((i) => `문제 ${i + 1}`));
-  const [selectedProblem, setSelectedProblem] = useState<string | null>(null);
-  const [showProblemTypeSelector, setShowProblemTypeSelector] = useState(false);
-
-  const handleProblemClick = (problem: string) => {
-    setSelectedProblem(problem);
-  };
-
-  const handleAddProblemType = () => {
-    setShowProblemTypeSelector(true);
-  };
+  const {
+    questions,
+    currentIndex,
+    questionTypeSelectorActive,
+    handleAddQuestion,
+    handleDeleteQuestion,
+    handleUpdateQuestion,
+    handleSelectQuestion,
+    handleQuestionTypeSelectorActive,
+    handleReorderQuestions,
+  } = UseEditorQuestions();
 
   return (
     <BaseLayout>
       <Container>
-        <QuestionEditorSidebar
-          problems={problems}
-          setProblems={setProblems}
-          onProblemClick={handleProblemClick}
-          onAddProblemType={handleAddProblemType}
+        <ExamEditorSidebar
+          questions={questions}
+          currentIndex={currentIndex}
+          questionTypeSelectorActive={questionTypeSelectorActive}
+          onQuestionTypeSelectorActive={handleQuestionTypeSelectorActive}
+          onSelectQuestion={handleSelectQuestion}
+          onReorderQuestions={handleReorderQuestions}
         />
         <MainContent>
           <Title>ExamEditPage {id}</Title>
-          {selectedProblem ? (
-            <ProblemEditor problem={selectedProblem} onClose={() => setSelectedProblem(null)} />
+          {questionTypeSelectorActive ? (
+            <QuestionTypeSelector onAddQuestion={handleAddQuestion} />
           ) : (
-            showProblemTypeSelector && (
-              <ProblemTypeSelector onClose={() => setShowProblemTypeSelector(false)} />
-            )
+            <QuestionEditorTemplate
+              currentIndex={currentIndex}
+              question={questions[currentIndex]}
+              onUpdateQuestion={handleUpdateQuestion}
+            />
           )}
         </MainContent>
       </Container>
@@ -47,11 +50,11 @@ const ExamEditPage = () => {
 
 const Container = styled.div`
   display: flex;
-  height: 100vh; // 전체 높이를 차지하도록 설정
+  height: 100vh;
 `;
 
 const MainContent = styled.div`
-  flex: 1; // 남은 공간을 차지
+  flex: 1;
   padding: 10px;
   background: #ffffff;
 `;

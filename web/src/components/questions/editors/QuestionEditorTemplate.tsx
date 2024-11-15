@@ -8,7 +8,7 @@ import React from 'react';
 import useExamEditorStore from '~/stores/useExamEditorStore';
 
 const QuestionEditorTemplate = () => {
-  const { currentIndex, questions } = useExamEditorStore();
+  const { currentIndex, questions, handleUpdateQuestion } = useExamEditorStore();
   const question = questions[currentIndex];
 
   const editorMap: Record<QuestionType, React.ReactNode> = {
@@ -19,9 +19,14 @@ const QuestionEditorTemplate = () => {
     TRUE_OR_FALSE: <TrueOrFalseQuestionEditor />,
   };
 
+  const handleUpdateText = (text: string) => {
+    const newQuestion = { ...question, text };
+    handleUpdateQuestion(currentIndex, newQuestion);
+  };
+
   return (
     <div>
-      <h1>Question Form</h1>
+      <input type="text" value={question.text} onChange={(e) => handleUpdateText(e.target.value)} />
       <div>
         {currentIndex + 1}. {question.text}
       </div>

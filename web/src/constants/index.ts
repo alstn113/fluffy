@@ -8,6 +8,7 @@ export const PAGE_LIST = {
   about: '/about',
   exam: {
     list: '/exams',
+    detail: '/exams/:id',
     edit: '/exams/:id/edit',
   },
   notFound: '*',

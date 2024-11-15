@@ -8,6 +8,7 @@ import MultipleChoiceQuestion from '~/components/questions/details/MultipleChoic
 import SingleChoiceQuestion from '~/components/questions/details/SingleChoiceQuestion';
 import TrueOrFalseQuestion from '~/components/questions/details/TrueOrFalseQuestion';
 import NewExamButton from '~/components/exams/NewExamButton';
+import { Link } from 'react-router-dom';
 
 const HomePage = () => {
   return (
@@ -17,6 +18,9 @@ const HomePage = () => {
           Home Page <Toggle labelText="Toggle" color="success" />
           <NewExamButton />
         </h1>
+        <div>
+          <Link to="/exams">Go To Exam List Page</Link>
+        </div>
 
         {questions.map((question) => {
           switch (question.type) {

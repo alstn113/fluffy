@@ -17,16 +17,8 @@ export const ExamAPI = {
     return data;
   },
 
-  draft: async ({ examId, request }: DraftExamParams) => {
-    const { data } = await apiV1Client.put<ExamResponse>(`/exams/${examId}/draft`, request);
-    return data;
-  },
-
   publish: async ({ examId, request }: PublishExamParams) => {
-    const { data } = await apiV1Client.put<ExamResponse>(
-      `/api/v1/exams/${examId}/publish`,
-      request,
-    );
+    const { data } = await apiV1Client.post<void>(`/exams/${examId}/publish`, request);
     return data;
   },
 };
@@ -54,15 +46,6 @@ interface ExamResponse {
   questions: QuestionResponse[];
   createdAt: string;
   updatedAt: string;
-}
-
-interface DraftExamParams {
-  examId: string;
-  request: DraftExamRequest;
-}
-
-interface DraftExamRequest {
-  todo: string;
 }
 
 interface PublishExamParams {

@@ -22,6 +22,7 @@ public class ExamQueryService {
         return examDataMapper.toResponse(examData);
     }
 
+    @Transactional(readOnly = true)
     public List<ExamDataResponse> getExams() {
         List<ExamData> examDatas = examDataDao.findAll();
 

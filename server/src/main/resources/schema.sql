@@ -48,7 +48,7 @@ CREATE TABLE question_option
     is_correct  BOOLEAN      NOT NULL,
 
     CONSTRAINT pk_question_option PRIMARY KEY (id),
-    CONSTRAINT fk_question_options_question FOREIGN KEY (question_id) REFERENCES question (id)
+    CONSTRAINT fk_question_option_question FOREIGN KEY (question_id) REFERENCES question (id)
 );
 
 CREATE TABLE submission

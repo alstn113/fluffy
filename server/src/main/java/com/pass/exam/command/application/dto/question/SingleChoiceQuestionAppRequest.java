@@ -5,7 +5,6 @@ import java.util.List;
 public record SingleChoiceQuestionAppRequest(
         String text,
         String type,
-        List<String> options,
-        int correctOptionNumber
+        List<QuestionOptionRequest> options
 ) implements QuestionAppRequest {
 }

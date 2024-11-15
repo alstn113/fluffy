@@ -13,6 +13,7 @@ import com.pass.exam.command.application.dto.PublishExamAppRequest;
 import com.pass.exam.command.application.dto.question.LongAnswerQuestionAppRequest;
 import com.pass.exam.command.application.dto.question.MultipleChoiceAppRequest;
 import com.pass.exam.command.application.dto.question.QuestionAppRequest;
+import com.pass.exam.command.application.dto.question.QuestionOptionRequest;
 import com.pass.exam.command.application.dto.question.ShortAnswerQuestionAppRequest;
 import com.pass.exam.command.application.dto.question.SingleChoiceQuestionAppRequest;
 import com.pass.exam.command.application.dto.question.TrueOrFalseQuestionAppRequest;
@@ -105,14 +106,19 @@ class ExamServiceIntegrationTest extends AbstractIntegrationTest {
                 new SingleChoiceQuestionAppRequest(
                         "객관식 단일 선택 질문",
                         "SINGLE_CHOICE",
-                        List.of("객관식 질문 1", "객관식 질문 2"),
-                        1
+                        List.of(
+                                new QuestionOptionRequest("객관식 질문 1", true),
+                                new QuestionOptionRequest("객관식 질문 2", false)
+                        )
                 ),
                 new MultipleChoiceAppRequest(
                         "객관식 다중 선택 질문",
                         "MULTIPLE_CHOICE",
-                        List.of("객관식 질문 1", "객관식 질문 2", "객관식 질문 3"),
-                        List.of(1, 3)
+                        List.of(
+                                new QuestionOptionRequest("객관식 질문 1", true),
+                                new QuestionOptionRequest("객관식 질문 2", false),
+                                new QuestionOptionRequest("객관식 질문 3", true)
+                        )
                 ),
                 new TrueOrFalseQuestionAppRequest(
                         "참/거짓 질문",

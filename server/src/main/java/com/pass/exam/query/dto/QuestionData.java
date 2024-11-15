@@ -3,6 +3,7 @@ package com.pass.exam.query.dto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.List;
@@ -27,6 +28,7 @@ public class QuestionData {
     private String correctAnswer;
 
     @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "question_id")
     private List<QuestionOptionData> options;
 
     public QuestionData(Long id, String text, int sequence, String type, List<QuestionOptionData> options) {

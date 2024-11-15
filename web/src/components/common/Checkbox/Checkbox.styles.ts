@@ -17,7 +17,6 @@ export const CheckboxMask = styled.span<{ noAnimation: boolean }>`
   align-items: center;
   justify-content: center;
   background-color: ${PALETTE.white};
-  transition: background-color 0.2s ease-in-out;
 
   &::before {
     content: '';

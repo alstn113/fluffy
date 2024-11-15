@@ -50,17 +50,20 @@ export interface LongAnswerQuestionRequest extends QuestionBaseRequest {
 
 export interface SingleChoiceQuestionRequest extends QuestionBaseRequest {
   type: typeof QUESTION_TYPE.singleChoice;
-  options: string[];
-  correctAnswerNumber: number;
+  options: QuestionOptinoRequest[];
 }
 
 export interface MultipleChoiceQuestionRequest extends QuestionBaseRequest {
   type: typeof QUESTION_TYPE.multipleChoice;
-  options: string[];
-  correctAnswerNumbers: number[];
+  options: QuestionOptinoRequest[];
 }
 
 export interface TrueOrFalseQuestionRequest extends QuestionBaseRequest {
   type: typeof QUESTION_TYPE.trueOrFalse;
   trueOrFalse: boolean;
+}
+
+export interface QuestionOptinoRequest {
+  text: string;
+  isCorrect: boolean;
 }

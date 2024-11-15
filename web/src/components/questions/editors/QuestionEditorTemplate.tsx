@@ -6,6 +6,7 @@ import MultipleChoiceQuestionEditor from './MultipleChoiceQuestionEditor';
 import TrueOrFalseQuestionEditor from './TrueOrFalseQuestionEditor';
 import React from 'react';
 import useExamEditorStore from '~/stores/useExamEditorStore';
+import styled from '@emotion/styled';
 
 const QuestionEditorTemplate = () => {
   const { currentIndex, questions, handleUpdateQuestion } = useExamEditorStore();
@@ -26,13 +27,18 @@ const QuestionEditorTemplate = () => {
 
   return (
     <div>
-      <input type="text" value={question.text} onChange={(e) => handleUpdateText(e.target.value)} />
-      <div>
-        {currentIndex + 1}. {question.text}
-      </div>
+      <div>Text</div>
+      <Input type="text" value={question.text} onChange={(e) => handleUpdateText(e.target.value)} />
       {editorMap[question.type]}
     </div>
   );
 };
+
+const Input = styled.input`
+  padding: 8px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+`;
 
 export default QuestionEditorTemplate;

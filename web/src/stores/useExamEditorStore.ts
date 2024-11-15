@@ -86,15 +86,31 @@ const createQuestion = (type: QuestionType): QuestionBaseRequest => {
       return {
         text: type,
         type,
-        options: ['옵션 1'],
-        correctAnswerNumber: 0,
+        options: [
+          {
+            text: '옵션 1',
+            isCorrect: true,
+          },
+          {
+            text: '옵션 2',
+            isCorrect: false,
+          },
+        ],
       } as SingleChoiceQuestionRequest;
     case 'MULTIPLE_CHOICE':
       return {
         text: type,
         type,
-        options: ['옵션 1'],
-        correctAnswerNumbers: [0],
+        options: [
+          {
+            text: '옵션 1',
+            isCorrect: true,
+          },
+          {
+            text: '옵션 2',
+            isCorrect: false,
+          },
+        ],
       } as MultipleChoiceQuestionRequest;
     case 'TRUE_OR_FALSE':
       return {

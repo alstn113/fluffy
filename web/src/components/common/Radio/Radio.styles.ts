@@ -19,9 +19,7 @@ export const RadioPoint = styled.span`
     height: 16px;
     transform: scale(1);
     border-radius: 50%;
-    transition: inherit;
   }
-  transition: 0.2s ease-in-out;
 `;
 
 export const RadioLabel = styled.label`
@@ -31,6 +29,7 @@ export const RadioLabel = styled.label`
   cursor: pointer;
   &:hover ${RadioPoint}::after {
     background-color: ${PALETTE.gray};
+    transition: 0.2s ease-in-out;
   }
 `;
 

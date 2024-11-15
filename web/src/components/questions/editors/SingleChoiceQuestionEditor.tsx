@@ -2,6 +2,7 @@ import useExamEditorStore from '~/stores/useExamEditorStore';
 import { SingleChoiceQuestionRequest } from '~/api/questionAPI';
 import styled from '@emotion/styled';
 import { Radio } from '~/components/common';
+import { DragDropContext, Draggable, Droppable, DropResult } from '@hello-pangea/dnd';
 
 const SingleChoiceQuestionEditor = () => {
   const { handleUpdateQuestion, currentIndex, questions } = useExamEditorStore();
@@ -52,26 +53,59 @@ const SingleChoiceQuestionEditor = () => {
     handleUpdateQuestion(currentIndex, newQuestion);
   };
 
+  const handleMoveOption = (sourceIndex: number, destinationIndex: number) => {
+    const newOptions = [...question.options];
+    const [removedOption] = newOptions.splice(sourceIndex, 1);
+    newOptions.splice(destinationIndex, 0, removedOption);
+
+    const newQuestion: SingleChoiceQuestionRequest = { ...question, options: newOptions };
+    handleUpdateQuestion(currentIndex, newQuestion);
+  };
+
+  const onDragEnd = (result: DropResult) => {
+    const { destination, source } = result;
+    if (!destination || destination.index === source.index) return;
+
+    handleMoveOption(source.index, destination.index);
+  };
+
   return (
     <Container>
       <Label>선택지:</Label>
-
-      {question.options.map((option, index) => (
-        <Option key={index}>
-          <Radio
-            color="success"
-            checked={option.isCorrect}
-            onChange={() => handleUpdateOptionCorrect(index)}
-          />
-          <Input
-            type="text"
-            value={option.text}
-            onChange={(e) => handleUpdateOptionText(index, e.target.value)}
-          />
-          <RemoveButton onClick={() => handleRemoveOption(index)}>삭제</RemoveButton>
-        </Option>
-      ))}
-
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable droppableId="droppable">
+          {(provided) => (
+            <div ref={provided.innerRef} {...provided.droppableProps}>
+              {question.options.map((option, index) => (
+                <Draggable key={index} draggableId={index.toString()} index={index}>
+                  {(provided) => (
+                    <Option
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                    >
+                      <Radio
+                        color="success"
+                        checked={option.isCorrect}
+                        onChange={() => handleUpdateOptionCorrect(index)}
+                      />
+                      <Input
+                        type="text"
+                        value={option.text}
+                        onChange={(e) => handleUpdateOptionText(index, e.target.value)}
+                      />
+                      {question.options.length > 2 && (
+                        <RemoveButton onClick={() => handleRemoveOption(index)}>삭제</RemoveButton>
+                      )}
+                    </Option>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
       <AddButton onClick={handleAddOption}>옵션 추가</AddButton>
     </Container>
   );

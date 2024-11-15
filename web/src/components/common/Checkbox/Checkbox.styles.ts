@@ -6,7 +6,7 @@ export const CheckboxText = styled.span`
   user-select: none;
 `;
 
-export const CheckboxMask = styled.span`
+export const CheckboxMask = styled.span<{ noAnimation: boolean }>`
   box-sizing: border-box;
   position: relative;
   width: 24px;
@@ -17,7 +17,8 @@ export const CheckboxMask = styled.span`
   align-items: center;
   justify-content: center;
   background-color: ${PALETTE.white};
-  transition: 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out;
+
   &::before {
     content: '';
     position: absolute;
@@ -27,7 +28,10 @@ export const CheckboxMask = styled.span`
     transform: scale(0.3);
     opacity: 0;
     border-radius: 33%;
-    transition: inherit;
+    transition: ${({ noAnimation }) =>
+      noAnimation
+        ? 'none'
+        : 'background-color 0.2s ease-in-out, transform 0.2s ease-in-out, opacity 0.2s ease-in-out'};
   }
 `;
 
@@ -41,14 +45,15 @@ export const CheckboxLabel = styled.label`
   }
 `;
 
-export const CheckIcon = styled.i`
+export const CheckIcon = styled.i<{ noAnimation: boolean }>`
   width: 8px;
   height: 14px;
   display: block;
   position: relative;
   margin-top: -4px;
   transform: rotate(45deg) scale(0.8);
-  transition: 0.2s ease;
+  transition: ${({ noAnimation }) => (noAnimation ? 'none' : 'opacity 0.2s ease')};
+
   &::before {
     content: '';
     position: absolute;
@@ -57,7 +62,9 @@ export const CheckIcon = styled.i`
     border-radius: 5px 0px 0px 5px;
     bottom: 0px;
     background-color: ${PALETTE.white};
+    transition: ${({ noAnimation }) => (noAnimation ? 'none' : 'width 0.2s ease')};
   }
+
   &::after {
     content: '';
     position: absolute;
@@ -67,10 +74,11 @@ export const CheckIcon = styled.i`
     right: 0px;
     width: 3px;
     background-color: ${PALETTE.white};
+    transition: ${({ noAnimation }) => (noAnimation ? 'none' : 'height 0.2s ease 0.2s')};
   }
 `;
 
-export const CheckboxInput = styled.input<{ color: NormalColorType }>`
+export const CheckboxInput = styled.input<{ color: NormalColorType; noAnimation: boolean }>`
   display: none;
 
   // Switch Off
@@ -91,11 +99,9 @@ export const CheckboxInput = styled.input<{ color: NormalColorType }>`
       ${CheckIcon} {
         opacity: 1;
         &::before {
-          transition: 0.2s ease;
           width: 8px;
         }
         &::after {
-          transition: 0.2s ease 0.2s;
           height: 13px;
         }
       }

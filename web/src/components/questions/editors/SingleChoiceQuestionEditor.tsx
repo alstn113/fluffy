@@ -88,6 +88,7 @@ const SingleChoiceQuestionEditor = () => {
                         color="success"
                         checked={option.isCorrect}
                         onChange={() => handleUpdateOptionCorrect(index)}
+                        noAnimation
                       />
                       <Input
                         type="text"
@@ -106,7 +107,7 @@ const SingleChoiceQuestionEditor = () => {
           )}
         </Droppable>
       </DragDropContext>
-      <AddButton onClick={handleAddOption}>옵션 추가</AddButton>
+      <AddButton onClick={handleAddOption}>+ Add Option</AddButton>
     </Container>
   );
 };
@@ -162,14 +163,14 @@ const RemoveButton = styled.button`
 const AddButton = styled.button`
   margin-top: 12px;
   padding: 8px 12px;
-  background: #007bff;
-  color: white;
+  color: #000000;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  transition: background 0.2s;
 
   &:hover {
-    background: #0056b3;
+    background: #ececec;
   }
 `;
 

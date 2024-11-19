@@ -1,4 +1,4 @@
-import { ExamAPI } from '~/api/examAPI';
+import { ExamAPI } from '@/api/examAPI';
 import { UseMutationOptionsOf } from '../types';
 import { useMutation } from '@tanstack/react-query';
 

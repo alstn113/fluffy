@@ -1,7 +1,7 @@
-import useExamEditorStore from '~/stores/useExamEditorStore';
-import { MultipleChoiceQuestionRequest } from '~/api/questionAPI';
+import useExamEditorStore from '@/stores/useExamEditorStore';
+import { MultipleChoiceQuestionRequest } from '@/api/questionAPI';
 import styled from '@emotion/styled';
-import { Checkbox } from '~/components/common';
+import { Checkbox, CheckboxGroup } from '@nextui-org/checkbox';
 import { DragDropContext, Draggable, Droppable, DropResult } from '@hello-pangea/dnd';
 
 const MultipleChoiceQuestionEditor = () => {
@@ -72,10 +72,10 @@ const MultipleChoiceQuestionEditor = () => {
                       {...provided.dragHandleProps}
                     >
                       <Checkbox
-                        color="success"
-                        checked={option.isCorrect}
-                        onChange={() => handleUpdateOptionCorrect(index, !option.isCorrect)}
-                        noAnimation
+                        color="secondary"
+                        isSelected={option.isCorrect}
+                        onValueChange={() => handleUpdateOptionCorrect(index, !option.isCorrect)}
+                        disableAnimation
                       />
                       <Input
                         type="text"

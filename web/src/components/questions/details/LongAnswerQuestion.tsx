@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { AnswerQuestionResponse } from '~/api/questionAPI.ts';
+import { AnswerQuestionResponse } from '@/api/questionAPI.ts';
 
 interface LongAnswerQuestionProps {
   question: AnswerQuestionResponse;

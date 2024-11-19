@@ -7,7 +7,7 @@ import {
   ShortAnswerQuestionRequest,
   SingleChoiceQuestionRequest,
   TrueOrFalseQuestionRequest,
-} from '~/api/questionAPI';
+} from '@/api/questionAPI';
 import { immer } from 'zustand/middleware/immer';
 
 type States = {

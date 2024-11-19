@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { DragDropContext, Draggable, Droppable, DropResult } from '@hello-pangea/dnd';
-import useExamEditorStore from '~/stores/useExamEditorStore';
+import useExamEditorStore from '@/stores/useExamEditorStore';
 
 const ExamEditorSidebar = () => {
   const {

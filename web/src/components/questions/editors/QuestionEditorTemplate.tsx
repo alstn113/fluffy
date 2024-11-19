@@ -1,11 +1,11 @@
-import { QuestionType } from '~/api/questionAPI';
+import { QuestionType } from '@/api/questionAPI';
 import ShortAnswerQuestionEditor from './ShortAnswerQuestionEditor';
 import LongAnswerQuestionEditor from './LongAnswerQuestionEditor';
 import SingleChoiceQuestionEditor from './SingleChoiceQuestionEditor';
 import MultipleChoiceQuestionEditor from './MultipleChoiceQuestionEditor';
 import TrueOrFalseQuestionEditor from './TrueOrFalseQuestionEditor';
 import React from 'react';
-import useExamEditorStore from '~/stores/useExamEditorStore';
+import useExamEditorStore from '@/stores/useExamEditorStore';
 import styled from '@emotion/styled';
 
 const QuestionEditorTemplate = () => {

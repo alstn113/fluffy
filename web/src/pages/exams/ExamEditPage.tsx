@@ -1,11 +1,11 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import BaseLayout from '~/components/layouts/BaseLayout';
+import BaseLayout from '@/components/layouts/BaseLayout';
 import styled from '@emotion/styled';
-import ExamEditorSidebar from '~/components/questions/editors/ExamEditorSidebar.tsx';
-import QuestionEditorTemplate from '~/components/questions/editors/QuestionEditorTemplate';
-import QuestionTypeSelector from '~/components/questions/editors/QuestionTypeSelector';
-import useExamEditorStore from '~/stores/useExamEditorStore';
-import usePublishExam from '~/hooks/api/exam/usePublishExam';
+import ExamEditorSidebar from '@/components/questions/editors/ExamEditorSidebar.tsx';
+import QuestionEditorTemplate from '@/components/questions/editors/QuestionEditorTemplate';
+import QuestionTypeSelector from '@/components/questions/editors/QuestionTypeSelector';
+import useExamEditorStore from '@/stores/useExamEditorStore';
+import usePublishExam from '@/hooks/api/exam/usePublishExam';
 
 const ExamEditPage = () => {
   const { id } = useParams() as { id: string };

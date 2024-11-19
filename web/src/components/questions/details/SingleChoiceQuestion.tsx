@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
-import { ChoiceQuestionResponse } from '~/api/questionAPI.ts';
-import { Radio } from '~/components/common';
+import { ChoiceQuestionResponse } from '@/api/questionAPI.ts';
+import { Radio, RadioGroup } from '@nextui-org/radio';
 
 interface SingleChoiceQuestionProps {
   question: ChoiceQuestionResponse;
@@ -9,29 +9,18 @@ interface SingleChoiceQuestionProps {
 
 const SingleChoiceQuestion = ({ question }: SingleChoiceQuestionProps) => {
   const { options, text } = question;
-
   const [selected, setSelected] = useState<string | null>(null);
-
-  const handleChange = (value: string) => {
-    setSelected(value);
-  };
 
   return (
     <Container>
       <Text>{text}</Text>
-      <Options>
+      <RadioGroup value={selected} onValueChange={setSelected}>
         {options.map((option, index) => (
-          <Option key={option.id}>
-            <Radio
-              labelText={`${index + 1}. ${option.text}`}
-              color="success"
-              value={option.id}
-              checked={selected === option.id}
-              onChange={() => handleChange(option.id)}
-            />
-          </Option>
+          <Radio color="secondary" key={option.id} value={option.id}>
+            {index + 1}. {option.text}
+          </Radio>
         ))}
-      </Options>
+      </RadioGroup>
     </Container>
   );
 };
@@ -52,25 +41,6 @@ const Text = styled.div`
   font-weight: 500; /* 두께 조정 */
   color: #333;
   text-align: left; /* 정렬 */
-`;
-
-const Options = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem; /* 간격 조정 */
-`;
-
-const Option = styled.div`
-  padding: 0.8rem; /* 패딩 조정 */
-  border: 1px solid #d0d0d0;
-  border-radius: 8px; /* 둥글게 */
-  background-color: #f7f7f7; /* 연한 배경색 */
-  transition: background-color 0.2s, border-color 0.2s;
-
-  &:hover {
-    background-color: #e9ecef; /* 호버 시 배경색 변경 */
-    border-color: #a0a0a0; /* 테두리 색상 변경 */
-  }
 `;
 
 export default SingleChoiceQuestion;

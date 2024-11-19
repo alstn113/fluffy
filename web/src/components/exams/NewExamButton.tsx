@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import useCreateExam from '~/hooks/api/exam/useCreateExam';
+import useCreateExam from '@/hooks/api/exam/useCreateExam';
 
 const NewExamButton = () => {
   const { mutate } = useCreateExam();

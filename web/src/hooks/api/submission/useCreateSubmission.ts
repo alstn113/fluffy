@@ -1,4 +1,4 @@
-import { SubmissionAPI } from '~/api/submissionAPI';
+import { SubmissionAPI } from '@/api/submissionAPI';
 import { UseMutationOptionsOf } from '../types';
 import { useMutation } from '@tanstack/react-query';
 

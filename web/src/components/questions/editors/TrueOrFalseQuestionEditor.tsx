@@ -1,5 +1,5 @@
-import useExamEditorStore from '~/stores/useExamEditorStore';
-import { TrueOrFalseQuestionRequest } from '~/api/questionAPI';
+import useExamEditorStore from '@/stores/useExamEditorStore';
+import { TrueOrFalseQuestionRequest } from '@/api/questionAPI';
 import styled from '@emotion/styled';
 
 const TrueOrFalseQuestionEditor = () => {

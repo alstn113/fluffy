@@ -1,13 +1,13 @@
 import styled from '@emotion/styled';
 import { Suspense } from 'react';
 import { useParams } from 'react-router-dom';
-import BaseLayout from '~/components/layouts/BaseLayout';
-import LongAnswerQuestion from '~/components/questions/details/LongAnswerQuestion';
-import MultipleChoiceQuestion from '~/components/questions/details/MultipleChoiceQuestion';
-import ShortAnswerQuestion from '~/components/questions/details/ShortAnswerQuestion';
-import SingleChoiceQuestion from '~/components/questions/details/SingleChoiceQuestion';
-import TrueOrFalseQuestion from '~/components/questions/details/TrueOrFalseQuestion';
-import useGetExam from '~/hooks/api/exam/useGetExam';
+import BaseLayout from '@/components/layouts/BaseLayout';
+import LongAnswerQuestion from '@/components/questions/details/LongAnswerQuestion';
+import MultipleChoiceQuestion from '@/components/questions/details/MultipleChoiceQuestion';
+import ShortAnswerQuestion from '@/components/questions/details/ShortAnswerQuestion';
+import SingleChoiceQuestion from '@/components/questions/details/SingleChoiceQuestion';
+import TrueOrFalseQuestion from '@/components/questions/details/TrueOrFalseQuestion';
+import useGetExam from '@/hooks/api/exam/useGetExam';
 
 const ExamDetailPage = () => {
   const { id } = useParams() as { id: string };

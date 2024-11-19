@@ -1,13 +1,12 @@
 import styled from '@emotion/styled';
-import { QuestionResponse } from '~/api/questionAPI';
-import { Toggle } from '~/components/common';
-import BaseLayout from '~/components/layouts/BaseLayout';
-import LongAnswerQuestion from '~/components/questions/details/LongAnswerQuestion';
-import ShortAnswerQuestion from '~/components/questions/details/ShortAnswerQuestion';
-import MultipleChoiceQuestion from '~/components/questions/details/MultipleChoiceQuestion';
-import SingleChoiceQuestion from '~/components/questions/details/SingleChoiceQuestion';
-import TrueOrFalseQuestion from '~/components/questions/details/TrueOrFalseQuestion';
-import NewExamButton from '~/components/exams/NewExamButton';
+import { QuestionResponse } from '@/api/questionAPI';
+import BaseLayout from '@/components/layouts/BaseLayout';
+import LongAnswerQuestion from '@/components/questions/details/LongAnswerQuestion';
+import ShortAnswerQuestion from '@/components/questions/details/ShortAnswerQuestion';
+import MultipleChoiceQuestion from '@/components/questions/details/MultipleChoiceQuestion';
+import SingleChoiceQuestion from '@/components/questions/details/SingleChoiceQuestion';
+import TrueOrFalseQuestion from '@/components/questions/details/TrueOrFalseQuestion';
+import NewExamButton from '@/components/exams/NewExamButton';
 import { Link } from 'react-router-dom';
 
 const HomePage = () => {
@@ -15,7 +14,7 @@ const HomePage = () => {
     <BaseLayout>
       <Container>
         <h1>
-          Home Page <Toggle labelText="Toggle" color="success" />
+          Home Page
           <NewExamButton />
         </h1>
         <div>

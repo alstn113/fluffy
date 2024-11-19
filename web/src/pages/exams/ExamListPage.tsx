@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { Link } from 'react-router-dom';
-import BaseLayout from '~/components/layouts/BaseLayout';
-import useGetExams from '~/hooks/api/exam/useGetExams';
+import BaseLayout from '@/components/layouts/BaseLayout';
+import useGetExams from '@/hooks/api/exam/useGetExams';
 
 const ExamListPage = () => {
   return (

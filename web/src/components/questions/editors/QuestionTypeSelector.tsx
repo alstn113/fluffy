@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import { QUESTION_TYPE } from '~/api/questionAPI';
-import useExamEditorStore from '~/stores/useExamEditorStore';
+import { QUESTION_TYPE } from '@/api/questionAPI';
+import useExamEditorStore from '@/stores/useExamEditorStore';
 
 const QuestionTypeSelector = () => {
   const { handleAddQuestion } = useExamEditorStore();

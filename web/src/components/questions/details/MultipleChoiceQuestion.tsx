@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
-import { ChoiceQuestionResponse } from '~/api/questionAPI.ts';
-import { Checkbox } from '~/components/common';
+import { ChoiceQuestionResponse } from '@/api/questionAPI.ts';
+import { Checkbox, CheckboxGroup } from '@nextui-org/checkbox';
 
 interface MultipleChoiceQuestionProps {
   question: ChoiceQuestionResponse;
@@ -12,30 +12,16 @@ const MultipleChoiceQuestion = ({ question }: MultipleChoiceQuestionProps) => {
 
   const [selected, setSelected] = useState<string[]>([]);
 
-  const handleSelect = (selected: boolean, item: string) => {
-    if (selected) {
-      setSelected((prev) => [...prev, item]);
-      return;
-    }
-    setSelected((prev) => prev.filter((v) => v !== item));
-  };
-
   return (
     <Container>
       <Text>{text}</Text>
-      <Options>
+      <CheckboxGroup color="secondary" value={selected} onValueChange={setSelected}>
         {options.map((option, index) => (
-          <Option key={option.id}>
-            <Checkbox
-              labelText={`${index + 1}. ${option.text}`}
-              color="success"
-              value={option.id}
-              checked={selected.includes(option.id)}
-              onChange={(e) => handleSelect(e.target.checked, option.id)}
-            />
-          </Option>
+          <Checkbox key={option.id} value={option.id}>
+            {index + 1}. {option.text}
+          </Checkbox>
         ))}
-      </Options>
+      </CheckboxGroup>
     </Container>
   );
 };
@@ -55,25 +41,6 @@ const Text = styled.div`
   font-weight: 500; /* 두께 조정 */
   color: #333;
   text-align: left; /* 정렬 */
-`;
-
-const Options = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem; /* 간격 조정 */
-`;
-
-const Option = styled.div`
-  padding: 0.8rem; /* 패딩 조정 */
-  border: 1px solid #d0d0d0;
-  border-radius: 8px; /* 둥글게 */
-  background-color: #f7f7f7; /* 연한 배경색 */
-  transition: background-color 0.2s, border-color 0.2s;
-
-  &:hover {
-    background-color: #e9ecef; /* 호버 시 배경색 변경 */
-    border-color: #a0a0a0; /* 테두리 색상 변경 */
-  }
 `;
 
 export default MultipleChoiceQuestion;

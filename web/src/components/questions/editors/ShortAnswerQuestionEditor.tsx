@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import { ShortAnswerQuestionRequest } from '~/api/questionAPI';
-import useExamEditorStore from '~/stores/useExamEditorStore';
+import { ShortAnswerQuestionRequest } from '@/api/questionAPI';
+import useExamEditorStore from '@/stores/useExamEditorStore';
 
 const ShortAnswerQuestionEditor = () => {
   const { handleUpdateQuestion, currentIndex, questions } = useExamEditorStore();

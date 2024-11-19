@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Button } from '~/components/common';
-import { GITHUB_OAUTH_LOGIN_URL, PAGE_LIST } from '~/constants';
+import { Button } from '@nextui-org/button';
+import { GITHUB_OAUTH_LOGIN_URL, PAGE_LIST } from '@/constants';
 import HeaderDropdown from './HeaderMenu/HeaderMenu';
-import useLogout from '~/hooks/useLogout';
-import useGetMe from '~/hooks/useGetMe';
+import useLogout from '@/hooks/useLogout';
+import useGetMe from '@/hooks/useGetMe';
 
 const Header = () => {
   const { data: user } = useGetMe();
@@ -47,9 +47,7 @@ const Header = () => {
         {user ? (
           <HeaderDropdown menuItemList={menuItemList} />
         ) : (
-          <Button shadow color="primary" size="sm" onClick={handleGithubLogin}>
-            Login
-          </Button>
+          <Button onClick={handleGithubLogin}>Login</Button>
         )}
       </HeaderItems>
     </Container>

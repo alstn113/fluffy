@@ -18,14 +18,11 @@ public class QuestionOptionData {
 
     private String text;
 
-    private int sequence;
-
     private boolean isCorrect;
 
-    public QuestionOptionData(Long id, String text, int sequence, boolean isCorrect) {
+    public QuestionOptionData(Long id, String text, boolean isCorrect) {
         this.id = id;
         this.text = text;
-        this.sequence = sequence;
         this.isCorrect = isCorrect;
     }
 }

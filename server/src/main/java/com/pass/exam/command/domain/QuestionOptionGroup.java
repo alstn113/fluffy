@@ -30,9 +30,6 @@ public class QuestionOptionGroup {
     public QuestionOptionGroup(List<QuestionOption> options) {
         validate(options);
 
-        IntStream.range(0, options.size())
-                .forEach(index -> options.get(index).updateSequence(index + 1));
-
         this.options = new ArrayList<>(options);
     }
 

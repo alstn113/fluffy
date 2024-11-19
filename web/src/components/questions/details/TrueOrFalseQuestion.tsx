@@ -7,7 +7,7 @@ interface TrueOrFalseQuestionProps {
 }
 
 const TrueOrFalseQuestion = ({ question }: TrueOrFalseQuestionProps) => {
-  const { sequence, text } = question;
+  const { text } = question;
   const [selected, setSelected] = useState<string | null>(null);
 
   const handleSelect = (value: string) => {
@@ -16,9 +16,7 @@ const TrueOrFalseQuestion = ({ question }: TrueOrFalseQuestionProps) => {
 
   return (
     <Container>
-      <Text>
-        {sequence}. {text}
-      </Text>
+      <Text>{text}</Text>
       <ButtonContainer>
         <Button
           className={`true ${selected === 'true' ? 'selected' : ''}`}

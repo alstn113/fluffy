@@ -19,8 +19,7 @@ public class QuestionOptionDataMapper {
     private QuestionOptionDataResponse toResponse(QuestionOptionData questionOptionData) {
         return new QuestionOptionDataResponse(
                 questionOptionData.getId(),
-                questionOptionData.getText(),
-                questionOptionData.getSequence()
+                questionOptionData.getText()
         );
     }
 }

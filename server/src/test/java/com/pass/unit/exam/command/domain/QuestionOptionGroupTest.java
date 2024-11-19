@@ -45,23 +45,4 @@ class QuestionOptionGroupTest {
                 .isInstanceOf(InvalidQuestionOptionSizeException.class)
                 .hasMessage("질문 옵션은 1~10개만 허용됩니다.");
     }
-
-    @Test
-    @DisplayName("옵션 그룹 생성 시 순서대로 옵션의 순서가 지정된다.")
-    void assignOptionSequenceWhenCreateOptionGroup() {
-        // given
-        List<QuestionOption> options = List.of(
-                new QuestionOption("옵션 1", true),
-                new QuestionOption("옵션 2", false),
-                new QuestionOption("옵션 3", false)
-        );
-
-        // when
-        QuestionOptionGroup optionGroup = new QuestionOptionGroup(options);
-
-        // then
-        List<QuestionOption> actualOptions = optionGroup.toList();
-        assertThat(actualOptions).extracting(QuestionOption::getSequence, QuestionOption::getText)
-                .containsExactly(tuple(1, "옵션 1"), tuple(2, "옵션 2"), tuple(3, "옵션 3"));
-    }
 }

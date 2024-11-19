@@ -1,8 +1,6 @@
 package com.pass.unit.exam.command.domain;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.assertj.core.api.AssertionsForClassTypes.tuple;
 
 import com.pass.exam.command.domain.Exam;
 import com.pass.exam.command.domain.Question;
@@ -28,25 +26,5 @@ class QuestionGroupTest {
         assertThatThrownBy(() -> new QuestionGroup(overSizedQuestions))
                 .isInstanceOf(InvalidQuestionSizeException.class)
                 .hasMessage("질문은 1~200개만 허용됩니다.");
-    }
-
-    @Test
-    @DisplayName("질문 그룹 생성 시 순서대로 질문의 순서가 지정된다.")
-    void assignQuestionSequenceWhenCreateQuestionGroup() {
-        // given
-        Exam exam = Exam.initial("시험", 1L);
-        List<Question> questions = List.of(
-                Question.shortAnswer("질문 1", "정답", exam),
-                Question.shortAnswer("질문 2", "정답", exam),
-                Question.shortAnswer("질문 3", "정답", exam)
-        );
-
-        // when
-        QuestionGroup questionGroup = new QuestionGroup(questions);
-
-        // then
-        List<Question> actualQuestions = questionGroup.toList();
-        assertThat(actualQuestions).extracting(Question::getSequence, Question::getText)
-                .containsExactly(tuple(1, "질문 1"), tuple(2, "질문 2"), tuple(3, "질문 3"));
     }
 }

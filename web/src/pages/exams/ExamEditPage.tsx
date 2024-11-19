@@ -14,7 +14,6 @@ const ExamEditPage = () => {
   const navigate = useNavigate();
 
   const handlePublish = () => {
-    console.log('publish', questions);
     mutate(
       {
         examId: id,

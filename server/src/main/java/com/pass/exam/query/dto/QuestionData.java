@@ -21,8 +21,6 @@ public class QuestionData {
 
     private String text;
 
-    private int sequence;
-
     private String type;
 
     private String correctAnswer;
@@ -31,10 +29,9 @@ public class QuestionData {
     @JoinColumn(name = "question_id")
     private List<QuestionOptionData> options;
 
-    public QuestionData(Long id, String text, int sequence, String type, List<QuestionOptionData> options) {
+    public QuestionData(Long id, String text, String type, List<QuestionOptionData> options) {
         this.id = id;
         this.text = text;
-        this.sequence = sequence;
         this.type = type;
         this.options = options;
     }

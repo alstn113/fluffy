@@ -33,7 +33,6 @@ public class QuestionDataMapper {
         return new AnswerQuestionResponse(
                 questionData.getId(),
                 questionData.getText(),
-                questionData.getSequence(),
                 questionData.getType()
         );
     }
@@ -42,7 +41,6 @@ public class QuestionDataMapper {
         return new ChoiceQuestionResponse(
                 questionData.getId(),
                 questionData.getText(),
-                questionData.getSequence(),
                 questionData.getType(),
                 questionOptionDataMapper.toResponses(questionData.getOptions())
         );

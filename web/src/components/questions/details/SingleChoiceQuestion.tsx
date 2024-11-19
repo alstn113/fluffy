@@ -8,7 +8,7 @@ interface SingleChoiceQuestionProps {
 }
 
 const SingleChoiceQuestion = ({ question }: SingleChoiceQuestionProps) => {
-  const { options, sequence, text } = question;
+  const { options, text } = question;
 
   const [selected, setSelected] = useState<string | null>(null);
 
@@ -18,14 +18,12 @@ const SingleChoiceQuestion = ({ question }: SingleChoiceQuestionProps) => {
 
   return (
     <Container>
-      <Text>
-        {sequence}. {text}
-      </Text>
+      <Text>{text}</Text>
       <Options>
-        {options.map((option) => (
+        {options.map((option, index) => (
           <Option key={option.id}>
             <Radio
-              labelText={`${option.sequence}. ${option.text}`}
+              labelText={`${index + 1}. ${option.text}`}
               color="success"
               value={option.id}
               checked={selected === option.id}

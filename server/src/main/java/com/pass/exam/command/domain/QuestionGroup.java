@@ -27,9 +27,6 @@ public class QuestionGroup {
     public QuestionGroup(List<Question> questions) {
         validate(questions);
 
-        IntStream.range(0, questions.size())
-                .forEach(index -> questions.get(index).updateSequence(index + 1));
-
         this.questions = new ArrayList<>(questions);
     }
 

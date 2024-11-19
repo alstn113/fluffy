@@ -7,7 +7,6 @@ import com.pass.exam.command.domain.ExamRepository;
 import com.pass.submission.command.application.dto.SubmitAppRequest;
 import com.pass.submission.command.domain.Submission;
 import com.pass.submission.command.domain.SubmissionRepository;
-import com.pass.submission.command.domain.SubmissionValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,15 +19,13 @@ public class SubmissionService {
     private final SubmissionRepository submissionRepository;
     private final MemberRepository memberRepository;
     private final SubmissionMapper submissionMapper;
-    private final SubmissionValidator submissionValidator;
 
     @Transactional
     public void submit(SubmitAppRequest request) {
         Member member = memberRepository.getById(request.accessor().id());
         Exam exam = examRepository.getById(request.examId());
 
-        Submission submission = submissionMapper.toSubmission(exam.getId(), member.getId(), request);
-        submissionValidator.validate(exam, submission);
+        Submission submission = submissionMapper.toSubmission(exam, member.getId(), request);
 
         submissionRepository.save(submission);
     }

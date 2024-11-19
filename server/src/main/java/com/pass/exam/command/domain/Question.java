@@ -26,7 +26,6 @@ import lombok.NoArgsConstructor;
 @Getter
 public class Question {
 
-    private static final int START_SEQUENCE = 1;
     private static final int MAX_TEXT_LENGTH = 2000;
 
     @Id
@@ -35,9 +34,6 @@ public class Question {
 
     @Column(nullable = false)
     private String text;
-
-    @Column(nullable = false)
-    private int sequence;
 
     @Column(nullable = false, columnDefinition = "VARCHAR(50)")
     @Enumerated(EnumType.STRING)
@@ -85,28 +81,26 @@ public class Question {
     }
 
     private static Question answer(String text, QuestionType type, String correctAnswer, Exam exam) {
-        return new Question(text, START_SEQUENCE, type, correctAnswer, exam, QuestionOptionGroup.empty());
+        return new Question(text, type, correctAnswer, exam, QuestionOptionGroup.empty());
     }
 
     private static Question choice(String text, QuestionType type, Exam exam, List<QuestionOption> options) {
-        return new Question(text, START_SEQUENCE, type, null, exam, new QuestionOptionGroup(options));
+        return new Question(text, type, null, exam, new QuestionOptionGroup(options));
     }
 
     public Question(
             String text,
-            int sequence,
             QuestionType type,
             String correctAnswer,
             Exam exam,
             QuestionOptionGroup optionGroup
     ) {
-        this(null, text, sequence, type, correctAnswer, exam, optionGroup);
+        this(null, text, type, correctAnswer, exam, optionGroup);
     }
 
     public Question(
             Long id,
             String text,
-            int sequence,
             QuestionType type,
             String correctAnswer,
             Exam exam,
@@ -116,7 +110,6 @@ public class Question {
 
         this.id = id;
         this.text = text;
-        this.sequence = sequence;
         this.type = type;
         this.correctAnswer = correctAnswer;
         this.exam = exam;
@@ -131,10 +124,6 @@ public class Question {
         if (text.isBlank() || text.length() > MAX_TEXT_LENGTH) {
             throw new InvalidQuestionLengthException(MAX_TEXT_LENGTH);
         }
-    }
-
-    public void updateSequence(int sequence) {
-        this.sequence = sequence;
     }
 
     public void updateExam(Exam exam) {

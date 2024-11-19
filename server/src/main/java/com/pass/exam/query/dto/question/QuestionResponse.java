@@ -6,7 +6,5 @@ public interface QuestionResponse {
 
     String text();
 
-    int sequence();
-
     String type();
 }

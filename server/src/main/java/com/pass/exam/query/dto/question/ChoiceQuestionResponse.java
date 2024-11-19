@@ -6,7 +6,6 @@ import java.util.List;
 public record ChoiceQuestionResponse(
         Long id,
         String text,
-        int sequence,
         String type,
         List<QuestionOptionDataResponse> options
 ) implements QuestionResponse {

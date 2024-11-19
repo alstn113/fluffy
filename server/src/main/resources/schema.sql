@@ -32,7 +32,6 @@ CREATE TABLE question
     exam_id        VARCHAR(255) NOT NULL,
     text           VARCHAR(255) NOT NULL,
     type           VARCHAR(50)  NOT NULL,
-    sequence       INT          NOT NULL,
     correct_answer VARCHAR(255),
 
     CONSTRAINT pk_question PRIMARY KEY (id),
@@ -43,7 +42,6 @@ CREATE TABLE question_option
 (
     id          BIGINT AUTO_INCREMENT NOT NULL,
     question_id BIGINT       NOT NULL,
-    sequence    INT          NOT NULL,
     text        VARCHAR(255) NOT NULL,
     is_correct  BOOLEAN      NOT NULL,
 

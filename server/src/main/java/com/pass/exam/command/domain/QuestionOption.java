@@ -17,7 +17,6 @@ import lombok.NoArgsConstructor;
 @Getter
 public class QuestionOption {
 
-    private static final int START_SEQUENCE = 1;
     private static final int MAX_TEXT_LENGTH = 200;
 
     @Id
@@ -28,21 +27,17 @@ public class QuestionOption {
     private String text;
 
     @Column(nullable = false)
-    private int sequence;
-
-    @Column(nullable = false)
     private boolean isCorrect;
 
     public QuestionOption(String text, boolean isCorrect) {
-        this(null, text, START_SEQUENCE, isCorrect);
+        this(null, text, isCorrect);
     }
 
-    public QuestionOption(Long id, String text, int sequence, boolean isCorrect) {
+    public QuestionOption(Long id, String text, boolean isCorrect) {
         validate(text);
 
         this.id = id;
         this.text = text;
-        this.sequence = sequence;
         this.isCorrect = isCorrect;
     }
 
@@ -54,9 +49,5 @@ public class QuestionOption {
         if (text.isBlank() || text.length() > MAX_TEXT_LENGTH) {
             throw new InvalidQuestionOptionLengthException(MAX_TEXT_LENGTH);
         }
-    }
-
-    public void updateSequence(int sequence) {
-        this.sequence = sequence;
     }
 }

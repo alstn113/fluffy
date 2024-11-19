@@ -12,7 +12,6 @@ export type QuestionResponse = AnswerQuestionResponse | ChoiceQuestionResponse;
 interface QuestionBaseResponse {
   id: number;
   text: string;
-  sequence: number;
   type: QuestionType;
 }
 
@@ -31,7 +30,6 @@ export interface ChoiceQuestionResponse extends QuestionBaseResponse {
 export interface QuestionOptionResponse {
   id: string;
   text: string;
-  sequence: number;
 }
 
 export interface QuestionBaseRequest {

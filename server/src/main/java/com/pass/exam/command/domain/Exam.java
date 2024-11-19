@@ -72,4 +72,8 @@ public class Exam extends AuditableEntity {
         this.questionGroup = questionGroup;
         questionGroup.updateExam(exam);
     }
+
+    public int getQuestionSize() {
+        return questionGroup.size();
+    }
 }

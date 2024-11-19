@@ -6,14 +6,6 @@ const TrueOrFalseQuestionEditor = () => {
   const { handleUpdateQuestion, currentIndex, questions } = useExamEditorStore();
   const question = questions[currentIndex] as TrueOrFalseQuestionRequest;
 
-  const handleUpdateQuestionText = (text: string) => {
-    const newQuestion: TrueOrFalseQuestionRequest = {
-      ...question,
-      text,
-    };
-    handleUpdateQuestion(currentIndex, newQuestion);
-  };
-
   const handleUpdateCorrectAnswer = (isTrue: boolean) => {
     const newQuestion: TrueOrFalseQuestionRequest = {
       ...question,
@@ -24,12 +16,6 @@ const TrueOrFalseQuestionEditor = () => {
 
   return (
     <Container>
-      <Label>질문:</Label>
-      <Input
-        type="text"
-        value={question.text}
-        onChange={(e) => handleUpdateQuestionText(e.target.value)}
-      />
       <Label>정답:</Label>
       <ButtonContainer>
         <Button
@@ -61,13 +47,6 @@ const Container = styled.div`
 
 const Label = styled.label`
   margin: 8px 0 4px;
-`;
-
-const Input = styled.input`
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-bottom: 12px;
 `;
 
 const ButtonContainer = styled.div`

@@ -9,8 +9,6 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class ExamMapper {
 
-    private final QuestionMapper questionMapper;
-
     public CreateExamResponse toResponse(Exam exam) {
         return new CreateExamResponse(exam.getId(), exam.getTitle());
     }

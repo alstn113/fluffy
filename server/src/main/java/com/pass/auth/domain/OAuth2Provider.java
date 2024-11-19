@@ -14,5 +14,4 @@ public enum OAuth2Provider {
                 .findFirst()
                 .orElseThrow(() -> new OAuth2ProviderNotFoundException(provider));
     }
-
 }

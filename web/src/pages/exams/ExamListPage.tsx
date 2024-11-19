@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import BaseLayout from '~/components/layouts/BaseLayout';
 import useGetExams from '~/hooks/api/exam/useGetExams';
@@ -5,7 +6,9 @@ import useGetExams from '~/hooks/api/exam/useGetExams';
 const ExamListPage = () => {
   return (
     <BaseLayout>
-      <ExamListPageContent />
+      <Suspense fallback={<div>Loading...</div>}>
+        <ExamListPageContent />
+      </Suspense>
     </BaseLayout>
   );
 };

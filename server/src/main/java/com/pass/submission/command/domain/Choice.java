@@ -13,4 +13,8 @@ public class Choice {
 
     @Column(nullable = false)
     private Long questionOptionId;
+
+    public Choice(Long questionOptionId) {
+        this.questionOptionId = questionOptionId;
+    }
 }

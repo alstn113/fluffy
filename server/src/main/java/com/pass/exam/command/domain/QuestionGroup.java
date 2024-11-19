@@ -50,4 +50,8 @@ public class QuestionGroup {
     public void updateExam(Exam exam) {
         questions.forEach(question -> question.updateExam(exam));
     }
+
+    public int size() {
+        return questions.size();
+    }
 }

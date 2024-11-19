@@ -36,6 +36,14 @@ public class Answer {
     @CollectionTable(name = "answer_choice", joinColumns = @JoinColumn(name = "answer_id"))
     private final List<Choice> choices = new ArrayList<>();
 
+    public static Answer textAnswer(Long questionId, String text) {
+        return new Answer(questionId, text, new ArrayList<>());
+    }
+
+    public static Answer choiceAnswer(Long questionId, List<Choice> choices) {
+        return new Answer(questionId, "", choices);
+    }
+
     public Answer(Long questionId, String text, List<Choice> choices) {
         this(null, questionId, text, new ArrayList<>(choices));
     }

@@ -55,12 +55,12 @@ const MultipleChoiceQuestionEditor = () => {
   };
 
   return (
-    <div className="flex flex-col p-4 bg-gray-100 rounded-lg shadow-md">
+    <div className="flex flex-col p-4 bg-gray-100 rounded-md shadow-md">
       <label className="mb-2 text-lg font-semibold">선택지:</label>
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="droppable">
           {(provided) => (
-            <div ref={provided.innerRef} {...provided.droppableProps} className="space-y-2">
+            <div ref={provided.innerRef} {...provided.droppableProps}>
               {question.options.map((option, index) => (
                 <Draggable key={index} draggableId={index.toString()} index={index}>
                   {(provided) => (
@@ -68,7 +68,7 @@ const MultipleChoiceQuestionEditor = () => {
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
-                      className="flex items-center p-3 bg-white border rounded-md shadow-sm hover:bg-gray-50"
+                      className="flex items-center p-2 bg-white border rounded-md mb-2 hover:bg-gray-50"
                     >
                       <Checkbox
                         color="secondary"

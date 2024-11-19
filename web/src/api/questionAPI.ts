@@ -9,7 +9,7 @@ export type QuestionType = (typeof QUESTION_TYPE)[keyof typeof QUESTION_TYPE];
 
 export type QuestionResponse = AnswerQuestionResponse | ChoiceQuestionResponse;
 
-interface QuestionBaseResponse {
+export interface QuestionBaseResponse {
   id: number;
   text: string;
   type: QuestionType;

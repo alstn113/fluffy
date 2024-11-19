@@ -1,6 +1,4 @@
-import styled from '@emotion/styled';
-import FullHeightPage from './FullHeightPage';
-import Header from './Header';
+import Header from '@/components/layouts/Header.tsx';
 
 interface BaseLayoutProps {
   children: React.ReactNode;
@@ -8,21 +6,11 @@ interface BaseLayoutProps {
 
 const BaseLayout = ({ children }: BaseLayoutProps) => {
   return (
-    <FullHeightPage>
+    <div className="relative flex flex-col h-screen">
       <Header />
-      <Content>{children}</Content>
-    </FullHeightPage>
+      <main className="flex flex-col flex-1 w-full">{children}</main>
+    </div>
   );
 };
-
-const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  overflow: scroll;
-  overflow-x: hidden;
-  background: #fff;
-  padding-top: 4rem;
-`;
 
 export default BaseLayout;

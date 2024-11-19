@@ -6,7 +6,6 @@ import MultipleChoiceQuestionEditor from './MultipleChoiceQuestionEditor';
 import TrueOrFalseQuestionEditor from './TrueOrFalseQuestionEditor';
 import React from 'react';
 import useExamEditorStore from '@/stores/useExamEditorStore';
-import styled from '@emotion/styled';
 
 const QuestionEditorTemplate = () => {
   const {
@@ -39,30 +38,23 @@ const QuestionEditorTemplate = () => {
   };
 
   return (
-    <div>
-      <div>Text</div>
-      <Input type="text" value={question.text} onChange={(e) => handleUpdateText(e.target.value)} />
-      <DeleteButton onClick={handleDeleteQuestionClick}>Delete</DeleteButton>
+    <div className="p-4">
+      <div className="mb-2 font-semibold">Text</div>
+      <input
+        type="text"
+        value={question.text}
+        onChange={(e) => handleUpdateText(e.target.value)}
+        className="w-full p-2 border border-gray-300 rounded-md mb-3"
+      />
+      <button
+        onClick={handleDeleteQuestionClick}
+        className="px-4 py-2 border border-gray-300 rounded-md bg-red-600 text-white hover:bg-red-700 transition duration-200"
+      >
+        Delete
+      </button>
       {editorMap[question.type]}
     </div>
   );
 };
-
-const Input = styled.input`
-  padding: 8px;
-  margin-bottom: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-`;
-
-const DeleteButton = styled.button`
-  padding: 8px;
-  margin-left: 8px;
-  margin-bottom: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background: #e54545;
-  color: white;
-`;
 
 export default QuestionEditorTemplate;

@@ -4,7 +4,6 @@ const useLogout = () => {
   const logout = async () => {
     try {
       await AuthAPI.logout();
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       /* empty */
     }

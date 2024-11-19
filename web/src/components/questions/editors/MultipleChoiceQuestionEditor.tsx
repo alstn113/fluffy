@@ -1,7 +1,6 @@
 import useExamEditorStore from '@/stores/useExamEditorStore';
 import { MultipleChoiceQuestionRequest } from '@/api/questionAPI';
-import styled from '@emotion/styled';
-import { Checkbox, CheckboxGroup } from '@nextui-org/checkbox';
+import { Checkbox } from '@nextui-org/checkbox';
 import { DragDropContext, Draggable, Droppable, DropResult } from '@hello-pangea/dnd';
 
 const MultipleChoiceQuestionEditor = () => {
@@ -19,7 +18,6 @@ const MultipleChoiceQuestionEditor = () => {
 
   const handleRemoveOption = (index: number) => {
     const newOptions = question.options.filter((_, i) => i !== index);
-
     const newQuestion: MultipleChoiceQuestionRequest = { ...question, options: newOptions };
     handleUpdateQuestion(currentIndex, newQuestion);
   };
@@ -57,19 +55,20 @@ const MultipleChoiceQuestionEditor = () => {
   };
 
   return (
-    <Container>
-      <Label>선택지:</Label>
+    <div className="flex flex-col p-4 bg-gray-100 rounded-lg shadow-md">
+      <label className="mb-2 text-lg font-semibold">선택지:</label>
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="droppable">
           {(provided) => (
-            <div ref={provided.innerRef} {...provided.droppableProps}>
+            <div ref={provided.innerRef} {...provided.droppableProps} className="space-y-2">
               {question.options.map((option, index) => (
                 <Draggable key={index} draggableId={index.toString()} index={index}>
                   {(provided) => (
-                    <Option
+                    <div
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
+                      className="flex items-center p-3 bg-white border rounded-md shadow-sm hover:bg-gray-50"
                     >
                       <Checkbox
                         color="secondary"
@@ -77,15 +76,23 @@ const MultipleChoiceQuestionEditor = () => {
                         onValueChange={() => handleUpdateOptionCorrect(index, !option.isCorrect)}
                         disableAnimation
                       />
-                      <Input
+                      <input
                         type="text"
                         value={option.text}
                         onChange={(e) => handleUpdateOptionText(index, e.target.value)}
+                        className="w-80 p-2 border border-gray-300 rounded-md ml-2"
+                        style={{ minWidth: '150px' }}
                       />
                       {question.options.length > 2 && (
-                        <RemoveButton onClick={() => handleRemoveOption(index)}>삭제</RemoveButton>
+                        <button
+                          onClick={() => handleRemoveOption(index)}
+                          className="ml-2 px-3 py-1 text-white bg-red-500 rounded-md hover:bg-red-600"
+                          style={{ marginLeft: 'auto' }}
+                        >
+                          삭제
+                        </button>
                       )}
-                    </Option>
+                    </div>
                   )}
                 </Draggable>
               ))}
@@ -94,71 +101,14 @@ const MultipleChoiceQuestionEditor = () => {
           )}
         </Droppable>
       </DragDropContext>
-      <AddButton onClick={handleAddOption}>+ Add Option</AddButton>
-    </Container>
+      <button
+        onClick={handleAddOption}
+        className="mt-4 px-4 py-2 text-black bg-gray-300 rounded-md hover:bg-gray-400 transition duration-200"
+      >
+        + Add Option
+      </button>
+    </div>
   );
 };
-
-// 스타일 컴포넌트
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 16px;
-  background: #f9f9f9;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-`;
-
-const Label = styled.label`
-  margin: 8px 0 4px;
-`;
-
-const Input = styled.input`
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-`;
-
-const Option = styled.div`
-  display: flex;
-  align-items: center;
-
-  padding: 0.8rem; /* 패딩 조정 */
-  background-color: #f7f7f7; /* 연한 배경색 */
-  transition: background-color 0.2s, border-color 0.2s;
-
-  &:hover {
-    background-color: #e9ecef; /* 호버 시 배경색 변경 */
-    border-color: #a0a0a0; /* 테두리 색상 변경 */
-  }
-`;
-
-const RemoveButton = styled.button`
-  margin-left: 8px;
-  padding: 6px 12px;
-  background: #ff4d4d;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-
-  &:hover {
-    background: #ff1a1a;
-  }
-`;
-
-const AddButton = styled.button`
-  margin-top: 12px;
-  padding: 8px 12px;
-  color: #000000;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background 0.2s;
-
-  &:hover {
-    background: #ececec;
-  }
-`;
 
 export default MultipleChoiceQuestionEditor;

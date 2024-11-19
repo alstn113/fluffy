@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import { DragDropContext, Draggable, Droppable, DropResult } from '@hello-pangea/dnd';
 import useExamEditorStore from '@/stores/useExamEditorStore';
 
@@ -20,80 +19,48 @@ const ExamEditorSidebar = () => {
   };
 
   return (
-    <Sidebar>
-      <h3>문제 목록</h3>
+    <div className="w-64 h-full p-4 bg-gray-100 border-r border-gray-300 flex flex-col shadow-lg">
+      <h3 className="text-lg font-semibold mb-4">문제 목록</h3>
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="droppable">
           {(provided) => (
-            <FormListContainer {...provided.droppableProps} ref={provided.innerRef}>
+            <div
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+              className="flex-grow bg-gray-100 rounded-lg p-2 overflow-y-auto" // 스크롤 가능하게 추가
+            >
               {questions.map((item, index) => (
                 <Draggable key={index} draggableId={index.toString()} index={index}>
                   {(provided) => (
-                    <Container
+                    <div
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
-                      isActive={currentIndex === index && !questionTypeSelectorActive}
+                      className={`flex items-center p-3 mb-2 rounded-md cursor-pointer ${
+                        currentIndex === index && !questionTypeSelectorActive
+                          ? 'bg-blue-100'
+                          : 'bg-white'
+                      }`}
                       onClick={() => handleSelectQuestion(index)}
                     >
                       {index + 1}. {item.text}
-                    </Container>
+                    </div>
                   )}
                 </Draggable>
               ))}
               {provided.placeholder}
-            </FormListContainer>
+            </div>
           )}
         </Droppable>
       </DragDropContext>
-      <AddButton onClick={() => setQuestionTypeSelectorActive(true)}>문제 추가</AddButton>
-    </Sidebar>
+      <button
+        onClick={() => setQuestionTypeSelectorActive(true)}
+        className="mt-auto py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+      >
+        문제 추가
+      </button>
+    </div>
   );
 };
-
-const Sidebar = styled.div`
-  width: 250px;
-  padding: 16px;
-  background: #f9f9f9;
-  border-right: 1px solid #ddd;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-`;
-
-const AddButton = styled.button`
-  margin-top: auto;
-  padding: 10px 16px;
-  background: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background 0.2s;
-
-  &:hover {
-    background: #0056b3;
-  }
-`;
-
-const FormListContainer = styled.div`
-  padding: 8px;
-  background-color: #f9f9f9;
-  flex-grow: 1;
-  min-height: 30px;
-  border-radius: 4px;
-`;
-
-const Container = styled.div<{ isActive: boolean }>`
-  border-radius: 4px;
-  padding: 12px;
-  min-height: 50px;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  justify-content: flex-start;
-  margin-bottom: 8px;
-  background-color: ${(props) => (props.isActive ? '#d1ecf1' : 'white')};
-`;
 
 export default ExamEditorSidebar;

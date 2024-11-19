@@ -1,15 +1,23 @@
-import styled from '@emotion/styled';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Button } from '@nextui-org/button';
+import {
+  Avatar,
+  Button,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+  Link,
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+} from '@nextui-org/react';
 import { GITHUB_OAUTH_LOGIN_URL, PAGE_LIST } from '@/constants';
-import HeaderDropdown from './HeaderMenu/HeaderMenu';
-import useLogout from '@/hooks/useLogout';
-import useGetMe from '@/hooks/useGetMe';
+import useGetMe from '@/hooks/useGetMe.ts';
+import useLogout from '@/hooks/useLogout.ts';
+import { useLocation } from 'react-router-dom';
 
 const Header = () => {
   const { data: user } = useGetMe();
-
-  const navigate = useNavigate();
   const logout = useLogout();
   const location = useLocation();
 
@@ -17,86 +25,66 @@ const Header = () => {
     window.location.href = `${GITHUB_OAUTH_LOGIN_URL}?next=${location.pathname}`;
   };
 
-  const menuItemList = [
-    {
-      text: 'Home',
-      onClick: () => navigate(`${PAGE_LIST.home}`),
-      red: false,
-    },
-    {
-      text: 'About',
-      onClick: () => navigate(`${PAGE_LIST.about}`),
-      red: false,
-    },
-    {
-      text: 'Exams',
-      onClick: () => navigate(`${PAGE_LIST.exam.list}`),
-      red: false,
-    },
-    {
-      text: 'Logout',
-      onClick: logout,
-      red: true,
-    },
-  ];
-
   return (
-    <Container>
-      <LogoLink to="/">Pass</LogoLink>
-      <HeaderItems>
+    <Navbar shouldHideOnScroll>
+      <NavbarBrand>
+        <Link href={PAGE_LIST.home} color={'foreground'}>
+          <p className="font-bold text-inherit">Pass</p>
+        </Link>
+      </NavbarBrand>
+
+      <NavbarContent className="hidden sm:flex gap-4" justify="center">
+        <NavbarItem>
+          <Link color="foreground" href={PAGE_LIST.about}>
+            About
+          </Link>
+        </NavbarItem>
+        <NavbarItem isActive>
+          <Link color="secondary" href={PAGE_LIST.exam.list}>
+            Exam List
+          </Link>
+        </NavbarItem>
+        <NavbarItem>
+          <Link color="foreground" href={PAGE_LIST.exam.edit}>
+            Exam Edit
+          </Link>
+        </NavbarItem>
+      </NavbarContent>
+
+      <NavbarContent as="div" justify="end">
         {user ? (
-          <HeaderDropdown menuItemList={menuItemList} />
+          <Dropdown placement="bottom-end">
+            <DropdownTrigger>
+              <Avatar isBordered as="button" color="primary" size="sm" src={user.avatarUrl} />
+            </DropdownTrigger>
+            <DropdownMenu aria-label="Profile Actions" variant="flat">
+              <DropdownItem key="home" href={PAGE_LIST.home}>
+                Home
+              </DropdownItem>
+              <DropdownItem key="exam list" href={PAGE_LIST.exam.list}>
+                Exam List
+              </DropdownItem>
+              <DropdownItem key="exam edit" href={PAGE_LIST.exam.edit}>
+                Exam Edit
+              </DropdownItem>
+              <DropdownItem
+                key="logout"
+                className="text-danger"
+                color="danger"
+                onClick={() => logout()}
+              >
+                Log Out
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
         ) : (
-          <Button onClick={handleGithubLogin}>Login</Button>
+          <NavbarItem>
+            <Button onClick={handleGithubLogin}>Login</Button>
+          </NavbarItem>
         )}
-      </HeaderItems>
-    </Container>
+      </NavbarContent>
+    </Navbar>
   );
 };
-
-const Container = styled.header`
-  position: fixed;
-  top: 0;
-  z-index: 10;
-  width: 100%;
-  height: 4rem;
-  padding: 0px 16px;
-
-  display: flex;
-  align-items: center;
-  padding: 0px 16px;
-  margin-bottom: 90px;
-
-  background-color: rgba(255, 255, 255, 0.6);
-  backdrop-filter: saturate(180%) blur(10px);
-  box-shadow: 0px 5px 20px -5px rgba(2, 1, 1, 0.1);
-`;
-
-const LogoLink = styled(Link)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-family: 'PyeongChangPeace-Bold', sans-serif;
-  font-size: 1.5rem;
-  font-weight: 900;
-  border-radius: 10px;
-  color: #000000;
-  padding: 0 16px;
-
-  img {
-    margin-right: 8px;
-    width: 24px;
-    height: 24px;
-  }
-`;
-
-const HeaderItems = styled.div`
-  flex: 1;
-  display: flex;
-  gap: 1rem;
-  justify-content: flex-end;
-  align-items: center;
-`;
 
 export default Header;

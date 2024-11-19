@@ -1,13 +1,8 @@
-import styled from '@emotion/styled';
 import { Suspense } from 'react';
 import { useParams } from 'react-router-dom';
 import BaseLayout from '@/components/layouts/BaseLayout';
-import LongAnswerQuestion from '@/components/questions/details/LongAnswerQuestion';
-import MultipleChoiceQuestion from '@/components/questions/details/MultipleChoiceQuestion';
-import ShortAnswerQuestion from '@/components/questions/details/ShortAnswerQuestion';
-import SingleChoiceQuestion from '@/components/questions/details/SingleChoiceQuestion';
-import TrueOrFalseQuestion from '@/components/questions/details/TrueOrFalseQuestion';
 import useGetExam from '@/hooks/api/exam/useGetExam';
+import QuestionDetailTemplate from '@/components/questions/details/QuestionDetailTemplate';
 
 const ExamDetailPage = () => {
   const { id } = useParams() as { id: string };
@@ -25,34 +20,18 @@ const ExamDetailPageContent = ({ examId }: { examId: string }) => {
   const { data } = useGetExam(examId);
   const { title, description, questions } = data;
   return (
-    <div>
+    <>
       <h1>{title}</h1>
       <p>{description}</p>
-      <Container>
-        {questions.map((question) => {
-          switch (question.type) {
-            case 'SINGLE_CHOICE':
-              return <SingleChoiceQuestion key={question.id} question={question} />;
-            case 'MULTIPLE_CHOICE':
-              return <MultipleChoiceQuestion key={question.id} question={question} />;
-            case 'TRUE_OR_FALSE':
-              return <TrueOrFalseQuestion key={question.id} question={question} />;
-            case 'SHORT_ANSWER':
-              return <ShortAnswerQuestion key={question.id} question={question} />;
-            case 'LONG_ANSWER':
-              return <LongAnswerQuestion key={question.id} question={question} />;
-          }
-        })}
-      </Container>
-    </div>
+      <div className="flex flex-col justify-center items-start gap-4 mx-auto my-8">
+        <div className="flex flex-col gap-4">
+          {questions.map((question, index) => {
+            return <QuestionDetailTemplate key={question.id} question={question} index={index} />;
+          })}
+        </div>
+      </div>
+    </>
   );
 };
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin: 0 300px;
-`;
 
 export default ExamDetailPage;

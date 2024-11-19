@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import { useState } from 'react';
 import { ChoiceQuestionResponse } from '@/api/questionAPI.ts';
 import { Checkbox, CheckboxGroup } from '@nextui-org/checkbox';
@@ -8,39 +7,22 @@ interface MultipleChoiceQuestionProps {
 }
 
 const MultipleChoiceQuestion = ({ question }: MultipleChoiceQuestionProps) => {
-  const { options, text } = question;
-
+  const { options } = question;
   const [selected, setSelected] = useState<string[]>([]);
 
   return (
-    <Container>
-      <Text>{text}</Text>
+    <div className="flex flex-col gap-4 p-6 rounded-2xl bg-white border border-gray-200 shadow-md duration-200 hover:shadow-lg">
       <CheckboxGroup color="secondary" value={selected} onValueChange={setSelected}>
         {options.map((option, index) => (
-          <Checkbox key={option.id} value={option.id}>
-            {index + 1}. {option.text}
+          <Checkbox key={option.id} value={option.id} className="text-gray-800">
+            <span className="text-base">
+              {index + 1}. {option.text}
+            </span>
           </Checkbox>
         ))}
       </CheckboxGroup>
-    </Container>
+    </div>
   );
 };
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 1.5rem;
-  border-radius: 12px; /* 더 둥글게 */
-  background-color: #ffffff; /* 배경색을 흰색으로 */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s, transform 0.2s;
-`;
-const Text = styled.div`
-  font-size: 1.2rem; /* 폰트 크기 조정 */
-  font-weight: 500; /* 두께 조정 */
-  color: #333;
-  text-align: left; /* 정렬 */
-`;
 
 export default MultipleChoiceQuestion;

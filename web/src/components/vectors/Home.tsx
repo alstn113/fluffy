@@ -1,11 +1,6 @@
 import { SVGProps } from 'react';
 const SvgHome = (props: SVGProps<SVGSVGElement>) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 512 512"
-    xmlSpace="preserve"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" xmlSpace="preserve" {...props}>
     <path
       d="M256 319.841c-35.346 0-64 28.654-64 64v128h128v-128c0-35.346-28.654-64-64-64z"
       fill="currentColor"

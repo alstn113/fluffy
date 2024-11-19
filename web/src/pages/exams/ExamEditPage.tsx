@@ -1,6 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import BaseLayout from '@/components/layouts/BaseLayout';
-import styled from '@emotion/styled';
 import ExamEditorSidebar from '@/components/questions/editors/ExamEditorSidebar.tsx';
 import QuestionEditorTemplate from '@/components/questions/editors/QuestionEditorTemplate';
 import QuestionTypeSelector from '@/components/questions/editors/QuestionTypeSelector';
@@ -31,53 +30,24 @@ const ExamEditPage = () => {
 
   return (
     <BaseLayout>
-      <Container>
+      <div className="flex h-full">
         <ExamEditorSidebar />
-        <MainContent>
-          <Title>
-            ExamEditPage {id} <SubmitButton onClick={handlePublish}>제출</SubmitButton>
-          </Title>
+        <main className="flex-1 p-4 bg-white overflow-y-auto">
+          <h1 className="text-2xl mb-2">
+            ExamEditPage {id}
+            <button
+              onClick={handlePublish}
+              className="ml-4 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition duration-200"
+            >
+              제출
+            </button>
+          </h1>
 
           {questionTypeSelectorActive ? <QuestionTypeSelector /> : <QuestionEditorTemplate />}
-        </MainContent>
-      </Container>
+        </main>
+      </div>
     </BaseLayout>
   );
 };
-
-const Container = styled.div`
-  display: flex;
-  height: 100vh;
-`;
-
-const MainContent = styled.div`
-  flex: 1;
-  padding: 10px;
-  background: #ffffff;
-`;
-
-const Title = styled.div`
-  font-size: 24px;
-  margin-bottom: 10px;
-`;
-
-const SubmitButton = styled.button`
-  padding: 10px 20px;
-  background-color: #4caf50; /* Green background */
-  color: white; /* White text */
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-
-  &:hover {
-    background-color: #45a049; /* Darker green on hover */
-  }
-
-  &:disabled {
-    background-color: #ccc; /* Gray background when disabled */
-    cursor: not-allowed;
-  }
-`;
 
 export default ExamEditPage;

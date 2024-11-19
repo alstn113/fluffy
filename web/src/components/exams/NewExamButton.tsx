@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import useCreateExam from '@/hooks/api/exam/useCreateExam';
+import { Button } from '@nextui-org/react';
 
 const NewExamButton = () => {
   const { mutate } = useCreateExam();
@@ -21,7 +22,7 @@ const NewExamButton = () => {
 
   return (
     <div>
-      <button onClick={handleCreateNewExam}>Create New Exam</button>
+      <Button onClick={handleCreateNewExam}>Create New Exam</Button>
     </div>
   );
 };

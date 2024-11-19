@@ -1,4 +1,4 @@
-package com.pass.submission.command.application.exception;
+package com.pass.submission.command.domain.exception;
 
 import com.pass.global.exception.BadRequestException;
 

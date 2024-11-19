@@ -3,7 +3,7 @@ package com.pass.submission.command.application;
 import com.pass.submission.command.application.dto.AnswerAppRequest;
 import com.pass.submission.command.application.dto.ChoiceAppRequest;
 import com.pass.submission.command.application.dto.SubmitAppRequest;
-import com.pass.submission.command.application.exception.InvalidAnswerException;
+import com.pass.submission.command.domain.exception.InvalidAnswerException;
 import com.pass.submission.command.domain.Answer;
 import com.pass.submission.command.domain.Choice;
 import com.pass.submission.command.domain.Submission;

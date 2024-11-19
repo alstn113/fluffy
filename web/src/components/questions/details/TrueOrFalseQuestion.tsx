@@ -6,6 +6,8 @@ interface TrueOrFalseQuestionProps {
 }
 
 const TrueOrFalseQuestion = ({ question }: TrueOrFalseQuestionProps) => {
+  console.log(question);
+
   const [selected, setSelected] = useState<string | null>(null);
 
   const handleSelect = (value: string) => {

@@ -79,12 +79,12 @@ const useExamEditorStore = create<States & Actions>()(
 const createQuestion = (type: QuestionType): QuestionBaseRequest => {
   switch (type) {
     case 'SHORT_ANSWER':
-      return { text: type, correctAnswer: '', type } as ShortAnswerQuestionRequest;
+      return { text: '단답형 질문', correctAnswer: '', type } as ShortAnswerQuestionRequest;
     case 'LONG_ANSWER':
-      return { text: type, type } as LongAnswerQuestionRequest;
+      return { text: '서술형 질문', type } as LongAnswerQuestionRequest;
     case 'SINGLE_CHOICE':
       return {
-        text: type,
+        text: '객관식 단일 선택 질문',
         type,
         options: [
           {
@@ -99,7 +99,7 @@ const createQuestion = (type: QuestionType): QuestionBaseRequest => {
       } as SingleChoiceQuestionRequest;
     case 'MULTIPLE_CHOICE':
       return {
-        text: type,
+        text: '객관식 복수 선택 질문',
         type,
         options: [
           {
@@ -114,7 +114,7 @@ const createQuestion = (type: QuestionType): QuestionBaseRequest => {
       } as MultipleChoiceQuestionRequest;
     case 'TRUE_OR_FALSE':
       return {
-        text: type,
+        text: 'True / False 질문',
         type,
         trueOrFalse: true,
       } as TrueOrFalseQuestionRequest;

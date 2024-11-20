@@ -6,6 +6,7 @@ import MultipleChoiceQuestionEditor from './MultipleChoiceQuestionEditor';
 import TrueOrFalseQuestionEditor from './TrueOrFalseQuestionEditor';
 import React from 'react';
 import useExamEditorStore from '@/stores/useExamEditorStore';
+import { Input } from '@nextui-org/react';
 
 const QuestionEditorTemplate = () => {
   const {
@@ -38,20 +39,28 @@ const QuestionEditorTemplate = () => {
   };
 
   return (
-    <div className="p-4">
-      <div className="mb-2 font-semibold">질문</div>
-      <input
-        type="text"
+    <div>
+      <div className="flex gap-2 justify-between items-center mb-4">
+        <div className=" text-2xl font-bold mb-2">{currentIndex + 1}번째 질문</div>
+        <button
+          onClick={handleDeleteQuestionClick}
+          className="text-small px-3 py-1 border border-gray-300 rounded-md bg-red-600 text-white hover:bg-red-700 transition duration-200"
+        >
+          삭제
+        </button>
+      </div>
+      <Input
         value={question.text}
-        onChange={(e) => handleUpdateText(e.target.value)}
-        className="w-full p-2 border border-gray-300 rounded-md mb-3"
+        label="질문"
+        variant="underlined"
+        placeholder="질문을 입력하세요..."
+        onValueChange={handleUpdateText}
+        className="w-full mb-2"
+        classNames={{
+          label: 'text-xl font-semibold text-gray-800',
+        }}
       />
-      <button
-        onClick={handleDeleteQuestionClick}
-        className="px-4 py-2 border border-gray-300 rounded-md bg-red-600 text-white hover:bg-red-700 transition duration-200"
-      >
-        Delete
-      </button>
+
       {editorMap[question.type]}
     </div>
   );

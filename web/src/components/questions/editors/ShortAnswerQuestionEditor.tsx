@@ -1,5 +1,6 @@
 import { ShortAnswerQuestionRequest } from '@/api/questionAPI';
 import useExamEditorStore from '@/stores/useExamEditorStore';
+import { Input } from '@nextui-org/react';
 
 const ShortAnswerQuestionEditor = () => {
   const { handleUpdateQuestion, currentIndex, questions } = useExamEditorStore();
@@ -11,16 +12,16 @@ const ShortAnswerQuestionEditor = () => {
   };
 
   return (
-    <div className="p-4">
-      <div className="mb-4">
-        <label className="block text-lg font-semibold">Correct Answer</label>
-        <input
-          type="text"
-          value={question.correctAnswer}
-          onChange={(e) => handleUpdateCorrectAnswer(e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded-md"
-        />
-      </div>
+    <div className="mt-8">
+      <Input
+        value={question.correctAnswer}
+        label="정답"
+        variant="bordered"
+        color="success"
+        placeholder="정답을 입력하세요..."
+        onValueChange={handleUpdateCorrectAnswer}
+        className="w-full mb-2"
+      />
     </div>
   );
 };

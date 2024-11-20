@@ -55,8 +55,8 @@ const MultipleChoiceQuestionEditor = () => {
   };
 
   return (
-    <div className="flex flex-col p-4 bg-gray-100 rounded-md shadow-md">
-      <label className="mb-2 text-lg font-semibold">선택지:</label>
+    <div className="flex flex-col mt-8">
+      <label className="mb-2 font-semibold">선택지와 정답</label>
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="droppable">
           {(provided) => (
@@ -68,7 +68,7 @@ const MultipleChoiceQuestionEditor = () => {
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
-                      className="flex items-center p-2 bg-white border rounded-md mb-2 hover:bg-gray-50"
+                      className="flex items-center p-2 rounded-md mb-2 hover:bg-gray-100"
                     >
                       <Checkbox
                         color="secondary"
@@ -80,14 +80,13 @@ const MultipleChoiceQuestionEditor = () => {
                         type="text"
                         value={option.text}
                         onChange={(e) => handleUpdateOptionText(index, e.target.value)}
-                        className="w-80 p-2 border border-gray-300 rounded-md ml-2"
-                        style={{ minWidth: '150px' }}
+                        className="p-2 border-b border-gray-300 rounded-none ml-2 bg-transparent focus:outline-none min-w-[300px]"
+                        placeholder={`${index + 1}번 옵션을 입력하세요...`}
                       />
                       {question.options.length > 2 && (
                         <button
                           onClick={() => handleRemoveOption(index)}
-                          className="ml-2 px-3 py-1 text-white bg-red-500 rounded-md hover:bg-red-600"
-                          style={{ marginLeft: 'auto' }}
+                          className="text-small px-3 py-2 border text-white bg-red-500 rounded-md hover:bg-red-600 ml-auto"
                         >
                           삭제
                         </button>
@@ -103,9 +102,9 @@ const MultipleChoiceQuestionEditor = () => {
       </DragDropContext>
       <button
         onClick={handleAddOption}
-        className="mt-4 px-4 py-2 text-black bg-gray-300 rounded-md hover:bg-gray-400 transition duration-200"
+        className="mt-4 px-4 py-2 text-black bg-gray-200 rounded-md hover:bg-gray-300 transition duration-200"
       >
-        + Add Option
+        + 옵션 추가
       </button>
     </div>
   );

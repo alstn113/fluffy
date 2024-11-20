@@ -1,5 +1,5 @@
 const LongAnswerQuestionEditor = () => {
-  return <div>LongAnswerQuestionForm</div>;
+  return <div></div>;
 };
 
 export default LongAnswerQuestionEditor;

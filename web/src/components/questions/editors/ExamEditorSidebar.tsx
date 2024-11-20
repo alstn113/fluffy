@@ -20,7 +20,7 @@ const ExamEditorSidebar = () => {
 
   return (
     <div className="flex flex-col h-full md:w-[300px] p-6 border-border-divider border-r overflow-y-scroll">
-      <div className="text-lg font-semibold mb-4">문제 목록</div>
+      <div className="text-lg font-semibold mb-4">질문 목록</div>
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="droppable">
           {(provided) => (
@@ -62,7 +62,7 @@ const ExamEditorSidebar = () => {
         onClick={() => setQuestionTypeSelectorActive(true)}
         className="py-2 px-4 bg-gray-400 text-white rounded-md hover:bg-gray-500 transition"
       >
-        문제 추가
+        + 질문 추가
       </button>
     </div>
   );

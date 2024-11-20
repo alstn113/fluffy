@@ -12,14 +12,13 @@ const QuestionTypeSelector = () => {
   const choiceQuestionType: Record<string, QuestionType> = {
     '객관식(단일 선택)': QUESTION_TYPE.singleChoice,
     '객관식(다중 선택)': QUESTION_TYPE.multipleChoice,
-    'True/False': QUESTION_TYPE.trueOrFalse,
+    'True / False': QUESTION_TYPE.trueOrFalse,
   };
 
   return (
-    <div className="flex flex-col gap-4 p-4 bg-white rounded-lg shadow-lg">
+    <div className="flex flex-col gap-4">
       <h2 className="text-lg font-semibold text-gray-800 mb-4">문제 유형 선택</h2>
 
-      {/* Text Question Types */}
       <div>
         <h3 className="text-md font-semibold text-gray-500 mb-2">텍스트 질문 유형</h3>
         <div className="flex flex-wrap gap-2 mb-4">
@@ -35,7 +34,6 @@ const QuestionTypeSelector = () => {
         </div>
       </div>
 
-      {/* Choice Question Types */}
       <div>
         <h3 className="text-md font-semibold text-gray-500 mb-2">객관식 질문 유형</h3>
         <div className="flex flex-wrap gap-2">

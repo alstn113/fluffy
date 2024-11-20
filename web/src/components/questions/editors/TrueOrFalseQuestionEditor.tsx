@@ -14,8 +14,8 @@ const TrueOrFalseQuestionEditor = () => {
   };
 
   return (
-    <div className="flex flex-col p-4 bg-gray-100 rounded-md shadow-md">
-      <label className="mb-2 text-lg font-semibold">정답:</label>
+    <div className="flex flex-col mt-8">
+      <label className="mb-2 font-semibold">정답</label>
       <div className="flex w-1/2">
         <button
           className={`w-32 h-32 mx-4 rounded-full text-white font-bold transition-all duration-300 ${

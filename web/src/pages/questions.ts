@@ -51,7 +51,7 @@ export const questions: QuestionResponse[] = [
       { id: '3', text: 'RIGHT JOIN' },
       { id: '4', text: 'OUTER JOIN' },
       { id: '5', text: 'CROSS JOIN' },
-      { id: '6', text: 'LINK JOIN' }, // 추가된 문제
+      { id: '6', text: 'LINK JOIN' },
     ],
   },
   {

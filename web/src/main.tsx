@@ -9,7 +9,9 @@ import { BrowserRouter } from 'react-router-dom';
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      retry: 1,
+      retry: false,
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
     },
   },
 });

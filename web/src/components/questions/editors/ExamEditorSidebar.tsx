@@ -27,7 +27,7 @@ const ExamEditorSidebar = () => {
             <div
               {...provided.droppableProps}
               ref={provided.innerRef}
-              className="flex-grow bg-gray-100 rounded-lg p-2 overflow-y-auto" // 스크롤 가능하게 추가
+              className="flex-grow bg-gray-100 rounded-lg p-2 overflow-y-auto"
             >
               {questions.map((item, index) => (
                 <Draggable key={index} draggableId={index.toString()} index={index}>

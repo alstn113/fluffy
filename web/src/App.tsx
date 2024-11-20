@@ -6,8 +6,11 @@ import ExamEditorPage from '@/pages/exams/ExamEditPage';
 import ExamListPage from '@/pages/exams/ExamListPage';
 import HomePage from '@/pages/HomePage';
 import NotFoundPage from '@/pages/NotFoundPage';
+import useGetMe from './hooks/useGetMe';
 
 const App = () => {
+  useGetMe();
+
   return (
     <Routes>
       <Route element={<HomePage />} path={PAGE_LIST.home} />

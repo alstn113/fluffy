@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Button,
   Dropdown,
   DropdownItem,
@@ -12,12 +11,13 @@ import {
   NavbarItem,
 } from '@nextui-org/react';
 import { GITHUB_OAUTH_LOGIN_URL, PAGE_LIST } from '@/constants';
-import useGetMe from '@/hooks/useGetMe.ts';
 import useLogout from '@/hooks/useLogout.ts';
 import { useLocation } from 'react-router-dom';
+import useUser from '@/hooks/useUser';
+import { Avatar } from '@daveyplate/nextui-fixed-avatar';
 
 const Header = () => {
-  const { data: user } = useGetMe();
+  const user = useUser();
   const logout = useLogout();
   const location = useLocation();
 

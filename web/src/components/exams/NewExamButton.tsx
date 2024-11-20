@@ -1,20 +1,35 @@
 import { useNavigate } from 'react-router-dom';
 import useCreateExam from '@/hooks/api/exam/useCreateExam';
-import { Button } from '@nextui-org/react';
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+  useDisclosure,
+  Input,
+} from '@nextui-org/react';
+import { useState } from 'react';
 
 const NewExamButton = () => {
+  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
+  const [title, setTitle] = useState('');
   const { mutate } = useCreateExam();
   const navigate = useNavigate();
 
   const handleCreateNewExam = async () => {
     mutate(
       {
-        title: 'New Exam',
+        title,
       },
       {
         onSuccess: (data) => {
           const examId = data.id;
           navigate(`/exams/${examId}/edit`);
+        },
+        onSettled: () => {
+          onClose();
         },
       },
     );
@@ -22,7 +37,27 @@ const NewExamButton = () => {
 
   return (
     <div>
-      <Button onClick={handleCreateNewExam}>Create New Exam</Button>
+      <Button onClick={onOpen}>새 시험 생성</Button>
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">새로운 시험 생성</ModalHeader>
+              <ModalBody>
+                <Input label="시험 제목" value={title} onValueChange={setTitle} />
+              </ModalBody>
+              <ModalFooter>
+                <Button color="danger" variant="light" onPress={onClose}>
+                  닫기
+                </Button>
+                <Button color="primary" onPress={handleCreateNewExam}>
+                  확인
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
     </div>
   );
 };

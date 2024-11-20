@@ -5,6 +5,7 @@ export const QUESTION_TYPE = {
   multipleChoice: 'MULTIPLE_CHOICE',
   trueOrFalse: 'TRUE_OR_FALSE',
 } as const;
+
 export type QuestionType = (typeof QUESTION_TYPE)[keyof typeof QUESTION_TYPE];
 
 export type QuestionResponse = AnswerQuestionResponse | ChoiceQuestionResponse;

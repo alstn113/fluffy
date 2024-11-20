@@ -19,16 +19,12 @@ const ExamEditorSidebar = () => {
   };
 
   return (
-    <div className="w-64 h-full p-4 bg-gray-100 flex flex-col shadow-lg">
-      <h3 className="text-lg font-semibold mb-4">문제 목록</h3>
+    <div className="flex flex-col h-full md:w-[300px] p-6 border-border-divider border-r overflow-y-scroll">
+      <div className="text-lg font-semibold mb-4">문제 목록</div>
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="droppable">
           {(provided) => (
-            <div
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-              className="flex-grow bg-gray-100 rounded-lg p-2 overflow-y-auto"
-            >
+            <div {...provided.droppableProps} ref={provided.innerRef}>
               {questions.map((item, index) => (
                 <Draggable key={index} draggableId={index.toString()} index={index}>
                   {(provided) => (
@@ -38,12 +34,21 @@ const ExamEditorSidebar = () => {
                       {...provided.dragHandleProps}
                       className={`flex items-center p-3 mb-2 rounded-md cursor-pointer ${
                         currentIndex === index && !questionTypeSelectorActive
-                          ? 'bg-blue-100'
+                          ? 'bg-gray-100'
                           : 'bg-white'
                       }`}
                       onClick={() => handleSelectQuestion(index)}
                     >
-                      {index + 1}. {item.text}
+                      <p
+                        className={`p-2 mr-2 text-small text-white rounded-md h-6 w-6 flex items-center justify-center ${
+                          currentIndex === index && !questionTypeSelectorActive
+                            ? 'bg-violet-600'
+                            : 'bg-gray-300'
+                        }`}
+                      >
+                        {index + 1}
+                      </p>
+                      <p className="truncate">{item.text}</p>
                     </div>
                   )}
                 </Draggable>
@@ -55,7 +60,7 @@ const ExamEditorSidebar = () => {
       </DragDropContext>
       <button
         onClick={() => setQuestionTypeSelectorActive(true)}
-        className="mt-auto py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+        className="py-2 px-4 bg-gray-400 text-white rounded-md hover:bg-gray-500 transition"
       >
         문제 추가
       </button>

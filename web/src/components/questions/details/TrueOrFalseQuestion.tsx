@@ -18,22 +18,22 @@ const TrueOrFalseQuestion = ({ question }: TrueOrFalseQuestionProps) => {
     <div className="flex flex-col gap-8 p-6 rounded-3xl bg-gray-100 border border-gray-300 shadow-lg transition-shadow duration-200 hover:shadow-xl">
       <div className="flex justify-center">
         <button
-          className={`w-36 h-36 mx-4 rounded-full text-white font-bold transition-all duration-300 ${
+          className={`w-32 h-32 mx-4 rounded-full text-white font-bold transition-all duration-300 ${
             selected === 'true'
-              ? 'bg-blue-600 transform scale-105'
-              : 'bg-blue-400 hover:bg-blue-500'
+              ? 'bg-blue-600 transform scale-110'
+              : 'bg-blue-300 hover:bg-blue-500'
           }`}
           onClick={() => handleSelect('true')}
         >
-          참
+          True
         </button>
         <button
-          className={`w-36 h-36 mx-4 rounded-full text-white font-bold transition-all duration-300 ${
-            selected === 'false' ? 'bg-red-600 transform scale-105' : 'bg-red-400 hover:bg-red-500'
+          className={`w-32 h-32 mx-4 rounded-full text-white font-bold transition-all duration-300 ${
+            selected === 'false' ? 'bg-red-600 transform scale-110' : 'bg-red-300 hover:bg-red-500'
           }`}
           onClick={() => handleSelect('false')}
         >
-          거짓
+          False
         </button>
       </div>
     </div>

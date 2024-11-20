@@ -1,4 +1,4 @@
-import BaseLayout from '@/components/layouts/BaseLayout';
+import BaseLayout from '@/components/layouts/base/BaseLayout.tsx';
 import NewExamButton from '@/components/exams/NewExamButton';
 import QuestionDetailTemplate from '@/components/questions/details/QuestionDetailTemplate';
 import { questions } from './questions';

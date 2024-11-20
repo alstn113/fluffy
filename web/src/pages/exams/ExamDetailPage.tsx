@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import { useParams } from 'react-router-dom';
-import BaseLayout from '@/components/layouts/BaseLayout';
+import BaseLayout from '@/components/layouts/base/BaseLayout.tsx';
 import useGetExam from '@/hooks/api/exam/useGetExam';
 import QuestionDetailTemplate from '@/components/questions/details/QuestionDetailTemplate';
 

@@ -19,7 +19,7 @@ const ExamEditorSidebar = () => {
   };
 
   return (
-    <div className="w-64 h-full p-4 bg-gray-100 border-r border-gray-300 flex flex-col shadow-lg">
+    <div className="w-64 h-full p-4 bg-gray-100 flex flex-col shadow-lg">
       <h3 className="text-lg font-semibold mb-4">문제 목록</h3>
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="droppable">

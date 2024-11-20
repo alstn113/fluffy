@@ -1,4 +1,4 @@
-import Header from '@/components/layouts/Header.tsx';
+import Header from '@/components/layouts/base/Header.tsx';
 
 interface BaseLayoutProps {
   children: React.ReactNode;

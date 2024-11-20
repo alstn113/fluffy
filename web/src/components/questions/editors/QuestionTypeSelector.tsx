@@ -12,7 +12,7 @@ const QuestionTypeSelector = () => {
   const choiceQuestionType: Record<string, QuestionType> = {
     '객관식(단일 선택)': QUESTION_TYPE.singleChoice,
     '객관식(다중 선택)': QUESTION_TYPE.multipleChoice,
-    '참/거짓': QUESTION_TYPE.trueOrFalse,
+    'True/False': QUESTION_TYPE.trueOrFalse,
   };
 
   return (

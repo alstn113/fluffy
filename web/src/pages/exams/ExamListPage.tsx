@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import { Link } from 'react-router-dom';
-import BaseLayout from '@/components/layouts/BaseLayout';
+import BaseLayout from '@/components/layouts/base/BaseLayout.tsx';
 import useGetExams from '@/hooks/api/exam/useGetExams';
 
 const ExamListPage = () => {

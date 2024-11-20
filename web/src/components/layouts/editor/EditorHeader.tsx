@@ -13,10 +13,10 @@ import {
 import { GITHUB_OAUTH_LOGIN_URL, PAGE_LIST } from '@/constants';
 import useLogout from '@/hooks/useLogout.ts';
 import { useLocation } from 'react-router-dom';
-import useUser from '@/hooks/useUser';
+import useUser from '@/hooks/useUser.ts';
 import { Avatar } from '@daveyplate/nextui-fixed-avatar';
 
-const Header = () => {
+const EditorHeader = () => {
   const user = useUser();
   const logout = useLogout();
   const location = useLocation();
@@ -26,30 +26,12 @@ const Header = () => {
   };
 
   return (
-    <Navbar shouldHideOnScroll>
+    <Navbar>
       <NavbarBrand>
         <Link href={PAGE_LIST.home} color={'foreground'}>
           <p className="font-bold text-inherit">Pass</p>
         </Link>
       </NavbarBrand>
-
-      <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        <NavbarItem>
-          <Link color="foreground" href={PAGE_LIST.about}>
-            About
-          </Link>
-        </NavbarItem>
-        <NavbarItem isActive>
-          <Link color="secondary" href={PAGE_LIST.exam.list}>
-            Exam List
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link color="foreground" href={PAGE_LIST.exam.edit}>
-            Exam Edit
-          </Link>
-        </NavbarItem>
-      </NavbarContent>
 
       <NavbarContent as="div" justify="end">
         {user ? (
@@ -87,4 +69,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default EditorHeader;

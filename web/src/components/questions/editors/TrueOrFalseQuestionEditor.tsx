@@ -18,20 +18,22 @@ const TrueOrFalseQuestionEditor = () => {
       <label className="mb-2 text-lg font-semibold">정답:</label>
       <div className="flex w-1/2">
         <button
-          className={`flex-1 p-4 mx-1 rounded-lg text-white transition duration-200 ${
-            question.trueOrFalse ? 'bg-green-600' : 'bg-green-300 hover:bg-green-400'
+          className={`w-32 h-32 mx-4 rounded-full text-white font-bold transition-all duration-300 ${
+            question.trueOrFalse
+              ? 'bg-blue-600 transform scale-110'
+              : 'bg-blue-300 hover:bg-blue-500'
           }`}
           onClick={() => handleUpdateCorrectAnswer(true)}
         >
-          참
+          True
         </button>
         <button
-          className={`flex-1 p-4 mx-1 rounded-lg text-white transition duration-200 ${
-            !question.trueOrFalse ? 'bg-red-600' : 'bg-red-300 hover:bg-red-400'
+          className={`w-32 h-32 mx-4 rounded-full text-white font-bold transition-all duration-300 ${
+            !question.trueOrFalse ? 'bg-red-600 transform scale-110' : 'bg-red-300 hover:bg-red-500'
           }`}
           onClick={() => handleUpdateCorrectAnswer(false)}
         >
-          거짓
+          False
         </button>
       </div>
     </div>

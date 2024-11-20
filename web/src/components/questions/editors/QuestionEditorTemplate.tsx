@@ -39,7 +39,7 @@ const QuestionEditorTemplate = () => {
 
   return (
     <div className="p-4">
-      <div className="mb-2 font-semibold">Text</div>
+      <div className="mb-2 font-semibold">질문</div>
       <input
         type="text"
         value={question.text}

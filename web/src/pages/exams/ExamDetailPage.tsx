@@ -20,17 +20,15 @@ const ExamDetailPageContent = ({ examId }: { examId: string }) => {
   const { data } = useGetExam(examId);
   const { title, description, questions } = data;
   return (
-    <>
+    <div className="flex flex-col justify-center items-start gap-4 mx-auto my-8">
       <h1>{title}</h1>
       <p>{description}</p>
-      <div className="flex flex-col justify-center items-start gap-4 mx-auto my-8">
-        <div className="flex flex-col gap-4">
-          {questions.map((question, index) => {
-            return <QuestionDetailTemplate key={question.id} question={question} index={index} />;
-          })}
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:p-0 p-4">
+        {questions.map((question, index) => {
+          return <QuestionDetailTemplate key={question.id} question={question} index={index} />;
+        })}
       </div>
-    </>
+    </div>
   );
 };
 

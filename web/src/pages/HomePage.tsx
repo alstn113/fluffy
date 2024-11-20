@@ -10,7 +10,7 @@ const HomePage = () => {
         <h1 className="text-2xl font-bold">Home Page</h1>
         <NewExamButton />
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:p-0 p-4">
           {questions.map((question, index) => {
             return <QuestionDetailTemplate key={question.id} question={question} index={index} />;
           })}

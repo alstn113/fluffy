@@ -34,7 +34,7 @@ public class ExamController {
     }
 
     @GetMapping("/api/v1/exams/{examId}")
-    public ResponseEntity<ExamDataResponse> getExam(@PathVariable String examId) {
+    public ResponseEntity<ExamDataResponse> getExam(@PathVariable Long examId) {
         ExamDataResponse examDataResponse = examQueryService.getExam(examId);
 
         return ResponseEntity.ok(examDataResponse);
@@ -53,7 +53,7 @@ public class ExamController {
 
     @PostMapping("/api/v1/exams/{examId}/publish")
     public ResponseEntity<Void> publish(
-            @PathVariable String examId,
+            @PathVariable Long examId,
             @RequestBody @Valid PublishExamWebRequest request,
             @Auth Accessor accessor
     ) {

@@ -7,7 +7,7 @@ import java.util.List;
 
 public record PublishExamWebRequest(List<QuestionAppRequest> questions) {
 
-    public PublishExamAppRequest toAppRequest(String examId, Accessor accessor) {
+    public PublishExamAppRequest toAppRequest(Long examId, Accessor accessor) {
         return new PublishExamAppRequest(examId, questions, accessor);
     }
 }

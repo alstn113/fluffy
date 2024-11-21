@@ -20,7 +20,7 @@ public class SubmissionController {
 
     @PostMapping("/api/v1/exams/{examId}/submissions")
     public ResponseEntity<Void> submit(
-            @PathVariable String examId,
+            @PathVariable Long examId,
             @RequestBody @Valid SubmitWebRequest request,
             @Auth Accessor accessor
     ) {

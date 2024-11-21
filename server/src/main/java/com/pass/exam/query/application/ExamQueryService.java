@@ -16,7 +16,7 @@ public class ExamQueryService {
     private final ExamDataMapper examDataMapper;
 
     @Transactional(readOnly = true)
-    public ExamDataResponse getExam(String examId) {
+    public ExamDataResponse getExam(Long examId) {
         ExamData examData = examDataDao.getExamById(examId);
 
         return examDataMapper.toResponse(examData);

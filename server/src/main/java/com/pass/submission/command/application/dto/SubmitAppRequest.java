@@ -4,7 +4,7 @@ import com.pass.global.web.Accessor;
 import java.util.List;
 
 public record SubmitAppRequest(
-        String examId,
+        Long examId,
         List<AnswerAppRequest> answers,
         Accessor accessor
 ) {

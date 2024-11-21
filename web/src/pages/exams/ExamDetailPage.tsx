@@ -9,19 +9,20 @@ import useSubmissionStore from '@/stores/useSubmissionStore';
 import { PAGE_LIST } from '@/constants';
 
 const ExamDetailPage = () => {
-  const { id } = useParams() as { id: string };
+  const { id } = useParams();
+  const examId = Number(id);
 
   return (
     <BaseLayout>
       <Suspense fallback={<div>Loading...</div>}>
-        <ExamDetailPageContent examId={id} />
+        <ExamDetailPageContent examId={examId} />
       </Suspense>
     </BaseLayout>
   );
 };
 
 interface ExamDetailPageContentProps {
-  examId: string;
+  examId: number;
 }
 
 const ExamDetailPageContent = ({ examId }: ExamDetailPageContentProps) => {

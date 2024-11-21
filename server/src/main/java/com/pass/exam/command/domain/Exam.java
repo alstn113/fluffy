@@ -21,8 +21,8 @@ import lombok.NoArgsConstructor;
 public class Exam extends AuditableEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(nullable = false)
     private String title;
@@ -49,7 +49,7 @@ public class Exam extends AuditableEntity {
     }
 
     public Exam(
-            String id,
+            Long id,
             String title,
             String description,
             ExamStatus status,

@@ -14,7 +14,7 @@ CREATE TABLE member
 
 CREATE TABLE exam
 (
-    id          VARCHAR(255) NOT NULL,
+    id          BIGINT AUTO_INCREMENT NOT NULL,
     title       VARCHAR(255) NOT NULL,
     description VARCHAR(255) NOT NULL,
     status      VARCHAR(20)  NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE exam
 CREATE TABLE question
 (
     id             BIGINT AUTO_INCREMENT NOT NULL,
-    exam_id        VARCHAR(255) NOT NULL,
+    exam_id        BIGINT       NOT NULL,
     text           VARCHAR(255) NOT NULL,
     type           VARCHAR(50)  NOT NULL,
     correct_answer VARCHAR(255),
@@ -52,7 +52,7 @@ CREATE TABLE question_option
 CREATE TABLE submission
 (
     id         BIGINT AUTO_INCREMENT NOT NULL,
-    exam_id    VARCHAR(255) NOT NULL,
+    exam_id    BIGINT       NOT NULL,
     member_id  BIGINT       NOT NULL,
     created_at TIMESTAMP(6) NOT NULL,
     updated_at TIMESTAMP(6) NOT NULL,

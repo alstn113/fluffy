@@ -6,13 +6,13 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.data.repository.Repository;
 
-public interface ExamDataDao extends Repository<ExamData, String>, ExamDataDaoCustom {
+public interface ExamDataDao extends Repository<ExamData, Long>, ExamDataDaoCustom {
 
     List<ExamData> findAll();
 
-    Optional<ExamData> findById(String examId);
+    Optional<ExamData> findById(Long examId);
 
-    default ExamData getExamById(String examId) {
+    default ExamData getExamById(Long examId) {
         return findById(examId)
                 .orElseThrow(() -> new ExamDataNotFoundException(examId));
     }

@@ -7,7 +7,7 @@ import java.util.List;
 
 public record SubmitWebRequest(List<AnswerAppRequest> answers) {
 
-    public SubmitAppRequest toAppRequest(String examId, Accessor accessor) {
+    public SubmitAppRequest toAppRequest(Long examId, Accessor accessor) {
         return new SubmitAppRequest(examId, answers, accessor);
     }
 }

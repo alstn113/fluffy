@@ -4,9 +4,9 @@ import com.pass.global.exception.NotFoundException;
 
 public class ExamDataNotFoundException extends NotFoundException {
 
-    private static final String MESSAGE = "존재하지 않는 시험입니다. examId: %s";
+    private static final String MESSAGE = "존재하지 않는 시험입니다. examId: %d";
 
-    public ExamDataNotFoundException(String examId) {
-        super(String.format(MESSAGE, examId));
+    public ExamDataNotFoundException(Long examId) {
+        super(MESSAGE.formatted(examId));
     }
 }

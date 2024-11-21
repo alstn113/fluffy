@@ -8,7 +8,7 @@ export const SubmissionAPI = {
 };
 
 interface SubmissionParams {
-  examId: string;
+  examId: number;
   request: SubmissionRequest;
 }
 

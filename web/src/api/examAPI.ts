@@ -12,7 +12,7 @@ export const ExamAPI = {
     return data;
   },
 
-  getById: async (id: string) => {
+  getById: async (id: number) => {
     const { data } = await apiV1Client.get<ExamResponse>(`/exams/${id}`);
     return data;
   },
@@ -28,7 +28,7 @@ interface CreateExamRequest {
 }
 
 interface CreateExamResponse {
-  id: string;
+  id: number;
   title: string;
   status: typeof EXAM_STATUS.draft;
 }
@@ -40,7 +40,7 @@ export const EXAM_STATUS = {
 export type ExamStatusType = (typeof EXAM_STATUS)[keyof typeof EXAM_STATUS];
 
 interface ExamResponse {
-  id: string;
+  id: number;
   title: string;
   description: string;
   questions: QuestionResponse[];
@@ -49,7 +49,7 @@ interface ExamResponse {
 }
 
 interface PublishExamParams {
-  examId: string;
+  examId: number;
   request: PublishExamRequest;
 }
 

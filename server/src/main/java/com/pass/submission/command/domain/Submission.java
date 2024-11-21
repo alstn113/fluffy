@@ -28,7 +28,7 @@ public class Submission extends AuditableEntity {
     private Long id;
 
     @Column(nullable = false)
-    private String examId;
+    private Long examId;
 
     @Column(nullable = false)
     private Long memberId;
@@ -37,11 +37,11 @@ public class Submission extends AuditableEntity {
     @JoinColumn(name = "submission_id", nullable = false)
     private final List<Answer> answers = new ArrayList<>();
 
-    public Submission(String examId, Long memberId, List<Answer> answers) {
+    public Submission(Long examId, Long memberId, List<Answer> answers) {
         this(null, examId, memberId, new ArrayList<>(answers));
     }
 
-    public Submission(Long id, String examId, Long memberId, List<Answer> answers) {
+    public Submission(Long id, Long examId, Long memberId, List<Answer> answers) {
         this.id = id;
         this.examId = examId;
         this.memberId = memberId;

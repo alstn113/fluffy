@@ -1,6 +1,6 @@
 package com.pass.exam.command.application;
 
-import com.pass.exam.command.application.dto.PublishExamAppRequest;
+import com.pass.exam.command.application.dto.UpdateExamQuestionsAppRequest;
 import com.pass.exam.command.application.dto.question.LongAnswerQuestionAppRequest;
 import com.pass.exam.command.application.dto.question.MultipleChoiceAppRequest;
 import com.pass.exam.command.application.dto.question.QuestionAppRequest;
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class QuestionMapper {
 
-    public QuestionGroup toQuestionGroup(PublishExamAppRequest request, Exam exam) {
+    public QuestionGroup toQuestionGroup(UpdateExamQuestionsAppRequest request, Exam exam) {
         List<Question> questions = request.questions().stream()
                 .map(it -> toQuestion(it, exam))
                 .toList();

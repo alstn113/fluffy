@@ -5,7 +5,7 @@ import com.pass.exam.command.application.dto.CreateExamResponse;
 import com.pass.exam.query.application.ExamQueryService;
 import com.pass.exam.query.dto.ExamDataResponse;
 import com.pass.exam.ui.dto.CreateExamWebRequest;
-import com.pass.exam.ui.dto.PublishExamWebRequest;
+import com.pass.exam.ui.dto.UpdateExamQuestionsWebRequest;
 import com.pass.global.web.Accessor;
 import com.pass.global.web.Auth;
 import jakarta.validation.Valid;
@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -51,13 +52,13 @@ public class ExamController {
         return ResponseEntity.created(location).body(response);
     }
 
-    @PostMapping("/api/v1/exams/{examId}/publish")
-    public ResponseEntity<Void> publish(
+    @PutMapping("/api/v1/exams/{examId}/questions")
+    public ResponseEntity<Void> updateQuestions(
             @PathVariable Long examId,
-            @RequestBody @Valid PublishExamWebRequest request,
+            @RequestBody @Valid UpdateExamQuestionsWebRequest request,
             @Auth Accessor accessor
     ) {
-        examService.publish(request.toAppRequest(examId, accessor));
+        examService.updateQuestions(request.toAppRequest(examId, accessor));
 
         return ResponseEntity.noContent().build();
     }

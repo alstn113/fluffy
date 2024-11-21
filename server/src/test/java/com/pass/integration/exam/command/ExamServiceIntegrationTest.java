@@ -9,7 +9,8 @@ import com.pass.auth.domain.MemberRepository;
 import com.pass.exam.command.application.ExamService;
 import com.pass.exam.command.application.dto.CreateExamAppRequest;
 import com.pass.exam.command.application.dto.CreateExamResponse;
-import com.pass.exam.command.application.dto.PublishExamAppRequest;
+import com.pass.exam.command.application.dto.UpdateExamQuestionsAppRequest;
+import com.pass.exam.command.application.dto.UpdateExamQuestionsRequest;
 import com.pass.exam.command.application.dto.question.LongAnswerQuestionAppRequest;
 import com.pass.exam.command.application.dto.question.MultipleChoiceAppRequest;
 import com.pass.exam.command.application.dto.question.QuestionAppRequest;
@@ -64,17 +65,18 @@ class ExamServiceIntegrationTest extends AbstractIntegrationTest {
 
     @Test
     @DisplayName("시험에 질문들을 추가할 수 있다.")
-    void addQuestions() {
+    void updateQuestionGroup() {
         // given
         Member member = memberRepository.save(MemberTestData.defaultMember().build());
         Exam existingExam = examRepository.save(Exam.initial("시험 제목", member.getId()));
 
         Accessor accessor = new Accessor(member.getId());
         List<QuestionAppRequest> questionRequests = createQuestionRequests();
-        PublishExamAppRequest request = new PublishExamAppRequest(existingExam.getId(), questionRequests, accessor);
+        UpdateExamQuestionsAppRequest request = new UpdateExamQuestionsAppRequest(
+                existingExam.getId(), questionRequests, accessor);
 
         // when
-        examService.publish(request);
+        examService.updateQuestions(request);
 
         // then
         assertAll(
@@ -84,7 +86,7 @@ class ExamServiceIntegrationTest extends AbstractIntegrationTest {
 
     @Test
     @DisplayName("내가 만든 시험이 아니면 시험에 질문을 추가할 수 없다.")
-    void addQuestionsFailWhenNotWrittenByMember() {
+    void updateQuestionGroupFailWhenNotWrittenByMember() {
         // given
         Member member = memberRepository.save(MemberTestData.defaultMember().build());
         Exam existingExam = examRepository.save(Exam.initial("시험 제목", member.getId()));
@@ -92,10 +94,10 @@ class ExamServiceIntegrationTest extends AbstractIntegrationTest {
         Member anotherMember = memberRepository.save(MemberTestData.defaultMember().build());
         Accessor accessor = new Accessor(anotherMember.getId());
         List<QuestionAppRequest> questionRequests = createQuestionRequests();
-        PublishExamAppRequest request = new PublishExamAppRequest(existingExam.getId(), questionRequests, accessor);
+        UpdateExamQuestionsRequest request = new UpdateExamQuestionsRequest(existingExam.getId(), questionRequests, accessor);
 
         // when & then
-        assertThatThrownBy(() -> examService.publish(request))
+        assertThatThrownBy(() -> examService.updateQuestions(request))
                 .isInstanceOf(ForbiddenException.class);
     }
 

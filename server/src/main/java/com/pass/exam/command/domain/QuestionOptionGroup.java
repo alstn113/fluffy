@@ -13,7 +13,7 @@ public class QuestionOptionGroup {
 
     private static final int MAX_OPTION_SIZE = 10;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "question_id", nullable = false)
     private final List<QuestionOption> options;
 

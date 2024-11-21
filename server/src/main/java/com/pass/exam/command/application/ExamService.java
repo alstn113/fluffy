@@ -4,7 +4,7 @@ import com.pass.auth.domain.Member;
 import com.pass.auth.domain.MemberRepository;
 import com.pass.exam.command.application.dto.CreateExamAppRequest;
 import com.pass.exam.command.application.dto.CreateExamResponse;
-import com.pass.exam.command.application.dto.PublishExamAppRequest;
+import com.pass.exam.command.application.dto.UpdateExamQuestionsAppRequest;
 import com.pass.exam.command.domain.Exam;
 import com.pass.exam.command.domain.ExamRepository;
 import com.pass.exam.command.domain.QuestionGroup;
@@ -35,7 +35,7 @@ public class ExamService {
     }
 
     @Transactional
-    public void publish(PublishExamAppRequest request) {
+    public void updateQuestions(UpdateExamQuestionsAppRequest request) {
         Exam exam = examRepository.getById(request.examId());
         Accessor accessor = request.accessor();
         Member member = memberRepository.getById(accessor.id());
@@ -45,7 +45,9 @@ public class ExamService {
                     "해당 사용자가 작성한 시험이 아닙니다. 사용자 식별자: %d, 시험 식별자: %d".formatted(member.getId(), exam.getId()));
         }
 
+        exam.clearQuestionGroup();
+
         QuestionGroup questionGroup = questionMapper.toQuestionGroup(request, exam);
-        exam.addQuestions(questionGroup, exam);
+        exam.updateQuestionGroup(questionGroup, exam);
     }
 }

@@ -68,12 +68,12 @@ public class Exam extends AuditableEntity {
         return !this.memberId.equals(memberId);
     }
 
-    public void addQuestions(QuestionGroup questionGroup, Exam exam) {
+    public void updateQuestionGroup(QuestionGroup questionGroup, Exam exam) {
         this.questionGroup = questionGroup;
         questionGroup.updateExam(exam);
     }
 
-    public int getQuestionSize() {
-        return questionGroup.size();
+    public void clearQuestionGroup() {
+        this.questionGroup.clear();
     }
 }

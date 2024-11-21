@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.pass.exam.command.domain.QuestionType;
-import com.pass.exam.command.domain.exception.QuestionTypeNotFoundException;
+import com.pass.global.exception.NotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -31,7 +31,7 @@ class QuestionTypeTest {
 
         // when & then
         assertThatThrownBy(() -> QuestionType.from(questionTypeName))
-                .isInstanceOf(QuestionTypeNotFoundException.class)
-                .hasMessage("존재하지 않는 질문 유형입니다.");
+                .isInstanceOf(NotFoundException.class)
+                .hasMessage("존재하지 않는 질문 유형입니다. 질문 유형: NOT_EXIST");
     }
 }

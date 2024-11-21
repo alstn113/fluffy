@@ -9,9 +9,7 @@ import com.pass.exam.command.domain.Exam;
 import com.pass.exam.command.domain.Question;
 import com.pass.exam.command.domain.QuestionOption;
 import com.pass.exam.command.domain.QuestionType;
-import com.pass.exam.command.domain.exception.InvalidCorrectAnswerLengthException;
-import com.pass.exam.command.domain.exception.InvalidQuestionLengthException;
-import com.pass.exam.command.domain.exception.InvalidSingleChoiceCorrectAnswerSizeException;
+import com.pass.global.exception.BadRequestException;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,9 +23,10 @@ class QuestionTest {
     @DisplayName("질문의 길이는 공백일 수 없습니다.")
     void failWhenTextIsBlank(String text) {
         // when & then
-        assertThatThrownBy(() -> Question.shortAnswer(text, "정답", Exam.initial("시험 제목", 1L)))
-                .isInstanceOf(InvalidQuestionLengthException.class)
-                .hasMessage("질문의 길이는 1~2000자 이어야 합니다.");
+        Exam exam = Exam.initial("시험 제목", 1L);
+        assertThatThrownBy(() -> Question.shortAnswer(text, "정답", exam))
+                .isInstanceOf(BadRequestException.class)
+                .hasMessage("질문의 길이는 1자 이상 2000자 이하여야 합니다.");
     }
 
     @Test
@@ -41,8 +40,8 @@ class QuestionTest {
 
         // then
         assertThatThrownBy(() -> Question.shortAnswer(text, "정답", Exam.initial("시험 제목", 1L)))
-                .isInstanceOf(InvalidQuestionLengthException.class)
-                .hasMessage("질문의 길이는 1~2000자 이어야 합니다.");
+                .isInstanceOf(BadRequestException.class)
+                .hasMessage("질문의 길이는 1자 이상 2000자 이하여야 합니다.");
     }
 
     @Test
@@ -56,8 +55,8 @@ class QuestionTest {
 
         // then
         assertThatThrownBy(() -> Question.shortAnswer("질문", correctAnswer, Exam.initial("시험 제목", 1L)))
-                .isInstanceOf(InvalidCorrectAnswerLengthException.class)
-                .hasMessage("정답의 길이는 1~2000자 이어야 합니다.");
+                .isInstanceOf(BadRequestException.class)
+                .hasMessage("정답의 길이는 1자 이상 2000자 이하여야 합니다.");
     }
 
     @Test
@@ -69,8 +68,9 @@ class QuestionTest {
         List<QuestionOption> options = List.of(correctOption, incorrectOption);
 
         // when & then
-        assertThatThrownBy(() -> Question.singleChoice("질문", Exam.initial("시험 제목", 1L), options))
-                .isInstanceOf(InvalidSingleChoiceCorrectAnswerSizeException.class)
+        Exam exam = Exam.initial("시험 제목", 1L);
+        assertThatThrownBy(() -> Question.singleChoice("질문", exam, options))
+                .isInstanceOf(BadRequestException.class)
                 .hasMessage("객관식 단일 선택은 정답이 1개여야 합니다.");
     }
 
@@ -78,7 +78,7 @@ class QuestionTest {
     @DisplayName("True or False 질문을 생성할 수 있다")
     void trueOrFalse() {
         // given
-        Question question = Question.trueOrFalse("질문", Exam.initial("시험 제목", 1L),false);
+        Question question = Question.trueOrFalse("질문", Exam.initial("시험 제목", 1L), false);
 
         // then
         List<QuestionOption> options = question.getOptionGroup().toList();

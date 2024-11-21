@@ -61,7 +61,7 @@ public class Question {
 
     public static Question singleChoice(String text, Exam exam, List<QuestionOption> options) {
         if (options.stream().filter(QuestionOption::isCorrect).count() != 1) {
-            throw new BadRequestException("정답이 1개인 단일 선택형 문제는 정확히 1개의 옵션을 가져야 합니다.");
+            throw new BadRequestException("객관식 단일 선택은 정답이 1개여야 합니다.");
         }
 
         return choice(text, QuestionType.SINGLE_CHOICE, exam, options);

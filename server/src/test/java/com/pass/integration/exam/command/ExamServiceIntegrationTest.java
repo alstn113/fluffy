@@ -17,10 +17,10 @@ import com.pass.exam.command.application.dto.question.QuestionOptionRequest;
 import com.pass.exam.command.application.dto.question.ShortAnswerQuestionAppRequest;
 import com.pass.exam.command.application.dto.question.SingleChoiceQuestionAppRequest;
 import com.pass.exam.command.application.dto.question.TrueOrFalseQuestionAppRequest;
-import com.pass.exam.command.application.exception.ExamNotWrittenByMemberException;
 import com.pass.exam.command.domain.Exam;
 import com.pass.exam.command.domain.ExamRepository;
 import com.pass.exam.command.domain.QuestionRepository;
+import com.pass.global.exception.ForbiddenException;
 import com.pass.global.web.Accessor;
 import com.pass.integration.AbstractIntegrationTest;
 import com.pass.support.data.MemberTestData;
@@ -96,7 +96,7 @@ class ExamServiceIntegrationTest extends AbstractIntegrationTest {
 
         // when & then
         assertThatThrownBy(() -> examService.publish(request))
-                .isInstanceOf(ExamNotWrittenByMemberException.class);
+                .isInstanceOf(ForbiddenException.class);
     }
 
     private List<QuestionAppRequest> createQuestionRequests() {

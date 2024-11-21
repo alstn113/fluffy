@@ -1,13 +1,10 @@
 package com.pass.unit.exam.command.domain;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.assertj.core.api.AssertionsForClassTypes.tuple;
 
 import com.pass.exam.command.domain.QuestionOption;
 import com.pass.exam.command.domain.QuestionOptionGroup;
-import com.pass.exam.command.domain.exception.DuplicateQuestionOptionException;
-import com.pass.exam.command.domain.exception.InvalidQuestionOptionSizeException;
+import com.pass.global.exception.BadRequestException;
 import java.util.List;
 import java.util.stream.IntStream;
 import org.junit.jupiter.api.DisplayName;
@@ -27,7 +24,7 @@ class QuestionOptionGroupTest {
 
         // when & then
         assertThatThrownBy(() -> new QuestionOptionGroup(options))
-                .isInstanceOf(DuplicateQuestionOptionException.class)
+                .isInstanceOf(BadRequestException.class)
                 .hasMessage("중복된 질문 옵션은 허용되지 않습니다.");
     }
 
@@ -42,7 +39,7 @@ class QuestionOptionGroupTest {
 
         // when & then
         assertThatThrownBy(() -> new QuestionOptionGroup(options))
-                .isInstanceOf(InvalidQuestionOptionSizeException.class)
+                .isInstanceOf(BadRequestException.class)
                 .hasMessage("질문 옵션은 1~10개만 허용됩니다.");
     }
 }

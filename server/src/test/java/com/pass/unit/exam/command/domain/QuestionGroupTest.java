@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import com.pass.exam.command.domain.Exam;
 import com.pass.exam.command.domain.Question;
 import com.pass.exam.command.domain.QuestionGroup;
-import com.pass.exam.command.domain.exception.InvalidQuestionSizeException;
+import com.pass.global.exception.BadRequestException;
 import java.util.List;
 import java.util.stream.IntStream;
 import org.junit.jupiter.api.DisplayName;
@@ -24,7 +24,7 @@ class QuestionGroupTest {
 
         // when & then
         assertThatThrownBy(() -> new QuestionGroup(overSizedQuestions))
-                .isInstanceOf(InvalidQuestionSizeException.class)
-                .hasMessage("질문은 1~200개만 허용됩니다.");
+                .isInstanceOf(BadRequestException.class)
+                .hasMessage("질문은 1개 이상 200개 이하여야 합니다.");
     }
 }

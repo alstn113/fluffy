@@ -35,7 +35,7 @@ public class QuestionGroup {
 
     private void validateQuestionSize(List<Question> questions) {
         if (questions.size() > MAX_QUESTION_SIZE) {
-            throw new BadRequestException("질문은 최대 %d개까지만 등록할 수 있습니다.".formatted(MAX_QUESTION_SIZE));
+            throw new BadRequestException("질문은 1개 이상 %d개 이하여야 합니다.".formatted(MAX_QUESTION_SIZE));
         }
     }
 

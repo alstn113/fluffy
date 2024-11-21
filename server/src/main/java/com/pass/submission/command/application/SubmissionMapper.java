@@ -3,10 +3,9 @@ package com.pass.submission.command.application;
 import com.pass.exam.command.domain.Exam;
 import com.pass.exam.command.domain.Question;
 import com.pass.exam.command.domain.QuestionOption;
-import com.pass.exam.command.domain.QuestionType;
 import com.pass.global.exception.BadRequestException;
-import com.pass.submission.command.application.dto.AnswerAppRequest;
-import com.pass.submission.command.application.dto.SubmitAppRequest;
+import com.pass.submission.command.application.dto.QuestionResponseAppRequest;
+import com.pass.submission.command.application.dto.SubmissionAppRequest;
 import com.pass.submission.command.domain.Answer;
 import com.pass.submission.command.domain.Choice;
 import com.pass.submission.command.domain.Submission;
@@ -18,81 +17,79 @@ import org.springframework.stereotype.Component;
 @Component
 public class SubmissionMapper {
 
-    public Submission toSubmission(Exam exam, Long memberId, SubmitAppRequest request) {
+    public Submission toSubmission(Exam exam, Long memberId, SubmissionAppRequest request) {
         List<Question> questions = exam.getQuestionGroup().toList();
-        List<AnswerAppRequest> answerRequests = request.answers();
+        List<QuestionResponseAppRequest> questionResponseRequests = request.questionResponses();
 
-        validateQuestionSize(questions, answerRequests);
+        validateQuestionSize(questions, questionResponseRequests);
 
         List<Answer> answers = IntStream.range(0, questions.size())
-                .mapToObj(i -> toAnswer(questions.get(i), answerRequests.get(i)))
+                .mapToObj(i -> toAnswer(questions.get(i), questionResponseRequests.get(i)))
                 .toList();
 
         return new Submission(request.examId(), memberId, answers);
     }
 
-    private void validateQuestionSize(List<Question> questions, List<AnswerAppRequest> answerRequests) {
+    private void validateQuestionSize(List<Question> questions, List<QuestionResponseAppRequest> requests) {
         int questionSize = questions.size();
-        int answerSize = answerRequests.size();
+        int questionResponseRequestSize = requests.size();
 
-        if (questionSize != answerSize) {
-            throw new BadRequestException(
-                    "질문들에 대한 응답의 크기가 일치하지 않습니다. (질문 크기: %s, 응답 크기: %s)".formatted(questionSize, answerSize));
+        if (questionSize != questionResponseRequestSize) {
+            throw new BadRequestException("질문들에 대한 응답의 크기가 일치하지 않습니다. (질문 크기: %s, 응답 크기: %s)"
+                    .formatted(questionSize, questionResponseRequestSize));
         }
     }
 
-    private Answer toAnswer(Question question, AnswerAppRequest answerRequest) {
-        if (question.getType().isTextAnswerable()) {
-            return Answer.textAnswer(question.getId(), answerRequest.text());
+    private Answer toAnswer(Question question, QuestionResponseAppRequest request) {
+        if (request.answers().isEmpty()) {
+            throw new BadRequestException("질문에 대한 응답이 비어 있습니다.");
+        }
+
+        return switch (question.getType()) {
+            case SHORT_ANSWER, LONG_ANSWER -> toTextAnswer(question, request);
+            case SINGLE_CHOICE, TRUE_OR_FALSE -> toSingleChoiceAnswer(question, request);
+            case MULTIPLE_CHOICE -> toMultipleChoiceAnswer(question, request);
+        };
+    }
+
+    public Answer toTextAnswer(Question question, QuestionResponseAppRequest request) {
+        if (request.answers().size() != 1) {
+            throw new BadRequestException("텍스트 응답은 하나만 제출할 수 있습니다.");
+        }
+
+        return Answer.textAnswer(question.getId(), request.answers().getFirst());
+    }
+
+    public Answer toSingleChoiceAnswer(Question question, QuestionResponseAppRequest request) {
+        if (request.answers().size() != 1) {
+            throw new BadRequestException("응답은 하나만 제출할 수 있습니다.");
         }
 
         List<QuestionOption> options = question.getOptionGroup().toList();
-        List<Integer> numbers = answerRequest.choices();
+        String option = request.answers().getFirst();
 
-        if (question.getType() == QuestionType.SINGLE_CHOICE || question.getType() == QuestionType.TRUE_OR_FALSE) {
-            validateSingleChoice(options, numbers);
+        QuestionOption questionOption = options.stream()
+                .filter(it -> it.getText().equals(option))
+                .findFirst()
+                .orElseThrow(() -> new BadRequestException("존재하지 않는 선택지입니다."));
 
-            return Answer.choiceAnswer(question.getId(), toChoices(options, numbers));
-        }
-
-        if (question.getType() == QuestionType.MULTIPLE_CHOICE) {
-            validateMultipleChoice(options, numbers);
-
-            return Answer.choiceAnswer(question.getId(), toChoices(options, numbers));
-        }
-
-        throw new BadRequestException("지원하지 않는 질문 유형입니다.");
+        return Answer.choiceAnswer(question.getId(), List.of(new Choice(questionOption.getId())));
     }
 
-    private List<Choice> toChoices(List<QuestionOption> options, List<Integer> numbers) {
-        List<Choice> choices = new ArrayList<>();
-        for (int i = 0; i < options.size(); i++) {
-            if (numbers.contains(i + 1)) {
-                choices.add(new Choice(options.get(i).getId()));
-            }
-        }
-        return choices;
-    }
+    public Answer toMultipleChoiceAnswer(Question question, QuestionResponseAppRequest request) {
+        List<QuestionOption> options = question.getOptionGroup().toList();
+        List<String> choices = request.answers();
 
-    private void validateSingleChoice(List<QuestionOption> options, List<Integer> numbers) {
-        if (numbers.size() != 1) {
-            throw new BadRequestException("단일 선택지만 제출할 수 있습니다.");
-        }
+        List<Choice> choiceList = new ArrayList<>();
+        for (String choice : choices) {
+            QuestionOption questionOption = options.stream()
+                    .filter(it -> it.getText().equals(choice))
+                    .findFirst()
+                    .orElseThrow(() -> new BadRequestException("존재하지 않는 선택지입니다."));
 
-        int number = numbers.getFirst();
-
-        if (number < 1 || number > options.size()) {
-            throw new BadRequestException("범위를 벗어난 선택지가 포함되어 있습니다.");
-        }
-    }
-
-    private void validateMultipleChoice(List<QuestionOption> options, List<Integer> numbers) {
-        if (numbers.size() != numbers.stream().distinct().count()) {
-            throw new BadRequestException("중복된 선택지가 포함되어 있습니다.");
+            choiceList.add(new Choice(questionOption.getId()));
         }
 
-        if (numbers.stream().anyMatch(number -> number < 1 || number > options.size())) {
-            throw new BadRequestException("범위를 벗어난 선택지가 포함되어 있습니다.");
-        }
+        return Answer.choiceAnswer(question.getId(), choiceList);
     }
 }

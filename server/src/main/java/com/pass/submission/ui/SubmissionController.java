@@ -3,7 +3,7 @@ package com.pass.submission.ui;
 import com.pass.global.web.Accessor;
 import com.pass.global.web.Auth;
 import com.pass.submission.command.application.SubmissionService;
-import com.pass.submission.ui.dto.SubmitWebRequest;
+import com.pass.submission.ui.dto.SubmissionWebRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ public class SubmissionController {
     @PostMapping("/api/v1/exams/{examId}/submissions")
     public ResponseEntity<Void> submit(
             @PathVariable Long examId,
-            @RequestBody @Valid SubmitWebRequest request,
+            @RequestBody @Valid SubmissionWebRequest request,
             @Auth Accessor accessor
     ) {
         submissionService.submit(request.toAppRequest(examId, accessor));

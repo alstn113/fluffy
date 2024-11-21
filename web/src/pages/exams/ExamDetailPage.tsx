@@ -29,7 +29,7 @@ const ExamDetailPageContent = ({ examId }: ExamDetailPageContentProps) => {
   const { data } = useGetExam(examId);
   const navigate = useNavigate();
   const { mutate } = useCreateSubmission();
-  const { answers, initialize } = useSubmissionStore();
+  const { questionResponses, initialize } = useSubmissionStore();
 
   useEffect(() => {
     if (data && data.questions) {
@@ -39,7 +39,7 @@ const ExamDetailPageContent = ({ examId }: ExamDetailPageContentProps) => {
 
   const handleSubmit = () => {
     mutate(
-      { examId: data.id, request: { answers } },
+      { examId: data.id, request: { questionResponses: questionResponses } },
       {
         onSuccess: () => {
           navigate(PAGE_LIST.home);

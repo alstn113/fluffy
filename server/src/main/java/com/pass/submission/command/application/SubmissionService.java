@@ -4,7 +4,7 @@ import com.pass.auth.domain.Member;
 import com.pass.auth.domain.MemberRepository;
 import com.pass.exam.command.domain.Exam;
 import com.pass.exam.command.domain.ExamRepository;
-import com.pass.submission.command.application.dto.SubmitAppRequest;
+import com.pass.submission.command.application.dto.SubmissionAppRequest;
 import com.pass.submission.command.domain.Submission;
 import com.pass.submission.command.domain.SubmissionRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ public class SubmissionService {
     private final SubmissionMapper submissionMapper;
 
     @Transactional
-    public void submit(SubmitAppRequest request) {
+    public void submit(SubmissionAppRequest request) {
         Member member = memberRepository.getById(request.accessor().id());
         Exam exam = examRepository.getById(request.examId());
 

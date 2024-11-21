@@ -25,8 +25,4 @@ public enum QuestionType {
                 .findFirst()
                 .orElseThrow(() -> new NotFoundException("존재하지 않는 질문 유형입니다. 질문 유형: " + value));
     }
-
-    public boolean isTextAnswerable() {
-        return this == SHORT_ANSWER || this == LONG_ANSWER;
-    }
 }

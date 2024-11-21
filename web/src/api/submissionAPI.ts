@@ -13,10 +13,9 @@ interface SubmissionParams {
 }
 
 interface SubmissionRequest {
-  answers: AnswerRequest[];
+  questionResponses: QuestionResponse[];
 }
 
-export interface AnswerRequest {
-  text: string;
-  choices: number[];
+export interface QuestionResponse {
+  answers: string[];
 }

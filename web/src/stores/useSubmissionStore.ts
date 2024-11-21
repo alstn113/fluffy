@@ -1,42 +1,40 @@
 import { create } from 'zustand';
-import {} from '@/api/questionAPI';
 import { immer } from 'zustand/middleware/immer';
-import { AnswerRequest } from '@/api/submissionAPI';
+import { QuestionResponse } from '@/api/submissionAPI';
 
 type States = {
-  answers: AnswerRequest[];
+  questionResponses: QuestionResponse[];
 };
 
 type Actions = {
   initialize: (size: number) => void;
   clear: () => void;
-  handleUpdateText: (index: number, text: string) => void;
-  handleUpdateChoices: (index: number, choices: number[]) => void;
+  handleUpdateTextAnswer: (index: number, text: string) => void;
+  handleUpdateChoiceAnswer: (index: number, choices: string[]) => void;
 };
 
 const useSubmissionStore = create<States & Actions>()(
   immer((set) => ({
-    answers: [],
+    questionResponses: [],
 
     initialize: (size) =>
       set((state) => {
-        state.answers = Array.from({ length: size }, () => ({
-          text: '',
-          choices: [],
+        state.questionResponses = Array.from({ length: size }, () => ({
+          answers: [],
         }));
       }),
     clear: () =>
       set((state) => {
-        state.answers = [];
+        state.questionResponses = [];
       }),
-    handleUpdateText: (index, text) => {
+    handleUpdateTextAnswer: (index, text) => {
       set((state) => {
-        state.answers[index].text = text;
+        state.questionResponses[index].answers = [text];
       });
     },
-    handleUpdateChoices: (index, choices) => {
+    handleUpdateChoiceAnswer: (index, choices) => {
       set((state) => {
-        state.answers[index].choices = choices;
+        state.questionResponses[index].answers = choices;
       });
     },
   })),

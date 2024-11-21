@@ -3,9 +3,9 @@ package com.pass.submission.command.application.dto;
 import com.pass.global.web.Accessor;
 import java.util.List;
 
-public record SubmitAppRequest(
+public record SubmissionAppRequest(
         Long examId,
-        List<AnswerAppRequest> answers,
+        List<QuestionResponseAppRequest> questionResponses,
         Accessor accessor
 ) {
 }

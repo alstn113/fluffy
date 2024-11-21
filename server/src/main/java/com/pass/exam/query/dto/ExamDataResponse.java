@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public record ExamDataResponse(
-        String id,
+        Long id,
         String title,
         String description,
         List<QuestionResponse> questions,

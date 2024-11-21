@@ -4,13 +4,12 @@ import com.pass.exam.command.domain.Exam;
 import com.pass.exam.command.domain.Question;
 import com.pass.exam.command.domain.QuestionOption;
 import com.pass.exam.command.domain.QuestionType;
+import com.pass.global.exception.BadRequestException;
 import com.pass.submission.command.application.dto.AnswerAppRequest;
 import com.pass.submission.command.application.dto.SubmitAppRequest;
 import com.pass.submission.command.domain.Answer;
 import com.pass.submission.command.domain.Choice;
 import com.pass.submission.command.domain.Submission;
-import com.pass.submission.command.application.exception.InvalidChoiceException;
-import com.pass.submission.command.application.exception.QuestionSizeMismatchException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -37,7 +36,8 @@ public class SubmissionMapper {
         int answerSize = answerRequests.size();
 
         if (questionSize != answerSize) {
-            throw new QuestionSizeMismatchException(questionSize, answerSize);
+            throw new BadRequestException(
+                    "질문들에 대한 응답의 크기가 일치하지 않습니다. (질문 크기: %s, 응답 크기: %s)".formatted(questionSize, answerSize));
         }
     }
 
@@ -61,7 +61,7 @@ public class SubmissionMapper {
             return Answer.choiceAnswer(question.getId(), toChoices(options, numbers));
         }
 
-        throw new InvalidChoiceException();
+        throw new BadRequestException("지원하지 않는 질문 유형입니다.");
     }
 
     private List<Choice> toChoices(List<QuestionOption> options, List<Integer> numbers) {
@@ -76,23 +76,23 @@ public class SubmissionMapper {
 
     private void validateSingleChoice(List<QuestionOption> options, List<Integer> numbers) {
         if (numbers.size() != 1) {
-            throw new InvalidChoiceException();
+            throw new BadRequestException("단일 선택지만 제출할 수 있습니다.");
         }
 
         int number = numbers.getFirst();
 
         if (number < 1 || number > options.size()) {
-            throw new InvalidChoiceException();
+            throw new BadRequestException("범위를 벗어난 선택지가 포함되어 있습니다.");
         }
     }
 
     private void validateMultipleChoice(List<QuestionOption> options, List<Integer> numbers) {
         if (numbers.size() != numbers.stream().distinct().count()) {
-            throw new InvalidChoiceException();
+            throw new BadRequestException("중복된 선택지가 포함되어 있습니다.");
         }
 
         if (numbers.stream().anyMatch(number -> number < 1 || number > options.size())) {
-            throw new InvalidChoiceException();
+            throw new BadRequestException("범위를 벗어난 선택지가 포함되어 있습니다.");
         }
     }
 }

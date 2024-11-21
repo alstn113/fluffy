@@ -1,6 +1,6 @@
 package com.pass.exam.command.domain;
 
-import com.pass.exam.command.domain.exception.InvalidQuestionSizeException;
+import com.pass.global.exception.BadRequestException;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.OneToMany;
@@ -35,7 +35,7 @@ public class QuestionGroup {
 
     private void validateQuestionSize(List<Question> questions) {
         if (questions.size() > MAX_QUESTION_SIZE) {
-            throw new InvalidQuestionSizeException(MAX_QUESTION_SIZE);
+            throw new BadRequestException("질문은 최대 %d개까지만 등록할 수 있습니다.".formatted(MAX_QUESTION_SIZE));
         }
     }
 

@@ -1,6 +1,6 @@
 package com.pass.auth.domain;
 
-import com.pass.auth.domain.exception.MemberByIdNotFoundException;
+import com.pass.global.exception.NotFoundException;
 import java.util.Optional;
 import org.springframework.data.repository.Repository;
 
@@ -14,6 +14,6 @@ public interface MemberRepository extends Repository<Member, Long> {
 
     default Member getById(Long id) {
         return findById(id)
-                .orElseThrow(() -> new MemberByIdNotFoundException(id));
+                .orElseThrow(() -> new NotFoundException("존재하지 않는 사용자입니다. 사용자 식별자: " + id));
     }
 }

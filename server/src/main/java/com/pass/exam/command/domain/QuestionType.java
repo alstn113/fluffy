@@ -1,6 +1,6 @@
 package com.pass.exam.command.domain;
 
-import com.pass.exam.command.domain.exception.QuestionTypeNotFoundException;
+import com.pass.global.exception.NotFoundException;
 import java.util.Arrays;
 import lombok.Getter;
 
@@ -23,7 +23,7 @@ public enum QuestionType {
         return Arrays.stream(values())
                 .filter(it -> it.name().equalsIgnoreCase(value))
                 .findFirst()
-                .orElseThrow(QuestionTypeNotFoundException::new);
+                .orElseThrow(() -> new NotFoundException("존재하지 않는 질문 유형입니다. 질문 유형: " + value));
     }
 
     public boolean isTextAnswerable() {

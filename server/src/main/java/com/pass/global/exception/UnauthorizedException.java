@@ -1,12 +1,12 @@
 package com.pass.global.exception;
 
-public abstract class UnauthorizedException extends BaseException {
+public class UnauthorizedException extends BaseException {
 
-    protected UnauthorizedException(String message) {
+    public UnauthorizedException(String message) {
         super(message);
     }
 
-    protected UnauthorizedException(String message, Throwable cause) {
+    public UnauthorizedException(String message, Throwable cause) {
         super(message, cause);
     }
 }

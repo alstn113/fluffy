@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 public class ExamData {
 
     @Id
-    private String id;
+    private Long id;
 
     private String title;
 
@@ -33,7 +33,7 @@ public class ExamData {
 
     private LocalDateTime updatedAt;
 
-    public ExamData(String id, String title, String description, List<QuestionData> questions) {
+    public ExamData(Long id, String title, String description, List<QuestionData> questions) {
         this.id = id;
         this.title = title;
         this.description = description;

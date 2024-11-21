@@ -5,10 +5,10 @@ import com.pass.auth.domain.MemberRepository;
 import com.pass.exam.command.application.dto.CreateExamAppRequest;
 import com.pass.exam.command.application.dto.CreateExamResponse;
 import com.pass.exam.command.application.dto.PublishExamAppRequest;
-import com.pass.exam.command.application.exception.ExamNotWrittenByMemberException;
 import com.pass.exam.command.domain.Exam;
 import com.pass.exam.command.domain.ExamRepository;
 import com.pass.exam.command.domain.QuestionGroup;
+import com.pass.global.exception.ForbiddenException;
 import com.pass.global.web.Accessor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -41,7 +41,8 @@ public class ExamService {
         Member member = memberRepository.getById(accessor.id());
 
         if (exam.isNotWrittenBy(member.getId())) {
-            throw new ExamNotWrittenByMemberException(member.getId(), exam.getId());
+            throw new ForbiddenException(
+                    "해당 사용자가 작성한 시험이 아닙니다. 사용자 식별자: %d, 시험 식별자: %d".formatted(member.getId(), exam.getId()));
         }
 
         QuestionGroup questionGroup = questionMapper.toQuestionGroup(request, exam);

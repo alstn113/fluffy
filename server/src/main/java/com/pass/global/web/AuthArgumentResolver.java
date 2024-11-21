@@ -4,9 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import com.pass.auth.application.AuthService;
 import com.pass.global.exception.BaseException;
+import com.pass.global.exception.UnauthorizedException;
 import com.pass.global.web.cookie.CookieManager;
-import com.pass.global.web.exception.TokenInvalidException;
-import com.pass.global.web.exception.TokenRequiredException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -64,7 +63,7 @@ public class AuthArgumentResolver implements HandlerMethodArgumentResolver {
 
     private Accessor handleNoToken(Auth auth) {
         if (auth.required()) {
-            throw new TokenRequiredException();
+            throw new UnauthorizedException("권한을 위한 토큰이 필요합니다.");
         }
 
         return Accessor.GUEST;
@@ -78,7 +77,7 @@ public class AuthArgumentResolver implements HandlerMethodArgumentResolver {
         } catch (BaseException e) {
             clearAccessTokenCookie(response);
 
-            throw new TokenInvalidException();
+            throw new UnauthorizedException("토큰이 유효하지 않습니다.", e);
         }
     }
 

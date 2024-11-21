@@ -1,7 +1,7 @@
 package com.pass.oauth2.application;
 
 import com.pass.auth.domain.OAuth2Provider;
-import com.pass.oauth2.application.exception.OAuth2ProviderNotFoundException;
+import com.pass.global.exception.NotFoundException;
 import com.pass.oauth2.domain.OAuth2UserInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -29,6 +29,6 @@ public class OAuth2Context {
 
     private OAuth2Strategy getOAuth2Strategy(OAuth2Provider provider) {
         return oauth2StrategyRegistry.getOAuth2Strategy(provider)
-                .orElseThrow(() -> new OAuth2ProviderNotFoundException(provider));
+                .orElseThrow(() -> new NotFoundException("지원하지 않은 OAuth2 제공자입니다. OAuth2 제공자: " + provider));
     }
 }

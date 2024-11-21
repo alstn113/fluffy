@@ -1,9 +1,7 @@
 package com.pass.auth.infra;
 
 import com.pass.auth.application.TokenProvider;
-import com.pass.auth.infra.exception.InvalidTokenException;
-import com.pass.auth.infra.exception.TokenExpiredException;
-import com.pass.auth.infra.exception.TokenNotFoundException;
+import com.pass.global.exception.UnauthorizedException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jws;
@@ -49,7 +47,7 @@ public class JwtTokenProvider implements TokenProvider {
 
     private Claims toClaims(String token) {
         if (token == null || token.isBlank()) {
-            throw new TokenNotFoundException();
+            throw new UnauthorizedException("토큰이 존재하지 않습니다.");
         }
 
         try {
@@ -57,9 +55,9 @@ public class JwtTokenProvider implements TokenProvider {
 
             return claimsJws.getPayload();
         } catch (ExpiredJwtException e) {
-            throw new TokenExpiredException(e);
+            throw new UnauthorizedException("토큰이 만료되었습니다.", e);
         } catch (JwtException e) {
-            throw new InvalidTokenException(e);
+            throw new UnauthorizedException("유효하지 않은 토큰입니다.", e);
         }
     }
 

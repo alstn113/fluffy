@@ -6,7 +6,6 @@ import jakarta.persistence.Embeddable;
 import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.IntStream;
 
 @Embeddable
 public class QuestionGroup {

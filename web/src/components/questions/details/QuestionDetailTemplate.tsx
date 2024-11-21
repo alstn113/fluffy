@@ -1,9 +1,4 @@
-import {
-  AnswerQuestionResponse,
-  ChoiceQuestionResponse,
-  QuestionBaseResponse,
-  QuestionType,
-} from '@/api/questionAPI';
+import { ChoiceQuestionResponse, QuestionBaseResponse, QuestionType } from '@/api/questionAPI';
 import ShortAnswerQuestion from './ShortAnswerQuestion';
 import TrueOrFalseQuestion from './TrueOrFalseQuestion';
 import MultipleChoiceQuestion from './MultipleChoiceQuestion';
@@ -17,11 +12,15 @@ interface QuestionDetailTemplateProps {
 
 const QuestionDetailTemplate = ({ question, index }: QuestionDetailTemplateProps) => {
   const detailMap: Record<QuestionType, React.ReactNode> = {
-    SHORT_ANSWER: <ShortAnswerQuestion question={question as AnswerQuestionResponse} />,
-    LONG_ANSWER: <LongAnswerQuestion question={question as AnswerQuestionResponse} />,
-    SINGLE_CHOICE: <SingleChoiceQuestion question={question as ChoiceQuestionResponse} />,
-    MULTIPLE_CHOICE: <MultipleChoiceQuestion question={question as ChoiceQuestionResponse} />,
-    TRUE_OR_FALSE: <TrueOrFalseQuestion question={question as ChoiceQuestionResponse} />,
+    SHORT_ANSWER: <ShortAnswerQuestion index={index} />,
+    LONG_ANSWER: <LongAnswerQuestion index={index} />,
+    TRUE_OR_FALSE: <TrueOrFalseQuestion index={index} />,
+    SINGLE_CHOICE: (
+      <SingleChoiceQuestion question={question as ChoiceQuestionResponse} index={index} />
+    ),
+    MULTIPLE_CHOICE: (
+      <MultipleChoiceQuestion question={question as ChoiceQuestionResponse} index={index} />
+    ),
   };
 
   return (

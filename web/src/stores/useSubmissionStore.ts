@@ -8,7 +8,7 @@ type States = {
 };
 
 type Actions = {
-  initailize: (size: number) => void;
+  initialize: (size: number) => void;
   clear: () => void;
   handleUpdateText: (index: number, text: string) => void;
   handleUpdateChoices: (index: number, choices: number[]) => void;
@@ -18,7 +18,7 @@ const useSubmissionStore = create<States & Actions>()(
   immer((set) => ({
     answers: [],
 
-    initailize: (size) =>
+    initialize: (size) =>
       set((state) => {
         state.answers = Array.from({ length: size }, () => ({
           text: '',

@@ -16,7 +16,7 @@ interface SubmissionRequest {
   answers: AnswerRequest[];
 }
 
-interface AnswerRequest {
+export interface AnswerRequest {
   text: string;
   choices: number[];
 }

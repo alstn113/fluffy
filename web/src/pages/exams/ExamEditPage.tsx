@@ -43,7 +43,6 @@ const ExamEditPage = () => {
                 제출
               </button>
             </h1>
-
             {questionTypeSelectorActive ? <QuestionTypeSelector /> : <QuestionEditorTemplate />}
           </div>
         </div>

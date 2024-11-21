@@ -20,6 +20,8 @@ type Actions = {
   setQuestions: (questions: QuestionBaseRequest[]) => void;
   setCurrentIndex: (index: number) => void;
   setQuestionTypeSelectorActive: (isActive: boolean) => void;
+  clear: () => void;
+
   handleAddQuestion: (type: QuestionType) => void;
   handleDeleteQuestion: (index: number) => void;
   handleMoveQuestion: (from: number, to: number) => void;
@@ -45,6 +47,13 @@ const useExamEditorStore = create<States & Actions>()(
       set((state) => {
         state.questionTypeSelectorActive = isActive;
       }),
+    clear: () =>
+      set((state) => {
+        state.questions = [];
+        state.currentIndex = 0;
+        state.questionTypeSelectorActive = true;
+      }),
+
     handleAddQuestion: (type) => {
       const newQuestion = createQuestion(type);
       set((state) => {

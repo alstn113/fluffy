@@ -10,7 +10,6 @@ import com.pass.exam.command.application.ExamService;
 import com.pass.exam.command.application.dto.CreateExamAppRequest;
 import com.pass.exam.command.application.dto.CreateExamResponse;
 import com.pass.exam.command.application.dto.UpdateExamQuestionsAppRequest;
-import com.pass.exam.command.application.dto.UpdateExamQuestionsRequest;
 import com.pass.exam.command.application.dto.question.LongAnswerQuestionAppRequest;
 import com.pass.exam.command.application.dto.question.MultipleChoiceAppRequest;
 import com.pass.exam.command.application.dto.question.QuestionAppRequest;
@@ -94,7 +93,8 @@ class ExamServiceIntegrationTest extends AbstractIntegrationTest {
         Member anotherMember = memberRepository.save(MemberTestData.defaultMember().build());
         Accessor accessor = new Accessor(anotherMember.getId());
         List<QuestionAppRequest> questionRequests = createQuestionRequests();
-        UpdateExamQuestionsRequest request = new UpdateExamQuestionsRequest(existingExam.getId(), questionRequests, accessor);
+        UpdateExamQuestionsAppRequest request = new UpdateExamQuestionsAppRequest(existingExam.getId(),
+                questionRequests, accessor);
 
         // when & then
         assertThatThrownBy(() -> examService.updateQuestions(request))

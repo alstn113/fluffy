@@ -3,6 +3,8 @@ package com.pass.global.web;
 import static java.util.Objects.requireNonNull;
 
 import com.pass.auth.application.AuthService;
+import com.pass.auth.application.dto.MyInfoResponse;
+import com.pass.auth.domain.Member;
 import com.pass.global.exception.BaseException;
 import com.pass.global.exception.UnauthorizedException;
 import com.pass.global.web.cookie.CookieManager;
@@ -72,8 +74,9 @@ public class AuthArgumentResolver implements HandlerMethodArgumentResolver {
     private Accessor handleToken(String token, HttpServletResponse response) {
         try {
             Long memberId = authService.getMemberIdByToken(token);
+            MyInfoResponse myInfo = authService.getMyInfo(memberId);
 
-            return new Accessor(memberId);
+            return new Accessor(myInfo.id());
         } catch (BaseException e) {
             clearAccessTokenCookie(response);
 

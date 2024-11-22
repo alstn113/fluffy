@@ -7,9 +7,11 @@ import com.pass.exam.command.application.dto.CreateExamResponse;
 import com.pass.exam.command.application.dto.UpdateExamQuestionsAppRequest;
 import com.pass.exam.command.domain.Exam;
 import com.pass.exam.command.domain.ExamRepository;
+import com.pass.exam.command.domain.Question;
 import com.pass.exam.command.domain.QuestionGroup;
 import com.pass.global.exception.ForbiddenException;
 import com.pass.global.web.Accessor;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,9 +47,7 @@ public class ExamService {
                     "해당 사용자가 작성한 시험이 아닙니다. 사용자 식별자: %d, 시험 식별자: %d".formatted(member.getId(), exam.getId()));
         }
 
-        exam.clearQuestionGroup();
-
-        QuestionGroup questionGroup = questionMapper.toQuestionGroup(request, exam);
-        exam.updateQuestionGroup(questionGroup, exam);
+        List<Question> questions = questionMapper.toQuestions(request, exam);
+        exam.updateQuestionGroup(questions);
     }
 }

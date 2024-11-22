@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,7 +39,7 @@ public class Exam extends AuditableEntity {
     private Long memberId;
 
     @Embedded
-    private QuestionGroup questionGroup;
+    private QuestionGroup questionGroup = QuestionGroup.empty();
 
     public static Exam initial(String title, Long memberId) {
         return new Exam(title, "", ExamStatus.DRAFT, memberId, QuestionGroup.empty());
@@ -68,12 +69,11 @@ public class Exam extends AuditableEntity {
         return !this.memberId.equals(memberId);
     }
 
-    public void updateQuestionGroup(QuestionGroup questionGroup, Exam exam) {
-        this.questionGroup = questionGroup;
-        questionGroup.updateExam(exam);
-    }
+    public void updateQuestionGroup(List<Question> questions) {
+        for (Question question : questions) {
+            question.updateExam(this);
+        }
 
-    public void clearQuestionGroup() {
-        this.questionGroup.clear();
+        questionGroup.updateQuestions(questions);
     }
 }

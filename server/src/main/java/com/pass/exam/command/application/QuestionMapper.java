@@ -10,9 +10,9 @@ import com.pass.exam.command.application.dto.question.SingleChoiceQuestionAppReq
 import com.pass.exam.command.application.dto.question.TrueOrFalseQuestionAppRequest;
 import com.pass.exam.command.domain.Exam;
 import com.pass.exam.command.domain.Question;
-import com.pass.exam.command.domain.QuestionGroup;
 import com.pass.exam.command.domain.QuestionOption;
 import com.pass.exam.command.domain.QuestionType;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -21,12 +21,12 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class QuestionMapper {
 
-    public QuestionGroup toQuestionGroup(UpdateExamQuestionsAppRequest request, Exam exam) {
+    public List<Question> toQuestions(UpdateExamQuestionsAppRequest request, Exam exam) {
         List<Question> questions = request.questions().stream()
                 .map(it -> toQuestion(it, exam))
                 .toList();
 
-        return new QuestionGroup(questions);
+        return new ArrayList<>(questions);
     }
 
     public Question toQuestion(QuestionAppRequest request, Exam exam) {

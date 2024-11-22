@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.pass.exam.command.domain.Exam;
 import com.pass.exam.command.domain.Question;
-import com.pass.exam.command.domain.QuestionGroup;
 import com.pass.global.exception.BadRequestException;
 import java.util.List;
 import java.util.stream.IntStream;

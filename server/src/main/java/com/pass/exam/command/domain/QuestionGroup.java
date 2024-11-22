@@ -28,13 +28,9 @@ public class QuestionGroup {
     }
 
     public QuestionGroup(List<Question> questions) {
-        validate(questions);
-
-        this.questions.addAll(questions);
-    }
-
-    private void validate(List<Question> questions) {
         validateQuestionSize(questions);
+
+        this.questions.addAll(new ArrayList<>(questions));
     }
 
     private void validateQuestionSize(List<Question> questions) {
@@ -43,22 +39,14 @@ public class QuestionGroup {
         }
     }
 
+    public void updateQuestions(List<Question> questions) {
+        validateQuestionSize(questions);
+
+        this.questions.clear();
+        this.questions.addAll(questions);
+    }
+
     public List<Question> toList() {
         return new ArrayList<>(questions);
-    }
-
-    public void updateExam(Exam exam) {
-        questions.forEach(question -> question.updateExam(exam));
-    }
-
-    public int size() {
-        return questions.size();
-    }
-
-    public void clear() {
-        for (Question question : toList()) {
-            question.updateExam(null); // 관계 해제
-        }
-        questions.clear();
     }
 }

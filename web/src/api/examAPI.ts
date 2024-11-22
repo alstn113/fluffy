@@ -17,8 +17,8 @@ export const ExamAPI = {
     return data;
   },
 
-  publish: async ({ examId, request }: PublishExamParams) => {
-    const { data } = await apiV1Client.post<void>(`/exams/${examId}/publish`, request);
+  updateQuestions: async ({ examId, request }: UpdateExamQuestionsParams) => {
+    const { data } = await apiV1Client.put<void>(`/exams/${examId}/questinos`, request);
     return data;
   },
 };
@@ -48,11 +48,11 @@ interface ExamResponse {
   updatedAt: string;
 }
 
-interface PublishExamParams {
+interface UpdateExamQuestionsParams {
   examId: number;
-  request: PublishExamRequest;
+  request: UpdateExamQuestionsRequest;
 }
 
-export interface PublishExamRequest {
+export interface UpdateExamQuestionsRequest {
   questions: QuestionBaseRequest[];
 }

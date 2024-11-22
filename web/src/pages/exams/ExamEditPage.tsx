@@ -3,14 +3,14 @@ import ExamEditorSidebar from '@/components/questions/editors/ExamEditorSidebar.
 import QuestionEditorTemplate from '@/components/questions/editors/QuestionEditorTemplate';
 import QuestionTypeSelector from '@/components/questions/editors/QuestionTypeSelector';
 import useExamEditorStore from '@/stores/useExamEditorStore';
-import usePublishExam from '@/hooks/api/exam/usePublishExam';
+import useUpdateExamQuestions from '@/hooks/api/exam/useUpdateExamQuestions';
 import EditorLayout from '@/components/layouts/editor/EditorLayout';
 
 const ExamEditPage = () => {
   const { id } = useParams() as { id: string };
   const examId = Number(id);
   const { questionTypeSelectorActive, questions } = useExamEditorStore();
-  const { mutate } = usePublishExam();
+  const { mutate } = useUpdateExamQuestions();
   const navigate = useNavigate();
 
   const handlePublish = () => {
@@ -41,7 +41,7 @@ const ExamEditPage = () => {
                 onClick={handlePublish}
                 className="ml-2 px-2 py-1 text-medium bg-green-600 text-white rounded-md w-20 hover:bg-green-700 transition duration-200 shadow-md"
               >
-                제출
+                임시 저장
               </button>
             </h1>
             {questionTypeSelectorActive ? <QuestionTypeSelector /> : <QuestionEditorTemplate />}

@@ -2,11 +2,13 @@ import { useMutation } from '@tanstack/react-query';
 import { UseMutationOptionsOf } from '../types';
 import { ExamAPI } from '@/api/examAPI';
 
-const usePublishExam = (options: UseMutationOptionsOf<typeof ExamAPI.publish> = {}) => {
+const useUpdateExamQuestions = (
+  options: UseMutationOptionsOf<typeof ExamAPI.updateQuestions> = {},
+) => {
   return useMutation({
     ...options,
-    mutationFn: ExamAPI.publish,
+    mutationFn: ExamAPI.updateQuestions,
   });
 };
 
-export default usePublishExam;
+export default useUpdateExamQuestions;

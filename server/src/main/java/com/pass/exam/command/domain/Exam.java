@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -39,14 +40,14 @@ public class Exam extends AuditableEntity {
     private Long memberId;
 
     @Embedded
-    private QuestionGroup questionGroup = QuestionGroup.empty();
+    private final QuestionGroup questionGroup = new QuestionGroup();
 
     public static Exam initial(String title, Long memberId) {
-        return new Exam(title, "", ExamStatus.DRAFT, memberId, QuestionGroup.empty());
+        return new Exam(title, "", ExamStatus.DRAFT, memberId, new ArrayList<>());
     }
 
-    public Exam(String title, String description, ExamStatus status, Long memberId, QuestionGroup questionGroup) {
-        this(null, title, description, status, memberId, questionGroup);
+    public Exam(String title, String description, ExamStatus status, Long memberId, List<Question> questions) {
+        this(null, title, description, status, memberId, questions);
     }
 
     public Exam(
@@ -55,25 +56,27 @@ public class Exam extends AuditableEntity {
             String description,
             ExamStatus status,
             Long memberId,
-            QuestionGroup questionGroup
+            List<Question> questions
     ) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.status = status;
         this.memberId = memberId;
-        this.questionGroup = questionGroup;
+        addQuestions(questions);
     }
 
     public boolean isNotWrittenBy(Long memberId) {
         return !this.memberId.equals(memberId);
     }
 
-    public void updateQuestionGroup(List<Question> questions) {
-        for (Question question : questions) {
-            question.updateExam(this);
-        }
+    public void addQuestions(List<Question> questions) {
+        questions.forEach(question -> question.updateExam(this));
+        questionGroup.addAll(new QuestionGroup(questions));
+    }
 
-        questionGroup.updateQuestions(questions);
+    public void updateQuestionGroup(List<Question> questions) {
+        questionGroup.clear();
+        addQuestions(questions);
     }
 }

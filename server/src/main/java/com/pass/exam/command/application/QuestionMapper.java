@@ -66,11 +66,7 @@ public class QuestionMapper {
     }
 
     private Question toQuestion(TrueOrFalseQuestionAppRequest request, Exam exam) {
-        return Question.trueOrFalse(
-                request.text(),
-                exam,
-                request.trueOrFalse()
-        );
+        return Question.trueOrFalse(request.text(), exam, request.trueOrFalse());
     }
 
     private List<QuestionOption> toQuestionOptions(List<QuestionOptionRequest> requests) {

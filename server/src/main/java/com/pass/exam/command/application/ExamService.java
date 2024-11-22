@@ -8,7 +8,6 @@ import com.pass.exam.command.application.dto.UpdateExamQuestionsAppRequest;
 import com.pass.exam.command.domain.Exam;
 import com.pass.exam.command.domain.ExamRepository;
 import com.pass.exam.command.domain.Question;
-import com.pass.exam.command.domain.QuestionGroup;
 import com.pass.global.exception.ForbiddenException;
 import com.pass.global.web.Accessor;
 import java.util.List;

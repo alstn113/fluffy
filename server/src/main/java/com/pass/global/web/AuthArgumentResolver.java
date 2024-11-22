@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import com.pass.auth.application.AuthService;
 import com.pass.auth.application.dto.MyInfoResponse;
-import com.pass.auth.domain.Member;
 import com.pass.global.exception.BaseException;
 import com.pass.global.exception.UnauthorizedException;
 import com.pass.global.web.cookie.CookieManager;

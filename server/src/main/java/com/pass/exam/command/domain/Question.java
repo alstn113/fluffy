@@ -13,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -45,7 +46,7 @@ public class Question {
     private Exam exam;
 
     @Embedded
-    private QuestionOptionGroup optionGroup;
+    private final QuestionOptionGroup optionGroup = new QuestionOptionGroup();
 
     public static Question shortAnswer(String text, String correctAnswer, Exam exam) {
         if (correctAnswer == null || correctAnswer.isBlank() || correctAnswer.length() > MAX_TEXT_LENGTH) {
@@ -79,11 +80,11 @@ public class Question {
     }
 
     private static Question answer(String text, QuestionType type, String correctAnswer, Exam exam) {
-        return new Question(text, type, correctAnswer, exam, QuestionOptionGroup.empty());
+        return new Question(text, type, correctAnswer, exam, new ArrayList<>());
     }
 
     private static Question choice(String text, QuestionType type, Exam exam, List<QuestionOption> options) {
-        return new Question(text, type, null, exam, new QuestionOptionGroup(options));
+        return new Question(text, type, null, exam, options);
     }
 
     public Question(
@@ -91,9 +92,9 @@ public class Question {
             QuestionType type,
             String correctAnswer,
             Exam exam,
-            QuestionOptionGroup optionGroup
+            List<QuestionOption> options
     ) {
-        this(null, text, type, correctAnswer, exam, optionGroup);
+        this(null, text, type, correctAnswer, exam, options);
     }
 
     public Question(
@@ -102,7 +103,7 @@ public class Question {
             QuestionType type,
             String correctAnswer,
             Exam exam,
-            QuestionOptionGroup optionGroup
+            List<QuestionOption> options
     ) {
         validate(text);
 
@@ -111,7 +112,7 @@ public class Question {
         this.type = type;
         this.correctAnswer = correctAnswer;
         this.exam = exam;
-        this.optionGroup = optionGroup;
+        addOptions(options);
     }
 
     private void validate(String text) {
@@ -126,5 +127,10 @@ public class Question {
 
     public void updateExam(Exam exam) {
         this.exam = exam;
+    }
+
+    public void addOptions(List<QuestionOption> options) {
+        options.forEach(option -> option.updateQuestion(this));
+        optionGroup.addAll(new QuestionOptionGroup(options));
     }
 }

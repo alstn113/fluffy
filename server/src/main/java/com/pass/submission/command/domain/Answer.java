@@ -32,7 +32,7 @@ public class Answer {
     @Column
     private String text;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "answer_choice", joinColumns = @JoinColumn(name = "answer_id"))
     private final List<Choice> choices = new ArrayList<>();
 

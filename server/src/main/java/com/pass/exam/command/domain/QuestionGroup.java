@@ -19,10 +19,6 @@ public class QuestionGroup {
     )
     private final List<Question> questions = new ArrayList<>();
 
-    public static QuestionGroup empty() {
-        return new QuestionGroup();
-    }
-
     protected QuestionGroup() {
         this(new ArrayList<>());
     }
@@ -39,11 +35,12 @@ public class QuestionGroup {
         }
     }
 
-    public void updateQuestions(List<Question> questions) {
-        validateQuestionSize(questions);
+    public void clear() {
+        questions.clear();
+    }
 
-        this.questions.clear();
-        this.questions.addAll(questions);
+    public void addAll(QuestionGroup questionGroup) {
+        questions.addAll(questionGroup.toList());
     }
 
     public List<Question> toList() {

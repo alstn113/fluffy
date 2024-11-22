@@ -12,28 +12,28 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(BadRequestException.class)
     public ProblemDetail handleBadRequestException(BadRequestException e) {
-        log.debug("[Bad Request Exception]", e);
+        log.warn("[Bad Request Exception]", e);
 
         return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.getMessage());
     }
 
     @ExceptionHandler(UnauthorizedException.class)
     public ProblemDetail handleUnauthorizedException(UnauthorizedException e) {
-        log.debug("[Unauthorized Exception]", e);
+        log.warn("[Unauthorized Exception]", e);
 
         return ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, e.getMessage());
     }
 
     @ExceptionHandler(ForbiddenException.class)
     public ProblemDetail handleForbiddenException(ForbiddenException e) {
-        log.debug("[Forbidden Exception]", e);
+        log.warn("[Forbidden Exception]", e);
 
         return ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, e.getMessage());
     }
 
     @ExceptionHandler(NotFoundException.class)
     public ProblemDetail handleNotFoundException(NotFoundException e) {
-        log.debug("[Not Found Exception]", e);
+        log.warn("[Not Found Exception]", e);
 
         return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
     }

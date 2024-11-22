@@ -3,7 +3,6 @@ package com.pass.exam.command.domain;
 import com.pass.global.exception.BadRequestException;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,13 +12,12 @@ public class QuestionOptionGroup {
 
     private static final int MAX_OPTION_SIZE = 10;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "question_id", nullable = false)
+    @OneToMany(
+            mappedBy = "question",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     private final List<QuestionOption> options;
-
-    public static QuestionOptionGroup empty() {
-        return new QuestionOptionGroup();
-    }
 
     protected QuestionOptionGroup() {
         this(new ArrayList<>());
@@ -50,6 +48,10 @@ public class QuestionOptionGroup {
         if (options.size() > MAX_OPTION_SIZE) {
             throw new BadRequestException("질문 옵션은 1~%d개만 허용됩니다.".formatted(MAX_OPTION_SIZE));
         }
+    }
+
+    public void addAll(QuestionOptionGroup questionOptionGroup) {
+        options.addAll(questionOptionGroup.toList());
     }
 
     public List<QuestionOption> toList() {

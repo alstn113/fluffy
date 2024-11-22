@@ -18,7 +18,7 @@ export const ExamAPI = {
   },
 
   updateQuestions: async ({ examId, request }: UpdateExamQuestionsParams) => {
-    const { data } = await apiV1Client.put<void>(`/exams/${examId}/questinos`, request);
+    const { data } = await apiV1Client.put<void>(`/exams/${examId}/questions`, request);
     return data;
   },
 };

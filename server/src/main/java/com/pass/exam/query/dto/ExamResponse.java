@@ -4,7 +4,7 @@ import com.pass.exam.query.dto.question.QuestionResponse;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public record ExamDataResponse(
+public record ExamResponse(
         Long id,
         String title,
         String description,

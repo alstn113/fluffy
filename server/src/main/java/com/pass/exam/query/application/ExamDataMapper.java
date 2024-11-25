@@ -1,7 +1,7 @@
 package com.pass.exam.query.application;
 
 import com.pass.exam.query.dto.ExamData;
-import com.pass.exam.query.dto.ExamDataResponse;
+import com.pass.exam.query.dto.ExamResponse;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -12,8 +12,8 @@ public class ExamDataMapper {
 
     private final QuestionDataMapper questionDataMapper;
 
-    public ExamDataResponse toResponse(ExamData examData) {
-        return new ExamDataResponse(
+    public ExamResponse toResponse(ExamData examData) {
+        return new ExamResponse(
                 examData.getId(),
                 examData.getTitle(),
                 examData.getDescription(),
@@ -23,7 +23,7 @@ public class ExamDataMapper {
         );
     }
 
-    public List<ExamDataResponse> toResponses(List<ExamData> examDatas) {
+    public List<ExamResponse> toResponses(List<ExamData> examDatas) {
         return examDatas.stream()
                 .map(this::toResponse)
                 .toList();

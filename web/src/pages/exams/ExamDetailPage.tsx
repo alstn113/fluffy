@@ -1,4 +1,4 @@
-import { Suspense, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import BaseLayout from '@/components/layouts/base/BaseLayout.tsx';
 import useGetExam from '@/hooks/api/exam/useGetExam';
@@ -7,6 +7,7 @@ import useCreateSubmission from '@/hooks/api/submission/useCreateSubmission';
 import { Button } from '@nextui-org/react';
 import useSubmissionStore from '@/stores/useSubmissionStore';
 import { PAGE_LIST } from '@/constants';
+import AsyncBoundary from '@/components/AsyncBoundary';
 
 const ExamDetailPage = () => {
   const { id } = useParams();
@@ -14,9 +15,9 @@ const ExamDetailPage = () => {
 
   return (
     <BaseLayout>
-      <Suspense fallback={<div>Loading...</div>}>
-        <ExamDetailPageContent examId={examId} />
-      </Suspense>
+      <AsyncBoundary>
+        <ExamDetailContent examId={examId} />
+      </AsyncBoundary>
     </BaseLayout>
   );
 };
@@ -25,7 +26,7 @@ interface ExamDetailPageContentProps {
   examId: number;
 }
 
-const ExamDetailPageContent = ({ examId }: ExamDetailPageContentProps) => {
+const ExamDetailContent = ({ examId }: ExamDetailPageContentProps) => {
   const { data } = useGetExam(examId);
   const navigate = useNavigate();
   const { mutate } = useCreateSubmission();

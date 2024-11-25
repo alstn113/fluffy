@@ -5,6 +5,7 @@ import App from './App';
 import { Provider } from './provider.tsx';
 import '@/styles/global.css';
 import { BrowserRouter } from 'react-router-dom';
+import AsyncBoundary from './components/AsyncBoundary.tsx';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -16,12 +17,14 @@ const queryClient = new QueryClient({
 });
 
 createRoot(document.getElementById('root')!).render(
-  <QueryClientProvider client={queryClient}>
-    <ReactQueryDevtools initialIsOpen={false} />
-    <BrowserRouter>
-      <Provider>
-        <App />
-      </Provider>
-    </BrowserRouter>
-  </QueryClientProvider>,
+  <AsyncBoundary>
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
+      <BrowserRouter>
+        <Provider>
+          <App />
+        </Provider>
+      </BrowserRouter>
+    </QueryClientProvider>
+  </AsyncBoundary>,
 );

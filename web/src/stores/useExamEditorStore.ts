@@ -4,6 +4,7 @@ import {
   MultipleChoiceQuestionRequest,
   QuestionBaseRequest,
   QuestionType,
+  QuestionWithAnswersResponse,
   ShortAnswerQuestionRequest,
   SingleChoiceQuestionRequest,
   TrueOrFalseQuestionRequest,
@@ -17,6 +18,7 @@ type States = {
 };
 
 type Actions = {
+  initialize: (questions: QuestionWithAnswersResponse[]) => void;
   setQuestions: (questions: QuestionBaseRequest[]) => void;
   setCurrentIndex: (index: number) => void;
   setQuestionTypeSelectorActive: (isActive: boolean) => void;
@@ -35,6 +37,19 @@ const useExamEditorStore = create<States & Actions>()(
     currentIndex: 0,
     questionTypeSelectorActive: true,
 
+    initialize: (questions) => {
+      const questionRequests = initializeQuestions(questions);
+      set((state) => {
+        state.questions = questionRequests;
+        state.currentIndex = 0;
+        state.questionTypeSelectorActive = true;
+
+        if (state.questions.length > 0) {
+          state.currentIndex = 0;
+          state.questionTypeSelectorActive = false;
+        }
+      });
+    },
     setQuestions: (questions) =>
       set((state) => {
         state.questions = questions;
@@ -84,6 +99,50 @@ const useExamEditorStore = create<States & Actions>()(
       }),
   })),
 );
+
+const initializeQuestions = (questions: QuestionWithAnswersResponse[]): QuestionBaseRequest[] => {
+  const newQuestions = questions.map((question) => {
+    switch (question.type) {
+      case 'SHORT_ANSWER':
+        return {
+          text: question.text,
+          correctAnswer: question.correctAnswer,
+          type: question.type,
+        } as ShortAnswerQuestionRequest;
+      case 'LONG_ANSWER':
+        return {
+          text: question.text,
+          type: question.type,
+        } as LongAnswerQuestionRequest;
+      case 'SINGLE_CHOICE':
+        return {
+          text: question.text,
+          type: question.type,
+          options: question.options.map((option) => ({
+            text: option.text,
+            isCorrect: option.isCorrect,
+          })),
+        } as SingleChoiceQuestionRequest;
+      case 'MULTIPLE_CHOICE':
+        return {
+          text: question.text,
+          type: question.type,
+          options: question.options.map((option) => ({
+            text: option.text,
+            isCorrect: option.isCorrect,
+          })),
+        } as MultipleChoiceQuestionRequest;
+      case 'TRUE_OR_FALSE':
+        return {
+          text: question.text,
+          type: question.type,
+          trueOrFalse: question.options[0].isCorrect,
+        } as TrueOrFalseQuestionRequest;
+    }
+  });
+
+  return newQuestions;
+};
 
 const createQuestion = (type: QuestionType): QuestionBaseRequest => {
   switch (type) {

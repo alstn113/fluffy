@@ -1,19 +1,19 @@
-import { Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import BaseLayout from '@/components/layouts/base/BaseLayout.tsx';
 import useGetExams from '@/hooks/api/exam/useGetExams';
+import AsyncBoundary from '@/components/AsyncBoundary';
 
 const ExamListPage = () => {
   return (
     <BaseLayout>
-      <Suspense fallback={<div>Loading...</div>}>
-        <ExamListPageContent />
-      </Suspense>
+      <AsyncBoundary>
+        <ExamListContent />
+      </AsyncBoundary>
     </BaseLayout>
   );
 };
 
-const ExamListPageContent = () => {
+const ExamListContent = () => {
   const { data } = useGetExams();
 
   return (

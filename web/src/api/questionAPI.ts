@@ -24,9 +24,14 @@ export interface AnswerQuestionResponse extends QuestionBaseResponse {
   type: typeof QUESTION_TYPE.shortAnswer | typeof QUESTION_TYPE.longAnswer;
 }
 
-export interface AnswerQuestionWithAnswersResponse extends AnswerQuestionResponse {
-  correctAnswer: string;
-}
+export type AnswerQuestionWithAnswersResponse =
+  | (QuestionBaseResponse & {
+      type: typeof QUESTION_TYPE.shortAnswer;
+      correctAnswer: string;
+    })
+  | (QuestionBaseResponse & {
+      type: typeof QUESTION_TYPE.longAnswer;
+    });
 
 export interface ChoiceQuestionResponse extends QuestionBaseResponse {
   type:
@@ -56,7 +61,7 @@ export interface QuestionBaseRequest {
 
 export interface ShortAnswerQuestionRequest extends QuestionBaseRequest {
   type: typeof QUESTION_TYPE.shortAnswer;
-  correctAnswer: string | null;
+  correctAnswer: string;
 }
 
 export interface LongAnswerQuestionRequest extends QuestionBaseRequest {

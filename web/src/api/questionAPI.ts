@@ -10,6 +10,10 @@ export type QuestionType = (typeof QUESTION_TYPE)[keyof typeof QUESTION_TYPE];
 
 export type QuestionResponse = AnswerQuestionResponse | ChoiceQuestionResponse;
 
+export type QuestionWithAnswersResponse =
+  | AnswerQuestionWithAnswersResponse
+  | ChoiceQuestionWithAnswersResponse;
+
 export interface QuestionBaseResponse {
   id: number;
   text: string;
@@ -20,6 +24,10 @@ export interface AnswerQuestionResponse extends QuestionBaseResponse {
   type: typeof QUESTION_TYPE.shortAnswer | typeof QUESTION_TYPE.longAnswer;
 }
 
+export interface AnswerQuestionWithAnswersResponse extends AnswerQuestionResponse {
+  correctAnswer: string;
+}
+
 export interface ChoiceQuestionResponse extends QuestionBaseResponse {
   type:
     | typeof QUESTION_TYPE.singleChoice
@@ -28,9 +36,17 @@ export interface ChoiceQuestionResponse extends QuestionBaseResponse {
   options: QuestionOptionResponse[];
 }
 
+export interface ChoiceQuestionWithAnswersResponse extends ChoiceQuestionResponse {
+  options: QuestionOptionWithAnswersResponse[];
+}
+
 export interface QuestionOptionResponse {
   id: string;
   text: string;
+}
+
+export interface QuestionOptionWithAnswersResponse extends QuestionOptionResponse {
+  isCorrect: boolean;
 }
 
 export interface QuestionBaseRequest {
@@ -40,7 +56,7 @@ export interface QuestionBaseRequest {
 
 export interface ShortAnswerQuestionRequest extends QuestionBaseRequest {
   type: typeof QUESTION_TYPE.shortAnswer;
-  correctAnswer: string;
+  correctAnswer: string | null;
 }
 
 export interface LongAnswerQuestionRequest extends QuestionBaseRequest {

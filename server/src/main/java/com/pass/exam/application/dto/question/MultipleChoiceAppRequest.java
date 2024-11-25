@@ -1,8 +1,8 @@
-package com.pass.exam.application.dto.question.request;
+package com.pass.exam.application.dto.question;
 
 import java.util.List;
 
-public record SingleChoiceQuestionAppRequest(
+public record MultipleChoiceAppRequest(
         String text,
         String type,
         List<QuestionOptionRequest> options

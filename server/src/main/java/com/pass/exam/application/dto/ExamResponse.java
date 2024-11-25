@@ -1,6 +1,5 @@
 package com.pass.exam.application.dto;
 
-import com.pass.exam.application.dto.question.response.QuestionResponse;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -12,4 +11,33 @@ public record ExamResponse(
         LocalDateTime createdAt,
         LocalDateTime updatedAt
 ) {
+
+    public interface QuestionResponse {
+        Long id();
+
+        String text();
+
+        String type();
+    }
+
+    public record AnswerQuestionResponse(
+            Long id,
+            String text,
+            String type
+    ) implements QuestionResponse {
+    }
+
+    public record ChoiceQuestionResponse(
+            Long id,
+            String text,
+            String type,
+            List<QuestionOptionResponse> options
+    ) implements QuestionResponse {
+
+        public record QuestionOptionResponse(
+                Long id,
+                String text
+        ) {
+        }
+    }
 }

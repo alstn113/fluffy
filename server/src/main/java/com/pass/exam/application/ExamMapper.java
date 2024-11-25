@@ -1,7 +1,8 @@
 package com.pass.exam.application;
 
 import com.pass.exam.application.dto.ExamResponse;
-import com.pass.exam.application.dto.question.response.CreateExamResponse;
+import com.pass.exam.application.dto.ExamWithAnswersResponse;
+import com.pass.exam.application.dto.question.CreateExamResponse;
 import com.pass.exam.domain.Exam;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,17 @@ public class ExamMapper {
                 exam.getTitle(),
                 exam.getDescription(),
                 questionMapper.toResponses(exam.getQuestionGroup().toList()),
+                exam.getCreatedAt(),
+                exam.getUpdatedAt()
+        );
+    }
+
+    public ExamWithAnswersResponse toWithAnswersResponse(Exam exam) {
+        return new ExamWithAnswersResponse(
+                exam.getId(),
+                exam.getTitle(),
+                exam.getDescription(),
+                questionMapper.toWithAnswersResponses(exam.getQuestionGroup().toList()),
                 exam.getCreatedAt(),
                 exam.getUpdatedAt()
         );

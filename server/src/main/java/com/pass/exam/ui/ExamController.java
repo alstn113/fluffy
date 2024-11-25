@@ -3,7 +3,8 @@ package com.pass.exam.ui;
 import com.pass.exam.application.ExamQueryService;
 import com.pass.exam.application.ExamService;
 import com.pass.exam.application.dto.ExamResponse;
-import com.pass.exam.application.dto.question.response.CreateExamResponse;
+import com.pass.exam.application.dto.ExamWithAnswersResponse;
+import com.pass.exam.application.dto.question.CreateExamResponse;
 import com.pass.exam.ui.dto.CreateExamWebRequest;
 import com.pass.exam.ui.dto.UpdateExamQuestionsWebRequest;
 import com.pass.global.web.Accessor;
@@ -37,6 +38,16 @@ public class ExamController {
     @GetMapping("/api/v1/exams/{examId}")
     public ResponseEntity<ExamResponse> getExam(@PathVariable Long examId) {
         ExamResponse response = examQueryService.getExam(examId);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/api/v1/exams/{examId}/with-answers")
+    public ResponseEntity<ExamWithAnswersResponse> getExamWithAnswers(
+            @PathVariable Long examId,
+            @Auth Accessor accessor
+    ) {
+        ExamWithAnswersResponse response = examQueryService.getExamWithAnswers(examId, accessor);
 
         return ResponseEntity.ok(response);
     }

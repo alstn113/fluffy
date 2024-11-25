@@ -1,4 +1,4 @@
-package com.pass.unit.exam.command.domain;
+package com.pass.unit.exam.domain;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 

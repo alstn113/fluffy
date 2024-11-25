@@ -1,4 +1,4 @@
-package com.pass.exam.application.dto.question.request;
+package com.pass.exam.application.dto.question;
 
 
 public record ShortAnswerQuestionAppRequest(

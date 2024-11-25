@@ -4,7 +4,7 @@ import com.pass.auth.domain.Member;
 import com.pass.auth.domain.MemberRepository;
 import com.pass.exam.application.dto.CreateExamAppRequest;
 import com.pass.exam.application.dto.UpdateExamQuestionsAppRequest;
-import com.pass.exam.application.dto.question.response.CreateExamResponse;
+import com.pass.exam.application.dto.question.CreateExamResponse;
 import com.pass.exam.domain.Exam;
 import com.pass.exam.domain.ExamRepository;
 import com.pass.exam.domain.Question;

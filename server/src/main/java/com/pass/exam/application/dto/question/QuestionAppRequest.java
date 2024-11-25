@@ -1,4 +1,4 @@
-package com.pass.exam.application.dto.question.request;
+package com.pass.exam.application.dto.question;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;

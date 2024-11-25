@@ -1,4 +1,4 @@
-package com.pass.integration.exam.command;
+package com.pass.integration.exam;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -9,14 +9,14 @@ import com.pass.auth.domain.MemberRepository;
 import com.pass.exam.application.ExamService;
 import com.pass.exam.application.dto.CreateExamAppRequest;
 import com.pass.exam.application.dto.UpdateExamQuestionsAppRequest;
-import com.pass.exam.application.dto.question.request.LongAnswerQuestionAppRequest;
-import com.pass.exam.application.dto.question.request.MultipleChoiceAppRequest;
-import com.pass.exam.application.dto.question.request.QuestionAppRequest;
-import com.pass.exam.application.dto.question.request.QuestionOptionRequest;
-import com.pass.exam.application.dto.question.request.ShortAnswerQuestionAppRequest;
-import com.pass.exam.application.dto.question.request.SingleChoiceQuestionAppRequest;
-import com.pass.exam.application.dto.question.request.TrueOrFalseQuestionAppRequest;
-import com.pass.exam.application.dto.question.response.CreateExamResponse;
+import com.pass.exam.application.dto.question.LongAnswerQuestionAppRequest;
+import com.pass.exam.application.dto.question.MultipleChoiceAppRequest;
+import com.pass.exam.application.dto.question.QuestionAppRequest;
+import com.pass.exam.application.dto.question.QuestionOptionRequest;
+import com.pass.exam.application.dto.question.ShortAnswerQuestionAppRequest;
+import com.pass.exam.application.dto.question.SingleChoiceQuestionAppRequest;
+import com.pass.exam.application.dto.question.TrueOrFalseQuestionAppRequest;
+import com.pass.exam.application.dto.question.CreateExamResponse;
 import com.pass.exam.domain.Exam;
 import com.pass.exam.domain.ExamRepository;
 import com.pass.exam.domain.QuestionRepository;

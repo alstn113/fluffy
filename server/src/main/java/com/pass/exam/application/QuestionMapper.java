@@ -1,16 +1,19 @@
 package com.pass.exam.application;
 
+import com.pass.exam.application.dto.ExamResponse.AnswerQuestionResponse;
+import com.pass.exam.application.dto.ExamResponse.ChoiceQuestionResponse;
+import com.pass.exam.application.dto.ExamResponse.QuestionResponse;
+import com.pass.exam.application.dto.ExamWithAnswersResponse.AnswerQuestionWithAnswersResponse;
+import com.pass.exam.application.dto.ExamWithAnswersResponse.ChoiceQuestionWithAnswersResponse;
+import com.pass.exam.application.dto.ExamWithAnswersResponse.QuestionWithAnswersResponse;
 import com.pass.exam.application.dto.UpdateExamQuestionsAppRequest;
-import com.pass.exam.application.dto.question.request.LongAnswerQuestionAppRequest;
-import com.pass.exam.application.dto.question.request.MultipleChoiceAppRequest;
-import com.pass.exam.application.dto.question.request.QuestionAppRequest;
-import com.pass.exam.application.dto.question.request.QuestionOptionRequest;
-import com.pass.exam.application.dto.question.request.ShortAnswerQuestionAppRequest;
-import com.pass.exam.application.dto.question.request.SingleChoiceQuestionAppRequest;
-import com.pass.exam.application.dto.question.request.TrueOrFalseQuestionAppRequest;
-import com.pass.exam.application.dto.question.response.AnswerQuestionResponse;
-import com.pass.exam.application.dto.question.response.ChoiceQuestionResponse;
-import com.pass.exam.application.dto.question.response.QuestionResponse;
+import com.pass.exam.application.dto.question.LongAnswerQuestionAppRequest;
+import com.pass.exam.application.dto.question.MultipleChoiceAppRequest;
+import com.pass.exam.application.dto.question.QuestionAppRequest;
+import com.pass.exam.application.dto.question.QuestionOptionRequest;
+import com.pass.exam.application.dto.question.ShortAnswerQuestionAppRequest;
+import com.pass.exam.application.dto.question.SingleChoiceQuestionAppRequest;
+import com.pass.exam.application.dto.question.TrueOrFalseQuestionAppRequest;
 import com.pass.exam.domain.Exam;
 import com.pass.exam.domain.Question;
 import com.pass.exam.domain.QuestionOption;
@@ -112,6 +115,38 @@ public class QuestionMapper {
                 question.getText(),
                 question.getType().name(),
                 questionOptionMapper.toResponses(question.getOptionGroup().toList())
+        );
+    }
+
+    public List<QuestionWithAnswersResponse> toWithAnswersResponses(List<Question> questions) {
+        return questions.stream()
+                .map(this::toWithAnswersResponse)
+                .toList();
+    }
+
+    public QuestionWithAnswersResponse toWithAnswersResponse(Question question) {
+        QuestionType questionType = question.getType();
+        return switch (questionType) {
+            case SHORT_ANSWER, LONG_ANSWER -> toAnswerWithAnswersResponse(question);
+            case SINGLE_CHOICE, MULTIPLE_CHOICE, TRUE_OR_FALSE -> toChoiceWithAnswersResponse(question);
+        };
+    }
+
+    private QuestionWithAnswersResponse toAnswerWithAnswersResponse(Question question) {
+        return new AnswerQuestionWithAnswersResponse(
+                question.getId(),
+                question.getText(),
+                question.getType().name(),
+                question.getCorrectAnswer()
+        );
+    }
+
+    private QuestionWithAnswersResponse toChoiceWithAnswersResponse(Question question) {
+        return new ChoiceQuestionWithAnswersResponse(
+                question.getId(),
+                question.getText(),
+                question.getType().name(),
+                questionOptionMapper.toWithAnswersResponses(question.getOptionGroup().toList())
         );
     }
 }

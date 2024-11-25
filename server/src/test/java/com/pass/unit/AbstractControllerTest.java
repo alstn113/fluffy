@@ -2,14 +2,14 @@ package com.pass.unit;
 
 import com.pass.auth.application.AuthService;
 import com.pass.auth.ui.AuthController;
-import com.pass.exam.command.application.ExamService;
-import com.pass.exam.query.application.ExamQueryService;
+import com.pass.exam.application.ExamQueryService;
+import com.pass.exam.application.ExamService;
 import com.pass.exam.ui.ExamController;
 import com.pass.global.web.cookie.CookieManager;
 import com.pass.oauth2.application.OAuth2Service;
 import com.pass.oauth2.ui.OAuth2Controller;
-import com.pass.submission.command.application.SubmissionService;
-import com.pass.submission.query.application.SubmissionQueryService;
+import com.pass.submission.application.SubmissionQueryService;
+import com.pass.submission.application.SubmissionService;
 import com.pass.submission.ui.SubmissionController;
 import io.restassured.mapper.ObjectMapper;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

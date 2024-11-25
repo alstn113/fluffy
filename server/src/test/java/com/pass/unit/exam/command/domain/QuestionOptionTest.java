@@ -3,7 +3,7 @@ package com.pass.unit.exam.command.domain;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import com.pass.exam.command.domain.QuestionOption;
+import com.pass.exam.domain.QuestionOption;
 import com.pass.global.exception.BadRequestException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

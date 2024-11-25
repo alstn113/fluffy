@@ -5,10 +5,10 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Assertions.tuple;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-import com.pass.exam.command.domain.Exam;
-import com.pass.exam.command.domain.Question;
-import com.pass.exam.command.domain.QuestionOption;
-import com.pass.exam.command.domain.QuestionType;
+import com.pass.exam.domain.Exam;
+import com.pass.exam.domain.Question;
+import com.pass.exam.domain.QuestionOption;
+import com.pass.exam.domain.QuestionType;
 import com.pass.global.exception.BadRequestException;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;

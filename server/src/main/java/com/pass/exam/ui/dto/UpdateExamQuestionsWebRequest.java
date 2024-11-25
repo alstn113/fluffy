@@ -1,7 +1,7 @@
 package com.pass.exam.ui.dto;
 
-import com.pass.exam.command.application.dto.UpdateExamQuestionsAppRequest;
-import com.pass.exam.command.application.dto.question.QuestionAppRequest;
+import com.pass.exam.application.dto.UpdateExamQuestionsAppRequest;
+import com.pass.exam.application.dto.question.request.QuestionAppRequest;
 import com.pass.global.web.Accessor;
 import java.util.List;
 

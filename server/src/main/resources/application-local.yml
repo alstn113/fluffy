@@ -13,9 +13,6 @@ spring:
       hibernate:
         format_sql: true
         highlight_sql: true
-    hibernate:
-      ddl-auto: none
-    defer-datasource-initialization: true
 
 api-host: http://localhost:8080
 client-host: http://localhost:5173

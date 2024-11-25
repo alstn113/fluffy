@@ -2,7 +2,7 @@ package com.pass.submission.ui;
 
 import com.pass.global.web.Accessor;
 import com.pass.global.web.Auth;
-import com.pass.submission.command.application.SubmissionService;
+import com.pass.submission.application.SubmissionService;
 import com.pass.submission.ui.dto.SubmissionWebRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

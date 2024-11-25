@@ -2,8 +2,8 @@ package com.pass.unit.exam.command.domain;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import com.pass.exam.command.domain.QuestionOption;
-import com.pass.exam.command.domain.QuestionOptionGroup;
+import com.pass.exam.domain.QuestionOption;
+import com.pass.exam.domain.QuestionOptionGroup;
 import com.pass.global.exception.BadRequestException;
 import java.util.List;
 import java.util.stream.IntStream;

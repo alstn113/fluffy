@@ -1,33 +1,29 @@
-import { Link } from 'react-router-dom';
 import BaseLayout from '@/components/layouts/base/BaseLayout.tsx';
-import useGetExams from '@/hooks/api/exam/useGetExams';
+import useGetExamSummaries from '@/hooks/api/exam/useGetExamSummaries';
 import AsyncBoundary from '@/components/AsyncBoundary';
+import ExamSummaryCard from '@/components/exams/ExamSummaryCard';
 
 const ExamListPage = () => {
   return (
     <BaseLayout>
       <AsyncBoundary>
-        <ExamListContent />
+        <div className="container mx-auto px-5 py-16">
+          <div className="text-2xl font-semibold mb-5">Recent Exams</div>
+          <ExamListContent />
+        </div>
       </AsyncBoundary>
     </BaseLayout>
   );
 };
 
 const ExamListContent = () => {
-  const { data } = useGetExams();
+  const { data } = useGetExamSummaries();
 
   return (
-    <div>
-      <h1>Exams</h1>
-      <ul>
-        {data?.map((exam) => (
-          <Link to={`/exams/${exam.id}`} key={exam.id}>
-            <li>
-              {exam.id} {exam.title}
-            </li>
-          </Link>
-        ))}
-      </ul>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      {data?.map((exam) => {
+        return <ExamSummaryCard exam={exam} />;
+      })}
     </div>
   );
 };

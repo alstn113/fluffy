@@ -91,6 +91,7 @@ const Header = () => {
                 <DropdownItem
                   key="new exam"
                   className="text-primary"
+                  variant="faded"
                   color="primary"
                   onClick={onOpen}
                 >

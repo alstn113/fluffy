@@ -24,7 +24,7 @@ const QuestionDetailTemplate = ({ question, index }: QuestionDetailTemplateProps
   };
 
   return (
-    <div className="p-4 bg-gray-50 border border-gray-300 rounded-lg mx-auto w-full max-w-md">
+    <div className="p-4 bg-gray-50 border border-gray-300 rounded-lg mx-auto w-full lg:w-[500px]">
       <div className="text-md font-semibold mb-2 text-gray-800">
         {index + 1}. {question.text}
       </div>

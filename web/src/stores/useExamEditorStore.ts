@@ -147,7 +147,11 @@ const initializeQuestions = (questions: QuestionWithAnswersResponse[]): Question
 const createQuestion = (type: QuestionType): QuestionBaseRequest => {
   switch (type) {
     case 'SHORT_ANSWER':
-      return { text: '단답형 질문', correctAnswer: '', type } as ShortAnswerQuestionRequest;
+      return {
+        text: '단답형 질문',
+        correctAnswer: '정답을 입력하세요...',
+        type,
+      } as ShortAnswerQuestionRequest;
     case 'LONG_ANSWER':
       return { text: '서술형 질문', type } as LongAnswerQuestionRequest;
     case 'SINGLE_CHOICE':

@@ -13,6 +13,9 @@ const useUpdateExamQuestions = (
         error.response?.data?.detail || '시험 문제를 업데이트하는 중에 오류가 발생했습니다.';
       toast.error(`${status}: ${message}`);
     },
+    onSuccess: () => {
+      toast.success('시험 문제가 업데이트되었습니다.');
+    },
     mutationFn: ExamAPI.updateQuestions,
     ...options,
   });

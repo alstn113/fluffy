@@ -2,7 +2,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { UseQueryOptionsOf } from '../types';
 import { ExamAPI } from '@/api/examAPI.ts';
 
-const useGetExams = (options: UseQueryOptionsOf<typeof ExamAPI.getAll> = {}) => {
+const useGetExamSummaries = (options: UseQueryOptionsOf<typeof ExamAPI.getSummaries> = {}) => {
   return useSuspenseQuery({
     ...options,
     queryKey: getKey(),
@@ -11,9 +11,9 @@ const useGetExams = (options: UseQueryOptionsOf<typeof ExamAPI.getAll> = {}) => 
 };
 
 const getKey = () => ['exams'];
-const fetcher = () => async () => await ExamAPI.getAll();
+const fetcher = () => async () => await ExamAPI.getSummaries();
 
-useGetExams.getKey = getKey;
-useGetExams.fetcher = fetcher;
+useGetExamSummaries.getKey = getKey;
+useGetExamSummaries.fetcher = fetcher;
 
-export default useGetExams;
+export default useGetExamSummaries;

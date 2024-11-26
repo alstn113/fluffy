@@ -7,8 +7,13 @@ export const ExamAPI = {
     return data;
   },
 
-  getAll: async () => {
-    const { data } = await apiV1Client.get<ExamResponse[]>('/exams');
+  getSummaries: async () => {
+    const { data } = await apiV1Client.get<ExamSummaryResponse[]>('/exams');
+    return data;
+  },
+
+  getMyExamSummaries: async () => {
+    const { data } = await apiV1Client.get<ExamSummaryResponse[]>('/exams/mine');
     return data;
   },
 
@@ -42,6 +47,21 @@ export const EXAM_STATUS = {
   published: 'PUBLISHED',
 } as const;
 export type ExamStatusType = (typeof EXAM_STATUS)[keyof typeof EXAM_STATUS];
+
+export interface ExamSummaryResponse {
+  id: number;
+  title: string;
+  description: string;
+  status: ExamStatusType;
+  author: {
+    id: number;
+    name: string;
+    avatarUrl: string;
+  };
+  questionCount: number;
+  createdAt: string;
+  updatedAt: string;
+}
 
 interface ExamResponse {
   id: number;

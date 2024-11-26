@@ -4,7 +4,15 @@ import BaseLayout from '@/components/layouts/base/BaseLayout.tsx';
 import useGetExam from '@/hooks/api/exam/useGetExam';
 import QuestionDetailTemplate from '@/components/questions/details/QuestionDetailTemplate';
 import useCreateSubmission from '@/hooks/api/submission/useCreateSubmission';
-import { Button } from '@nextui-org/react';
+import {
+  Button,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  useDisclosure,
+} from '@nextui-org/react';
 import useSubmissionStore from '@/stores/useSubmissionStore';
 import { PAGE_LIST } from '@/constants';
 import AsyncBoundary from '@/components/AsyncBoundary';
@@ -31,6 +39,7 @@ const ExamDetailContent = ({ examId }: ExamDetailPageContentProps) => {
   const navigate = useNavigate();
   const { mutate } = useCreateSubmission();
   const { questionResponses, initialize } = useSubmissionStore();
+  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
 
   useEffect(() => {
     if (data && data.questions) {
@@ -44,6 +53,9 @@ const ExamDetailContent = ({ examId }: ExamDetailPageContentProps) => {
       {
         onSuccess: () => {
           navigate(PAGE_LIST.home);
+        },
+        onSettled: () => {
+          onClose();
         },
       },
     );
@@ -60,9 +72,27 @@ const ExamDetailContent = ({ examId }: ExamDetailPageContentProps) => {
           return <QuestionDetailTemplate key={question.id} question={question} index={index} />;
         })}
       </div>
-      <Button className="self-end" onClick={handleSubmit} color="secondary">
+      <Button className="self-end" onClick={onOpen} color="primary" variant="shadow">
         제출하기
       </Button>
+      <Modal backdrop="blur" isOpen={isOpen} onOpenChange={onOpenChange}>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">정말 제출하시겠습니까?</ModalHeader>
+              <ModalBody>제출 후 수정이 불가능합니다.</ModalBody>
+              <ModalFooter>
+                <Button color="danger" variant="light" onPress={onClose}>
+                  닫기
+                </Button>
+                <Button color="primary" onPress={handleSubmit}>
+                  확인
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
     </div>
   );
 };

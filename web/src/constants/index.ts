@@ -11,5 +11,8 @@ export const PAGE_LIST = {
     detail: '/exams/:id',
     edit: '/exams/:id/edit',
   },
+  dashboard: {
+    list: '/dashboard',
+  },
   notFound: '*',
 } as const;

@@ -5,6 +5,7 @@ import ExamDetailPage from '@/pages/exams/ExamDetailPage';
 import ExamEditorPage from '@/pages/exams/ExamEditPage';
 import ExamListPage from '@/pages/exams/ExamListPage';
 import HomePage from '@/pages/HomePage';
+import DashBoardPage from '@/pages/dashboard/DashboardPage';
 import NotFoundPage from '@/pages/NotFoundPage';
 import useGetMe from './hooks/useGetMe';
 
@@ -18,6 +19,7 @@ const App = () => {
       <Route element={<ExamListPage />} path={PAGE_LIST.exam.list} />
       <Route element={<ExamDetailPage />} path={PAGE_LIST.exam.detail} />
       <Route element={<ExamEditorPage />} path={PAGE_LIST.exam.edit} />
+      <Route element={<DashBoardPage />} path={PAGE_LIST.dashboard.list} />
       <Route element={<NotFoundPage />} path={PAGE_LIST.notFound} />
     </Routes>
   );

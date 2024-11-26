@@ -88,6 +88,9 @@ const Header = () => {
                 <DropdownItem key="exam list" href={PAGE_LIST.exam.list}>
                   Exam List
                 </DropdownItem>
+                <DropdownItem key="dashboard" href={PAGE_LIST.dashboard.list}>
+                  Dashboard
+                </DropdownItem>
                 <DropdownItem
                   key="new exam"
                   className="text-primary"

@@ -12,8 +12,10 @@ export const ExamAPI = {
     return data;
   },
 
-  getMyExamSummaries: async () => {
-    const { data } = await apiV1Client.get<ExamSummaryResponse[]>('/exams/mine');
+  getMyExamSummaries: async (status: ExamStatusType) => {
+    const { data } = await apiV1Client.get<ExamSummaryResponse[]>('/exams/mine', {
+      params: { status },
+    });
     return data;
   },
 

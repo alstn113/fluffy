@@ -5,6 +5,8 @@ import com.pass.exam.application.ExamService;
 import com.pass.exam.application.dto.ExamResponse;
 import com.pass.exam.application.dto.ExamWithAnswersResponse;
 import com.pass.exam.application.dto.question.CreateExamResponse;
+import com.pass.exam.domain.ExamStatus;
+import com.pass.exam.domain.dto.ExamSummaryDto;
 import com.pass.exam.ui.dto.CreateExamWebRequest;
 import com.pass.exam.ui.dto.UpdateExamQuestionsWebRequest;
 import com.pass.global.web.Accessor;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -29,11 +32,22 @@ public class ExamController {
     private final ExamQueryService examQueryService;
 
     @GetMapping("/api/v1/exams")
-    public ResponseEntity<List<ExamResponse>> getExams() {
-        List<ExamResponse> response = examQueryService.getExams();
+    public ResponseEntity<List<ExamSummaryDto>> getExamSummaries() {
+        List<ExamSummaryDto> response = examQueryService.getExamSummaries();
 
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/api/v1/exams/mine")
+    public ResponseEntity<List<ExamSummaryDto>> getMyExamSummaries(
+            @RequestParam(value = "status", defaultValue = "draft") ExamStatus status,
+            @Auth Accessor accessor
+    ) {
+        List<ExamSummaryDto> response = examQueryService.getMyExamSummaries(status, accessor);
+
+        return ResponseEntity.ok(response);
+    }
+
 
     @GetMapping("/api/v1/exams/{examId}")
     public ResponseEntity<ExamResponse> getExam(@PathVariable Long examId) {

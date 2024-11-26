@@ -1,6 +1,5 @@
-package com.pass.oauth2.infra.web;
+package com.pass.oauth2.ui;
 
-import com.pass.oauth2.ui.OAuth2ProviderConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

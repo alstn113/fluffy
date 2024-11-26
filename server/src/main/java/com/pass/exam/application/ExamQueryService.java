@@ -1,9 +1,11 @@
 package com.pass.exam.application;
 
 import com.pass.exam.application.dto.ExamResponse;
+import com.pass.exam.application.dto.ExamWithAnswersResponse;
 import com.pass.exam.domain.Exam;
 import com.pass.exam.domain.ExamRepository;
-import com.pass.exam.application.dto.ExamWithAnswersResponse;
+import com.pass.exam.domain.ExamStatus;
+import com.pass.exam.domain.dto.ExamSummaryDto;
 import com.pass.global.exception.ForbiddenException;
 import com.pass.global.web.Accessor;
 import java.util.List;
@@ -19,6 +21,16 @@ public class ExamQueryService {
     private final ExamMapper examMapper;
 
     @Transactional(readOnly = true)
+    public List<ExamSummaryDto> getExamSummaries() {
+        return examRepository.findAllExamSummaries();
+    }
+
+    @Transactional(readOnly = true)
+    public List<ExamSummaryDto> getMyExamSummaries(ExamStatus status, Accessor accessor) {
+        return examRepository.findMyExamSummaries(status, accessor.id());
+    }
+
+    @Transactional(readOnly = true)
     public ExamResponse getExam(Long examId) {
         Exam exam = examRepository.getById(examId);
 
@@ -26,12 +38,6 @@ public class ExamQueryService {
     }
 
     @Transactional(readOnly = true)
-    public List<ExamResponse> getExams() {
-        List<Exam> exams = examRepository.findAll();
-
-        return examMapper.toResponses(exams);
-    }
-
     public ExamWithAnswersResponse getExamWithAnswers(Long examId, Accessor accessor) {
         Exam exam = examRepository.getById(examId);
 

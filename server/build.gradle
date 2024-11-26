@@ -25,7 +25,7 @@ repositories {
 
 ext {
     JJWT_VERSION = '0.12.6'
-    QUERYDSL_VERSION = '5.1.0'
+    QUERYDSL_VERSION = '5.0.0'
 }
 
 dependencies {

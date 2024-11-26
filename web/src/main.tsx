@@ -6,6 +6,7 @@ import { Provider } from './provider.tsx';
 import '@/styles/global.css';
 import { BrowserRouter } from 'react-router-dom';
 import AsyncBoundary from './components/AsyncBoundary.tsx';
+import { Toaster } from 'react-hot-toast';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -23,6 +24,7 @@ createRoot(document.getElementById('root')!).render(
       <BrowserRouter>
         <Provider>
           <App />
+          <Toaster />
         </Provider>
       </BrowserRouter>
     </QueryClientProvider>

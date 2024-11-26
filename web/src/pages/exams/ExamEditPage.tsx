@@ -41,19 +41,12 @@ const ExamEditContent = ({ examId }: ExamEditContentProps) => {
   const { mutate } = useUpdateExamQuestions();
 
   const handleUpdateQuestions = () => {
-    mutate(
-      {
-        examId,
-        request: {
-          questions,
-        },
+    mutate({
+      examId,
+      request: {
+        questions,
       },
-      {
-        onError: (error) => {
-          console.error(error);
-        },
-      },
-    );
+    });
   };
 
   return (

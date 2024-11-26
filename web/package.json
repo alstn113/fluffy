@@ -21,6 +21,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-error-boundary": "^4.1.2",
+    "react-hot-toast": "^2.4.1",
     "react-router-dom": "^6.27.0",
     "zustand": "^5.0.0"
   },

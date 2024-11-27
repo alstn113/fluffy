@@ -37,7 +37,7 @@ const NewExamButton = () => {
 
   return (
     <div>
-      <Button color="secondary" variant="shadow" onClick={onOpen}>
+      <Button color="primary" variant="shadow" onClick={onOpen}>
         새로운 시험 생성
       </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>

@@ -6,7 +6,7 @@ import MultipleChoiceQuestionEditor from './MultipleChoiceQuestionEditor';
 import TrueOrFalseQuestionEditor from './TrueOrFalseQuestionEditor';
 import React from 'react';
 import useExamEditorStore from '@/stores/useExamEditorStore';
-import { Input } from '@nextui-org/react';
+import { Button, Input } from '@nextui-org/react';
 
 const QuestionEditorTemplate = () => {
   const {
@@ -42,12 +42,9 @@ const QuestionEditorTemplate = () => {
     <div>
       <div className="flex gap-2 justify-between items-center mb-4">
         <div className=" text-2xl font-bold mb-2">{currentIndex + 1}번째 질문</div>
-        <button
-          onClick={handleDeleteQuestionClick}
-          className="text-small px-3 py-1 border border-gray-300 rounded-md bg-red-600 text-white hover:bg-red-700 transition duration-200"
-        >
-          삭제
-        </button>
+        <Button color="danger" variant="shadow" onClick={handleDeleteQuestionClick}>
+          질문 삭제
+        </Button>
       </div>
       <Input
         value={question.text}

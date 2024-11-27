@@ -1,7 +1,7 @@
 import useExamEditorStore from '@/stores/useExamEditorStore';
 import { MultipleChoiceQuestionRequest } from '@/api/questionAPI';
-import { Checkbox } from '@nextui-org/checkbox';
 import { DragDropContext, Draggable, Droppable, DropResult } from '@hello-pangea/dnd';
+import { Button, Checkbox } from '@nextui-org/react';
 
 const MultipleChoiceQuestionEditor = () => {
   const { handleUpdateQuestion, currentIndex, questions } = useExamEditorStore();
@@ -84,12 +84,15 @@ const MultipleChoiceQuestionEditor = () => {
                         placeholder={`${index + 1}번 옵션을 입력하세요...`}
                       />
                       {question.options.length > 2 && (
-                        <button
+                        <Button
+                          color="danger"
+                          variant="shadow"
+                          size="sm"
                           onClick={() => handleRemoveOption(index)}
-                          className="text-small px-3 py-2 border text-white bg-red-500 rounded-md hover:bg-red-600 ml-auto"
+                          className="ml-auto"
                         >
                           삭제
-                        </button>
+                        </Button>
                       )}
                     </div>
                   )}

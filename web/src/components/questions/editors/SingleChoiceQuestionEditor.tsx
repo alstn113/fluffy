@@ -2,6 +2,7 @@ import useExamEditorStore from '@/stores/useExamEditorStore';
 import { SingleChoiceQuestionRequest } from '@/api/questionAPI';
 import { Radio, RadioGroup } from '@nextui-org/radio';
 import { DragDropContext, Draggable, Droppable, DropResult } from '@hello-pangea/dnd';
+import { Button } from '@nextui-org/react';
 
 const SingleChoiceQuestionEditor = () => {
   const { handleUpdateQuestion, currentIndex, questions } = useExamEditorStore();
@@ -90,12 +91,15 @@ const SingleChoiceQuestionEditor = () => {
                           placeholder={`${index + 1}번 옵션을 입력하세요...`}
                         />
                         {question.options.length > 2 && (
-                          <button
+                          <Button
+                            color="danger"
+                            variant="shadow"
+                            size="sm"
                             onClick={() => handleRemoveOption(index)}
-                            className="text-small px-3 py-2 border text-white bg-red-500 rounded-md hover:bg-red-600 ml-auto"
+                            className="ml-auto"
                           >
                             삭제
-                          </button>
+                          </Button>
                         )}
                       </div>
                     )}

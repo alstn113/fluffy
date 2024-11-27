@@ -8,6 +8,7 @@ import EditorLayout from '@/components/layouts/editor/EditorLayout';
 import useGetExamWithAnswers from '@/hooks/api/exam/useGetExamWithAnswers';
 import AsyncBoundary from '@/components/AsyncBoundary';
 import { useEffect } from 'react';
+import { Button } from '@nextui-org/react';
 
 const ExamEditPage = () => {
   const { id } = useParams() as { id: string };
@@ -56,12 +57,14 @@ const ExamEditContent = ({ examId }: ExamEditContentProps) => {
         <div className="flex w-full max-w-[650px] flex-col gap-4">
           <h1 className="text-2xl font-bold text-gray-800 mb-4 flex items-center justify-between">
             {data?.title}
-            <button
+            <Button
+              color="success"
+              variant="shadow"
               onClick={handleUpdateQuestions}
-              className="ml-2 px-2 py-1 text-medium bg-green-600 text-white rounded-md w-20 hover:bg-green-700 transition duration-200 shadow-md"
+              className="text-white"
             >
               임시 저장
-            </button>
+            </Button>
           </h1>
           {questionTypeSelectorActive ? <QuestionTypeSelector /> : <QuestionEditorTemplate />}
         </div>

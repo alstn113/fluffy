@@ -47,6 +47,6 @@ public class ExamService {
         }
 
         List<Question> questions = questionMapper.toQuestions(request, exam);
-        exam.updateQuestionGroup(questions);
+        exam.updateQuestions(questions);
     }
 }

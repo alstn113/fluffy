@@ -68,13 +68,14 @@ public class Exam extends AuditableEntity {
         return !this.memberId.equals(memberId);
     }
 
-    public void addQuestions(List<Question> questions) {
+    private void addQuestions(List<Question> questions) {
         questions.forEach(question -> question.updateExam(this));
         questionGroup.addAll(new QuestionGroup(questions));
     }
 
-    public void updateQuestionGroup(List<Question> questions) {
+    public void updateQuestions(List<Question> questions) {
         questionGroup.clear();
         addQuestions(questions);
+        update();
     }
 }

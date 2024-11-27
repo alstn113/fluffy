@@ -64,7 +64,7 @@ class ExamServiceIntegrationTest extends AbstractIntegrationTest {
 
     @Test
     @DisplayName("시험에 질문들을 추가할 수 있다.")
-    void updateQuestionGroup() {
+    void updateQuestions() {
         // given
         Member member = memberRepository.save(MemberTestData.defaultMember().build());
         Exam existingExam = examRepository.save(Exam.initial("시험 제목", member.getId()));
@@ -85,7 +85,7 @@ class ExamServiceIntegrationTest extends AbstractIntegrationTest {
 
     @Test
     @DisplayName("내가 만든 시험이 아니면 시험에 질문을 추가할 수 없다.")
-    void updateQuestionGroupFailWhenNotWrittenByMember() {
+    void updateQuestionsFailWhenNotWrittenByMember() {
         // given
         Member member = memberRepository.save(MemberTestData.defaultMember().build());
         Exam existingExam = examRepository.save(Exam.initial("시험 제목", member.getId()));

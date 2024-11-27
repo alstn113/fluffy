@@ -56,7 +56,7 @@ public class DataInitializer implements ApplicationRunner {
         ));
 
         Exam exam1 = new Exam("동물 시험", "동물과 관련된 시험입니다.", ExamStatus.PUBLISHED, member1.getId(), List.of());
-        exam1.addQuestions(List.of(
+        exam1.updateQuestions(List.of(
                 Question.shortAnswer("세계에서 가장 큰 육상 동물은 무엇인가요?", "코끼리", exam1),
                 Question.longAnswer("고래의 종류와 특징에 대해 설명하세요.", exam1),
                 Question.singleChoice("다음 중 가장 빠른 육상 동물은?", exam1, List.of(
@@ -91,7 +91,7 @@ public class DataInitializer implements ApplicationRunner {
         examRepository.save(exam1);
 
         Exam exam2 = new Exam("역사 시험", "역사와 관련된 시험입니다.", ExamStatus.PUBLISHED, member2.getId(), List.of());
-        exam2.addQuestions(List.of(
+        exam2.updateQuestions(List.of(
                 Question.shortAnswer("고대 이집트의 주요 강은 무엇인가요?", "나일 강", exam2),
                 Question.longAnswer("중세 유럽의 봉건 제도에 대해 설명하세요.", exam2),
                 Question.singleChoice("제2차 세계대전이 시작된 연도는?", exam2, List.of(
@@ -128,7 +128,7 @@ public class DataInitializer implements ApplicationRunner {
         examRepository.save(exam2);
 
         Exam exam3 = new Exam("영어 시험", "영어와 관련된 시험입니다.", ExamStatus.DRAFT, member3.getId(), List.of());
-        exam3.addQuestions(List.of(
+        exam3.updateQuestions(List.of(
                 Question.shortAnswer("다음 문장에서 주어는 무엇인가요? 'The cat is sleeping.'", "The cat", exam3),
                 Question.longAnswer("‘happy’와 유의어인 단어를 3개 적으세요.", exam3),
                 Question.singleChoice("Which sentence is grammatically correct?", exam3, List.of(
@@ -169,7 +169,7 @@ public class DataInitializer implements ApplicationRunner {
         examRepository.save(exam3);
 
         Exam exam4 = new Exam("과학 시험", "과학과 관련된 시험입니다.", ExamStatus.DRAFT, member2.getId(), List.of());
-        exam4.addQuestions(List.of(
+        exam4.updateQuestions(List.of(
                 Question.shortAnswer("식물의 광합성 과정에서 필요한 두 가지 요소는 무엇인가요?", "빛, 이산화탄소", exam4),
                 Question.longAnswer("물의 화학식과 그 의미를 설명하세요.", exam4),
                 Question.singleChoice("다음 중 뉴턴의 운동 법칙은?", exam4, List.of(
@@ -204,7 +204,7 @@ public class DataInitializer implements ApplicationRunner {
         examRepository.save(exam4);
 
         Exam exam5 = new Exam("예술과 문화 시험", "예술과 문화와 관련된 시험입니다.", ExamStatus.DRAFT, member3.getId(), List.of());
-        exam5.addQuestions(List.of(
+        exam5.updateQuestions(List.of(
                 Question.shortAnswer("모나리자의 작가는 누구인가요?", "레오나르도 다빈치", exam5),
                 Question.longAnswer("바흐의 음악적 기여에 대해 설명하세요.", exam5),
                 Question.singleChoice("‘1984’라는 소설의 저자는 누구인가요?", exam5, List.of(
@@ -241,7 +241,7 @@ public class DataInitializer implements ApplicationRunner {
         examRepository.save(exam5);
 
         Exam exam6 = new Exam("기술과 정보 시험", "기술과 정보와 관련된 시험입니다.", ExamStatus.PUBLISHED, member2.getId(), List.of());
-        exam6.addQuestions(List.of(
+        exam6.updateQuestions(List.of(
                 Question.shortAnswer("컴퓨터의 기본 구성 요소 3가지를 적으세요.", "CPU, RAM, 저장장치", exam6),
                 Question.longAnswer("객체지향 프로그래밍의 특징에 대해 설명하세요.", exam6),
                 Question.singleChoice("인터넷 프로토콜(IP)의 주요 역할은 무엇인가요?", exam6, List.of(

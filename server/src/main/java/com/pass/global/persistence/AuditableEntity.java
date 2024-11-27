@@ -24,4 +24,8 @@ public abstract class AuditableEntity {
     @LastModifiedDate
     @Column(nullable = false)
     private LocalDateTime updatedAt;
+
+    public void update() {
+        this.updatedAt = LocalDateTime.now();
+    }
 }

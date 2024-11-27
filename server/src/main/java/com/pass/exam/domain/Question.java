@@ -127,7 +127,7 @@ public class Question {
         this.exam = exam;
     }
 
-    public void addOptions(List<QuestionOption> options) {
+    private void addOptions(List<QuestionOption> options) {
         options.forEach(option -> option.updateQuestion(this));
         optionGroup.addAll(new QuestionOptionGroup(options));
     }

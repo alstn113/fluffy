@@ -47,6 +47,7 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
                 .leftJoin(member).on(exam.memberId.eq(member.id))
                 .leftJoin(exam.questionGroup.questions, question)
                 .groupBy(exam.id)
+                .orderBy(exam.updatedAt.desc())
                 .fetch();
     }
 
@@ -68,6 +69,7 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
                 .leftJoin(exam.questionGroup.questions, question)
                 .where(exam.memberId.eq(memberId), exam.status.eq(status))
                 .groupBy(exam.id)
+                .orderBy(exam.updatedAt.desc())
                 .fetch();
     }
 }

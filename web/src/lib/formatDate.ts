@@ -5,17 +5,17 @@ const formatDate = (date: string | Date): string => {
   const d = date instanceof Date ? date : new Date(date);
   const now = Date.now();
   const diff = now - d.getTime();
-  // less than 5 minutes
-  if (diff < 1000 * 60 * 5) {
+  // less than 3 minutes
+  if (diff < 1000 * 60 * 3) {
     return '방금 전';
   }
 
-  // less than 1 hour
+  // less than 24 hours
   if (diff < 1000 * 60 * 60 * 24) {
-    return formatDistanceToNow(d, { addSuffix: true, locale: ko }); // 3시간 전
+    return formatDistanceToNow(d, { addSuffix: true, locale: ko }); // 3분 전, 3시간 전
   }
 
-  // less than 36 hours
+  // less than 36 hours (yesterday)
   if (diff < 1000 * 60 * 60 * 36) {
     return '어제';
   }

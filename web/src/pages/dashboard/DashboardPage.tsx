@@ -2,7 +2,6 @@ import BaseLayout from '@/components/layouts/base/BaseLayout.tsx';
 import AsyncBoundary from '@/components/AsyncBoundary';
 import useGetMyExamSummaries from '@/hooks/api/exam/useGetMyExamSummaries';
 import DraftExamCard from '@/components/dashboard/DraftExamCard';
-import { Divider } from '@nextui-org/react';
 
 const DashboardPage = () => {
   return (
@@ -12,7 +11,7 @@ const DashboardPage = () => {
           <div className="text-2xl font-semibold mb-5">출제 준비 중인 시험들</div>
           <DraftExamContent />
         </AsyncBoundary>
-        <Divider className="my-10" />
+        <div className="my-20" />
         <AsyncBoundary>
           <div className="text-2xl font-semibold mb-5">출제 완료된 시험들</div>
           <PublishedExamContent />

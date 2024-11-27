@@ -22,7 +22,8 @@ const DraftExamCard = ({ exam }: ExamSummaryCardProps) => {
         <Image alt="avatar url" height={40} radius="sm" src={exam.author.avatarUrl} width={40} />
         <div className="flex flex-col">
           <p className="text-md">{exam.author.name}</p>
-          <p className="text-small text-default-500">{formatDate(exam.createdAt)}</p>
+          <p className="text-small text-default-500">생성 시간: {formatDate(exam.createdAt)}</p>
+          <p className="text-small text-default-500">수정 시간: {formatDate(exam.updatedAt)}</p>
         </div>
         <div className="ml-auto mr-4 flex items-center">
           <Chip color="warning" variant="shadow" classNames={{ content: 'text-white' }}>

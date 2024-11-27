@@ -44,7 +44,7 @@ const ExamSummaryCard = ({ exam }: ExamSummaryCardProps) => {
       <Divider />
       <CardFooter className="flex justify-between">
         <div>문제 수: {exam.questionCount}</div>
-        <Link href={`/exams/${exam.id}`}>문제 풀러 가기</Link>
+        <Link href={`/exams/${exam.id}`}>시험 보기</Link>
       </CardFooter>
     </Card>
   );

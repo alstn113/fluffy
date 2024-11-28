@@ -46,7 +46,7 @@ public class ExamService {
                     "해당 사용자가 작성한 시험이 아닙니다. 사용자 식별자: %d, 시험 식별자: %d".formatted(member.getId(), exam.getId()));
         }
 
-        List<Question> questions = questionMapper.toQuestions(request, exam);
+        List<Question> questions = questionMapper.toQuestions(request);
         exam.updateQuestions(questions);
     }
 }

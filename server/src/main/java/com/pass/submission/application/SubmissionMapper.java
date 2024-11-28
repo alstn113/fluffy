@@ -6,7 +6,6 @@ import com.pass.exam.domain.QuestionOption;
 import com.pass.global.exception.BadRequestException;
 import com.pass.submission.application.dto.QuestionResponseAppRequest;
 import com.pass.submission.application.dto.SubmissionAppRequest;
-import com.pass.submission.application.dto.SubmissionResponse;
 import com.pass.submission.domain.Answer;
 import com.pass.submission.domain.Choice;
 import com.pass.submission.domain.Submission;

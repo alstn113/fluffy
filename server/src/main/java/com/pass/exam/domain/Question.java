@@ -46,53 +46,52 @@ public class Question {
     @Embedded
     private final QuestionOptionGroup optionGroup = new QuestionOptionGroup();
 
-    public static Question shortAnswer(String text, String correctAnswer, Exam exam) {
+    public static Question shortAnswer(String text, String correctAnswer) {
         if (correctAnswer == null || correctAnswer.isBlank() || correctAnswer.length() > MAX_TEXT_LENGTH) {
             throw new BadRequestException("정답의 길이는 1자 이상 %d자 이하여야 합니다.".formatted(MAX_TEXT_LENGTH));
         }
 
-        return answer(text, QuestionType.SHORT_ANSWER, correctAnswer, exam);
+        return answer(text, QuestionType.SHORT_ANSWER, correctAnswer);
     }
 
-    public static Question longAnswer(String text, Exam exam) {
-        return answer(text, QuestionType.LONG_ANSWER, null, exam);
+    public static Question longAnswer(String text) {
+        return answer(text, QuestionType.LONG_ANSWER, null);
     }
 
-    public static Question singleChoice(String text, Exam exam, List<QuestionOption> options) {
+    public static Question singleChoice(String text, List<QuestionOption> options) {
         if (options.stream().filter(QuestionOption::isCorrect).count() != 1) {
             throw new BadRequestException("객관식 단일 선택은 정답이 1개여야 합니다.");
         }
 
-        return choice(text, QuestionType.SINGLE_CHOICE, exam, options);
+        return choice(text, QuestionType.SINGLE_CHOICE, options);
     }
 
-    public static Question multipleChoice(String text, Exam exam, List<QuestionOption> options) {
-        return choice(text, QuestionType.MULTIPLE_CHOICE, exam, options);
+    public static Question multipleChoice(String text, List<QuestionOption> options) {
+        return choice(text, QuestionType.MULTIPLE_CHOICE, options);
     }
 
-    public static Question trueOrFalse(String text, Exam exam, boolean trueOrFalse) {
-        return choice(text, QuestionType.TRUE_OR_FALSE, exam, List.of(
+    public static Question trueOrFalse(String text, boolean trueOrFalse) {
+        return choice(text, QuestionType.TRUE_OR_FALSE, List.of(
                 new QuestionOption("TRUE", trueOrFalse),
                 new QuestionOption("FALSE", !trueOrFalse)
         ));
     }
 
-    private static Question answer(String text, QuestionType type, String correctAnswer, Exam exam) {
-        return new Question(text, type, correctAnswer, exam, new ArrayList<>());
+    private static Question answer(String text, QuestionType type, String correctAnswer) {
+        return new Question(text, type, correctAnswer, new ArrayList<>());
     }
 
-    private static Question choice(String text, QuestionType type, Exam exam, List<QuestionOption> options) {
-        return new Question(text, type, null, exam, options);
+    private static Question choice(String text, QuestionType type, List<QuestionOption> options) {
+        return new Question(text, type, null, options);
     }
 
     private Question(
             String text,
             QuestionType type,
             String correctAnswer,
-            Exam exam,
             List<QuestionOption> options
     ) {
-        this(null, text, type, correctAnswer, exam, options);
+        this(null, text, type, correctAnswer, options);
     }
 
     private Question(
@@ -100,7 +99,6 @@ public class Question {
             String text,
             QuestionType type,
             String correctAnswer,
-            Exam exam,
             List<QuestionOption> options
     ) {
         validate(text);
@@ -109,7 +107,6 @@ public class Question {
         this.text = text;
         this.type = type;
         this.correctAnswer = correctAnswer;
-        this.exam = exam;
         addOptions(options);
     }
 

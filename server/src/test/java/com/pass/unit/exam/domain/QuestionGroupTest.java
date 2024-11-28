@@ -2,7 +2,6 @@ package com.pass.unit.exam.domain;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import com.pass.exam.domain.Exam;
 import com.pass.exam.domain.Question;
 import com.pass.exam.domain.QuestionGroup;
 import com.pass.global.exception.BadRequestException;
@@ -19,7 +18,7 @@ class QuestionGroupTest {
         // given
         int questionSize = 201;
         List<Question> overSizedQuestions = IntStream.range(0, questionSize)
-                .mapToObj(i -> Question.shortAnswer("질문 %d".formatted(i + 1), "정답", Exam.create("시험", 1L)))
+                .mapToObj(i -> Question.shortAnswer("질문 %d".formatted(i + 1), "정답"))
                 .toList();
 
         // when & then

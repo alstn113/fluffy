@@ -5,18 +5,13 @@ import static com.pass.auth.domain.QMember.member;
 import static com.pass.submission.domain.QSubmission.submission;
 
 import com.pass.submission.domain.SubmissionRepositoryCustom;
-import com.pass.submission.domain.dto.AnswerDto;
-import com.pass.submission.domain.dto.ChoiceDto;
 import com.pass.submission.domain.dto.ParticipantDto;
-import com.pass.submission.domain.dto.QSubmissionDetailDto;
 import com.pass.submission.domain.dto.QSubmissionSummaryDto;
-import com.pass.submission.domain.dto.SubmissionDetailDto;
 import com.pass.submission.domain.dto.SubmissionSummaryDto;
 import com.querydsl.core.types.ConstructorExpression;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

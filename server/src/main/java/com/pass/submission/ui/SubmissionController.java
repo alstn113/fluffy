@@ -4,8 +4,6 @@ import com.pass.global.web.Accessor;
 import com.pass.global.web.Auth;
 import com.pass.submission.application.SubmissionQueryService;
 import com.pass.submission.application.SubmissionService;
-import com.pass.submission.application.dto.SubmissionResponse;
-import com.pass.submission.domain.dto.SubmissionDetailDto;
 import com.pass.submission.domain.dto.SubmissionSummaryDto;
 import com.pass.submission.ui.dto.SubmissionWebRequest;
 import jakarta.validation.Valid;

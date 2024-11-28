@@ -14,7 +14,6 @@ import com.pass.exam.application.dto.question.QuestionOptionRequest;
 import com.pass.exam.application.dto.question.ShortAnswerQuestionAppRequest;
 import com.pass.exam.application.dto.question.SingleChoiceQuestionAppRequest;
 import com.pass.exam.application.dto.question.TrueOrFalseQuestionAppRequest;
-import com.pass.exam.domain.Exam;
 import com.pass.exam.domain.Question;
 import com.pass.exam.domain.QuestionOption;
 import com.pass.exam.domain.QuestionType;
@@ -29,52 +28,51 @@ public class QuestionMapper {
 
     private final QuestionOptionMapper questionOptionMapper;
 
-    public List<Question> toQuestions(UpdateExamQuestionsAppRequest request, Exam exam) {
+    public List<Question> toQuestions(UpdateExamQuestionsAppRequest request) {
         List<Question> questions = request.questions().stream()
-                .map(it -> toQuestion(it, exam))
+                .map(this::toQuestion)
                 .toList();
 
         return new ArrayList<>(questions);
     }
 
-    public Question toQuestion(QuestionAppRequest request, Exam exam) {
+    public Question toQuestion(QuestionAppRequest request) {
         QuestionType questionType = QuestionType.from(request.type());
 
         return switch (questionType) {
-            case SHORT_ANSWER -> toQuestion((ShortAnswerQuestionAppRequest) request, exam);
-            case LONG_ANSWER -> toQuestion((LongAnswerQuestionAppRequest) request, exam);
-            case SINGLE_CHOICE -> toQuestion((SingleChoiceQuestionAppRequest) request, exam);
-            case MULTIPLE_CHOICE -> toQuestion((MultipleChoiceAppRequest) request, exam);
-            case TRUE_OR_FALSE -> toQuestion((TrueOrFalseQuestionAppRequest) request, exam);
+            case SHORT_ANSWER -> toQuestion((ShortAnswerQuestionAppRequest) request);
+            case LONG_ANSWER -> toQuestion((LongAnswerQuestionAppRequest) request);
+            case SINGLE_CHOICE -> toQuestion((SingleChoiceQuestionAppRequest) request);
+            case MULTIPLE_CHOICE -> toQuestion((MultipleChoiceAppRequest) request);
+            case TRUE_OR_FALSE -> toQuestion((TrueOrFalseQuestionAppRequest) request);
         };
     }
 
-    private Question toQuestion(ShortAnswerQuestionAppRequest request, Exam exam) {
+    private Question toQuestion(ShortAnswerQuestionAppRequest request) {
         return Question.shortAnswer(
                 request.text(),
-                request.correctAnswer(),
-                exam
+                request.correctAnswer()
         );
     }
 
-    private Question toQuestion(LongAnswerQuestionAppRequest request, Exam exam) {
-        return Question.longAnswer(request.text(), exam);
+    private Question toQuestion(LongAnswerQuestionAppRequest request) {
+        return Question.longAnswer(request.text());
     }
 
-    private Question toQuestion(SingleChoiceQuestionAppRequest request, Exam exam) {
+    private Question toQuestion(SingleChoiceQuestionAppRequest request) {
         List<QuestionOption> questionOptions = toQuestionOptions(request.options());
 
-        return Question.singleChoice(request.text(), exam, questionOptions);
+        return Question.singleChoice(request.text(), questionOptions);
     }
 
-    private Question toQuestion(MultipleChoiceAppRequest request, Exam exam) {
+    private Question toQuestion(MultipleChoiceAppRequest request) {
         List<QuestionOption> questionOptions = toQuestionOptions(request.options());
 
-        return Question.multipleChoice(request.text(), exam, questionOptions);
+        return Question.multipleChoice(request.text(), questionOptions);
     }
 
-    private Question toQuestion(TrueOrFalseQuestionAppRequest request, Exam exam) {
-        return Question.trueOrFalse(request.text(), exam, request.trueOrFalse());
+    private Question toQuestion(TrueOrFalseQuestionAppRequest request) {
+        return Question.trueOrFalse(request.text(), request.trueOrFalse());
     }
 
     private List<QuestionOption> toQuestionOptions(List<QuestionOptionRequest> requests) {

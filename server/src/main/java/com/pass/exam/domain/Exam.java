@@ -55,8 +55,8 @@ public class Exam extends AuditableEntity {
     }
 
     public void publish(LocalDateTime startedAt, LocalDateTime endedAt) {
-        if (status.isNotPublishable()) {
-            throw new BadRequestException("시험을 출시할 수 없는 상태입니다.");
+        if (status.isPublished()) {
+            throw new BadRequestException("시험은 이미 출시되었습니다.");
         }
 
         if (questionGroup.size() < 1) {
@@ -68,8 +68,8 @@ public class Exam extends AuditableEntity {
     }
 
     public void updateQuestions(List<Question> questions) {
-        if (status.isNotEditable()) {
-            throw new BadRequestException("시험이 시작된 후에는 문제를 수정할 수 없습니다.");
+        if (status.isPublished()) {
+            throw new BadRequestException("시험이 출시된 후에는 문제를 수정할 수 없습니다.");
         }
 
         questionGroup.clear();

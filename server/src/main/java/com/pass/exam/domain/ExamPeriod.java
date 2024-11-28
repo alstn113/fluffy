@@ -5,6 +5,7 @@ import jakarta.annotation.Nullable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -21,29 +22,39 @@ public class ExamPeriod {
 
     public static ExamPeriod create(@Nullable LocalDateTime startAt, @Nullable LocalDateTime endAt) {
         LocalDateTime validatedStartAt = validateAndGetStartAt(startAt);
-        validateEndAt(validatedStartAt, endAt);
+        LocalDateTime validatedEndAt = validateAndGetEndAt(validatedStartAt, endAt);
 
-        return new ExamPeriod(validatedStartAt, endAt);
-    }
-
-    private static void validateEndAt(LocalDateTime startAt, @Nullable LocalDateTime endAt) {
-        if (endAt != null && startAt.isAfter(endAt)) {
-            throw new BadRequestException("시작 시간은 종료 시간 이전이어야 합니다.");
-        }
+        return new ExamPeriod(validatedStartAt, validatedEndAt);
     }
 
     private static LocalDateTime validateAndGetStartAt(@Nullable LocalDateTime startAt) {
-        LocalDateTime now = LocalDateTime.now();
-
-        if (startAt != null && startAt.isBefore(now)) {
-            throw new BadRequestException("시작 시간은 현재 시간 이후여야 합니다.");
-        }
+        LocalDateTime nowTruncated = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
 
         if (startAt == null) {
-            return now;
+            return nowTruncated;
         }
 
-        return startAt;
+        // 시작 시간은 현재 시간과 같거나 이후여야 함.
+        LocalDateTime startAtTruncated = startAt.truncatedTo(ChronoUnit.MINUTES);
+        if (nowTruncated.isAfter(startAtTruncated)) {
+            throw new BadRequestException("시작 시간은 현재 시간과 같거나 이후여야 합니다.");
+        }
+
+        return startAtTruncated;
+    }
+
+    private static LocalDateTime validateAndGetEndAt(LocalDateTime startAtTruncated, @Nullable LocalDateTime endAt) {
+        if (endAt == null) {
+            return null;
+        }
+
+        // 시작 시간은 종료 시간과 같을 수 없고, 이전이어야 함.
+        LocalDateTime endAtTruncated = endAt.truncatedTo(ChronoUnit.MINUTES);
+        if (startAtTruncated.isAfter(endAtTruncated)) {
+            throw new BadRequestException("시작 시간은 종료 시간 이전이어야 합니다.");
+        }
+
+        return endAtTruncated;
     }
 
     private ExamPeriod(LocalDateTime startAt, LocalDateTime endAt) {

@@ -16,11 +16,7 @@ public enum ExamStatus {
                 .orElseThrow(() -> new NotFoundException("존재하지 않는 시험 상태입니다. 시험 상태: " + value));
     }
 
-    public boolean isNotEditable() {
+    public boolean isPublished() {
         return this == PUBLISHED;
-    }
-
-    public boolean isNotPublishable() {
-        return this == DRAFT;
     }
 }

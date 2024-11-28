@@ -8,13 +8,11 @@ import com.pass.exam.domain.ExamRepositoryCustom;
 import com.pass.exam.domain.ExamStatus;
 import com.pass.exam.domain.dto.AuthorDto;
 import com.pass.exam.domain.dto.ExamSummaryDto;
-import com.querydsl.core.Tuple;
+import com.pass.exam.domain.dto.QExamSummaryDto;
 import com.querydsl.core.types.ConstructorExpression;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -31,9 +29,9 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<ExamSummaryDto> findAllExamSummaries() {
+    public List<ExamSummaryDto> findSummaries() {
         return queryFactory
-                .select(Projections.constructor(ExamSummaryDto.class,
+                .select(new QExamSummaryDto(
                         exam.id,
                         exam.title,
                         exam.description,
@@ -52,9 +50,9 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
     }
 
     @Override
-    public List<ExamSummaryDto> findMyExamSummaries(ExamStatus status, Long memberId) {
+    public List<ExamSummaryDto> findMySummaries(ExamStatus status, Long memberId) {
         return queryFactory
-                .select(Projections.constructor(ExamSummaryDto.class,
+                .select(new QExamSummaryDto(
                         exam.id,
                         exam.title,
                         exam.description,

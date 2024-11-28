@@ -29,7 +29,7 @@ public class ExamService {
         Accessor accessor = request.accessor();
         Member member = memberRepository.getById(accessor.id());
 
-        Exam exam = Exam.initial(request.title(), member.getId());
+        Exam exam = Exam.create(request.title(), member.getId());
         Exam savedExam = examRepository.save(exam);
 
         return examMapper.toCreateResponse(savedExam);

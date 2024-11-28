@@ -85,7 +85,7 @@ public class Question {
         return new Question(text, type, null, exam, options);
     }
 
-    public Question(
+    private Question(
             String text,
             QuestionType type,
             String correctAnswer,
@@ -95,7 +95,7 @@ public class Question {
         this(null, text, type, correctAnswer, exam, options);
     }
 
-    public Question(
+    private Question(
             Long id,
             String text,
             QuestionType type,

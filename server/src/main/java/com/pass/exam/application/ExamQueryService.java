@@ -22,12 +22,12 @@ public class ExamQueryService {
 
     @Transactional(readOnly = true)
     public List<ExamSummaryDto> getExamSummaries() {
-        return examRepository.findAllExamSummaries();
+        return examRepository.findSummaries();
     }
 
     @Transactional(readOnly = true)
     public List<ExamSummaryDto> getMyExamSummaries(ExamStatus status, Accessor accessor) {
-        return examRepository.findMyExamSummaries(status, accessor.id());
+        return examRepository.findMySummaries(status, accessor.id());
     }
 
     @Transactional(readOnly = true)

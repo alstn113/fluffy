@@ -43,6 +43,10 @@ public class QuestionGroup {
         questions.addAll(questionGroup.toList());
     }
 
+    public int size() {
+        return questions.size();
+    }
+
     public List<Question> toList() {
         return new ArrayList<>(questions);
     }

@@ -23,7 +23,7 @@ class QuestionTest {
     @DisplayName("질문의 길이는 공백일 수 없습니다.")
     void failWhenTextIsBlank(String text) {
         // when & then
-        Exam exam = Exam.initial("시험 제목", 1L);
+        Exam exam = Exam.create("시험 제목", 1L);
         assertThatThrownBy(() -> Question.shortAnswer(text, "정답", exam))
                 .isInstanceOf(BadRequestException.class)
                 .hasMessage("질문의 길이는 1자 이상 2000자 이하여야 합니다.");
@@ -39,7 +39,7 @@ class QuestionTest {
         String text = "a".repeat(length);
 
         // then
-        assertThatThrownBy(() -> Question.shortAnswer(text, "정답", Exam.initial("시험 제목", 1L)))
+        assertThatThrownBy(() -> Question.shortAnswer(text, "정답", Exam.create("시험 제목", 1L)))
                 .isInstanceOf(BadRequestException.class)
                 .hasMessage("질문의 길이는 1자 이상 2000자 이하여야 합니다.");
     }
@@ -54,7 +54,7 @@ class QuestionTest {
         String correctAnswer = "a".repeat(length);
 
         // then
-        assertThatThrownBy(() -> Question.shortAnswer("질문", correctAnswer, Exam.initial("시험 제목", 1L)))
+        assertThatThrownBy(() -> Question.shortAnswer("질문", correctAnswer, Exam.create("시험 제목", 1L)))
                 .isInstanceOf(BadRequestException.class)
                 .hasMessage("정답의 길이는 1자 이상 2000자 이하여야 합니다.");
     }
@@ -68,7 +68,7 @@ class QuestionTest {
         List<QuestionOption> options = List.of(correctOption, incorrectOption);
 
         // when & then
-        Exam exam = Exam.initial("시험 제목", 1L);
+        Exam exam = Exam.create("시험 제목", 1L);
         assertThatThrownBy(() -> Question.singleChoice("질문", exam, options))
                 .isInstanceOf(BadRequestException.class)
                 .hasMessage("객관식 단일 선택은 정답이 1개여야 합니다.");
@@ -78,7 +78,7 @@ class QuestionTest {
     @DisplayName("True or False 질문을 생성할 수 있다")
     void trueOrFalse() {
         // given
-        Question question = Question.trueOrFalse("질문", Exam.initial("시험 제목", 1L), false);
+        Question question = Question.trueOrFalse("질문", Exam.create("시험 제목", 1L), false);
 
         // then
         List<QuestionOption> options = question.getOptionGroup().toList();

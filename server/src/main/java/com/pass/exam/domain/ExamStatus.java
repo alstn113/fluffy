@@ -15,4 +15,12 @@ public enum ExamStatus {
                 .findFirst()
                 .orElseThrow(() -> new NotFoundException("존재하지 않는 시험 상태입니다. 시험 상태: " + value));
     }
+
+    public boolean isNotEditable() {
+        return this == PUBLISHED;
+    }
+
+    public boolean isNotPublishable() {
+        return this == DRAFT;
+    }
 }

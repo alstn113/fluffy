@@ -67,7 +67,7 @@ class ExamServiceIntegrationTest extends AbstractIntegrationTest {
     void updateQuestions() {
         // given
         Member member = memberRepository.save(MemberTestData.defaultMember().build());
-        Exam existingExam = examRepository.save(Exam.initial("시험 제목", member.getId()));
+        Exam existingExam = examRepository.save(Exam.create("시험 제목", member.getId()));
 
         Accessor accessor = new Accessor(member.getId());
         List<QuestionAppRequest> questionRequests = createQuestionRequests();
@@ -88,7 +88,7 @@ class ExamServiceIntegrationTest extends AbstractIntegrationTest {
     void updateQuestionsFailWhenNotWrittenByMember() {
         // given
         Member member = memberRepository.save(MemberTestData.defaultMember().build());
-        Exam existingExam = examRepository.save(Exam.initial("시험 제목", member.getId()));
+        Exam existingExam = examRepository.save(Exam.create("시험 제목", member.getId()));
 
         Member anotherMember = memberRepository.save(MemberTestData.defaultMember().build());
         Accessor accessor = new Accessor(anotherMember.getId());

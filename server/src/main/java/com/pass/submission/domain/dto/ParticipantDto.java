@@ -1,22 +1,26 @@
-package com.pass.exam.domain.dto;
+package com.pass.submission.domain.dto;
+
 
 import com.querydsl.core.annotations.QueryProjection;
+import jakarta.annotation.Nullable;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class AuthorDto {
+public class ParticipantDto {
 
     private Long id;
     private String name;
+    private String email;
     private String avatarUrl;
 
     @QueryProjection
-    public AuthorDto(Long id, String name, String avatarUrl) {
+    public ParticipantDto(Long id, String name, @Nullable String email, String avatarUrl) {
         this.id = id;
         this.name = name;
+        this.email = email;
         this.avatarUrl = avatarUrl;
     }
 }

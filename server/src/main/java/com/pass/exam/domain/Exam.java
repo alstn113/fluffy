@@ -1,5 +1,6 @@
 package com.pass.exam.domain;
 
+import com.pass.global.exception.BadRequestException;
 import com.pass.global.persistence.AuditableEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
@@ -9,7 +10,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -40,28 +41,40 @@ public class Exam extends AuditableEntity {
     @Embedded
     private final QuestionGroup questionGroup = new QuestionGroup();
 
-    public static Exam initial(String title, Long memberId) {
-        return new Exam(title, "", ExamStatus.DRAFT, memberId, new ArrayList<>());
+    @Embedded
+    private ExamPeriod examPeriod;
+
+    public static Exam create(String title, Long memberId) {
+        Exam exam = new Exam();
+        exam.title = title;
+        exam.description = "";
+        exam.status = ExamStatus.DRAFT;
+        exam.memberId = memberId;
+
+        return exam;
     }
 
-    public Exam(String title, String description, ExamStatus status, Long memberId, List<Question> questions) {
-        this(null, title, description, status, memberId, questions);
+    public void publish(LocalDateTime startedAt, LocalDateTime endedAt) {
+        if (status.isNotPublishable()) {
+            throw new BadRequestException("시험을 출시할 수 없는 상태입니다.");
+        }
+
+        if (questionGroup.size() < 1) {
+            throw new BadRequestException("시험을 출시하기 위해서는 최소 1개 이상의 문제를 추가해야 합니다.");
+        }
+
+        this.examPeriod = ExamPeriod.create(startedAt, endedAt);
+        this.status = ExamStatus.PUBLISHED;
     }
 
-    public Exam(
-            Long id,
-            String title,
-            String description,
-            ExamStatus status,
-            Long memberId,
-            List<Question> questions
-    ) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.status = status;
-        this.memberId = memberId;
+    public void updateQuestions(List<Question> questions) {
+        if (status.isNotEditable()) {
+            throw new BadRequestException("시험이 시작된 후에는 문제를 수정할 수 없습니다.");
+        }
+
+        questionGroup.clear();
         addQuestions(questions);
+        update();
     }
 
     public boolean isNotWrittenBy(Long memberId) {
@@ -71,11 +84,5 @@ public class Exam extends AuditableEntity {
     private void addQuestions(List<Question> questions) {
         questions.forEach(question -> question.updateExam(this));
         questionGroup.addAll(new QuestionGroup(questions));
-    }
-
-    public void updateQuestions(List<Question> questions) {
-        questionGroup.clear();
-        addQuestions(questions);
-        update();
     }
 }

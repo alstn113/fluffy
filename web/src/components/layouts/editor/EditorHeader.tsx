@@ -46,9 +46,6 @@ const EditorHeader = () => {
               <DropdownItem key="exam list" href={PAGE_LIST.exam.list}>
                 Exam List
               </DropdownItem>
-              <DropdownItem key="exam edit" href={PAGE_LIST.exam.edit}>
-                Exam Edit
-              </DropdownItem>
               <DropdownItem
                 key="logout"
                 className="text-danger"

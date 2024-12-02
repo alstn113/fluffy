@@ -4,10 +4,12 @@ import com.pass.exam.application.ExamQueryService;
 import com.pass.exam.application.ExamService;
 import com.pass.exam.application.dto.ExamResponse;
 import com.pass.exam.application.dto.ExamWithAnswersResponse;
+import com.pass.exam.application.dto.PublishExamAppRequest;
 import com.pass.exam.application.dto.question.CreateExamResponse;
 import com.pass.exam.domain.ExamStatus;
 import com.pass.exam.domain.dto.ExamSummaryDto;
 import com.pass.exam.ui.dto.CreateExamWebRequest;
+import com.pass.exam.ui.dto.PublishExamWebRequest;
 import com.pass.exam.ui.dto.UpdateExamQuestionsWebRequest;
 import com.pass.global.web.Accessor;
 import com.pass.global.web.Auth;
@@ -75,6 +77,17 @@ public class ExamController {
 
         URI location = URI.create("/api/v1/exams/%s".formatted(response.id()));
         return ResponseEntity.created(location).body(response);
+    }
+
+    @PostMapping("/api/v1/exams/{examId}/publish")
+    public ResponseEntity<Void> publish(
+            @PathVariable Long examId,
+            @RequestBody @Valid PublishExamWebRequest request,
+            @Auth Accessor accessor
+    ) {
+        examService.publish(request.toAppRequest(examId, accessor));
+
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/api/v1/exams/{examId}/questions")

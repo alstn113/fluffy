@@ -3,6 +3,7 @@ package com.pass.exam.application;
 import com.pass.auth.domain.Member;
 import com.pass.auth.domain.MemberRepository;
 import com.pass.exam.application.dto.CreateExamAppRequest;
+import com.pass.exam.application.dto.PublishExamAppRequest;
 import com.pass.exam.application.dto.UpdateExamQuestionsAppRequest;
 import com.pass.exam.application.dto.question.CreateExamResponse;
 import com.pass.exam.domain.Exam;
@@ -37,8 +38,21 @@ public class ExamService {
 
     @Transactional
     public void updateQuestions(UpdateExamQuestionsAppRequest request) {
-        Exam exam = examRepository.getById(request.examId());
-        Accessor accessor = request.accessor();
+        Exam exam = validateExamAuthor(request.examId(), request.accessor());
+
+        List<Question> questions = questionMapper.toQuestions(request);
+        exam.updateQuestions(questions);
+    }
+
+    @Transactional
+    public void publish(PublishExamAppRequest request) {
+        Exam exam = validateExamAuthor(request.examId(), request.accessor());
+
+        exam.publish(request.startDate(), request.endDate());
+    }
+
+    private Exam validateExamAuthor(Long examId, Accessor accessor) {
+        Exam exam = examRepository.getById(examId);
         Member member = memberRepository.getById(accessor.id());
 
         if (exam.isNotWrittenBy(member.getId())) {
@@ -46,7 +60,6 @@ public class ExamService {
                     "해당 사용자가 작성한 시험이 아닙니다. 사용자 식별자: %d, 시험 식별자: %d".formatted(member.getId(), exam.getId()));
         }
 
-        List<Question> questions = questionMapper.toQuestions(request);
-        exam.updateQuestions(questions);
+        return exam;
     }
 }

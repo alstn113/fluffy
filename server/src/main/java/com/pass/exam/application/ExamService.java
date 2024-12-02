@@ -40,13 +40,16 @@ public class ExamService {
     public void updateQuestions(UpdateExamQuestionsAppRequest request) {
         Exam exam = validateExamAuthor(request.examId(), request.accessor());
 
-        List<Question> questions = questionMapper.toQuestions(request);
+        List<Question> questions = questionMapper.toQuestions(request.questions());
         exam.updateQuestions(questions);
     }
 
     @Transactional
     public void publish(PublishExamAppRequest request) {
         Exam exam = validateExamAuthor(request.examId(), request.accessor());
+
+        List<Question> questions = questionMapper.toQuestions(request.questions());
+        exam.updateQuestions(questions);
 
         exam.publish(request.startDate(), request.endDate());
     }

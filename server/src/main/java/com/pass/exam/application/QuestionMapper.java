@@ -6,6 +6,7 @@ import com.pass.exam.application.dto.ExamResponse.QuestionResponse;
 import com.pass.exam.application.dto.ExamWithAnswersResponse.AnswerQuestionWithAnswersResponse;
 import com.pass.exam.application.dto.ExamWithAnswersResponse.ChoiceQuestionWithAnswersResponse;
 import com.pass.exam.application.dto.ExamWithAnswersResponse.QuestionWithAnswersResponse;
+import com.pass.exam.application.dto.PublishExamAppRequest;
 import com.pass.exam.application.dto.UpdateExamQuestionsAppRequest;
 import com.pass.exam.application.dto.question.LongAnswerQuestionAppRequest;
 import com.pass.exam.application.dto.question.MultipleChoiceAppRequest;
@@ -28,12 +29,10 @@ public class QuestionMapper {
 
     private final QuestionOptionMapper questionOptionMapper;
 
-    public List<Question> toQuestions(UpdateExamQuestionsAppRequest request) {
-        List<Question> questions = request.questions().stream()
+    public List<Question> toQuestions(List<QuestionAppRequest> requests) {
+        return requests.stream()
                 .map(this::toQuestion)
                 .toList();
-
-        return new ArrayList<>(questions);
     }
 
     public Question toQuestion(QuestionAppRequest request) {

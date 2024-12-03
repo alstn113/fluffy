@@ -1,14 +1,21 @@
 package com.pass.submission.application;
 
+import com.pass.auth.domain.Member;
 import com.pass.exam.domain.Exam;
 import com.pass.exam.domain.Question;
 import com.pass.exam.domain.QuestionOption;
 import com.pass.global.exception.BadRequestException;
 import com.pass.submission.application.dto.QuestionResponseAppRequest;
 import com.pass.submission.application.dto.SubmissionAppRequest;
+import com.pass.submission.application.dto.SubmissionDetailResponse;
+import com.pass.submission.application.dto.SubmissionDetailResponse.AnswerBaseResponse;
+import com.pass.submission.application.dto.SubmissionDetailResponse.ChoiceAnswerResponse;
+import com.pass.submission.application.dto.SubmissionDetailResponse.ChoiceResponse;
+import com.pass.submission.application.dto.SubmissionDetailResponse.TextAnswerResponse;
 import com.pass.submission.domain.Answer;
 import com.pass.submission.domain.Choice;
 import com.pass.submission.domain.Submission;
+import com.pass.submission.domain.dto.ParticipantDto;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -91,5 +98,65 @@ public class SubmissionMapper {
         }
 
         return Answer.choiceAnswer(question.getId(), choiceList);
+    }
+
+    public SubmissionDetailResponse toDetailResponse(Exam exam, Submission submission, Member member) {
+        return new SubmissionDetailResponse(
+                submission.getId(),
+                toDetailAnswers(exam.getQuestionGroup().toList(), submission.getAnswers()),
+                new ParticipantDto(
+                        member.getId(),
+                        member.getName(),
+                        member.getEmail(),
+                        member.getAvatarUrl()
+                ),
+                submission.getCreatedAt()
+        );
+    }
+
+    private List<AnswerBaseResponse> toDetailAnswers(List<Question> questions, List<Answer> answers) {
+        return IntStream.range(0, questions.size())
+                .mapToObj(i -> {
+                    Question question = questions.get(i);
+                    Answer answer = answers.get(i);
+
+                    return switch (question.getType()) {
+                        case SHORT_ANSWER, LONG_ANSWER -> toDetailTextAnswer(answer, question);
+                        case SINGLE_CHOICE, TRUE_OR_FALSE, MULTIPLE_CHOICE -> toDetailChoiceAnswer(answer, question);
+                    };
+                })
+                .toList();
+    }
+
+    private AnswerBaseResponse toDetailChoiceAnswer(Answer answer, Question question) {
+        return new ChoiceAnswerResponse(
+                answer.getId(),
+                question.getId(),
+                question.getText(),
+                question.getType().name(),
+                toChoiceResponses(question.getOptionGroup().toList(), answer.getChoices())
+        );
+    }
+
+    private static AnswerBaseResponse toDetailTextAnswer(Answer answer, Question question) {
+        return new TextAnswerResponse(
+                answer.getId(),
+                question.getId(),
+                question.getText(),
+                question.getType().name(),
+                answer.getText(),
+                question.getCorrectAnswer()
+        );
+    }
+
+    private List<ChoiceResponse> toChoiceResponses(List<QuestionOption> options, List<Choice> choices) {
+        return options.stream()
+                .map(it -> new ChoiceResponse(
+                        it.getId(),
+                        it.getText(),
+                        it.isCorrect(),
+                        choices.stream().anyMatch(choice -> choice.getQuestionOptionId().equals(it.getId()))
+                ))
+                .toList();
     }
 }

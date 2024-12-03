@@ -6,6 +6,4 @@ import java.util.List;
 public interface SubmissionRepositoryCustom {
 
     List<SubmissionSummaryDto> findSummariesByExamId(Long examId);
-
-//    Optional<SubmissionDetailDto> findDetail(Long submissionId);
 }

@@ -8,7 +8,6 @@ import com.pass.exam.domain.ExamRepositoryCustom;
 import com.pass.exam.domain.ExamStatus;
 import com.pass.exam.domain.dto.AuthorDto;
 import com.pass.exam.domain.dto.ExamSummaryDto;
-import com.pass.exam.domain.dto.QExamSummaryDto;
 import com.querydsl.core.types.ConstructorExpression;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -31,7 +30,7 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
     @Override
     public List<ExamSummaryDto> findSummaries() {
         return queryFactory
-                .select(new QExamSummaryDto(
+                .select(Projections.constructor(ExamSummaryDto.class,
                         exam.id,
                         exam.title,
                         exam.description,
@@ -52,7 +51,7 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
     @Override
     public List<ExamSummaryDto> findMySummaries(ExamStatus status, Long memberId) {
         return queryFactory
-                .select(new QExamSummaryDto(
+                .select(Projections.constructor(ExamSummaryDto.class,
                         exam.id,
                         exam.title,
                         exam.description,

@@ -4,6 +4,7 @@ import com.pass.global.web.Accessor;
 import com.pass.global.web.Auth;
 import com.pass.submission.application.SubmissionQueryService;
 import com.pass.submission.application.SubmissionService;
+import com.pass.submission.application.dto.SubmissionDetailResponse;
 import com.pass.submission.domain.dto.SubmissionSummaryDto;
 import com.pass.submission.ui.dto.SubmissionWebRequest;
 import jakarta.validation.Valid;
@@ -33,16 +34,16 @@ public class SubmissionController {
         return ResponseEntity.ok(response);
     }
 
-//    @GetMapping("/api/v1/exams/{examId}/submissions/{submissionId}")
-//    public ResponseEntity<SubmissionDetailDto> getDetail(
-//            @PathVariable Long examId,
-//            @PathVariable Long submissionId,
-//            @Auth Accessor accessor
-//    ) {
-//        SubmissionDetailDto response = submissionQueryService.getDetail(examId, submissionId, accessor);
-//
-//        return ResponseEntity.ok(response);
-//    }
+    @GetMapping("/api/v1/exams/{examId}/submissions/{submissionId}")
+    public ResponseEntity<SubmissionDetailResponse> getDetail(
+            @PathVariable Long examId,
+            @PathVariable Long submissionId,
+            @Auth Accessor accessor
+    ) {
+        SubmissionDetailResponse response = submissionQueryService.getDetail(examId, submissionId, accessor);
+
+        return ResponseEntity.ok(response);
+    }
 
     @PostMapping("/api/v1/exams/{examId}/submissions")
     public ResponseEntity<Void> submit(

@@ -168,6 +168,7 @@ public class DataInitializer implements ApplicationRunner {
                 Question.shortAnswer("‘beneficial’의 의미는 무엇인가요?", "유익한"),
                 Question.longAnswer("‘I wish I had studied harder’ 문장의 의미를 설명하세요.")
         ));
+        exam3.publish(LocalDateTime.now().plusDays(1), LocalDateTime.now().plusDays(2));
         examRepository.save(exam3);
 
         Exam exam4 = Exam.create("과학 시험", member2.getId());
@@ -203,6 +204,7 @@ public class DataInitializer implements ApplicationRunner {
                 Question.trueOrFalse("빛은 물질을 통과할 수 없다.", false),
                 Question.longAnswer("지구의 내부 구조에 대해 설명하세요.")
         ));
+        exam4.publish(LocalDateTime.now().plusDays(2), LocalDateTime.now().plusDays(4));
         examRepository.save(exam4);
 
         Exam exam5 = Exam.create("문화 시험", member2.getId());
@@ -278,6 +280,7 @@ public class DataInitializer implements ApplicationRunner {
                 Question.shortAnswer("오픈 소스 소프트웨어의 장점은 무엇인가요?", "자유로운 사용, 수정 가능"),
                 Question.longAnswer("기술 발전이 사회에 미친 영향에 대해 설명하세요.")
         ));
+        exam6.publish(LocalDateTime.now().plusDays(2), LocalDateTime.now().plusDays(4));
         examRepository.save(exam6);
     }
 }

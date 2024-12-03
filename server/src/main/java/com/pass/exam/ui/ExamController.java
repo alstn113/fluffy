@@ -4,7 +4,6 @@ import com.pass.exam.application.ExamQueryService;
 import com.pass.exam.application.ExamService;
 import com.pass.exam.application.dto.ExamResponse;
 import com.pass.exam.application.dto.ExamWithAnswersResponse;
-import com.pass.exam.application.dto.PublishExamAppRequest;
 import com.pass.exam.application.dto.question.CreateExamResponse;
 import com.pass.exam.domain.ExamStatus;
 import com.pass.exam.domain.dto.ExamSummaryDto;
@@ -34,8 +33,8 @@ public class ExamController {
     private final ExamQueryService examQueryService;
 
     @GetMapping("/api/v1/exams")
-    public ResponseEntity<List<ExamSummaryDto>> getExamSummaries() {
-        List<ExamSummaryDto> response = examQueryService.getExamSummaries();
+    public ResponseEntity<List<ExamSummaryDto>> getPublishedExamSummaries() {
+        List<ExamSummaryDto> response = examQueryService.getPublishedExamSummaries();
 
         return ResponseEntity.ok(response);
     }

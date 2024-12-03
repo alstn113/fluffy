@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface ExamRepositoryCustom {
 
-    List<ExamSummaryDto> findSummaries();
+    List<ExamSummaryDto> findPublishedSummaries();
 
     List<ExamSummaryDto> findMySummaries(ExamStatus status, Long memberId);
 }

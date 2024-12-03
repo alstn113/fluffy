@@ -28,7 +28,7 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<ExamSummaryDto> findSummaries() {
+    public List<ExamSummaryDto> findPublishedSummaries() {
         return queryFactory
                 .select(Projections.constructor(ExamSummaryDto.class,
                         exam.id,
@@ -43,6 +43,8 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
                 .from(exam)
                 .leftJoin(member).on(exam.memberId.eq(member.id))
                 .leftJoin(exam.questionGroup.questions, question)
+                .where(exam.status.eq(ExamStatus.PUBLISHED))
+                // TODO: 시험을 풀 수 있는 시간 내에만 조회되도록 수정
                 .groupBy(exam.id)
                 .orderBy(exam.updatedAt.desc())
                 .fetch();

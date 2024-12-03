@@ -21,8 +21,8 @@ public class ExamQueryService {
     private final ExamMapper examMapper;
 
     @Transactional(readOnly = true)
-    public List<ExamSummaryDto> getExamSummaries() {
-        return examRepository.findSummaries();
+    public List<ExamSummaryDto> getPublishedExamSummaries() {
+        return examRepository.findPublishedSummaries();
     }
 
     @Transactional(readOnly = true)

@@ -81,6 +81,10 @@ public class Exam extends AuditableEntity {
         return !this.memberId.equals(memberId);
     }
 
+    public boolean isNotPublished() {
+        return !status.isPublished();
+    }
+
     private void addQuestions(List<Question> questions) {
         questions.forEach(question -> question.updateExam(this));
         questionGroup.addAll(new QuestionGroup(questions));

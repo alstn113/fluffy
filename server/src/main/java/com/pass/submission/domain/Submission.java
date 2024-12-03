@@ -31,8 +31,11 @@ public class Submission extends AuditableEntity {
     @Column(nullable = false)
     private Long memberId;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    @JoinColumn(name = "submission_id", nullable = false)
+    @OneToMany(
+            mappedBy = "submission",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     private final List<Answer> answers = new ArrayList<>();
 
     public Submission(Long examId, Long memberId, List<Answer> answers) {
@@ -43,6 +46,11 @@ public class Submission extends AuditableEntity {
         this.id = id;
         this.examId = examId;
         this.memberId = memberId;
+        addAnswers(answers);
+    }
+
+    private void addAnswers(List<Answer> answers) {
+        answers.forEach(answer -> answer.updateSubmission(this));
         this.answers.addAll(answers);
     }
 }

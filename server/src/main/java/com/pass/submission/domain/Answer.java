@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AccessLevel;
@@ -29,6 +30,10 @@ public class Answer {
 
     @Column
     private String text;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "submission_id")
+    private Submission submission;
 
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "answer_choice", joinColumns = @JoinColumn(name = "answer_id"))
@@ -51,5 +56,9 @@ public class Answer {
         this.questionId = questionId;
         this.text = text;
         this.choices.addAll(choices);
+    }
+
+    public void updateSubmission(Submission submission) {
+        this.submission = submission;
     }
 }

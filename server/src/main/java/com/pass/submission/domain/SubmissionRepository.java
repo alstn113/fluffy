@@ -5,4 +5,6 @@ import org.springframework.data.repository.Repository;
 public interface SubmissionRepository extends Repository<Submission, Long>, SubmissionRepositoryCustom {
 
     void save(Submission submission);
+
+    boolean existsByExamIdAndMemberId(Long examId, Long memberId);
 }

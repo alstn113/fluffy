@@ -8,8 +8,8 @@ import java.util.List;
 public record PublishExamAppRequest(
         Long examId,
         List<QuestionAppRequest> questions,
-        LocalDateTime startDate,
-        LocalDateTime endDate,
+        LocalDateTime startAt,
+        LocalDateTime endAt,
         Accessor accessor
 ) {
 }

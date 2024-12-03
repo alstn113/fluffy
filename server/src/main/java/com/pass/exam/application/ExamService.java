@@ -51,7 +51,7 @@ public class ExamService {
         List<Question> questions = questionMapper.toQuestions(request.questions());
         exam.updateQuestions(questions);
 
-        exam.publish(request.startDate(), request.endDate());
+        exam.publish(request.startAt(), request.endAt());
     }
 
     private Exam validateExamAuthor(Long examId, Accessor accessor) {

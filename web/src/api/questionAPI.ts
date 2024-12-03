@@ -7,6 +7,11 @@ export const QUESTION_TYPE = {
 } as const;
 
 export type QuestionType = (typeof QUESTION_TYPE)[keyof typeof QUESTION_TYPE];
+export type TextQuestionType = typeof QUESTION_TYPE.shortAnswer | typeof QUESTION_TYPE.longAnswer;
+export type ChoiceQuestionType =
+  | typeof QUESTION_TYPE.singleChoice
+  | typeof QUESTION_TYPE.multipleChoice
+  | typeof QUESTION_TYPE.trueOrFalse;
 
 export type QuestionResponse = AnswerQuestionResponse | ChoiceQuestionResponse;
 
@@ -21,7 +26,7 @@ export interface QuestionBaseResponse {
 }
 
 export interface AnswerQuestionResponse extends QuestionBaseResponse {
-  type: typeof QUESTION_TYPE.shortAnswer | typeof QUESTION_TYPE.longAnswer;
+  type: TextQuestionType;
 }
 
 export type AnswerQuestionWithAnswersResponse =
@@ -34,10 +39,7 @@ export type AnswerQuestionWithAnswersResponse =
     });
 
 export interface ChoiceQuestionResponse extends QuestionBaseResponse {
-  type:
-    | typeof QUESTION_TYPE.singleChoice
-    | typeof QUESTION_TYPE.multipleChoice
-    | typeof QUESTION_TYPE.trueOrFalse;
+  type: ChoiceQuestionType;
   options: QuestionOptionResponse[];
 }
 

@@ -2,12 +2,7 @@ import { apiV1Client } from './apiClient';
 import { QuestionBaseRequest, QuestionResponse, QuestionWithAnswersResponse } from './questionAPI';
 
 export const ExamAPI = {
-  create: async (request: CreateExamRequest) => {
-    const { data } = await apiV1Client.post<CreateExamResponse>('/exams', request);
-    return data;
-  },
-
-  getSummaries: async () => {
+  getPublishedExamSummaries: async () => {
     const { data } = await apiV1Client.get<ExamSummaryResponse[]>('/exams');
     return data;
   },
@@ -29,20 +24,21 @@ export const ExamAPI = {
     return data;
   },
 
+  create: async (request: CreateExamRequest) => {
+    const { data } = await apiV1Client.post<CreateExamResponse>('/exams', request);
+    return data;
+  },
+
+  publish: async ({ examId, request }: PublishExamParams) => {
+    const { data } = await apiV1Client.post<void>(`/exams/${examId}/publish`, request);
+    return data;
+  },
+
   updateQuestions: async ({ examId, request }: UpdateExamQuestionsParams) => {
     const { data } = await apiV1Client.put<void>(`/exams/${examId}/questions`, request);
     return data;
   },
 };
-
-interface CreateExamRequest {
-  title: string;
-}
-
-interface CreateExamResponse {
-  id: number;
-  title: string;
-}
 
 export const EXAM_STATUS = {
   draft: 'DRAFT',
@@ -54,15 +50,17 @@ export interface ExamSummaryResponse {
   id: number;
   title: string;
   description: string;
-  status: ExamStatusType;
-  author: {
-    id: number;
-    name: string;
-    avatarUrl: string;
-  };
+  status: typeof EXAM_STATUS.draft;
+  author: AuthorResponse;
   questionCount: number;
   createdAt: string;
   updatedAt: string;
+}
+
+interface AuthorResponse {
+  id: number;
+  name: string;
+  avatarUrl: string;
 }
 
 interface ExamResponse {
@@ -76,6 +74,26 @@ interface ExamResponse {
 
 interface ExamWithAnswersResponse extends ExamResponse {
   questions: QuestionWithAnswersResponse[];
+}
+
+interface CreateExamRequest {
+  title: string;
+}
+
+interface CreateExamResponse {
+  id: number;
+  title: string;
+}
+
+interface PublishExamParams {
+  examId: number;
+  request: PublishExamRequest;
+}
+
+interface PublishExamRequest {
+  questions: QuestionBaseRequest[];
+  startAt: string;
+  endAt: string;
 }
 
 interface UpdateExamQuestionsParams {

@@ -8,10 +8,10 @@ import java.util.List;
 
 public record PublishExamWebRequest(
         List<QuestionAppRequest> questions,
-        LocalDateTime startDate,
-        LocalDateTime endDate
+        LocalDateTime startAt,
+        LocalDateTime endAt
 ) {
     public PublishExamAppRequest toAppRequest(Long examId, Accessor accessor) {
-        return new PublishExamAppRequest(examId, questions, startDate, endDate, accessor);
+        return new PublishExamAppRequest(examId, questions, startAt, endAt, accessor);
     }
 }

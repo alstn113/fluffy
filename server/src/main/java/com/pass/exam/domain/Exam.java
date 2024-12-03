@@ -54,7 +54,7 @@ public class Exam extends AuditableEntity {
         return exam;
     }
 
-    public void publish(LocalDateTime startedAt, LocalDateTime endedAt) {
+    public void publish(LocalDateTime startAt, LocalDateTime endAt) {
         if (status.isPublished()) {
             throw new BadRequestException("시험은 이미 출시되었습니다.");
         }
@@ -63,7 +63,7 @@ public class Exam extends AuditableEntity {
             throw new BadRequestException("시험을 출시하기 위해서는 최소 1개 이상의 문제를 추가해야 합니다.");
         }
 
-        this.examPeriod = ExamPeriod.create(startedAt, endedAt);
+        this.examPeriod = ExamPeriod.create(startAt, endAt);
         this.status = ExamStatus.PUBLISHED;
     }
 

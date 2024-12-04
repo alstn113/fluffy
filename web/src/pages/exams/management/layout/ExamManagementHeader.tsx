@@ -9,10 +9,12 @@ import {
   NavbarBrand,
   NavbarContent,
   NavbarItem,
+  Tab,
+  Tabs,
 } from '@nextui-org/react';
 import { GITHUB_OAUTH_LOGIN_URL, Routes } from '@/constants';
 import useLogout from '@/hooks/useLogout.ts';
-import { NavLink, useLocation, useParams } from 'react-router';
+import { useLocation, useParams } from 'react-router';
 import useUser from '@/hooks/useUser.ts';
 import { Avatar } from '@daveyplate/nextui-fixed-avatar';
 import AsyncBoundary from '@/components/AsyncBoundary.tsx';
@@ -56,13 +58,16 @@ const ExamManagementHeader = () => {
               <DropdownItem key="home" href={Routes.home()}>
                 Home
               </DropdownItem>
+              <DropdownItem key="dashboard" href={Routes.dashboard()}>
+                Dashboard
+              </DropdownItem>
               <DropdownItem
                 key="logout"
                 className="text-danger"
                 color="danger"
                 onPress={() => logout()}
               >
-                Log Out
+                Logout
               </DropdownItem>
             </DropdownMenu>
           </Dropdown>
@@ -78,48 +83,40 @@ const ExamManagementHeader = () => {
 
 const ExamManagementHeaderCenterContent = ({ examId }: { examId: number }) => {
   const { data } = useGetExamWithAnswers(examId);
+  const { pathname } = useLocation();
 
   return (
-    <>
-      <NavbarItem>
-        <NavLink
-          to={Routes.exam.management.overview(examId)}
-          className={({ isActive }) => (isActive ? 'text-blue-500' : 'text-black')}
-        >
-          Overview
-        </NavLink>
-      </NavbarItem>
-      <NavbarItem>
-        <NavLink
-          to={Routes.exam.management.questions(examId)}
-          className={({ isActive }) => (isActive ? 'text-blue-500' : 'text-black')}
-        >
-          Questions
-        </NavLink>
-      </NavbarItem>
-      <NavbarItem>
-        <NavLink
-          to={Routes.exam.management.analytics(examId)}
-          className={({ isActive }) =>
-            `${isActive ? 'text-blue-500' : 'text-black'} ${
-              data.status !== EXAM_STATUS.published
-                ? 'opacity-50 cursor-default pointer-events-none'
-                : ''
-            }`
-          }
-        >
-          Analytics
-        </NavLink>
-      </NavbarItem>
-      <NavbarItem>
-        <NavLink
-          to={Routes.exam.management.settings(examId)}
-          className={({ isActive }) => (isActive ? 'text-blue-500' : 'text-black')}
-        >
-          Settings
-        </NavLink>
-      </NavbarItem>
-    </>
+    <Tabs selectedKey={pathname} variant={'underlined'} color={'success'} size={'lg'}>
+      <Tab
+        as={Link}
+        key={Routes.exam.management.overview(examId)}
+        id={Routes.exam.management.overview(examId)}
+        href={Routes.exam.management.overview(examId)}
+        title={'Overview'}
+      />
+      <Tab
+        as={Link}
+        key={Routes.exam.management.questions(examId)}
+        id={Routes.exam.management.questions(examId)}
+        href={Routes.exam.management.questions(examId)}
+        title={'Questions'}
+      />
+      <Tab
+        as={Link}
+        key={Routes.exam.management.analytics(examId)}
+        id={Routes.exam.management.analytics(examId)}
+        href={Routes.exam.management.analytics(examId)}
+        title={'Analytics'}
+        isDisabled={data.status !== EXAM_STATUS.published}
+      />
+      <Tab
+        as={Link}
+        key={Routes.exam.management.settings(examId)}
+        id={Routes.exam.management.settings(examId)}
+        href={Routes.exam.management.settings(examId)}
+        title={'Settings'}
+      />
+    </Tabs>
   );
 };
 

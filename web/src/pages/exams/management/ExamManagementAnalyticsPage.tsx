@@ -20,8 +20,7 @@ const ExamManagementAnalyticsPage = () => {
 
   return (
     <div className="w-full h-full flex items-center flex-col gap-4">
-      <div className="text-2xl font-semibold mt-4">Analytics</div>
-      <div className="max-w-[750px] w-full mt-4">
+      <div className="max-w-[750px] w-full mt-8">
         <AsyncBoundary>
           <ExamManagementAnalyticsContent examId={examId} />
         </AsyncBoundary>
@@ -35,11 +34,11 @@ const ExamManagementAnalyticsContent = ({ examId }: { examId: number }) => {
 
   const columns = [
     {
-      name: 'NAME',
+      name: '이름',
       uid: 'name',
     },
     {
-      name: 'SUBMITTED AT',
+      name: '제출일',
       uid: 'submittedAt',
     },
   ];

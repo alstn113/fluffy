@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router';
+import { Route, Routes, useHref, useNavigate } from 'react-router';
 import AboutPage from '@/pages/AboutPage';
 import ExamDetailPage from '@/pages/exams/ExamDetailPage';
 import ExamManagementQuestionsPage from '@/pages/exams/management/ExamManagementQuestionsPage.tsx';
@@ -11,26 +11,31 @@ import ExamManagementAnalyticsPage from './pages/exams/management/ExamManagement
 import ExamManagementSettingsPage from './pages/exams/management/ExamManagementSettingsPage';
 import ExamManagementLayout from '@/pages/exams/management/layout/ExamManagementLayout.tsx';
 import BaseLayout from '@/components/layouts/base/BaseLayout.tsx';
+import { NextUIProvider } from '@nextui-org/system';
 
 const App = () => {
+  const navigate = useNavigate();
+
   useGetMe();
 
   return (
-    <Routes>
-      <Route element={<BaseLayout />}>
-        <Route index element={<HomePage />} />
-        <Route path="about" element={<AboutPage />} />
-        <Route path="dashboard" element={<DashBoardPage />} />
-        <Route path="exams/:examId" element={<ExamDetailPage />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Route>
-      <Route path="exams/:examId/management" element={<ExamManagementLayout />}>
-        <Route path="overview" element={<ExamManagementOverviewPage />} />
-        <Route path="questions" element={<ExamManagementQuestionsPage />} />
-        <Route path="analytics" element={<ExamManagementAnalyticsPage />} />
-        <Route path="settings" element={<ExamManagementSettingsPage />} />
-      </Route>
-    </Routes>
+    <NextUIProvider navigate={navigate} useHref={useHref}>
+      <Routes>
+        <Route element={<BaseLayout />}>
+          <Route index element={<HomePage />} />
+          <Route path="about" element={<AboutPage />} />
+          <Route path="dashboard" element={<DashBoardPage />} />
+          <Route path="exams/:examId" element={<ExamDetailPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
+        <Route path="exams/:examId/management" element={<ExamManagementLayout />}>
+          <Route path="overview" element={<ExamManagementOverviewPage />} />
+          <Route path="questions" element={<ExamManagementQuestionsPage />} />
+          <Route path="analytics" element={<ExamManagementAnalyticsPage />} />
+          <Route path="settings" element={<ExamManagementSettingsPage />} />
+        </Route>
+      </Routes>
+    </NextUIProvider>
   );
 };
 

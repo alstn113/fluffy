@@ -93,8 +93,8 @@ interface PublishExamParams {
 
 interface PublishExamRequest {
   questions: QuestionBaseRequest[];
-  startAt: string;
-  endAt: string;
+  startAt: string | null;
+  endAt: string | null;
 }
 
 interface UpdateExamQuestionsParams {

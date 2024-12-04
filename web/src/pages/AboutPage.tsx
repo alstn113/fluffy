@@ -1,7 +1,8 @@
 const AboutPage = () => {
   return (
-    <div className="w-full h-full flex justify-center items-center">
-      <div className="text-2xl font-semibold">About Page</div>
+    <div className="w-full h-full flex justify-center items-center flex-col gap-4">
+      <div className="text-2xl font-semibold">About</div>
+      <div className="text-2xl font-semibold">Coming soon...</div>
     </div>
   );
 };

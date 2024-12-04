@@ -4,18 +4,18 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
+  Input,
   Link,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
   Navbar,
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
   useDisclosure,
-  Input,
 } from '@nextui-org/react';
 import { GITHUB_OAUTH_LOGIN_URL, Routes } from '@/constants';
 import useLogout from '@/hooks/useLogout.ts';
@@ -57,7 +57,7 @@ const Header = () => {
 
   return (
     <>
-      <Navbar shouldHideOnScroll>
+      <Navbar>
         <NavbarBrand>
           <Link href={Routes.home()} color={'foreground'}>
             <p className="font-bold text-inherit">Pass</p>
@@ -88,7 +88,7 @@ const Header = () => {
                   className="text-primary"
                   variant="faded"
                   color="primary"
-                  onClick={onOpen}
+                  onPress={onOpen}
                 >
                   New Exam
                 </DropdownItem>
@@ -96,7 +96,7 @@ const Header = () => {
                   key="logout"
                   className="text-danger"
                   color="danger"
-                  onClick={() => logout()}
+                  onPress={() => logout()}
                 >
                   Log Out
                 </DropdownItem>
@@ -104,7 +104,7 @@ const Header = () => {
             </Dropdown>
           ) : (
             <NavbarItem>
-              <Button onClick={handleGithubLogin}>Login</Button>
+              <Button onPress={handleGithubLogin}>Login</Button>
             </NavbarItem>
           )}
         </NavbarContent>

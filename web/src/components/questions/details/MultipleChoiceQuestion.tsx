@@ -17,8 +17,7 @@ const MultipleChoiceQuestion = ({ question, index }: MultipleChoiceQuestionProps
   };
 
   return (
-    <div
-      className="flex flex-col gap-4 p-6 rounded-2xl bg-white border border-gray-200 shadow-md duration-200 hover:shadow-lg">
+    <div className="flex flex-col gap-4 p-6 rounded-2xl bg-white border border-gray-200 shadow-md duration-200 hover:shadow-lg">
       <CheckboxGroup color="secondary" value={choices} onValueChange={handleUpdate}>
         {options.map((option, index) => (
           <Checkbox key={option.text} value={option.text} className="text-gray-800">

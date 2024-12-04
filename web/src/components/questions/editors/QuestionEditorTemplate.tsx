@@ -42,7 +42,7 @@ const QuestionEditorTemplate = () => {
     <div>
       <div className="flex gap-2 justify-between items-center mb-4">
         <div className=" text-2xl font-bold mb-2">{currentIndex + 1}번째 질문</div>
-        <Button color="danger" variant="shadow" onClick={handleDeleteQuestionClick}>
+        <Button color="danger" variant="shadow" onPress={handleDeleteQuestionClick}>
           질문 삭제
         </Button>
       </div>

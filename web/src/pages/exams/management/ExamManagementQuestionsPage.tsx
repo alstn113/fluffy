@@ -1,4 +1,5 @@
 import { useParams } from 'react-router';
+
 import ExamEditorSidebar from '@/components/questions/editors/ExamEditorSidebar.tsx';
 import QuestionEditorTemplate from '@/components/questions/editors/QuestionEditorTemplate.tsx';
 import QuestionTypeSelector from '@/components/questions/editors/QuestionTypeSelector.tsx';
@@ -6,7 +7,6 @@ import useExamEditorStore from '@/stores/useExamEditorStore.ts';
 import useUpdateExamQuestions from '@/hooks/api/exam/useUpdateExamQuestions.ts';
 import useGetExamWithAnswers from '@/hooks/api/exam/useGetExamWithAnswers.ts';
 import AsyncBoundary from '@/components/AsyncBoundary.tsx';
-import { useEffect } from 'react';
 import { Button } from '@nextui-org/react';
 
 const ExamManagementQuestionsPage = () => {
@@ -28,13 +28,7 @@ interface ExamEditContentProps {
 
 const ExamManagementQuestionsContent = ({ examId }: ExamEditContentProps) => {
   const { data } = useGetExamWithAnswers(examId);
-  const { questionTypeSelectorActive, questions, initialize } = useExamEditorStore();
-
-  useEffect(() => {
-    if (data && data.questions) {
-      initialize(data.questions);
-    }
-  }, [data, initialize]);
+  const { questionTypeSelectorActive, questions } = useExamEditorStore();
 
   const { mutate } = useUpdateExamQuestions();
 
@@ -57,7 +51,7 @@ const ExamManagementQuestionsContent = ({ examId }: ExamEditContentProps) => {
             <Button
               color="success"
               variant="shadow"
-              onClick={handleUpdateQuestions}
+              onPress={handleUpdateQuestions}
               className="text-white"
             >
               임시 저장

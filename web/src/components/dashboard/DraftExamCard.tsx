@@ -3,13 +3,13 @@ import { Routes } from '@/constants';
 import formatDate from '@/lib/formatDate';
 import {
   Card,
-  CardHeader,
   CardBody,
   CardFooter,
-  Image,
-  Divider,
-  Link,
+  CardHeader,
   Chip,
+  Divider,
+  Image,
+  Link,
 } from '@nextui-org/react';
 
 interface ExamSummaryCardProps {

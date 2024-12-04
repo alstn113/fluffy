@@ -49,7 +49,7 @@ const ExamDetailContent = ({ examId }: ExamDetailPageContentProps) => {
       { examId: data.id, request: { questionResponses: questionResponses } },
       {
         onSuccess: () => {
-          navigate(Routes.home.url);
+          navigate(Routes.home());
         },
         onSettled: () => {
           onClose();
@@ -69,7 +69,7 @@ const ExamDetailContent = ({ examId }: ExamDetailPageContentProps) => {
           return <QuestionDetailTemplate key={question.id} question={question} index={index} />;
         })}
       </div>
-      <Button className="self-end" onClick={onOpen} color="primary" variant="shadow">
+      <Button className="self-end" onPress={onOpen} color="primary" variant="shadow">
         제출하기
       </Button>
       <Modal backdrop="blur" isOpen={isOpen} onOpenChange={onOpenChange}>

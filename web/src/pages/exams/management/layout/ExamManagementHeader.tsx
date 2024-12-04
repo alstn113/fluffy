@@ -60,7 +60,7 @@ const ExamManagementHeader = () => {
                 key="logout"
                 className="text-danger"
                 color="danger"
-                onClick={() => logout()}
+                onPress={() => logout()}
               >
                 Log Out
               </DropdownItem>
@@ -68,7 +68,7 @@ const ExamManagementHeader = () => {
           </Dropdown>
         ) : (
           <NavbarItem>
-            <Button onClick={handleGithubLogin}>Login</Button>
+            <Button onPress={handleGithubLogin}>Login</Button>
           </NavbarItem>
         )}
       </NavbarContent>

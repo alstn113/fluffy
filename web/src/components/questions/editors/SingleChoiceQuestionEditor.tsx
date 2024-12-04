@@ -95,7 +95,7 @@ const SingleChoiceQuestionEditor = () => {
                             color="danger"
                             variant="shadow"
                             size="sm"
-                            onClick={() => handleRemoveOption(index)}
+                            onPress={() => handleRemoveOption(index)}
                             className="ml-auto"
                           >
                             삭제

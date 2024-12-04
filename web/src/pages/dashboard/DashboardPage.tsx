@@ -1,6 +1,7 @@
 import AsyncBoundary from '@/components/AsyncBoundary';
 import useGetMyExamSummaries from '@/hooks/api/exam/useGetMyExamSummaries';
 import DraftExamCard from '@/components/dashboard/DraftExamCard';
+import PublishedExamCard from '@/components/dashboard/PublishedExamCard';
 
 const DashboardPage = () => {
   return (
@@ -50,7 +51,7 @@ const PublishedExamContent = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
       {data?.map((exam) => {
-        return <DraftExamCard key={exam.id} exam={exam} />;
+        return <PublishedExamCard key={exam.id} exam={exam} />;
       })}
     </div>
   );

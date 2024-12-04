@@ -28,7 +28,7 @@ const QuestionTypeSelector = () => {
               color="primary"
               variant="shadow"
               key={typeName}
-              onClick={() => handleAddQuestion(type)}
+              onPress={() => handleAddQuestion(type)}
             >
               {typeName}
             </Button>
@@ -44,7 +44,7 @@ const QuestionTypeSelector = () => {
               color="primary"
               variant="shadow"
               key={typeName}
-              onClick={() => handleAddQuestion(type)}
+              onPress={() => handleAddQuestion(type)}
             >
               {typeName}
             </Button>

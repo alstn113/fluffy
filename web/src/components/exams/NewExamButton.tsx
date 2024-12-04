@@ -1,14 +1,14 @@
 import { useNavigate } from 'react-router';
 import useCreateExam from '@/hooks/api/exam/useCreateExam';
 import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
   Button,
-  useDisclosure,
   Input,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  useDisclosure,
 } from '@nextui-org/react';
 import { useState } from 'react';
 import { Routes } from '@/constants';
@@ -38,7 +38,7 @@ const NewExamButton = () => {
 
   return (
     <div>
-      <Button color="primary" variant="shadow" onClick={onOpen}>
+      <Button color="primary" variant="shadow" onPress={onOpen}>
         새로운 시험 생성
       </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>

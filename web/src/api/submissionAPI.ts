@@ -29,7 +29,7 @@ interface ParticipantResponse {
   avatarUrl: string;
 }
 
-interface SubmissionSummaryResponse {
+export interface SubmissionSummaryResponse {
   id: number;
   participant: ParticipantResponse;
   submittedAt: string;

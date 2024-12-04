@@ -17,9 +17,9 @@ import {
   useDisclosure,
   Input,
 } from '@nextui-org/react';
-import { GITHUB_OAUTH_LOGIN_URL, PAGE_LIST } from '@/constants';
+import { GITHUB_OAUTH_LOGIN_URL, Routes } from '@/constants';
 import useLogout from '@/hooks/useLogout.ts';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
 import useUser from '@/hooks/useUser.ts';
 import { Avatar } from '@daveyplate/nextui-fixed-avatar';
 import useCreateExam from '@/hooks/api/exam/useCreateExam';
@@ -46,7 +46,7 @@ const Header = () => {
       {
         onSuccess: (data) => {
           const examId = data.id;
-          navigate(`/exams/${examId}/edit`);
+          navigate(Routes.exam.management.questions(examId));
         },
         onSettled: () => {
           onClose();
@@ -59,19 +59,14 @@ const Header = () => {
     <>
       <Navbar shouldHideOnScroll>
         <NavbarBrand>
-          <Link href={PAGE_LIST.home} color={'foreground'}>
+          <Link href={Routes.home()} color={'foreground'}>
             <p className="font-bold text-inherit">Pass</p>
           </Link>
         </NavbarBrand>
         <NavbarContent className="hidden sm:flex gap-4" justify="center">
           <NavbarItem>
-            <Link color="foreground" href={PAGE_LIST.about}>
+            <Link color="foreground" href={Routes.about()}>
               About
-            </Link>
-          </NavbarItem>
-          <NavbarItem isActive>
-            <Link color="secondary" href={PAGE_LIST.exam.list}>
-              Exam List
             </Link>
           </NavbarItem>
         </NavbarContent>
@@ -82,13 +77,10 @@ const Header = () => {
                 <Avatar isBordered as="button" color="primary" size="sm" src={user.avatarUrl} />
               </DropdownTrigger>
               <DropdownMenu aria-label="Profile Actions" variant="flat">
-                <DropdownItem key="home" href={PAGE_LIST.home}>
+                <DropdownItem key="home" href={Routes.home()}>
                   Home
                 </DropdownItem>
-                <DropdownItem key="exam list" href={PAGE_LIST.exam.list}>
-                  Exam List
-                </DropdownItem>
-                <DropdownItem key="dashboard" href={PAGE_LIST.dashboard.list}>
+                <DropdownItem key="dashboard" href={Routes.dashboard()}>
                   Dashboard
                 </DropdownItem>
                 <DropdownItem

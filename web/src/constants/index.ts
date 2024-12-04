@@ -3,16 +3,17 @@ export const API_V1_URL =
 
 export const GITHUB_OAUTH_LOGIN_URL = `${API_V1_URL}/auth/oauth2/redirect/github`;
 
-export const PAGE_LIST = {
-  home: '/',
-  about: '/about',
+export const Routes = {
+  home: () => '/',
+  about: () => '/about',
   exam: {
-    list: '/exams',
-    detail: '/exams/:id',
-    edit: '/exams/:id/edit',
+    detail: (examId: number) => `/exams/${examId}`,
+    management: {
+      overview: (examId: number) => `/exams/${examId}/management/overview`,
+      questions: (examId: number) => `/exams/${examId}/management/questions`,
+      analytics: (examId: number) => `/exams/${examId}/management/analytics`,
+      settings: (examId: number) => `/exams/${examId}/management/settings`,
+    },
   },
-  dashboard: {
-    list: '/dashboard',
-  },
-  notFound: '*',
+  dashboard: () => '/dashboard',
 } as const;

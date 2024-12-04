@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import BaseLayout from '@/components/layouts/base/BaseLayout.tsx';
+import { useNavigate, useParams } from 'react-router';
 import useGetExam from '@/hooks/api/exam/useGetExam';
 import QuestionDetailTemplate from '@/components/questions/details/QuestionDetailTemplate';
 import useCreateSubmission from '@/hooks/api/submission/useCreateSubmission';
@@ -14,19 +13,17 @@ import {
   useDisclosure,
 } from '@nextui-org/react';
 import useSubmissionStore from '@/stores/useSubmissionStore';
-import { PAGE_LIST } from '@/constants';
+import { Routes } from '@/constants';
 import AsyncBoundary from '@/components/AsyncBoundary';
 
 const ExamDetailPage = () => {
-  const { id } = useParams();
-  const examId = Number(id);
+  const params = useParams() as { examId: string };
+  const examId = Number(params.examId);
 
   return (
-    <BaseLayout>
-      <AsyncBoundary>
-        <ExamDetailContent examId={examId} />
-      </AsyncBoundary>
-    </BaseLayout>
+    <AsyncBoundary>
+      <ExamDetailContent examId={examId} />
+    </AsyncBoundary>
   );
 };
 
@@ -52,7 +49,7 @@ const ExamDetailContent = ({ examId }: ExamDetailPageContentProps) => {
       { examId: data.id, request: { questionResponses: questionResponses } },
       {
         onSuccess: () => {
-          navigate(PAGE_LIST.home);
+          navigate(Routes.home.url);
         },
         onSettled: () => {
           onClose();

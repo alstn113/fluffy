@@ -4,7 +4,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import App from './App';
 import { Provider } from './provider.tsx';
 import '@/styles/global.css';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router';
 import AsyncBoundary from './components/AsyncBoundary.tsx';
 import { Toaster } from 'react-hot-toast';
 

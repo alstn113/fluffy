@@ -67,6 +67,7 @@ interface ExamResponse {
   id: number;
   title: string;
   description: string;
+  status: ExamStatusType;
   questions: QuestionResponse[];
   createdAt: string;
   updatedAt: string;

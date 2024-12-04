@@ -29,6 +29,7 @@ public class ExamMapper {
                 exam.getId(),
                 exam.getTitle(),
                 exam.getDescription(),
+                exam.getStatus().name(),
                 questionMapper.toResponses(exam.getQuestionGroup().toList()),
                 exam.getCreatedAt(),
                 exam.getUpdatedAt()
@@ -40,6 +41,7 @@ public class ExamMapper {
                 exam.getId(),
                 exam.getTitle(),
                 exam.getDescription(),
+                exam.getStatus().name(),
                 questionMapper.toWithAnswersResponses(exam.getQuestionGroup().toList()),
                 exam.getCreatedAt(),
                 exam.getUpdatedAt()

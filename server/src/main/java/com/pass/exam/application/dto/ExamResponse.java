@@ -7,6 +7,7 @@ public record ExamResponse(
         Long id,
         String title,
         String description,
+        String status,
         List<QuestionResponse> questions,
         LocalDateTime createdAt,
         LocalDateTime updatedAt

@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import useCreateExam from '@/hooks/api/exam/useCreateExam';
 import {
   Modal,
@@ -11,6 +11,7 @@ import {
   Input,
 } from '@nextui-org/react';
 import { useState } from 'react';
+import { Routes } from '@/constants';
 
 const NewExamButton = () => {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
@@ -26,7 +27,7 @@ const NewExamButton = () => {
       {
         onSuccess: (data) => {
           const examId = data.id;
-          navigate(`/exams/${examId}/edit`);
+          navigate(Routes.exam.management.questions(examId));
         },
         onSettled: () => {
           onClose();

@@ -1,4 +1,5 @@
 import { ExamSummaryResponse } from '@/api/examAPI';
+import { Routes } from '@/constants';
 import formatDate from '@/lib/formatDate';
 import {
   Card,
@@ -44,7 +45,7 @@ const ExamSummaryCard = ({ exam }: ExamSummaryCardProps) => {
       <Divider />
       <CardFooter className="flex justify-between">
         <div>문제 수: {exam.questionCount}</div>
-        <Link href={`/exams/${exam.id}`}>시험 보기</Link>
+        <Link href={Routes.exam.detail(exam.id)}>시험 보기</Link>
       </CardFooter>
     </Card>
   );

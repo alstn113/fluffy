@@ -1,27 +1,24 @@
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import ExamEditorSidebar from '@/components/questions/editors/ExamEditorSidebar.tsx';
-import QuestionEditorTemplate from '@/components/questions/editors/QuestionEditorTemplate';
-import QuestionTypeSelector from '@/components/questions/editors/QuestionTypeSelector';
-import useExamEditorStore from '@/stores/useExamEditorStore';
-import useUpdateExamQuestions from '@/hooks/api/exam/useUpdateExamQuestions';
-import EditorLayout from '@/components/layouts/editor/EditorLayout';
-import useGetExamWithAnswers from '@/hooks/api/exam/useGetExamWithAnswers';
-import AsyncBoundary from '@/components/AsyncBoundary';
+import QuestionEditorTemplate from '@/components/questions/editors/QuestionEditorTemplate.tsx';
+import QuestionTypeSelector from '@/components/questions/editors/QuestionTypeSelector.tsx';
+import useExamEditorStore from '@/stores/useExamEditorStore.ts';
+import useUpdateExamQuestions from '@/hooks/api/exam/useUpdateExamQuestions.ts';
+import useGetExamWithAnswers from '@/hooks/api/exam/useGetExamWithAnswers.ts';
+import AsyncBoundary from '@/components/AsyncBoundary.tsx';
 import { useEffect } from 'react';
 import { Button } from '@nextui-org/react';
 
-const ExamEditPage = () => {
-  const { id } = useParams() as { id: string };
-  const examId = Number(id);
+const ExamManagementQuestionsPage = () => {
+  const params = useParams() as { examId: string };
+  const examId = Number(params.examId);
 
   return (
-    <EditorLayout>
-      <div className="flex flex-row overflow-y-auto h-full w-full">
-        <AsyncBoundary>
-          <ExamEditContent examId={examId} />
-        </AsyncBoundary>
-      </div>
-    </EditorLayout>
+    <div className="flex flex-row overflow-y-auto h-full w-full">
+      <AsyncBoundary>
+        <ExamManagementQuestionsContent examId={examId} />
+      </AsyncBoundary>
+    </div>
   );
 };
 
@@ -29,7 +26,7 @@ interface ExamEditContentProps {
   examId: number;
 }
 
-const ExamEditContent = ({ examId }: ExamEditContentProps) => {
+const ExamManagementQuestionsContent = ({ examId }: ExamEditContentProps) => {
   const { data } = useGetExamWithAnswers(examId);
   const { questionTypeSelectorActive, questions, initialize } = useExamEditorStore();
 
@@ -73,4 +70,4 @@ const ExamEditContent = ({ examId }: ExamEditContentProps) => {
   );
 };
 
-export default ExamEditPage;
+export default ExamManagementQuestionsPage;

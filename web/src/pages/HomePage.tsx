@@ -1,22 +1,15 @@
-import BaseLayout from '@/components/layouts/base/BaseLayout.tsx';
-import NewExamButton from '@/components/exams/NewExamButton';
 import AsyncBoundary from '@/components/AsyncBoundary';
 import useGetExamSummaries from '@/hooks/api/exam/useGetExamSummaries';
 import ExamSummaryCard from '@/components/exams/ExamSummaryCard';
 
 const HomePage = () => {
   return (
-    <BaseLayout>
-      <div className="container mx-auto px-5 py-12">
-        <div className="w-full flex justify-center items-center">
-          <NewExamButton />
-        </div>
-        <div className="text-2xl font-semibold mb-5">최근 시험 목록</div>
-        <AsyncBoundary>
-          <ExamListContent />
-        </AsyncBoundary>
-      </div>
-    </BaseLayout>
+    <div className="container mx-auto px-5 py-12">
+      <div className="text-2xl font-semibold mb-5">최근 시험 목록</div>
+      <AsyncBoundary>
+        <ExamListContent />
+      </AsyncBoundary>
+    </div>
   );
 };
 

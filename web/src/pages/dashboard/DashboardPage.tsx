@@ -1,23 +1,20 @@
-import BaseLayout from '@/components/layouts/base/BaseLayout.tsx';
 import AsyncBoundary from '@/components/AsyncBoundary';
 import useGetMyExamSummaries from '@/hooks/api/exam/useGetMyExamSummaries';
 import DraftExamCard from '@/components/dashboard/DraftExamCard';
 
 const DashboardPage = () => {
   return (
-    <BaseLayout>
-      <div className="container mx-auto px-5 py-16">
-        <AsyncBoundary>
-          <div className="text-2xl font-semibold mb-5">출제 준비 중인 시험들</div>
-          <DraftExamContent />
-        </AsyncBoundary>
-        <div className="my-20" />
-        <AsyncBoundary>
-          <div className="text-2xl font-semibold mb-5">출제 완료된 시험들</div>
-          <PublishedExamContent />
-        </AsyncBoundary>
-      </div>
-    </BaseLayout>
+    <div className="container mx-auto px-5 py-16">
+      <AsyncBoundary>
+        <div className="text-2xl font-semibold mb-5">출제 준비 중인 시험들</div>
+        <DraftExamContent />
+      </AsyncBoundary>
+      <div className="my-20" />
+      <AsyncBoundary>
+        <div className="text-2xl font-semibold mb-5">출제 완료된 시험들</div>
+        <PublishedExamContent />
+      </AsyncBoundary>
+    </div>
   );
 };
 
@@ -35,7 +32,7 @@ const DraftExamContent = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
       {data?.map((exam) => {
-        return <DraftExamCard exam={exam} />;
+        return <DraftExamCard key={exam.id} exam={exam} />;
       })}
     </div>
   );
@@ -53,7 +50,7 @@ const PublishedExamContent = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
       {data?.map((exam) => {
-        return <DraftExamCard exam={exam} />;
+        return <DraftExamCard key={exam.id} exam={exam} />;
       })}
     </div>
   );

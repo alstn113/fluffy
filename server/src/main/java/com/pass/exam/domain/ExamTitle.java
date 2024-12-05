@@ -4,34 +4,32 @@ import com.pass.global.exception.BadRequestException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Embeddable
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 public class ExamTitle {
 
     private static final int MAX_TITLE_LENGTH = 100;
 
-    @Column(nullable = false)
-    private String title;
+    @Column(name = "title", nullable = false)
+    private String value;
 
-    public ExamTitle(String title) {
-        validateTitleLength(title);
+    public ExamTitle(String value) {
+        validateTitleLength(value);
 
-        this.title = title;
+        this.value = value;
     }
 
-    private void validateTitleLength(String title) {
-        if (title == null || title.isBlank()) {
+    private void validateTitleLength(String value) {
+        if (value == null || value.isBlank()) {
             throw new BadRequestException("시험 제목은 비어있을 수 없습니다.");
         }
 
-        if (title.length() > MAX_TITLE_LENGTH) {
+        if (value.length() > MAX_TITLE_LENGTH) {
             throw new BadRequestException("시험 제목은 %d자 이하여야 합니다.".formatted(MAX_TITLE_LENGTH));
         }
-    }
-
-    public String getValue() {
-        return title;
     }
 }

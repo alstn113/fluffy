@@ -4,34 +4,32 @@ import com.pass.global.exception.BadRequestException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Embeddable
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 public class ExamDescription {
 
     private static final int MAX_DESCRIPTION_LENGTH = 2000;
 
-    @Column(nullable = false)
-    private String description;
+    @Column(name = "description", nullable = false)
+    private String value;
 
-    public ExamDescription(String description) {
-        validateDescriptionLength(description);
+    public ExamDescription(String value) {
+        validateDescriptionLength(value);
 
-        this.description = description;
+        this.value = value;
     }
 
-    private void validateDescriptionLength(String title) {
-        if (title == null) {
+    private void validateDescriptionLength(String value) {
+        if (value == null) {
             throw new BadRequestException("시험 설명은 필수입니다.");
         }
 
-        if (title.length() > MAX_DESCRIPTION_LENGTH) {
+        if (value.length() > MAX_DESCRIPTION_LENGTH) {
             throw new BadRequestException("시험 설명은 %d자 이하여야 합니다.".formatted(MAX_DESCRIPTION_LENGTH));
         }
-    }
-
-    public String getValue() {
-        return description;
     }
 }

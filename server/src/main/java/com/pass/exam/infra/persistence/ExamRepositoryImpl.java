@@ -8,8 +8,9 @@ import com.pass.exam.domain.ExamRepositoryCustom;
 import com.pass.exam.domain.ExamStatus;
 import com.pass.exam.domain.dto.AuthorDto;
 import com.pass.exam.domain.dto.ExamSummaryDto;
+import com.pass.exam.domain.dto.QAuthorDto;
+import com.pass.exam.domain.dto.QExamSummaryDto;
 import com.querydsl.core.types.ConstructorExpression;
-import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,7 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class ExamRepositoryImpl implements ExamRepositoryCustom {
 
-    private static final ConstructorExpression<AuthorDto> AUTHOR_PROJECTION = Projections.constructor(AuthorDto.class,
+    private static final ConstructorExpression<AuthorDto> AUTHOR_PROJECTION = new QAuthorDto(
             member.id,
             member.name,
             member.avatarUrl
@@ -30,10 +31,10 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
     @Override
     public List<ExamSummaryDto> findPublishedSummaries() {
         return queryFactory
-                .select(Projections.constructor(ExamSummaryDto.class,
+                .select(new QExamSummaryDto(
                         exam.id,
-                        exam.title,
-                        exam.description,
+                        exam.title.value,
+                        exam.description.value,
                         exam.status,
                         AUTHOR_PROJECTION,
                         question.count(),
@@ -53,10 +54,10 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
     @Override
     public List<ExamSummaryDto> findMySummaries(ExamStatus status, Long memberId) {
         return queryFactory
-                .select(Projections.constructor(ExamSummaryDto.class,
+                .select(new QExamSummaryDto(
                         exam.id,
-                        exam.title,
-                        exam.description,
+                        exam.title.value,
+                        exam.description.value,
                         exam.status,
                         AUTHOR_PROJECTION,
                         question.count(),

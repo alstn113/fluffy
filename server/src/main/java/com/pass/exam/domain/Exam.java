@@ -25,11 +25,11 @@ public class Exam extends AuditableEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String title;
+    @Embedded
+    private ExamTitle title;
 
-    @Column(nullable = false)
-    private String description;
+    @Embedded
+    private ExamDescription description;
 
     @Column(nullable = false, columnDefinition = "VARCHAR(20)")
     @Enumerated(EnumType.STRING)
@@ -46,8 +46,8 @@ public class Exam extends AuditableEntity {
 
     public static Exam create(String title, Long memberId) {
         Exam exam = new Exam();
-        exam.title = title;
-        exam.description = "";
+        exam.title = new ExamTitle(title);
+        exam.description = new ExamDescription("");
         exam.status = ExamStatus.DRAFT;
         exam.memberId = memberId;
 
@@ -88,5 +88,22 @@ public class Exam extends AuditableEntity {
     private void addQuestions(List<Question> questions) {
         questions.forEach(question -> question.updateExam(this));
         questionGroup.addAll(new QuestionGroup(questions));
+    }
+
+    public void updateInfo(String title, String description) {
+        if (status.isPublished()) {
+            throw new BadRequestException("시험이 출시된 후에는 정보를 수정할 수 없습니다.");
+        }
+
+        this.title = new ExamTitle(title);
+        this.description = new ExamDescription(description);
+    }
+
+    public String getTitle() {
+        return title.getValue();
+    }
+
+    public String getDescription() {
+        return description.getValue();
     }
 }

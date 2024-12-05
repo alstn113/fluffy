@@ -9,6 +9,7 @@ import com.pass.exam.domain.ExamStatus;
 import com.pass.exam.domain.dto.ExamSummaryDto;
 import com.pass.exam.ui.dto.CreateExamWebRequest;
 import com.pass.exam.ui.dto.PublishExamWebRequest;
+import com.pass.exam.ui.dto.UpdateExamInfoWebRequest;
 import com.pass.exam.ui.dto.UpdateExamQuestionsWebRequest;
 import com.pass.global.web.Accessor;
 import com.pass.global.web.Auth;
@@ -98,5 +99,16 @@ public class ExamController {
         examService.updateQuestions(request.toAppRequest(examId, accessor));
 
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/api/v1/exams/{examId}/info")
+    public ResponseEntity<Void> updateInfo(
+            @PathVariable Long examId,
+            @RequestBody @Valid UpdateExamInfoWebRequest request,
+            @Auth Accessor accessor
+    ) {
+        examService.updateInfo(request.toAppRequest(examId, accessor));
+
+        return ResponseEntity.ok().build();
     }
 }

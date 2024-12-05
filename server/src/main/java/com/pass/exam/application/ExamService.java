@@ -4,6 +4,7 @@ import com.pass.auth.domain.Member;
 import com.pass.auth.domain.MemberRepository;
 import com.pass.exam.application.dto.CreateExamAppRequest;
 import com.pass.exam.application.dto.PublishExamAppRequest;
+import com.pass.exam.application.dto.UpdateExamInfoAppRequest;
 import com.pass.exam.application.dto.UpdateExamQuestionsAppRequest;
 import com.pass.exam.application.dto.question.CreateExamResponse;
 import com.pass.exam.domain.Exam;
@@ -64,5 +65,12 @@ public class ExamService {
         }
 
         return exam;
+    }
+
+    @Transactional
+    public void updateInfo(UpdateExamInfoAppRequest request) {
+        Exam exam = validateExamAuthor(request.examId(), request.accessor());
+
+        exam.updateInfo(request.title(), request.description());
     }
 }

@@ -12,6 +12,7 @@ import {
 } from '@nextui-org/react';
 import { useState } from 'react';
 import { Routes } from '@/constants';
+import { FaPlusCircle } from 'react-icons/fa';
 
 const NewExamButton = () => {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
@@ -38,8 +39,13 @@ const NewExamButton = () => {
 
   return (
     <div>
-      <Button color="primary" variant="shadow" onPress={onOpen}>
-        새로운 시험 생성
+      <Button
+        color="primary"
+        variant="shadow"
+        onPress={onOpen}
+        startContent={<FaPlusCircle size={20} />}
+      >
+        새로운 시험
       </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>

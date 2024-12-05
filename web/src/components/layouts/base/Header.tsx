@@ -41,7 +41,7 @@ const Header = () => {
   const handleNewExam = () => {
     mutate(
       {
-        title: 'New Exam',
+        title,
       },
       {
         onSuccess: (data) => {

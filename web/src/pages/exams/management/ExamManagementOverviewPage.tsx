@@ -11,6 +11,7 @@ import {
 } from '@nextui-org/react';
 import { useNavigate, useParams } from 'react-router';
 import { Routes } from '@/constants';
+import useGetExamWithAnswers from '@/hooks/api/exam/useGetExamWithAnswers';
 
 const ExamManagementOverviewPage = () => {
   const params = useParams() as { examId: string };
@@ -42,7 +43,7 @@ const ExamManagementOverviewPage = () => {
 
   return (
     <>
-      <div className="w-full h-full flex justify-center items-center flex-col gap-4">
+      <div className="w-full h-full flex items-center flex-col gap-4">
         <div className="text-2xl font-semibold">Overview</div>
         <div>
           <Button color="success" variant="shadow" onPress={onOpen} className="text-white">
@@ -72,6 +73,17 @@ const ExamManagementOverviewPage = () => {
         </ModalContent>
       </Modal>
     </>
+  );
+};
+
+const ExamManagementOverviewContent = ({ examId }: { examId: number }) => {
+  const { data } = useGetExamWithAnswers(examId);
+
+  return (
+    <div>
+      <div>{data.title}</div>
+      <div>{data.description}</div>
+    </div>
   );
 };
 

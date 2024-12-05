@@ -1,5 +1,7 @@
 import { DragDropContext, Draggable, Droppable, DropResult } from '@hello-pangea/dnd';
 import useExamEditorStore from '@/stores/useExamEditorStore';
+import { Tooltip } from '@nextui-org/react';
+import { BsFillQuestionCircleFill } from 'react-icons/bs';
 
 const ExamEditorSidebar = () => {
   const {
@@ -20,7 +22,24 @@ const ExamEditorSidebar = () => {
 
   return (
     <div className="flex flex-col h-full md:w-[300px] p-6 border-border-divider border-r overflow-y-scroll">
-      <div className="text-lg font-semibold mb-4">질문 목록</div>
+      <div className="flex items-center mb-4 gap-2">
+        <div className="text-lg font-semibold">질문 목록</div>
+        <Tooltip
+          placement="right"
+          color="foreground"
+          showArrow
+          content={
+            <div className="text-sm">
+              <p>질문을 드래그하여</p>
+              <p>순서를 변경할 수 있습니다.</p>
+            </div>
+          }
+        >
+          <div>
+            <BsFillQuestionCircleFill size={20} className="text-gray-500" />
+          </div>
+        </Tooltip>
+      </div>
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="droppable">
           {(provided) => (

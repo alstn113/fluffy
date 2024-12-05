@@ -38,6 +38,11 @@ export const ExamAPI = {
     const { data } = await apiV1Client.put<void>(`/exams/${examId}/questions`, request);
     return data;
   },
+
+  updateInfo: async ({ examId, request }: UpdateExamInfoParams) => {
+    const { data } = await apiV1Client.put<void>(`/exams/${examId}/info`, request);
+    return data;
+  },
 };
 
 export const EXAM_STATUS = {
@@ -104,4 +109,14 @@ interface UpdateExamQuestionsParams {
 
 export interface UpdateExamQuestionsRequest {
   questions: QuestionBaseRequest[];
+}
+
+interface UpdateExamInfoParams {
+  examId: number;
+  request: UpdateExamInfoRequest;
+}
+
+export interface UpdateExamInfoRequest {
+  title: string;
+  description: string;
 }

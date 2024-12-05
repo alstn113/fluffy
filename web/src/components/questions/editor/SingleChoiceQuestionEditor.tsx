@@ -2,7 +2,9 @@ import useExamEditorStore from '@/stores/useExamEditorStore';
 import { SingleChoiceQuestionRequest } from '@/api/questionAPI';
 import { Radio, RadioGroup } from '@nextui-org/radio';
 import { DragDropContext, Draggable, Droppable, DropResult } from '@hello-pangea/dnd';
-import { Button } from '@nextui-org/react';
+import { Button, Tooltip } from '@nextui-org/react';
+import { FaTrashAlt } from 'react-icons/fa';
+import { BsFillQuestionCircleFill } from 'react-icons/bs';
 
 const SingleChoiceQuestionEditor = () => {
   const { handleUpdateQuestion, currentIndex, questions } = useExamEditorStore();
@@ -64,7 +66,26 @@ const SingleChoiceQuestionEditor = () => {
 
   return (
     <div className="flex flex-col mt-8">
-      <label className="mb-2 font-semibold">선택지와 정답</label>
+      <div className="flex items-center gap-2 mb-2 ">
+        <label className="font-semibold">선택지와 정답</label>
+        <div>
+          <Tooltip
+            placement="right"
+            color="foreground"
+            showArrow
+            content={
+              <div className="text-sm">
+                <p>선택지를 드래그하여</p>
+                <p>순서를 변경할 수 있습니다.</p>
+              </div>
+            }
+          >
+            <div>
+              <BsFillQuestionCircleFill size={16} className="text-gray-500" />
+            </div>
+          </Tooltip>
+        </div>
+      </div>
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="droppable">
           {(provided) => (
@@ -95,10 +116,11 @@ const SingleChoiceQuestionEditor = () => {
                             color="danger"
                             variant="shadow"
                             size="sm"
+                            isIconOnly
                             onPress={() => handleRemoveOption(index)}
                             className="ml-auto"
                           >
-                            삭제
+                            <FaTrashAlt size={12} />
                           </Button>
                         )}
                       </div>

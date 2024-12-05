@@ -39,8 +39,13 @@ export const ExamAPI = {
     return data;
   },
 
-  updateInfo: async ({ examId, request }: UpdateExamInfoParams) => {
-    const { data } = await apiV1Client.put<void>(`/exams/${examId}/info`, request);
+  updateTitle: async ({ examId, request }: UpdateExamTitleParams) => {
+    const { data } = await apiV1Client.patch<void>(`/exams/${examId}/title`, request);
+    return data;
+  },
+
+  updateDescription: async ({ examId, request }: UpdateExamDescriptionParams) => {
+    const { data } = await apiV1Client.patch<void>(`/exams/${examId}/description`, request);
     return data;
   },
 };
@@ -111,12 +116,12 @@ export interface UpdateExamQuestionsRequest {
   questions: QuestionBaseRequest[];
 }
 
-interface UpdateExamInfoParams {
+interface UpdateExamTitleParams {
   examId: number;
-  request: UpdateExamInfoRequest;
+  request: { title: string };
 }
 
-export interface UpdateExamInfoRequest {
-  title: string;
-  description: string;
+interface UpdateExamDescriptionParams {
+  examId: number;
+  request: { description: string };
 }

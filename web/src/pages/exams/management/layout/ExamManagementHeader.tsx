@@ -37,7 +37,7 @@ const ExamManagementHeader = () => {
     <Navbar>
       <NavbarBrand>
         <Link href={Routes.home()} color={'foreground'}>
-          <p className="font-bold text-inherit">Pass</p>
+          <p className="font-bold text-inherit">Fluffy</p>
         </Link>
       </NavbarBrand>
 

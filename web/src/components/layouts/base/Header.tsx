@@ -60,7 +60,7 @@ const Header = () => {
       <Navbar>
         <NavbarBrand>
           <Link href={Routes.home()} color={'foreground'}>
-            <p className="font-bold text-inherit">Pass</p>
+            <p className="font-bold text-inherit">Fluffy</p>
           </Link>
         </NavbarBrand>
         <NavbarContent className="hidden sm:flex gap-4" justify="center">

@@ -1,13 +1,36 @@
 import { ExamSummaryResponse } from '@/api/examAPI';
 import { Routes } from '@/constants';
+import useUser from '@/hooks/useUser';
 import formatDate from '@/lib/formatDate';
-import { Card, CardBody, CardFooter, CardHeader, Chip, Divider, Image, Link } from '@nextui-org/react';
+import {
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Chip,
+  Divider,
+  Image,
+} from '@nextui-org/react';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router';
 
 interface ExamSummaryCardProps {
   exam: ExamSummaryResponse;
 }
 
 const ExamSummaryCard = ({ exam }: ExamSummaryCardProps) => {
+  const user = useUser();
+  const navigate = useNavigate();
+  const handleExamStart = () => {
+    if (!user) {
+      toast.error('로그인이 필요합니다.');
+      return;
+    }
+
+    navigate(Routes.exam.detail(exam.id));
+  };
+
   return (
     <Card className="max-w-[400px]">
       <CardHeader className="flex gap-3">
@@ -36,7 +59,9 @@ const ExamSummaryCard = ({ exam }: ExamSummaryCardProps) => {
       <Divider />
       <CardFooter className="flex justify-between">
         <div>문제 수: {exam.questionCount}</div>
-        <Link href={Routes.exam.detail(exam.id)}>시험 보기</Link>
+        <Button size="sm" variant="shadow" onPress={handleExamStart}>
+          시험 보기
+        </Button>
       </CardFooter>
     </Card>
   );

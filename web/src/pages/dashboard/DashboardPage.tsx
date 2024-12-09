@@ -67,11 +67,7 @@ const DraftExamContent = () => {
   const { data } = useGetMyExamSummaries('DRAFT');
 
   if (!data || data.length === 0) {
-    return (
-      <div className="w-full text-center text-xl text-gray-500">
-        출제 준비 중인 시험이 없습니다.
-      </div>
-    );
+    return <div className="w-full text-center text-xl text-gray-500">출제 준비 중인 시험이 없습니다.</div>;
   }
 
   return (
@@ -87,9 +83,7 @@ const PublishedExamContent = () => {
   const { data } = useGetMyExamSummaries('PUBLISHED');
 
   if (!data || data.length === 0) {
-    return (
-      <div className="w-full text-center text-xl text-gray-500">출제 완료된 시험이 없습니다.</div>
-    );
+    return <div className="w-full text-center text-xl text-gray-500">출제 완료된 시험이 없습니다.</div>;
   }
 
   return (

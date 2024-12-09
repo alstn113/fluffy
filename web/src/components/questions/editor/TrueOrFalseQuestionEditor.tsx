@@ -19,9 +19,7 @@ const TrueOrFalseQuestionEditor = () => {
       <div className="flex w-1/2">
         <button
           className={`w-32 h-32 mx-4 rounded-full text-white font-bold transition-all duration-300 ${
-            question.trueOrFalse
-              ? 'bg-blue-600 transform scale-110'
-              : 'bg-blue-300 hover:bg-blue-500'
+            question.trueOrFalse ? 'bg-blue-600 transform scale-110' : 'bg-blue-300 hover:bg-blue-500'
           }`}
           onClick={() => handleUpdateCorrectAnswer(true)}
         >

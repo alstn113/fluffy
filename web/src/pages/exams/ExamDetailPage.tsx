@@ -3,15 +3,7 @@ import { useNavigate, useParams } from 'react-router';
 import useGetExam from '@/hooks/api/exam/useGetExam';
 import QuestionDetailTemplate from '@/components/questions/details/QuestionDetailTemplate';
 import useCreateSubmission from '@/hooks/api/submission/useCreateSubmission';
-import {
-  Button,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  useDisclosure,
-} from '@nextui-org/react';
+import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from '@nextui-org/react';
 import useSubmissionStore from '@/stores/useSubmissionStore';
 import { Routes } from '@/constants';
 import AsyncBoundary from '@/components/AsyncBoundary';

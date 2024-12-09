@@ -6,4 +6,4 @@ spring:
 spring:
   config:
     activate:
-      on-profile: local, dev, prod
+      on-profile: local, prod

@@ -1,16 +1,7 @@
 import { ExamSummaryResponse } from '@/api/examAPI';
 import { Routes } from '@/constants';
 import formatDate from '@/lib/formatDate';
-import {
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  Chip,
-  Divider,
-  Image,
-  Link,
-} from '@nextui-org/react';
+import { Card, CardBody, CardFooter, CardHeader, Chip, Divider, Image, Link } from '@nextui-org/react';
 
 interface ExamSummaryCardProps {
   exam: ExamSummaryResponse;

@@ -33,9 +33,7 @@ const SingleChoiceQuestionEditor = () => {
   };
 
   const handleUpdateOptionText = (index: number, text: string) => {
-    const newOptions = question.options.map((option, i) =>
-      i === index ? { ...option, text } : option,
-    );
+    const newOptions = question.options.map((option, i) => (i === index ? { ...option, text } : option));
     const newQuestion: SingleChoiceQuestionRequest = { ...question, options: newOptions };
     handleUpdateQuestion(currentIndex, newQuestion);
   };

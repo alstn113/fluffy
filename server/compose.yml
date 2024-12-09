@@ -1,0 +1,12 @@
+services:
+  app:
+    container_name: fluffy-app
+    image: ${DOCKER_APP_IMAGE}
+    ports:
+      - '8080:8080'
+    env_file:
+      - .env
+    environment:
+      TZ: Asia/Seoul
+      SPRING_PROFILES_ACTIVE: prod
+    restart: always

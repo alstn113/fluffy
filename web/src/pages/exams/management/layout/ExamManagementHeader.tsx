@@ -61,12 +61,7 @@ const ExamManagementHeader = () => {
               <DropdownItem key="dashboard" href={Routes.dashboard()}>
                 Dashboard
               </DropdownItem>
-              <DropdownItem
-                key="logout"
-                className="text-danger"
-                color="danger"
-                onPress={() => logout()}
-              >
+              <DropdownItem key="logout" className="text-danger" color="danger" onPress={() => logout()}>
                 Logout
               </DropdownItem>
             </DropdownMenu>

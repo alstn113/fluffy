@@ -1,15 +1,7 @@
 import useGetSubmissionSummaries from '@/hooks/api/submission/useGetSubmissionSummaries.ts';
 import AsyncBoundary from '@/components/AsyncBoundary.tsx';
 import { useParams } from 'react-router';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableColumn,
-  TableHeader,
-  TableRow,
-  User,
-} from '@nextui-org/react';
+import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow, User } from '@nextui-org/react';
 import { Key, useCallback } from 'react';
 import { SubmissionSummaryResponse } from '@/api/submissionAPI.ts';
 import formatDate from '@/lib/formatDate.ts';
@@ -73,9 +65,7 @@ const ExamManagementAnalyticsContent = ({ examId }: { examId: number }) => {
       </TableHeader>
       <TableBody items={data} emptyContent={<div>아직 제출된 응답이 없습니다.</div>}>
         {(item) => (
-          <TableRow key={item.id}>
-            {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
-          </TableRow>
+          <TableRow key={item.id}>{(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}</TableRow>
         )}
       </TableBody>
     </Table>

@@ -3,16 +3,12 @@ import { ChoiceQuestionType, QuestionType, TextQuestionType } from './questionAP
 
 export const SubmissionAPI = {
   getSummaries: async (examId: number) => {
-    const { data } = await apiV1Client.get<SubmissionSummaryResponse[]>(
-      `/exams/${examId}/submissions`,
-    );
+    const { data } = await apiV1Client.get<SubmissionSummaryResponse[]>(`/exams/${examId}/submissions`);
     return data;
   },
 
   getDetail: async ({ examId, submissionId }: SubmissionDetailParams) => {
-    const { data } = await apiV1Client.get<SubmissionDetailResponse>(
-      `/exams/${examId}/submissions/${submissionId}`,
-    );
+    const { data } = await apiV1Client.get<SubmissionDetailResponse>(`/exams/${examId}/submissions/${submissionId}`);
     return data;
   },
 

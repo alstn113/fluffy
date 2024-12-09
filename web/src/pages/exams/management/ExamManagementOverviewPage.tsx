@@ -70,9 +70,7 @@ const ExamManagementOverviewContent = ({ examId }: { examId: number }) => {
       </div>
       <div className="flex gap-4">
         <div className="p-1 min-w-32 font-semibold">시험 상태</div>
-        <div className="p-1 text-gray-500">
-          {data.status === 'PUBLISHED' ? '출제 완료' : '출제 준비중'}
-        </div>
+        <div className="p-1 text-gray-500">{data.status === 'PUBLISHED' ? '출제 완료' : '출제 준비중'}</div>
       </div>
       <Divider className="my-8" />
       <div className="flex flex-col gap-2 w-full">

@@ -39,12 +39,7 @@ const NewExamButton = () => {
 
   return (
     <div>
-      <Button
-        color="primary"
-        variant="shadow"
-        onPress={onOpen}
-        startContent={<FaPlusCircle size={20} />}
-      >
+      <Button color="primary" variant="shadow" onPress={onOpen} startContent={<FaPlusCircle size={20} />}>
         새로운 시험
       </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>

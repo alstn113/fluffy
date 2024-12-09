@@ -2,9 +2,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { UseQueryOptionsOf } from '../types';
 import { ExamAPI } from '@/api/examAPI.ts';
 
-const useGetExamSummaries = (
-  options: UseQueryOptionsOf<typeof ExamAPI.getPublishedExamSummaries> = {},
-) => {
+const useGetExamSummaries = (options: UseQueryOptionsOf<typeof ExamAPI.getPublishedExamSummaries> = {}) => {
   return useSuspenseQuery({
     ...options,
     queryKey: getKey(),

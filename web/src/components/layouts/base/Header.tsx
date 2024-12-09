@@ -83,21 +83,10 @@ const Header = () => {
                 <DropdownItem key="dashboard" href={Routes.dashboard()}>
                   Dashboard
                 </DropdownItem>
-                <DropdownItem
-                  key="new exam"
-                  className="text-primary"
-                  variant="faded"
-                  color="primary"
-                  onPress={onOpen}
-                >
+                <DropdownItem key="new exam" className="text-primary" variant="faded" color="primary" onPress={onOpen}>
                   New Exam
                 </DropdownItem>
-                <DropdownItem
-                  key="logout"
-                  className="text-danger"
-                  color="danger"
-                  onPress={() => logout()}
-                >
+                <DropdownItem key="logout" className="text-danger" color="danger" onPress={() => logout()}>
                   Log Out
                 </DropdownItem>
               </DropdownMenu>

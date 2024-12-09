@@ -15,9 +15,7 @@ export type ChoiceQuestionType =
 
 export type QuestionResponse = AnswerQuestionResponse | ChoiceQuestionResponse;
 
-export type QuestionWithAnswersResponse =
-  | AnswerQuestionWithAnswersResponse
-  | ChoiceQuestionWithAnswersResponse;
+export type QuestionWithAnswersResponse = AnswerQuestionWithAnswersResponse | ChoiceQuestionWithAnswersResponse;
 
 export interface QuestionBaseResponse {
   id: number;

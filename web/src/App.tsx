@@ -5,10 +5,10 @@ import ExamManagementQuestionsPage from '@/pages/exams/management/ExamManagement
 import HomePage from '@/pages/HomePage';
 import DashBoardPage from '@/pages/dashboard/DashboardPage';
 import NotFoundPage from '@/pages/NotFoundPage';
-import useGetMe from './hooks/useGetMe';
-import ExamManagementOverviewPage from './pages/exams/management/ExamManagementOverviewPage';
-import ExamManagementAnalyticsPage from './pages/exams/management/ExamManagementAnalyticsPage';
-import ExamManagementSettingsPage from './pages/exams/management/ExamManagementSettingsPage';
+import useGetMe from '@/hooks/useGetMe';
+import ExamManagementOverviewPage from '@/pages/exams/management/ExamManagementOverviewPage';
+import ExamManagementAnalyticsPage from '@/pages/exams/management/ExamManagementAnalyticsPage';
+import ExamManagementSettingsPage from '@/pages/exams/management/ExamManagementSettingsPage';
 import ExamManagementLayout from '@/pages/exams/management/layout/ExamManagementLayout.tsx';
 import BaseLayout from '@/components/layouts/base/BaseLayout.tsx';
 import { NextUIProvider } from '@nextui-org/system';

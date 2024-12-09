@@ -1,0 +1,97 @@
+name: Server CD
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'server/**'
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}/server
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    defaults:
+      run:
+        working-directory: server
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Build with Gradle
+        run: ./gradlew clean bootJar
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./server
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          platforms: linux/amd64
+
+  deploy:
+    name: Deploy
+    runs-on: [self-hosted]
+    needs: build
+
+    defaults:
+      run:
+        working-directory: ./server
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Login to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create .env file
+        env:
+          SECRET_CONTEXT: ${{ toJson(secrets) }}
+        run: |
+          echo "$SECRET_CONTEXT" | tr -d '{}' | tr ',' '\n' | sed -n 's/"\(.*\)":\(.*\)/\1=\2/p' > .env
+
+      - name: View
+        run: cat .env
+
+      - name: Compose Docker image
+        env:
+          DOCKER_APP_IMAGE: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+
+        run: docker compose -f compose.yml up -d
+
+      - name: Docker remove unused images
+        run: docker image prune -af
+
+      - name: Check running containers
+        run: docker ps -a

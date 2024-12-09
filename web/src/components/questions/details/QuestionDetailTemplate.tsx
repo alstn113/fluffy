@@ -15,12 +15,8 @@ const QuestionDetailTemplate = ({ question, index }: QuestionDetailTemplateProps
     SHORT_ANSWER: <ShortAnswerQuestion index={index} />,
     LONG_ANSWER: <LongAnswerQuestion index={index} />,
     TRUE_OR_FALSE: <TrueOrFalseQuestion index={index} />,
-    SINGLE_CHOICE: (
-      <SingleChoiceQuestion question={question as ChoiceQuestionResponse} index={index} />
-    ),
-    MULTIPLE_CHOICE: (
-      <MultipleChoiceQuestion question={question as ChoiceQuestionResponse} index={index} />
-    ),
+    SINGLE_CHOICE: <SingleChoiceQuestion question={question as ChoiceQuestionResponse} index={index} />,
+    MULTIPLE_CHOICE: <MultipleChoiceQuestion question={question as ChoiceQuestionResponse} index={index} />,
   };
 
   return (

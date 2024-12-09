@@ -52,17 +52,13 @@ const ExamEditorSidebar = () => {
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                       className={`flex items-center p-3 mb-2 rounded-md cursor-pointer ${
-                        currentIndex === index && !questionTypeSelectorActive
-                          ? 'bg-gray-100'
-                          : 'bg-white'
+                        currentIndex === index && !questionTypeSelectorActive ? 'bg-gray-100' : 'bg-white'
                       }`}
                       onClick={() => handleSelectQuestion(index)}
                     >
                       <p
                         className={`p-2 mr-2 text-small text-white rounded-md h-6 w-6 flex items-center justify-center ${
-                          currentIndex === index && !questionTypeSelectorActive
-                            ? 'bg-violet-600'
-                            : 'bg-gray-300'
+                          currentIndex === index && !questionTypeSelectorActive ? 'bg-violet-600' : 'bg-gray-300'
                         }`}
                       >
                         {index + 1}

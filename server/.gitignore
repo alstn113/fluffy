@@ -1,5 +1,7 @@
 .DS_Store
-src/main/resources/.env
+
+.env.*
+!.env.example
 
 HELP.md
 .gradle

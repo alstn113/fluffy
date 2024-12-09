@@ -43,8 +43,7 @@ const ExamPublishButton = ({ examId }: ExamPublishButtonProps) => {
     const parsedEndAt = isEndAtInfinite ? null : parseDate(endAt);
 
     if (parsedStartAt && parsedEndAt && parsedStartAt >= parsedEndAt) return false;
-    if (parsedStartAt && parsedStartAt < now(getLocalTimeZone()).toString().substring(0, 16))
-      return false;
+    if (parsedStartAt && parsedStartAt < now(getLocalTimeZone()).toString().substring(0, 16)) return false;
 
     return true;
   };
@@ -79,9 +78,7 @@ const ExamPublishButton = ({ examId }: ExamPublishButtonProps) => {
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">
-                시험 출제할 날짜와 시간을 선택하세요
-              </ModalHeader>
+              <ModalHeader className="flex flex-col gap-1">시험 출제할 날짜와 시간을 선택하세요</ModalHeader>
               <ModalBody>
                 <div className="flex gap-4 w-full justify-evenly">
                   <div className="flex flex-col gap-4">

@@ -22,9 +22,7 @@ const TrueOrFalseQuestion = ({ index }: TrueOrFalseQuestionProps) => {
       <div className="flex justify-center">
         <button
           className={`md:w-32 md:h-32 w-16 h-16 mx-4 rounded-full text-white font-bold transition-all duration-300 ${
-            choice === ANSWERS.true
-              ? 'bg-blue-600 transform scale-110'
-              : 'bg-blue-300 hover:bg-blue-500'
+            choice === ANSWERS.true ? 'bg-blue-600 transform scale-110' : 'bg-blue-300 hover:bg-blue-500'
           }`}
           onClick={() => handleUpdate(ANSWERS.true)}
         >
@@ -32,9 +30,7 @@ const TrueOrFalseQuestion = ({ index }: TrueOrFalseQuestionProps) => {
         </button>
         <button
           className={`md:w-32 md:h-32 w-16 h-16 mx-4 rounded-full text-white font-bold transition-all duration-300 ${
-            choice === ANSWERS.false
-              ? 'bg-red-600 transform scale-110'
-              : 'bg-red-300 hover:bg-red-500'
+            choice === ANSWERS.false ? 'bg-red-600 transform scale-110' : 'bg-red-300 hover:bg-red-500'
           }`}
           onClick={() => handleUpdate(ANSWERS.false)}
         >

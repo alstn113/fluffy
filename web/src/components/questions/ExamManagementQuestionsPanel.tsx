@@ -11,10 +11,7 @@ interface ExamManagementQuestionsPanelProps {
   examId: number;
 }
 
-const ExamManagementQuestionsPanel = ({
-  isPublished,
-  examId,
-}: ExamManagementQuestionsPanelProps) => {
+const ExamManagementQuestionsPanel = ({ isPublished, examId }: ExamManagementQuestionsPanelProps) => {
   return (
     <div className="flex grow flex-col h-full p-6 overflow-y-auto items-center">
       <div className="flex w-full max-w-[650px] flex-col gap-4">
@@ -42,12 +39,7 @@ const ExamEditorPanel = ({ examId }: { examId: number }) => {
     <>
       <h1 className="text-2xl font-bold text-gray-800 mb-4 flex items-center justify-between">
         {data?.title}
-        <Button
-          color="success"
-          variant="shadow"
-          onPress={handleUpdateQuestions}
-          className="text-white"
-        >
+        <Button color="success" variant="shadow" onPress={handleUpdateQuestions} className="text-white">
           임시 저장
         </Button>
       </h1>
@@ -61,9 +53,7 @@ const ExamViewPanel = ({ examId }: { examId: number }) => {
 
   return (
     <>
-      <h1 className="text-2xl font-bold text-gray-800 mb-4 flex items-center justify-between">
-        {data?.title}
-      </h1>
+      <h1 className="text-2xl font-bold text-gray-800 mb-4 flex items-center justify-between">{data?.title}</h1>
       <QuestionViewTemplate />
     </>
   );

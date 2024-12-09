@@ -1,7 +1,4 @@
-export const API_V1_URL =
-  (import.meta.env.VITE_API_V1_URL as string) || 'http://localhost:3000/api/v1';
-
-export const GITHUB_OAUTH_LOGIN_URL = `${API_V1_URL}/auth/oauth2/redirect/github`;
+export const GITHUB_OAUTH_LOGIN_URL = `/api/v1/auth/oauth2/redirect/github`;
 
 export const Routes = {
   home: () => '/',

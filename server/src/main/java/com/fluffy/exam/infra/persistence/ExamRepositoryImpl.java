@@ -31,13 +31,13 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
     @Override
     public List<ExamSummaryDto> findPublishedSummaries() {
         return queryFactory
-                .select(new QExamSummaryDto(
+                .selectDistinct(new QExamSummaryDto(
                         exam.id,
                         exam.title.value,
                         exam.description.value,
                         exam.status,
                         AUTHOR_PROJECTION,
-                        question.count(),
+                        exam.questionGroup.questions.size(), // postgreSQL group by 이슈로 인함.
                         exam.createdAt,
                         exam.updatedAt
                 ))
@@ -45,8 +45,6 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
                 .leftJoin(member).on(exam.memberId.eq(member.id))
                 .leftJoin(exam.questionGroup.questions, question)
                 .where(exam.status.eq(ExamStatus.PUBLISHED))
-                // TODO: 시험을 풀 수 있는 시간 내에만 조회되도록 수정
-                .groupBy(exam.id)
                 .orderBy(exam.updatedAt.desc())
                 .fetch();
     }
@@ -54,13 +52,13 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
     @Override
     public List<ExamSummaryDto> findMySummaries(ExamStatus status, Long memberId) {
         return queryFactory
-                .select(new QExamSummaryDto(
+                .selectDistinct(new QExamSummaryDto(
                         exam.id,
                         exam.title.value,
                         exam.description.value,
                         exam.status,
                         AUTHOR_PROJECTION,
-                        question.count(),
+                        exam.questionGroup.questions.size(),
                         exam.createdAt,
                         exam.updatedAt
                 ))
@@ -68,7 +66,6 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
                 .leftJoin(member).on(exam.memberId.eq(member.id))
                 .leftJoin(exam.questionGroup.questions, question)
                 .where(exam.memberId.eq(memberId), exam.status.eq(status))
-                .groupBy(exam.id)
                 .orderBy(exam.updatedAt.desc())
                 .fetch();
     }

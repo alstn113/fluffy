@@ -5,7 +5,6 @@ spring:
       enabled: true
   datasource:
     url: jdbc:h2:mem:database
-    driver-class-name: org.h2.Driver
   jpa:
     open-in-view: false
     show-sql: true
@@ -13,6 +12,8 @@ spring:
       hibernate:
         format_sql: true
         highlight_sql: true
+    hibernate:
+      ddl-auto: create-drop
 
 api-host: http://localhost:8080
 client-host: http://localhost:5173
@@ -30,8 +31,8 @@ auth:
     maxAge: 86400 # 1 day
   oauth2:
     github:
-      client-id: ${GITHUB_CLIENT_ID}
-      client-secret: ${GITHUB_CLIENT_SECRET}
+      client-id: ${OAUTH_GITHUB_CLIENT_ID}
+      client-secret: ${OAUTH_GITHUB_CLIENT_SECRET}
       redirect-uri: ${api-host}/api/v1/auth/oauth2/callback/github
       client-uri: ${client-host}
 

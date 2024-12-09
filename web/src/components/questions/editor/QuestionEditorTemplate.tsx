@@ -9,13 +9,8 @@ import useExamEditorStore from '@/stores/useExamEditorStore';
 import { Button, Input } from '@nextui-org/react';
 
 const QuestionEditorTemplate = () => {
-  const {
-    currentIndex,
-    questions,
-    handleUpdateQuestion,
-    handleDeleteQuestion,
-    setQuestionTypeSelectorActive,
-  } = useExamEditorStore();
+  const { currentIndex, questions, handleUpdateQuestion, handleDeleteQuestion, setQuestionTypeSelectorActive } =
+    useExamEditorStore();
   const question = questions[currentIndex];
 
   const editorMap: Record<QuestionType, React.ReactNode> = {

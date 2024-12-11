@@ -18,7 +18,6 @@ class ExamPeriodTest {
     void startAtAndEndAtShouldBeTruncatedToMinutes() {
         // given
         LocalDateTime startAt = LocalDateTime.now();
-        System.out.println(startAt);
         LocalDateTime endAt = startAt.plusMinutes(1);
 
         // when

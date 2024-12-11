@@ -3,7 +3,6 @@ package com.fluffy.exam.infra.persistence;
 import static com.fluffy.auth.domain.QMember.member;
 import static com.fluffy.exam.domain.QExam.exam;
 import static com.fluffy.exam.domain.QQuestion.question;
-import static com.querydsl.core.types.ExpressionUtils.count;
 
 import com.fluffy.exam.domain.ExamRepositoryCustom;
 import com.fluffy.exam.domain.ExamStatus;

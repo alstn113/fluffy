@@ -34,7 +34,7 @@ public class DataInitializer implements ApplicationRunner {
         Member member1 = memberRepository.save(new Member(
                 "alice@gmail.com",
                 OAuth2Provider.GITHUB,
-                111111L,
+                "111111",
                 "Alice",
                 "https://cdn-icons-png.flaticon.com/128/4472/4472552.png"
         ));
@@ -42,7 +42,7 @@ public class DataInitializer implements ApplicationRunner {
         Member member2 = memberRepository.save(new Member(
                 "bob@gmail.com",
                 OAuth2Provider.GITHUB,
-                222222L,
+                "222222",
                 "Bob",
                 "https://cdn-icons-png.flaticon.com/128/4472/4472525.png"
         ));
@@ -50,7 +50,7 @@ public class DataInitializer implements ApplicationRunner {
         Member member3 = memberRepository.save(new Member(
                 "charlie@gmail.com",
                 OAuth2Provider.GITHUB,
-                333333L,
+                "333333",
                 "Charlie",
                 "https://cdn-icons-png.flaticon.com/128/4472/4472516.png"
         ));

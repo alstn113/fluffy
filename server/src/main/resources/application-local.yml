@@ -35,6 +35,11 @@ auth:
       client-secret: ${OAUTH_GITHUB_CLIENT_SECRET}
       redirect-uri: ${api-host}/api/v1/auth/oauth2/callback/github
       client-uri: ${client-host}
+    google:
+      client-id: ${OAUTH_GOOGLE_CLIENT_ID}
+      client-secret: ${OAUTH_GOOGLE_CLIENT_SECRET}
+      redirect-uri: ${api-host}/api/v1/auth/oauth2/callback/google
+      client-uri: ${client-host}
 
 logging:
   level:

@@ -5,7 +5,7 @@ import com.fluffy.auth.domain.OAuth2Provider;
 import jakarta.annotation.Nullable;
 
 public record OAuth2UserInfo(
-        Long socialId,
+        String socialId,
         String name,
         @Nullable String email,
         String avatarUrl

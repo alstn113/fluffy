@@ -1,24 +1,23 @@
-package com.fluffy.oauth2.infra.github.dto;
+package com.fluffy.oauth2.infra.google.dto;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies.SnakeCaseStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.fluffy.oauth2.domain.OAuth2UserInfo;
-import jakarta.annotation.Nullable;
 
 @JsonNaming(SnakeCaseStrategy.class)
-public record GithubUserInfoResponse(
+public record GoogleUserInfoResponse(
         String id,
-        String login,
-        String avatarUrl,
-        @Nullable String email
+        String email,
+        String name,
+        String picture
 ) {
 
     public OAuth2UserInfo toOAuth2UserInfo() {
         return new OAuth2UserInfo(
                 id,
-                login,
+                name,
                 email,
-                avatarUrl
+                picture
         );
     }
 }

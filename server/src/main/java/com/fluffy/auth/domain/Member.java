@@ -29,7 +29,7 @@ public class Member extends AuditableEntity {
     private OAuth2Provider provider;
 
     @Column(nullable = false)
-    private Long socialId;
+    private String socialId;
 
     @Column(nullable = false)
     private String name;
@@ -37,11 +37,11 @@ public class Member extends AuditableEntity {
     @Column(nullable = false)
     private String avatarUrl;
 
-    public Member(String email, OAuth2Provider provider, Long socialId, String name, String avatarUrl) {
+    public Member(String email, OAuth2Provider provider, String socialId, String name, String avatarUrl) {
         this(null, email, provider, socialId, name, avatarUrl);
     }
 
-    public Member(Long id, String email, OAuth2Provider provider, Long socialId, String name, String avatarUrl) {
+    public Member(Long id, String email, OAuth2Provider provider, String socialId, String name, String avatarUrl) {
         this.id = id;
         this.email = email;
         this.provider = provider;

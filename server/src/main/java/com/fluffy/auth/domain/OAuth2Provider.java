@@ -6,6 +6,7 @@ import java.util.Arrays;
 public enum OAuth2Provider {
 
     GITHUB,
+    GOOGLE,
     ;
 
     public static OAuth2Provider from(String provider) {

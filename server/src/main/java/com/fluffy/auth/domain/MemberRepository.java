@@ -10,7 +10,7 @@ public interface MemberRepository extends Repository<Member, Long> {
 
     Optional<Member> findById(Long id);
 
-    Optional<Member> findBySocialIdAndProvider(Long socialId, OAuth2Provider provider);
+    Optional<Member> findBySocialIdAndProvider(String socialId, OAuth2Provider provider);
 
     default Member getById(Long id) {
         return findById(id)

@@ -10,7 +10,7 @@ public class MemberTestData {
                 .withId(null)
                 .withEmail("example@example.com")
                 .withProvider(OAuth2Provider.GITHUB)
-                .withSocialId(1234567890L)
+                .withSocialId("1234567890")
                 .withName("example")
                 .withAvatarUrl("https://example.com/image.jpg");
     }
@@ -20,7 +20,7 @@ public class MemberTestData {
         private Long id;
         private String email;
         private OAuth2Provider provider;
-        private Long socialId;
+        private String socialId;
         private String name;
         private String avatarUrl;
 
@@ -39,7 +39,7 @@ public class MemberTestData {
             return this;
         }
 
-        public MemberBuilder withSocialId(Long socialId) {
+        public MemberBuilder withSocialId(String socialId) {
             this.socialId = socialId;
             return this;
         }

@@ -3,6 +3,7 @@ package com.fluffy.exam.infra.persistence;
 import static com.fluffy.auth.domain.QMember.member;
 import static com.fluffy.exam.domain.QExam.exam;
 import static com.fluffy.exam.domain.QQuestion.question;
+import static com.querydsl.core.types.ExpressionUtils.count;
 
 import com.fluffy.exam.domain.ExamRepositoryCustom;
 import com.fluffy.exam.domain.ExamStatus;
@@ -37,7 +38,7 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
                         exam.description.value,
                         exam.status,
                         AUTHOR_PROJECTION,
-                        exam.questionGroup.questions.size(), // postgreSQL group by 이슈로 인함.
+                        question.count(),
                         exam.createdAt,
                         exam.updatedAt
                 ))
@@ -45,6 +46,17 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
                 .leftJoin(member).on(exam.memberId.eq(member.id))
                 .leftJoin(exam.questionGroup.questions, question)
                 .where(exam.status.eq(ExamStatus.PUBLISHED))
+                .groupBy(
+                        exam.id,
+                        exam.title,
+                        exam.description,
+                        exam.status,
+                        member.id,
+                        member.name,
+                        member.avatarUrl,
+                        exam.createdAt,
+                        exam.updatedAt
+                )
                 .orderBy(exam.updatedAt.desc())
                 .fetch();
     }
@@ -58,7 +70,7 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
                         exam.description.value,
                         exam.status,
                         AUTHOR_PROJECTION,
-                        exam.questionGroup.questions.size(),
+                        question.count(),
                         exam.createdAt,
                         exam.updatedAt
                 ))
@@ -66,6 +78,17 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
                 .leftJoin(member).on(exam.memberId.eq(member.id))
                 .leftJoin(exam.questionGroup.questions, question)
                 .where(exam.memberId.eq(memberId), exam.status.eq(status))
+                .groupBy(
+                        exam.id,
+                        exam.title,
+                        exam.description,
+                        exam.status,
+                        member.id,
+                        member.name,
+                        member.avatarUrl,
+                        exam.createdAt,
+                        exam.updatedAt
+                )
                 .orderBy(exam.updatedAt.desc())
                 .fetch();
     }

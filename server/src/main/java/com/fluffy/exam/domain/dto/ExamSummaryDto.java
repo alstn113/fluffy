@@ -16,7 +16,7 @@ public class ExamSummaryDto {
     private String description;
     private ExamStatus status;
     private AuthorDto author;
-    private int questionCount;
+    private Long questionCount;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
@@ -27,7 +27,7 @@ public class ExamSummaryDto {
             String description,
             ExamStatus status,
             AuthorDto author,
-            int questionCount,
+            Long questionCount,
             LocalDateTime createdAt,
             LocalDateTime updatedAt
     ) {

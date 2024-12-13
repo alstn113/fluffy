@@ -12,6 +12,20 @@ spring:
         highlight_sql: true
     hibernate:
       ddl-auto: validate
+  mail:
+    host: ${MAIL_HOST}
+    port: 587
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          connectiontimeout: 5000
+          timeout: 3000
+          writetimeout: 5000
+          auth: true
+          starttls:
+            enable: true
 
 api-host: https://api.fluffy.run
 client-host: https://www.fluffy.run

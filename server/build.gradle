@@ -39,8 +39,8 @@ dependencies {
     runtimeOnly 'org.postgresql:postgresql'
 
     // redis
-//    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-//    implementation 'io.lettuce.core:lettuce-core'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
 
     // lombok
     compileOnly 'org.projectlombok:lombok'

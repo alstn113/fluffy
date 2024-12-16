@@ -10,3 +10,9 @@ services:
       TZ: Asia/Seoul
       SPRING_PROFILES_ACTIVE: prod
     restart: always
+  redis:
+    container_name: fluffy-redis
+    image: redis:7.4.1
+    restart: always
+    ports:
+      - '6379:6379'

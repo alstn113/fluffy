@@ -4,6 +4,7 @@ import com.fluffy.auth.domain.Member;
 import com.fluffy.auth.domain.MemberRepository;
 import com.fluffy.exam.domain.Exam;
 import com.fluffy.exam.domain.ExamRepository;
+import com.fluffy.global.cache.RedisLockUtil;
 import com.fluffy.global.exception.BadRequestException;
 import com.fluffy.submission.application.dto.SubmissionAppRequest;
 import com.fluffy.submission.domain.Submission;
@@ -20,6 +21,7 @@ public class SubmissionService {
     private final SubmissionRepository submissionRepository;
     private final MemberRepository memberRepository;
     private final SubmissionMapper submissionMapper;
+    private final RedisLockUtil redisLockUtil;
 
     @Transactional
     public void submit(SubmissionAppRequest request) {
@@ -30,13 +32,15 @@ public class SubmissionService {
             throw new BadRequestException("시험이 공개되지 않았습니다.");
         }
 
-        //TODO: 존재하지 않는 것에 대한 동시성 문제 aka 따닥 -> Redis 분산락 고려 ?
-        //TODO: unique 제약조건 examId, memberId ?
         if (submissionRepository.existsByExamIdAndMemberId(exam.getId(), member.getId())) {
             throw new BadRequestException("이미 제출한 시험입니다.");
         }
 
-        Submission submission = submissionMapper.toSubmission(exam, member.getId(), request);
-        submissionRepository.save(submission);
+        String key = "submission:%d:%d".formatted(exam.getId(), member.getId());
+        redisLockUtil.acquireAndRunLock(key, () -> {
+            Submission submission = submissionMapper.toSubmission(exam, member.getId(), request);
+            submissionRepository.save(submission);
+            return null;
+        });
     }
 }

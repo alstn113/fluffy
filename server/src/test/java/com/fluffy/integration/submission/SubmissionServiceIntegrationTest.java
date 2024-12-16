@@ -61,7 +61,7 @@ class SubmissionServiceIntegrationTest extends AbstractIntegrationTest {
                 try {
                     submissionService.submit(request);
                 } catch (RuntimeException e) {
-                    // ignore
+                    e.printStackTrace();
                 }
             });
         }

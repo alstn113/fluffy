@@ -1,10 +1,13 @@
 package com.fluffy.submission.domain;
 
 import com.fluffy.global.exception.NotFoundException;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.repository.Repository;
 
 public interface SubmissionRepository extends Repository<Submission, Long>, SubmissionRepositoryCustom {
+
+    List<Submission> findAll();
 
     void save(Submission submission);
 

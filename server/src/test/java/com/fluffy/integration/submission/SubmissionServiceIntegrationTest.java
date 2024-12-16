@@ -1,0 +1,76 @@
+package com.fluffy.integration.submission;
+
+import static com.fluffy.auth.domain.OAuth2Provider.GOOGLE;
+import static java.util.concurrent.Executors.newFixedThreadPool;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import com.fluffy.auth.domain.Member;
+import com.fluffy.auth.domain.MemberRepository;
+import com.fluffy.exam.domain.Exam;
+import com.fluffy.exam.domain.ExamRepository;
+import com.fluffy.exam.domain.Question;
+import com.fluffy.global.web.Accessor;
+import com.fluffy.integration.AbstractIntegrationTest;
+import com.fluffy.submission.application.SubmissionService;
+import com.fluffy.submission.application.dto.QuestionResponseAppRequest;
+import com.fluffy.submission.application.dto.SubmissionAppRequest;
+import com.fluffy.submission.domain.Submission;
+import com.fluffy.submission.domain.SubmissionRepository;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+class SubmissionServiceIntegrationTest extends AbstractIntegrationTest {
+
+    @Autowired
+    private SubmissionService submissionService;
+
+    @Autowired
+    private ExamRepository examRepository;
+
+    @Autowired
+    private MemberRepository memberRepository;
+
+    @Autowired
+    private SubmissionRepository submissionRepository;
+
+    @Test
+    @Disabled("동시성 문제 해결 방법 미정으로 테스트 비활성화합니다.")
+    @DisplayName("시험을 제출할 수 있다.")
+    void submit() throws InterruptedException {
+        // given
+        Member member1 = memberRepository.save(new Member("ex1@gmail.com", GOOGLE, "123", "ex1", "https://ex1.com"));
+        Exam exam = Exam.create("시험 제목", member1.getId());
+        exam.updateQuestions(List.of(Question.shortAnswer("단답형1", "답1")));
+        exam.publish(null, null);
+        examRepository.save(exam);
+
+        // when
+        ExecutorService executorService = newFixedThreadPool(2);
+        SubmissionAppRequest request = new SubmissionAppRequest(
+                exam.getId(),
+                List.of(new QuestionResponseAppRequest(List.of("답1"))),
+                new Accessor(member1.getId())
+        );
+        for (int i = 0; i < 2; i++) {
+            executorService.execute(() -> {
+                try {
+                    submissionService.submit(request);
+                } catch (RuntimeException e) {
+                    // ignore
+                }
+            });
+        }
+
+        executorService.shutdown();
+        executorService.awaitTermination(30, TimeUnit.SECONDS);
+
+        // then
+        List<Submission> submissions = submissionRepository.findAll();
+        assertThat(submissions).hasSize(1);
+    }
+}

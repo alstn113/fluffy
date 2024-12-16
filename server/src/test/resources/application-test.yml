@@ -6,6 +6,20 @@ spring:
       hibernate:
         format_sql: true
         highlight_sql: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: username
+    password: password
+    properties:
+      mail:
+        smtp:
+          connectiontimeout: 5000
+          timeout: 3000
+          writetimeout: 5000
+          auth: true
+          starttls:
+            enable: true
 
 api-host: http://localhost:8080
 client-host: http://localhost:5173
@@ -27,9 +41,3 @@ auth:
       client-secret: client-secret-client-secret-client-secret-client-secret
       redirect-uri: ${api-host}/api/v1/auth/oauth2/callback/github
       client-uri: ${client-host}
-
-logging:
-  level:
-    org.springframework.orm.jpa: DEBUG
-    org.springframework.orm.transaction: DEBUG
-    org.hibernate.orm.jdbc.bind: trace

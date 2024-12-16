@@ -30,6 +30,8 @@ public class SubmissionService {
             throw new BadRequestException("시험이 공개되지 않았습니다.");
         }
 
+        //TODO: 존재하지 않는 것에 대한 동시성 문제 aka 따닥 -> Redis 분산락 고려 ?
+        //TODO: unique 제약조건 examId, memberId ?
         if (submissionRepository.existsByExamIdAndMemberId(exam.getId(), member.getId())) {
             throw new BadRequestException("이미 제출한 시험입니다.");
         }

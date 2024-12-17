@@ -51,7 +51,8 @@ public class SubmissionController {
             @RequestBody @Valid SubmissionWebRequest request,
             @Auth Accessor accessor
     ) {
-        submissionService.submit(request.toAppRequest(examId, accessor));
+        String lockName = "submit:%d:%d".formatted(examId, accessor.id());
+        submissionService.submit(request.toAppRequest(examId, accessor), lockName);
 
         return ResponseEntity.ok().build();
     }

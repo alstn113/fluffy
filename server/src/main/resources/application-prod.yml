@@ -16,8 +16,6 @@ spring:
     redis:
       host: fluffy-redis
       port: 6379
-  cache:
-    type: redis
   mail:
     host: ${MAIL_HOST}
     port: 587

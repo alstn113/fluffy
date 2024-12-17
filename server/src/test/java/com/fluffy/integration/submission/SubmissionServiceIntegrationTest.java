@@ -17,8 +17,8 @@ import com.fluffy.submission.application.dto.SubmissionAppRequest;
 import com.fluffy.submission.domain.Submission;
 import com.fluffy.submission.domain.SubmissionRepository;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -50,24 +50,28 @@ class SubmissionServiceIntegrationTest extends AbstractIntegrationTest {
         examRepository.save(exam);
 
         // when
-        ExecutorService executorService = newFixedThreadPool(2);
         SubmissionAppRequest request = new SubmissionAppRequest(
                 exam.getId(),
                 List.of(new QuestionResponseAppRequest(List.of("답1"))),
                 new Accessor(member1.getId())
         );
-        for (int i = 0; i < 2; i++) {
-            executorService.execute(() -> {
-                try {
-                    submissionService.submit(request);
-                } catch (RuntimeException e) {
-                    e.printStackTrace();
-                }
-            });
-        }
+        String lockName = "submit:%d:%d".formatted(exam.getId(), member1.getId());
 
-        executorService.shutdown();
-        executorService.awaitTermination(30, TimeUnit.SECONDS);
+        try (ExecutorService executorService = newFixedThreadPool(2)) {
+            CountDownLatch countDownLatch = new CountDownLatch(2);
+
+            for (int i = 0; i < 2; i++) {
+                executorService.execute(() -> {
+                    try {
+                        submissionService.submit(request, lockName);
+                    } finally {
+                        countDownLatch.countDown();
+                    }
+                });
+            }
+
+            countDownLatch.await();
+        }
 
         // then
         List<Submission> submissions = submissionRepository.findAll();

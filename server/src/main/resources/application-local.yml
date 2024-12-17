@@ -18,8 +18,6 @@ spring:
     redis:
       host: localhost
       port: 6379
-  cache:
-    type: redis
   mail:
     host: ${MAIL_HOST}
     port: 587

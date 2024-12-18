@@ -7,10 +7,10 @@ interface MultipleChoiceQuestionWithAnswerProps {
 
 const MultipleChoiceQuestionWithAnswer = ({ answer }: MultipleChoiceQuestionWithAnswerProps) => {
   const toColor = (isSelected: boolean, isCorrect: boolean) => {
-    if (isSelected && isCorrect) return 'bg-green-50 border-green-400';
-    if (!isSelected && isCorrect) return 'bg-yellow-50 border-yellow-400';
-    if (isSelected && !isCorrect) return 'bg-red-50 border-red-400';
-    return 'bg-gray-50';
+    if (isSelected && isCorrect) return 'bg-green-50 border-green-300';
+    if (!isSelected && isCorrect) return 'bg-yellow-50 border-yellow-300';
+    if (isSelected && !isCorrect) return 'bg-red-50 border-red-300';
+    return 'bg-transparent border-gray-300';
   };
 
   return (
@@ -24,7 +24,7 @@ const MultipleChoiceQuestionWithAnswer = ({ answer }: MultipleChoiceQuestionWith
               readOnly
               type="text"
               value={choice.text}
-              className={`p-2 border-b border-gray-300 rounded-none ml-2 bg-transparent focus:outline-none min-w-[300px]
+              className={`p-2 border-b rounded-none ml-2 focus:outline-none min-w-[300px]
                   ${toColor(choice.isSelected, choice.isCorrect)}
                 `}
             />

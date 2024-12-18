@@ -32,7 +32,7 @@ const ExamSummaryCard = ({ exam }: ExamSummaryCardProps) => {
   };
 
   return (
-    <Card className="max-w-[400px]">
+    <Card className="width-full">
       <CardHeader className="flex gap-3">
         <Image alt="avatar url" height={40} radius="sm" src={exam.author.avatarUrl} width={40} />
         <div className="flex flex-col">

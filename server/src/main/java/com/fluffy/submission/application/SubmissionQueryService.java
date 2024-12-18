@@ -45,7 +45,8 @@ public class SubmissionQueryService {
         }
 
         Submission submission = submissionRepository.getById(submissionId);
+        Member submitter = memberRepository.getById(submission.getMemberId());
 
-        return submissionMapper.toDetailResponse(exam, submission, member);
+        return submissionMapper.toDetailResponse(exam, submission, submitter);
     }
 }

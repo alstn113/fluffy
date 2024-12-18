@@ -16,7 +16,7 @@ const TextAnswerQuestionWithAnswer = ({
       <div className="flex flex-col gap-2">
         <div className="flex items-center gap-2">
           <Chip color="secondary">답안</Chip>
-          <div>{answer.text}</div>
+          <div>{answer.answer}</div>
         </div>
         {textQuestionType === 'SHORT_ANSWER' && (
           <div className="flex items-center gap-2">

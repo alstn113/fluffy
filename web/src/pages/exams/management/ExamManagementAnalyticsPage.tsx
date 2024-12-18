@@ -1,10 +1,19 @@
 import useGetSubmissionSummaries from '@/hooks/api/submission/useGetSubmissionSummaries.ts';
 import AsyncBoundary from '@/components/AsyncBoundary.tsx';
-import { useParams } from 'react-router';
-import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow, User } from '@nextui-org/react';
+import { useNavigate, useParams, useSearchParams } from 'react-router';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableHeader,
+  TableRow,
+  User,
+} from '@nextui-org/react';
 import { Key, useCallback } from 'react';
 import { SubmissionSummaryResponse } from '@/api/submissionAPI.ts';
 import formatDate from '@/lib/formatDate.ts';
+import SubmissionDetails from '@/components/analytics/SubmissionDetails';
 
 const ExamManagementAnalyticsPage = () => {
   const params = useParams() as { examId: string };
@@ -23,6 +32,9 @@ const ExamManagementAnalyticsPage = () => {
 
 const ExamManagementAnalyticsContent = ({ examId }: { examId: number }) => {
   const { data } = useGetSubmissionSummaries(examId);
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const submissionId = Number(searchParams.get('submissionId'));
 
   const columns = [
     {
@@ -58,6 +70,10 @@ const ExamManagementAnalyticsContent = ({ examId }: { examId: number }) => {
     }
   }, []);
 
+  if (submissionId) {
+    return <SubmissionDetails examId={examId} />;
+  }
+
   return (
     <Table aria-label="Example table with custom cells">
       <TableHeader columns={columns}>
@@ -65,7 +81,15 @@ const ExamManagementAnalyticsContent = ({ examId }: { examId: number }) => {
       </TableHeader>
       <TableBody items={data} emptyContent={<div>아직 제출된 응답이 없습니다.</div>}>
         {(item) => (
-          <TableRow key={item.id}>{(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}</TableRow>
+          <TableRow
+            key={item.id}
+            className="cursor-pointer hover:bg-gray-100 transition-colors"
+            onClick={() =>
+              navigate(`/exams/${examId}/management/analytics?submissionId=${item.id}`)
+            }
+          >
+            {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
+          </TableRow>
         )}
       </TableBody>
     </Table>

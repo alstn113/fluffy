@@ -9,7 +9,7 @@ import NewExamButton from '@/components/exams/NewExamButton';
 
 const DashboardPage = () => {
   return (
-    <div className="container mx-auto p-8">
+    <div className="container mx-auto px-5 py-12">
       <div className="flex items-center justify-between mb-4">
         <div>
           <h1 className="text-4xl font-bold">Dashboard</h1>
@@ -67,11 +67,15 @@ const DraftExamContent = () => {
   const { data } = useGetMyExamSummaries('DRAFT');
 
   if (!data || data.length === 0) {
-    return <div className="w-full text-center text-xl text-gray-500">출제 준비 중인 시험이 없습니다.</div>;
+    return (
+      <div className="w-full text-center text-xl text-gray-500">
+        출제 준비 중인 시험이 없습니다.
+      </div>
+    );
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5">
       {data?.map((exam) => {
         return <DraftExamCard key={exam.id} exam={exam} />;
       })}
@@ -83,11 +87,13 @@ const PublishedExamContent = () => {
   const { data } = useGetMyExamSummaries('PUBLISHED');
 
   if (!data || data.length === 0) {
-    return <div className="w-full text-center text-xl text-gray-500">출제 완료된 시험이 없습니다.</div>;
+    return (
+      <div className="w-full text-center text-xl text-gray-500">출제 완료된 시험이 없습니다.</div>
+    );
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5">
       {data?.map((exam) => {
         return <PublishedExamCard key={exam.id} exam={exam} />;
       })}

@@ -1,3 +1,7 @@
+// vercel
+import { SpeedInsights } from '@vercel/speed-insights/react';
+import { Analytics } from '@vercel/analytics/react';
+
 import { Route, Routes, useHref, useNavigate } from 'react-router';
 import AboutPage from '@/pages/AboutPage';
 import ExamDetailPage from '@/pages/exams/ExamDetailPage';
@@ -35,6 +39,8 @@ const App = () => {
           <Route path="settings" element={<ExamManagementSettingsPage />} />
         </Route>
       </Routes>
+      <SpeedInsights />
+      <Analytics />
     </NextUIProvider>
   );
 };

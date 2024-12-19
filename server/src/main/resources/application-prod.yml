@@ -3,6 +3,9 @@ spring:
     url: ${DB_URL}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
   jpa:
     open-in-view: false
     show-sql: true

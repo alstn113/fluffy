@@ -11,7 +11,7 @@ const ExamIntroPage = () => {
 
   return (
     <div className="w-full h-full flex items-center flex-col gap-4">
-      <div className="max-w-2xl w-full py-8 px-4 flex flex-col">
+      <div className="max-w-2xl w-full p-8 flex flex-col">
         <AsyncBoundary>
           <ExamProgressContent examId={examId} />
         </AsyncBoundary>

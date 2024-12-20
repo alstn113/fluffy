@@ -11,7 +11,14 @@ const NavbarLogo = () => {
             fontFamily: 'Matemasie, sans-serif',
           }}
         >
-          Fluffy.*
+          <div className="text-success-400">F</div>
+          <div className="text-success-400">l</div>
+          <div className="text-success-400">u</div>
+          <div className="text-success-400">f</div>
+          <div className="text-success-400">f</div>
+          <div className="text-success-400">y</div>
+          <div className="text-success-400">.</div>
+          <div className="text-success-400">*</div>
         </div>
       </Link>
     </NavbarBrand>

@@ -4,7 +4,8 @@ export const Routes = {
   home: () => '/',
   about: () => '/about',
   exam: {
-    detail: (examId: number) => `/exams/${examId}`,
+    intro: (examId: number) => `/exams/${examId}/intro`,
+    progress: (examId: number) => `/exams/${examId}/progress`,
     management: {
       overview: (examId: number) => `/exams/${examId}/management/overview`,
       questions: (examId: number) => `/exams/${examId}/management/questions`,

@@ -28,7 +28,7 @@ const ExamSummaryCard = ({ exam }: ExamSummaryCardProps) => {
       return;
     }
 
-    navigate(Routes.exam.detail(exam.id));
+    navigate(Routes.exam.intro(exam.id));
   };
 
   return (

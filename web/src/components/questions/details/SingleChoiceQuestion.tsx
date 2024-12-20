@@ -17,15 +17,13 @@ const SingleChoiceQuestion = ({ question, index }: SingleChoiceQuestionProps) =>
   };
 
   return (
-    <div className="flex flex-col gap-4 p-6 rounded-2xl bg-white border border-gray-200 shadow-md duration-200 hover:shadow-lg">
-      <RadioGroup value={choice} onValueChange={handleUpdate}>
-        {options.map((option, index) => (
-          <Radio color="secondary" key={option.text} value={option.text} className="text-gray-800">
-            {index + 1}. {option.text}
-          </Radio>
-        ))}
-      </RadioGroup>
-    </div>
+    <RadioGroup value={choice} onValueChange={handleUpdate}>
+      {options.map((option, index) => (
+        <Radio color="secondary" key={option.text} value={option.text} className="text-gray-800">
+          {index + 1}. {option.text}
+        </Radio>
+      ))}
+    </RadioGroup>
   );
 };
 

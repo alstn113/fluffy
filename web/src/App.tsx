@@ -12,6 +12,8 @@ import ExamManagementSettingsPage from '@/pages/exams/management/ExamManagementS
 import ExamManagementLayout from '@/pages/exams/management/layout/ExamManagementLayout.tsx';
 import BaseLayout from '@/components/layouts/base/BaseLayout.tsx';
 import { NextUIProvider } from '@nextui-org/system';
+import ExamProgressLayout from '@/pages/exams/progress/layout/ExamProgressLayout';
+import ExamIntroPage from '@/pages/exams/ExamIntroPage';
 
 const App = () => {
   const navigate = useNavigate();
@@ -25,8 +27,11 @@ const App = () => {
           <Route index element={<HomePage />} />
           <Route path="about" element={<AboutPage />} />
           <Route path="dashboard" element={<DashBoardPage />} />
-          <Route path="exams/:examId" element={<ExamProgressPage />} />
+          <Route path="exams/:examId/intro" element={<ExamIntroPage />} />
           <Route path="*" element={<NotFoundPage />} />
+        </Route>
+        <Route path="exams/:examId/progress" element={<ExamProgressLayout />}>
+          <Route index element={<ExamProgressPage />} />
         </Route>
         <Route path="exams/:examId/management" element={<ExamManagementLayout />}>
           <Route path="overview" element={<ExamManagementOverviewPage />} />

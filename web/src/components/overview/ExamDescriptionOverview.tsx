@@ -22,7 +22,7 @@ const ExamDescriptionOverview = ({
     <>
       <div className="font-semibold">시험 설명</div>
       {isPublished ? (
-        <div className="text-gray-500">{description}</div>
+        <div className="text-gray-500 break-words">{description}</div>
       ) : (
         <EditableInput
           initialValue={description}

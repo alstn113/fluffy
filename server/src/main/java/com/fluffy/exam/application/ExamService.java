@@ -2,12 +2,12 @@ package com.fluffy.exam.application;
 
 import com.fluffy.auth.domain.Member;
 import com.fluffy.auth.domain.MemberRepository;
-import com.fluffy.exam.application.dto.CreateExamAppRequest;
-import com.fluffy.exam.application.dto.PublishExamAppRequest;
-import com.fluffy.exam.application.dto.UpdateExamDescriptionAppRequest;
-import com.fluffy.exam.application.dto.UpdateExamQuestionsAppRequest;
-import com.fluffy.exam.application.dto.UpdateExamTitleAppRequest;
-import com.fluffy.exam.application.dto.question.CreateExamResponse;
+import com.fluffy.exam.application.request.CreateExamAppRequest;
+import com.fluffy.exam.application.request.PublishExamAppRequest;
+import com.fluffy.exam.application.request.UpdateExamDescriptionAppRequest;
+import com.fluffy.exam.application.request.UpdateExamQuestionsAppRequest;
+import com.fluffy.exam.application.request.UpdateExamTitleAppRequest;
+import com.fluffy.exam.application.response.CreateExamResponse;
 import com.fluffy.exam.domain.Exam;
 import com.fluffy.exam.domain.ExamRepository;
 import com.fluffy.exam.domain.Question;

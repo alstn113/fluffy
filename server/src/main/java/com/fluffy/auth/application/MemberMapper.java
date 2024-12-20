@@ -1,6 +1,6 @@
 package com.fluffy.auth.application;
 
-import com.fluffy.auth.application.dto.MyInfoResponse;
+import com.fluffy.auth.application.response.MyInfoResponse;
 import com.fluffy.auth.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

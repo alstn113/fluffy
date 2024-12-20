@@ -6,7 +6,7 @@ import com.fluffy.exam.domain.Exam;
 import com.fluffy.exam.domain.ExamRepository;
 import com.fluffy.global.exception.ForbiddenException;
 import com.fluffy.global.web.Accessor;
-import com.fluffy.submission.application.dto.SubmissionDetailResponse;
+import com.fluffy.submission.application.response.SubmissionDetailResponse;
 import com.fluffy.submission.domain.Submission;
 import com.fluffy.submission.domain.SubmissionRepository;
 import com.fluffy.submission.domain.dto.SubmissionSummaryDto;

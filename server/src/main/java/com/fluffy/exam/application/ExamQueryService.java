@@ -1,7 +1,7 @@
 package com.fluffy.exam.application;
 
-import com.fluffy.exam.application.dto.ExamResponse;
-import com.fluffy.exam.application.dto.ExamWithAnswersResponse;
+import com.fluffy.exam.application.response.ExamResponse;
+import com.fluffy.exam.application.response.ExamWithAnswersResponse;
 import com.fluffy.exam.domain.Exam;
 import com.fluffy.exam.domain.ExamRepository;
 import com.fluffy.exam.domain.ExamStatus;

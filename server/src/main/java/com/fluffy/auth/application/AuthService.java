@@ -1,7 +1,7 @@
 package com.fluffy.auth.application;
 
-import com.fluffy.auth.application.dto.MyInfoResponse;
-import com.fluffy.auth.application.dto.TokenResponse;
+import com.fluffy.auth.application.response.MyInfoResponse;
+import com.fluffy.auth.application.response.TokenResponse;
 import com.fluffy.auth.domain.Member;
 import com.fluffy.auth.domain.MemberRepository;
 import com.fluffy.auth.domain.OAuth2Provider;

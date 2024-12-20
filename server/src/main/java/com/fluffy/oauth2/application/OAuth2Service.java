@@ -1,7 +1,7 @@
 package com.fluffy.oauth2.application;
 
 import com.fluffy.auth.application.AuthService;
-import com.fluffy.auth.application.dto.TokenResponse;
+import com.fluffy.auth.application.response.TokenResponse;
 import com.fluffy.auth.domain.OAuth2Provider;
 import com.fluffy.oauth2.domain.OAuth2UserInfo;
 import lombok.RequiredArgsConstructor;

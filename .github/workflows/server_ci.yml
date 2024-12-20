@@ -1,12 +1,16 @@
 name: Server CI
 
 on:
+  push:
+    branches: [main]
+    paths: ['server/**']
   pull_request:
     types: [opened, synchronize, reopened]
-    branches:
-      - main
-    paths:
-      - 'server/**'
+    branches: [main]
+    paths: ['server/**']
+
+permissions:
+  contents: read
 
 jobs:
   build:

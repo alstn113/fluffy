@@ -12,7 +12,6 @@ import {
   ModalFooter,
   ModalHeader,
   Navbar,
-  NavbarBrand,
   NavbarContent,
   NavbarItem,
   useDisclosure,
@@ -24,6 +23,7 @@ import useUser from '@/hooks/useUser.ts';
 import { Avatar } from '@daveyplate/nextui-fixed-avatar';
 import useCreateExam from '@/hooks/api/exam/useCreateExam';
 import { useState } from 'react';
+import NavbarLogo from './NavbarLogo';
 
 const Header = () => {
   const user = useUser();
@@ -57,12 +57,8 @@ const Header = () => {
 
   return (
     <>
-      <Navbar>
-        <NavbarBrand>
-          <Link href={Routes.home()} color={'foreground'}>
-            <p className="font-bold text-inherit">Fluffy</p>
-          </Link>
-        </NavbarBrand>
+      <Navbar isBordered>
+        <NavbarLogo />
         <NavbarContent className="hidden sm:flex gap-4" justify="center">
           <NavbarItem>
             <Link color="foreground" href={Routes.about()}>
@@ -83,10 +79,21 @@ const Header = () => {
                 <DropdownItem key="dashboard" href={Routes.dashboard()}>
                   Dashboard
                 </DropdownItem>
-                <DropdownItem key="new exam" className="text-primary" variant="faded" color="primary" onPress={onOpen}>
+                <DropdownItem
+                  key="new exam"
+                  className="text-primary"
+                  variant="faded"
+                  color="primary"
+                  onPress={onOpen}
+                >
                   New Exam
                 </DropdownItem>
-                <DropdownItem key="logout" className="text-danger" color="danger" onPress={() => logout()}>
+                <DropdownItem
+                  key="logout"
+                  className="text-danger"
+                  color="danger"
+                  onPress={() => logout()}
+                >
                   Log Out
                 </DropdownItem>
               </DropdownMenu>

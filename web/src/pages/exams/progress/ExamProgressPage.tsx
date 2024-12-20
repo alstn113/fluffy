@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
-import useGetExam from '@/hooks/api/exam/useGetExam';
-import QuestionDetailTemplate from '@/components/questions/details/QuestionDetailTemplate';
-import useCreateSubmission from '@/hooks/api/submission/useCreateSubmission';
+import useGetExam from '@/hooks/api/exam/useGetExam.ts';
+import QuestionDetailTemplate from '@/components/questions/details/QuestionDetailTemplate.tsx';
+import useCreateSubmission from '@/hooks/api/submission/useCreateSubmission.ts';
 import {
   Button,
   Modal,
@@ -10,28 +10,30 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
+  Progress,
   useDisclosure,
 } from '@nextui-org/react';
-import useSubmissionStore from '@/stores/useSubmissionStore';
+import useSubmissionStore from '@/stores/useSubmissionStore.ts';
 import { Routes } from '@/constants';
-import AsyncBoundary from '@/components/AsyncBoundary';
+import AsyncBoundary from '@/components/AsyncBoundary.tsx';
 
-const ExamDetailPage = () => {
+const ExamProgressPage = () => {
   const params = useParams() as { examId: string };
   const examId = Number(params.examId);
 
   return (
     <AsyncBoundary>
-      <ExamDetailContent examId={examId} />
+      <ExamProgressContent examId={examId} />
     </AsyncBoundary>
   );
 };
 
-interface ExamDetailPageContentProps {
+interface ExamProgressContentProps {
   examId: number;
 }
 
-const ExamDetailContent = ({ examId }: ExamDetailPageContentProps) => {
+const ExamProgressContent = ({ examId }: ExamProgressContentProps) => {
+  const [number, setNumber] = useState(0);
   const { data } = useGetExam(examId);
   const navigate = useNavigate();
   const { mutate } = useCreateSubmission();
@@ -64,10 +66,41 @@ const ExamDetailContent = ({ examId }: ExamDetailPageContentProps) => {
     <div className="flex flex-col justify-center items-start gap-4 mx-auto my-8">
       <h1 className="text-3xl font-bold">{title}</h1>
       <p className="text-lg">{description}</p>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:p-0 p-4">
-        {questions.map((question, index) => {
-          return <QuestionDetailTemplate key={question.id} question={question} index={index} />;
-        })}
+      <Progress
+        aria-label="Downloading..."
+        label={`문제 ${number + 1} / ${questions.length}`}
+        color="success"
+        size="md"
+        maxValue={questions.length - 1}
+        value={number}
+      />
+      <QuestionDetailTemplate question={questions[number]} index={number} />
+
+      <div className="flex w-full justify-center items-center gap-4">
+        <Button
+          color="primary"
+          variant="shadow"
+          onPress={() => {
+            if (number > 0) {
+              setNumber(number - 1);
+            }
+          }}
+          isDisabled={number === 0}
+        >
+          이전
+        </Button>
+        <Button
+          color="primary"
+          variant="shadow"
+          onPress={() => {
+            if (number < questions.length - 1) {
+              setNumber(number + 1);
+            }
+          }}
+          isDisabled={number === questions.length - 1}
+        >
+          다음
+        </Button>
       </div>
       <Button className="self-end" onPress={onOpen} color="primary" variant="shadow">
         제출하기
@@ -94,4 +127,4 @@ const ExamDetailContent = ({ examId }: ExamDetailPageContentProps) => {
   );
 };
 
-export default ExamDetailPage;
+export default ExamProgressPage;

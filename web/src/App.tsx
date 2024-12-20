@@ -1,6 +1,6 @@
 import { Route, Routes, useHref, useNavigate } from 'react-router';
 import AboutPage from '@/pages/AboutPage';
-import ExamDetailPage from '@/pages/exams/ExamDetailPage';
+import ExamProgressPage from '@/pages/exams/progress/ExamProgressPage.tsx';
 import ExamManagementQuestionsPage from '@/pages/exams/management/ExamManagementQuestionsPage.tsx';
 import HomePage from '@/pages/HomePage';
 import DashBoardPage from '@/pages/dashboard/DashboardPage';
@@ -25,7 +25,7 @@ const App = () => {
           <Route index element={<HomePage />} />
           <Route path="about" element={<AboutPage />} />
           <Route path="dashboard" element={<DashBoardPage />} />
-          <Route path="exams/:examId" element={<ExamDetailPage />} />
+          <Route path="exams/:examId" element={<ExamProgressPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
         <Route path="exams/:examId/management" element={<ExamManagementLayout />}>

@@ -6,7 +6,6 @@ import {
   DropdownTrigger,
   Link,
   Navbar,
-  NavbarBrand,
   NavbarContent,
   NavbarItem,
   Tab,
@@ -20,6 +19,7 @@ import { Avatar } from '@daveyplate/nextui-fixed-avatar';
 import AsyncBoundary from '@/components/AsyncBoundary.tsx';
 import useGetExamWithAnswers from '@/hooks/api/exam/useGetExamWithAnswers.ts';
 import { EXAM_STATUS } from '@/api/examAPI.ts';
+import NavbarLogo from '@/components/layouts/base/NavbarLogo';
 
 const ExamManagementHeader = () => {
   const params = useParams() as { examId: string };
@@ -34,15 +34,10 @@ const ExamManagementHeader = () => {
   };
 
   return (
-    <Navbar>
-      <NavbarBrand>
-        <Link href={Routes.home()} color={'foreground'}>
-          <p className="font-bold text-inherit">Fluffy</p>
-        </Link>
-      </NavbarBrand>
+    <Navbar isBordered>
+      <NavbarLogo />
 
       <NavbarContent justify="center">
-        {/*TODO: suspense, errorboundary 범위 정하고, Fallback 디테일하게 변경*/}
         <AsyncBoundary>
           <ExamManagementHeaderCenterContent examId={examId} />
         </AsyncBoundary>

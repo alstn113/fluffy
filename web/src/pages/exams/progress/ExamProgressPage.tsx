@@ -7,6 +7,7 @@ import AsyncBoundary from '@/components/AsyncBoundary.tsx';
 import ExamProgressBar from '@/components/exams/ExamProgressBar';
 import MoveQuestionButtonGroup from '@/components/exams/MoveQuestionButtonGroup';
 import useBeforeUnload from '@/hooks/useBeforeUnload';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const ExamProgressPage = () => {
   const params = useParams() as { examId: string };
@@ -38,10 +39,20 @@ const ExamProgressContent = ({ examId }: { examId: number }) => {
   return (
     <div className="w-full flex flex-col justify-center items-start gap-4 mx-auto">
       <ExamProgressBar />
-      <QuestionDetailTemplate
-        question={data.questions[currentQuestionIndex]}
-        index={currentQuestionIndex}
-      />
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentQuestionIndex}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.2 }}
+        >
+          <QuestionDetailTemplate
+            question={data.questions[currentQuestionIndex]}
+            index={currentQuestionIndex}
+          />
+        </motion.div>
+      </AnimatePresence>
       <MoveQuestionButtonGroup />
     </div>
   );

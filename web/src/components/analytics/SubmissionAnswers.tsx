@@ -21,7 +21,7 @@ const SubmissionAnswers = ({ answer, index }: SubmissionAnswersProps) => {
     if (answer.type === 'TRUE_OR_FALSE') {
       const trueOrFalseQuestionAnswer = answer as ChoiceAnswerResponse;
       return (
-        trueOrFalseQuestionAnswer.choices[0].isCorrect &&
+        trueOrFalseQuestionAnswer.choices[0].isCorrect ===
         trueOrFalseQuestionAnswer.choices[0].isSelected
       );
     }

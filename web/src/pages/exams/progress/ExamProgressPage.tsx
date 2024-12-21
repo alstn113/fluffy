@@ -8,12 +8,14 @@ import ExamProgressBar from '@/components/exams/ExamProgressBar';
 import MoveQuestionButtonGroup from '@/components/exams/MoveQuestionButtonGroup';
 import useBeforeUnload from '@/hooks/useBeforeUnload';
 import { AnimatePresence, motion } from 'framer-motion';
+import useScrollReset from '@/hooks/useScrollReset';
 
 const ExamProgressPage = () => {
   const params = useParams() as { examId: string };
   const examId = Number(params.examId);
 
   useBeforeUnload();
+  useScrollReset();
 
   return (
     <div className="w-full h-full flex items-center flex-col gap-4">
@@ -48,10 +50,12 @@ const ExamProgressContent = ({ examId }: { examId: number }) => {
           transition={{ duration: 0.2 }}
           className="w-full"
         >
-          <QuestionDetailTemplate
-            question={data.questions[currentQuestionIndex]}
-            index={currentQuestionIndex}
-          />
+          {data.questions[currentQuestionIndex] && (
+            <QuestionDetailTemplate
+              question={data.questions[currentQuestionIndex]}
+              index={currentQuestionIndex}
+            />
+          )}
         </motion.div>
       </AnimatePresence>
       <MoveQuestionButtonGroup />

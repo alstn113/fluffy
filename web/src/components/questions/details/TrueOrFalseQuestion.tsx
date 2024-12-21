@@ -18,7 +18,7 @@ const TrueOrFalseQuestion = ({ index }: TrueOrFalseQuestionProps) => {
   } as const;
 
   return (
-    <div className="flex justify-center mt-6">
+    <div className="w-full flex justify-center mt-6">
       <button
         className={`md:w-32 md:h-32 w-24 h-24 mx-4 rounded-full text-white font-bold transition-all duration-300 ${
           choice === ANSWERS.true

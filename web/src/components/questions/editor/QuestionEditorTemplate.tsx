@@ -16,7 +16,6 @@ const QuestionEditorTemplate = () => {
     handleDeleteQuestion,
     setQuestionTypeSelectorActive,
   } = useExamEditorStore();
-  console.log('questions', questions);
   const question = questions[currentIndex];
 
   const editorMap: Record<QuestionType, React.ReactNode> = {

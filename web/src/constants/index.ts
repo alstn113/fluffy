@@ -1,4 +1,5 @@
 export const GITHUB_OAUTH_LOGIN_URL = `/api/v1/auth/oauth2/redirect/github`;
+export const GOOGLE_OAUTH_LOGIN_URL = `/api/v1/auth/oauth2/redirect/google`;
 
 export const Routes = {
   home: () => '/',

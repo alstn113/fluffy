@@ -16,27 +16,23 @@ import {
   NavbarItem,
   useDisclosure,
 } from '@nextui-org/react';
-import { GITHUB_OAUTH_LOGIN_URL, Routes } from '@/constants';
+import { Routes } from '@/constants';
 import useLogout from '@/hooks/useLogout.ts';
-import { useLocation, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import useUser from '@/hooks/useUser.ts';
 import { Avatar } from '@daveyplate/nextui-fixed-avatar';
 import useCreateExam from '@/hooks/api/exam/useCreateExam';
 import { useState } from 'react';
 import NavbarLogo from './NavbarLogo';
+import HeaderLoginButton from './HeaderLoginButton';
 
 const Header = () => {
   const user = useUser();
   const logout = useLogout();
-  const location = useLocation();
   const { mutate } = useCreateExam();
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [title, setTitle] = useState('');
   const navigate = useNavigate();
-
-  const handleGithubLogin = () => {
-    window.location.href = `${GITHUB_OAUTH_LOGIN_URL}?next=${location.pathname}`;
-  };
 
   const handleNewExam = () => {
     mutate(
@@ -99,9 +95,7 @@ const Header = () => {
               </DropdownMenu>
             </Dropdown>
           ) : (
-            <NavbarItem>
-              <Button onPress={handleGithubLogin}>Login</Button>
-            </NavbarItem>
+            <HeaderLoginButton />
           )}
         </NavbarContent>
       </Navbar>

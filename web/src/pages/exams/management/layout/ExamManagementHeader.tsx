@@ -1,5 +1,4 @@
 import {
-  Button,
   Dropdown,
   DropdownItem,
   DropdownMenu,
@@ -7,11 +6,10 @@ import {
   Link,
   Navbar,
   NavbarContent,
-  NavbarItem,
   Tab,
   Tabs,
 } from '@nextui-org/react';
-import { GITHUB_OAUTH_LOGIN_URL, Routes } from '@/constants';
+import { Routes } from '@/constants';
 import useLogout from '@/hooks/useLogout.ts';
 import { useLocation, useParams } from 'react-router';
 import useUser from '@/hooks/useUser.ts';
@@ -20,6 +18,7 @@ import AsyncBoundary from '@/components/AsyncBoundary.tsx';
 import useGetExamWithAnswers from '@/hooks/api/exam/useGetExamWithAnswers.ts';
 import { EXAM_STATUS } from '@/api/examAPI.ts';
 import NavbarLogo from '@/components/layouts/base/NavbarLogo';
+import HeaderLoginButton from '@/components/layouts/base/HeaderLoginButton';
 
 const ExamManagementHeader = () => {
   const params = useParams() as { examId: string };
@@ -27,11 +26,6 @@ const ExamManagementHeader = () => {
 
   const user = useUser();
   const logout = useLogout();
-  const location = useLocation();
-
-  const handleGithubLogin = () => {
-    window.location.href = `${GITHUB_OAUTH_LOGIN_URL}?next=${location.pathname}`;
-  };
 
   return (
     <Navbar isBordered>
@@ -67,9 +61,7 @@ const ExamManagementHeader = () => {
             </DropdownMenu>
           </Dropdown>
         ) : (
-          <NavbarItem>
-            <Button onPress={handleGithubLogin}>Login</Button>
-          </NavbarItem>
+          <HeaderLoginButton />
         )}
       </NavbarContent>
     </Navbar>

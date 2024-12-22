@@ -1,5 +1,4 @@
 import { QuestionType } from '@/api/questionAPI';
-import React from 'react';
 import useExamEditorStore from '@/stores/useExamEditorStore';
 import { Input } from '@nextui-org/react';
 import ShortAnswerQuestionView from './ShortAnswerQuestionView';

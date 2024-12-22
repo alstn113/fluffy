@@ -33,7 +33,9 @@ const SingleChoiceQuestionEditor = () => {
   };
 
   const handleUpdateOptionText = (index: number, text: string) => {
-    const newOptions = question.options.map((option, i) => (i === index ? { ...option, text } : option));
+    const newOptions = question.options.map((option, i) =>
+      i === index ? { ...option, text } : option,
+    );
     const newQuestion: SingleChoiceQuestionRequest = { ...question, options: newOptions };
     handleUpdateQuestion(currentIndex, newQuestion);
   };
@@ -87,47 +89,47 @@ const SingleChoiceQuestionEditor = () => {
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="droppable">
           {(provided) => (
-            <RadioGroup
-              value={question.options.findIndex((option) => option.isCorrect).toString()}
-              onValueChange={(value) => handleUpdateOptionCorrect(parseInt(value))}
-            >
-              <div ref={provided.innerRef} {...provided.droppableProps}>
-                {question.options.map((option, index) => (
-                  <Draggable key={index} draggableId={index.toString()} index={index}>
-                    {(provided) => (
-                      <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        className="flex items-center p-2 rounded-md mb-2 hover:bg-gray-100"
+            <div ref={provided.innerRef} {...provided.droppableProps}>
+              {question.options.map((option, index) => (
+                <Draggable key={index} draggableId={index.toString()} index={index}>
+                  {(provided) => (
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      className="flex items-center p-2 rounded-md mb-2 hover:bg-gray-100"
+                    >
+                      <RadioGroup
+                        value={question.options.findIndex((option) => option.isCorrect).toString()}
+                        onValueChange={(value) => handleUpdateOptionCorrect(parseInt(value))}
                       >
                         <Radio color="secondary" value={index.toString()} disableAnimation />
-                        <input
-                          type="text"
-                          value={option.text}
-                          onChange={(e) => handleUpdateOptionText(index, e.target.value)}
-                          className="p-2 border-b border-gray-300 rounded-none ml-2 bg-transparent focus:outline-none min-w-[300px]"
-                          placeholder={`${index + 1}번 옵션을 입력하세요...`}
-                        />
-                        {question.options.length > 2 && (
-                          <Button
-                            color="danger"
-                            variant="shadow"
-                            size="sm"
-                            isIconOnly
-                            onPress={() => handleRemoveOption(index)}
-                            className="ml-auto"
-                          >
-                            <FaTrashAlt size={12} />
-                          </Button>
-                        )}
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </div>
-            </RadioGroup>
+                      </RadioGroup>
+                      <input
+                        type="text"
+                        value={option.text}
+                        onChange={(e) => handleUpdateOptionText(index, e.target.value)}
+                        className="p-2 border-b border-gray-300 rounded-none ml-2 bg-transparent focus:outline-none min-w-[400px]"
+                        placeholder={`${index + 1}번 옵션을 입력하세요...`}
+                      />
+                      {question.options.length > 2 && (
+                        <Button
+                          color="danger"
+                          variant="shadow"
+                          size="sm"
+                          isIconOnly
+                          onPress={() => handleRemoveOption(index)}
+                          className="ml-auto"
+                        >
+                          <FaTrashAlt size={12} />
+                        </Button>
+                      )}
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </div>
           )}
         </Droppable>
       </DragDropContext>

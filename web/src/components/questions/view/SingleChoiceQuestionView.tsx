@@ -18,7 +18,7 @@ const SingleChoiceQuestionView = () => {
                 readOnly
                 type="text"
                 value={option.text}
-                className="p-2 border-b border-gray-300 rounded-none ml-2 bg-transparent focus:outline-none min-w-[300px]"
+                className="p-2 border-b border-gray-300 rounded-none ml-2 bg-transparent focus:outline-none min-w-[400px]"
               />
             </div>
           ))}

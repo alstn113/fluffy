@@ -25,13 +25,17 @@ const MultipleChoiceQuestionEditor = () => {
   };
 
   const handleUpdateOptionText = (index: number, text: string) => {
-    const newOptions = question.options.map((option, i) => (i === index ? { ...option, text } : option));
+    const newOptions = question.options.map((option, i) =>
+      i === index ? { ...option, text } : option,
+    );
     const newQuestion: MultipleChoiceQuestionRequest = { ...question, options: newOptions };
     handleUpdateQuestion(currentIndex, newQuestion);
   };
 
   const handleUpdateOptionCorrect = (index: number, isCorrect: boolean) => {
-    const newOptions = question.options.map((option, i) => (i === index ? { ...option, isCorrect } : option));
+    const newOptions = question.options.map((option, i) =>
+      i === index ? { ...option, isCorrect } : option,
+    );
     const newQuestion: MultipleChoiceQuestionRequest = { ...question, options: newOptions };
     handleUpdateQuestion(currentIndex, newQuestion);
   };
@@ -97,7 +101,7 @@ const MultipleChoiceQuestionEditor = () => {
                         type="text"
                         value={option.text}
                         onChange={(e) => handleUpdateOptionText(index, e.target.value)}
-                        className="p-2 border-b border-gray-300 rounded-none ml-2 bg-transparent focus:outline-none min-w-[300px]"
+                        className="p-2 border-b border-gray-300 rounded-none ml-2 bg-transparent focus:outline-none min-w-[400px]"
                         placeholder={`${index + 1}번 옵션을 입력하세요...`}
                       />
                       {question.options.length > 2 && (

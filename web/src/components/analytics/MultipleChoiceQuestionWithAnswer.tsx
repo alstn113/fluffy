@@ -24,7 +24,7 @@ const MultipleChoiceQuestionWithAnswer = ({ answer }: MultipleChoiceQuestionWith
               readOnly
               type="text"
               value={choice.text}
-              className={`p-2 border-b rounded-none ml-2 focus:outline-none min-w-[300px]
+              className={`p-2 border-b rounded-none ml-2 focus:outline-none min-w-[400px]
                   ${toColor(choice.isSelected, choice.isCorrect)}
                 `}
             />

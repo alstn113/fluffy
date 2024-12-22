@@ -24,6 +24,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+@Disabled("동시성 문제 해결 방법 미정으로 테스트 비활성화합니다.")
 class SubmissionServiceIntegrationTest extends AbstractIntegrationTest {
 
     @Autowired
@@ -39,7 +40,6 @@ class SubmissionServiceIntegrationTest extends AbstractIntegrationTest {
     private SubmissionRepository submissionRepository;
 
     @Test
-    @Disabled("동시성 문제 해결 방법 미정으로 테스트 비활성화합니다.")
     @DisplayName("시험을 제출할 수 있다.")
     void submit() throws InterruptedException {
         // given

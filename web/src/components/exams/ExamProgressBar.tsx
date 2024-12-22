@@ -9,8 +9,8 @@ const ExamProgressBar = () => {
       label={`문제 ${currentQuestionIndex + 1} / ${questionLength} 번`}
       color="success"
       size="sm"
-      maxValue={questionLength - 1}
-      value={currentQuestionIndex}
+      maxValue={questionLength}
+      value={currentQuestionIndex + 1}
     />
   );
 };

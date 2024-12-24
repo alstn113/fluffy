@@ -71,10 +71,10 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
 
         return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
     }
-    
+
     @Override
-    public List<ExamSummaryDto> findMySummaries(ExamStatus status, Long memberId) {
-        return queryFactory
+    public Page<ExamSummaryDto> findMySummaries(ExamStatus status, Pageable pageable, Long memberId) {
+        List<ExamSummaryDto> content = queryFactory
                 .selectDistinct(new QExamSummaryDto(
                         exam.id,
                         exam.title.value,
@@ -101,6 +101,14 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
                         exam.updatedAt
                 )
                 .orderBy(exam.updatedAt.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
                 .fetch();
+
+        JPAQuery<Long> countQuery = queryFactory.select(exam.count())
+                .from(exam)
+                .where(exam.memberId.eq(memberId), exam.status.eq(status));
+
+        return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
     }
 }

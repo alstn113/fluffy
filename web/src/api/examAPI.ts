@@ -10,9 +10,9 @@ export const ExamAPI = {
     return data;
   },
 
-  getMyExamSummaries: async (status: ExamStatusType) => {
-    const { data } = await apiV1Client.get<ExamSummaryResponse[]>('/exams/mine', {
-      params: { status },
+  getMyExamSummaries: async ({ page, size, status }: MyExamSummaryParams) => {
+    const { data } = await apiV1Client.get<PageResponse<ExamSummaryResponse>>('/exams/mine', {
+      params: { status, page, size },
     });
     return data;
   },
@@ -73,6 +73,12 @@ export interface ExamSummaryResponse {
   questionCount: number;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface MyExamSummaryParams {
+  page: number;
+  size: number;
+  status: ExamStatusType;
 }
 
 interface AuthorResponse {

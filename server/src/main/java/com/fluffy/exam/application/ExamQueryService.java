@@ -32,8 +32,10 @@ public class ExamQueryService {
     }
 
     @Transactional(readOnly = true)
-    public List<ExamSummaryDto> getMyExamSummaries(ExamStatus status, Accessor accessor) {
-        return examRepository.findMySummaries(status, accessor.id());
+    public PageResponse<ExamSummaryDto> getMyExamSummaries(ExamStatus status, Pageable pageable, Accessor accessor) {
+        Page<ExamSummaryDto> examSummaries = examRepository.findMySummaries(status, pageable, accessor.id());
+
+        return PageResponse.of(examSummaries);
     }
 
     @Transactional(readOnly = true)

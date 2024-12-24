@@ -51,11 +51,14 @@ public class ExamController {
     }
 
     @GetMapping("/api/v1/exams/mine")
-    public ResponseEntity<List<ExamSummaryDto>> getMyExamSummaries(
+    public ResponseEntity<PageResponse<ExamSummaryDto>> getMyExamSummaries(
             @RequestParam(value = "status", defaultValue = "draft") ExamStatus status,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
             @Auth Accessor accessor
     ) {
-        List<ExamSummaryDto> response = examQueryService.getMyExamSummaries(status, accessor);
+        Pageable pageable = PageRequest.of(page, size);
+        PageResponse<ExamSummaryDto> response = examQueryService.getMyExamSummaries(status, pageable, accessor);
 
         return ResponseEntity.ok(response);
     }

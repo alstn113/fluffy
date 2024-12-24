@@ -17,7 +17,7 @@ const HomePage = () => {
 
 const ExamListContent = () => {
   const [page, setPage] = useState(1);
-  const { data } = useGetExamSummaries(page - 1); // page는 0부터 시작
+  const { data } = useGetExamSummaries(page - 1);
   const { content, pageInfo } = data;
 
   return (
@@ -27,7 +27,7 @@ const ExamListContent = () => {
           return <ExamSummaryCard key={exam.id} exam={exam} />;
         })}
       </div>
-      <div className="flex justify-center mt-5">
+      <div className="flex justify-center mt-10">
         <Pagination
           color="primary"
           showControls

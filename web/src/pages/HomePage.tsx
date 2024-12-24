@@ -29,8 +29,9 @@ const ExamListContent = () => {
       </div>
       <div className="flex justify-center mt-5">
         <Pagination
-          color="secondary"
+          color="primary"
           showControls
+          showShadow
           page={page}
           total={pageInfo.totalPages}
           onChange={(page) => setPage(page)}

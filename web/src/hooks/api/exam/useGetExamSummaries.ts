@@ -4,7 +4,7 @@ import { ExamAPI } from '@/api/examAPI.ts';
 
 const useGetExamSummaries = (
   page: number = 0,
-  size: number = 10,
+  size: number = 12,
   options: UseQueryOptionsOf<typeof ExamAPI.getPublishedExamSummaries> = {},
 ) => {
   return useSuspenseQuery({

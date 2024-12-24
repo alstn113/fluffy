@@ -7,9 +7,13 @@ import com.fluffy.exam.domain.ExamRepository;
 import com.fluffy.exam.domain.ExamStatus;
 import com.fluffy.exam.domain.dto.ExamSummaryDto;
 import com.fluffy.global.exception.ForbiddenException;
+import com.fluffy.global.response.PageResponse;
 import com.fluffy.global.web.Accessor;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,8 +25,10 @@ public class ExamQueryService {
     private final ExamMapper examMapper;
 
     @Transactional(readOnly = true)
-    public List<ExamSummaryDto> getPublishedExamSummaries() {
-        return examRepository.findPublishedSummaries();
+    public PageResponse<ExamSummaryDto> getPublishedExamSummaries(Pageable pageable) {
+        Page<ExamSummaryDto> examSummaries = examRepository.findPublishedSummaries(pageable);
+
+        return PageResponse.of(examSummaries);
     }
 
     @Transactional(readOnly = true)

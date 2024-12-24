@@ -18,7 +18,7 @@ const ExamListContent = () => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5">
-      {data?.map((exam) => {
+      {data.content.map((exam) => {
         return <ExamSummaryCard key={exam.id} exam={exam} />;
       })}
     </div>

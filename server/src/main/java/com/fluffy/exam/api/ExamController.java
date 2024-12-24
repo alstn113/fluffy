@@ -12,12 +12,16 @@ import com.fluffy.exam.api.request.PublishExamWebRequest;
 import com.fluffy.exam.api.request.UpdateExamDescriptionWebRequest;
 import com.fluffy.exam.api.request.UpdateExamQuestionsWebRequest;
 import com.fluffy.exam.api.request.UpdateExamTitleWebRequest;
+import com.fluffy.global.response.PageResponse;
 import com.fluffy.global.web.Accessor;
 import com.fluffy.global.web.Auth;
 import jakarta.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -36,8 +40,12 @@ public class ExamController {
     private final ExamQueryService examQueryService;
 
     @GetMapping("/api/v1/exams")
-    public ResponseEntity<List<ExamSummaryDto>> getPublishedExamSummaries() {
-        List<ExamSummaryDto> response = examQueryService.getPublishedExamSummaries();
+    public ResponseEntity<PageResponse<ExamSummaryDto>> getPublishedExamSummaries(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        Pageable pageable = PageRequest.of(page, size);
+        PageResponse<ExamSummaryDto> response = examQueryService.getPublishedExamSummaries(pageable);
 
         return ResponseEntity.ok(response);
     }

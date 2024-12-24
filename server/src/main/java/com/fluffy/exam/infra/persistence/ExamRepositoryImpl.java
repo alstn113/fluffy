@@ -11,9 +11,13 @@ import com.fluffy.exam.domain.dto.ExamSummaryDto;
 import com.fluffy.exam.domain.dto.QAuthorDto;
 import com.fluffy.exam.domain.dto.QExamSummaryDto;
 import com.querydsl.core.types.ConstructorExpression;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -29,8 +33,8 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<ExamSummaryDto> findPublishedSummaries() {
-        return queryFactory
+    public Page<ExamSummaryDto> findPublishedSummaries(Pageable pageable) {
+        List<ExamSummaryDto> content = queryFactory
                 .selectDistinct(new QExamSummaryDto(
                         exam.id,
                         exam.title.value,
@@ -57,9 +61,17 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
                         exam.updatedAt
                 )
                 .orderBy(exam.updatedAt.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
                 .fetch();
-    }
 
+        JPAQuery<Long> countQuery = queryFactory.select(exam.count())
+                .from(exam)
+                .where(exam.status.eq(ExamStatus.PUBLISHED));
+
+        return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
+    }
+    
     @Override
     public List<ExamSummaryDto> findMySummaries(ExamStatus status, Long memberId) {
         return queryFactory

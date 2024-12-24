@@ -1,9 +1,12 @@
 import { apiV1Client } from './apiClient';
 import { QuestionBaseRequest, QuestionResponse, QuestionWithAnswersResponse } from './questionAPI';
+import { PageResponse } from './response';
 
 export const ExamAPI = {
-  getPublishedExamSummaries: async () => {
-    const { data } = await apiV1Client.get<ExamSummaryResponse[]>('/exams');
+  getPublishedExamSummaries: async ({ page, size }: ExamSummaryParams) => {
+    const { data } = await apiV1Client.get<PageResponse<ExamSummaryResponse>>('/exams', {
+      params: { page, size },
+    });
     return data;
   },
 
@@ -55,6 +58,11 @@ export const EXAM_STATUS = {
   published: 'PUBLISHED',
 } as const;
 export type ExamStatusType = (typeof EXAM_STATUS)[keyof typeof EXAM_STATUS];
+
+export interface ExamSummaryParams {
+  page: number;
+  size: number;
+}
 
 export interface ExamSummaryResponse {
   id: number;

@@ -53,9 +53,6 @@ dependencies {
     runtimeOnly "io.jsonwebtoken:jjwt-gson:${JJWT_VERSION}"
     runtimeOnly "io.jsonwebtoken:jjwt-impl:${JJWT_VERSION}"
 
-    // email
-    implementation 'org.springframework.boot:spring-boot-starter-mail'
-
     // bcrypt
     implementation 'org.mindrot:jbcrypt:0.4'
 

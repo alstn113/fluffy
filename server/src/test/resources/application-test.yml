@@ -12,20 +12,6 @@ spring:
     redis:
       host: localhost
       port: 6379
-  mail:
-    host: smtp.gmail.com
-    port: 587
-    username: username
-    password: password
-    properties:
-      mail:
-        smtp:
-          connectiontimeout: 5000
-          timeout: 3000
-          writetimeout: 5000
-          auth: true
-          starttls:
-            enable: true
 
 api-host: http://localhost:8080
 client-host: http://localhost:5173

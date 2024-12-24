@@ -1,2 +1,0 @@
-ALTER TABLE exam
-ALTER COLUMN description TYPE TEXT;

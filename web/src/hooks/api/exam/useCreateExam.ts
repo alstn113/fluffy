@@ -6,9 +6,8 @@ import toast from 'react-hot-toast';
 const useCreateExam = (options: UseMutationOptionsOf<typeof ExamAPI.create> = {}) => {
   return useMutation({
     onError: (error) => {
-      const status = error.response?.status;
       const message = error.response?.data?.detail || '시험을 생성하는 중에 오류가 발생했습니다.';
-      toast.error(`${status}: ${message}`);
+      toast.error(message);
     },
     mutationFn: ExamAPI.create,
     ...options,

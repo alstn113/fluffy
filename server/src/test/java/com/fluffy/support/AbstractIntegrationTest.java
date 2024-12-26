@@ -1,28 +1,22 @@
-package com.fluffy.acceptance;
+package com.fluffy.support;
 
 import com.fluffy.support.cleaner.DatabaseCleaner;
 import com.fluffy.support.cleaner.DatabaseClearExtension;
-import io.restassured.RestAssured;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.redisson.api.RedissonClient;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ActiveProfiles;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = {AbstractIntegrationTest.TestConfig.class})
 @ExtendWith(DatabaseClearExtension.class)
 @ActiveProfiles("test")
-public abstract class AbstractAcceptanceTest {
+public abstract class AbstractIntegrationTest {
 
-    @LocalServerPort
-    private int serverPort;
-
-    @BeforeEach
-    public void setUp() {
-        RestAssured.port = serverPort;
-    }
+    @MockBean
+    protected RedissonClient redissonClient;
 
     @TestConfiguration
     public static class TestConfig {

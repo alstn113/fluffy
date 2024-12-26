@@ -30,7 +30,7 @@ public class ExamService {
     @Transactional
     public CreateExamResponse create(CreateExamAppRequest request) {
         Accessor accessor = request.accessor();
-        Member member = memberRepository.getById(accessor.id());
+        Member member = memberRepository.findByIdOrThrow(accessor.id());
 
         Exam exam = Exam.create(request.title(), member.getId());
         Exam savedExam = examRepository.save(exam);
@@ -57,8 +57,8 @@ public class ExamService {
     }
 
     private Exam validateExamAuthor(Long examId, Accessor accessor) {
-        Exam exam = examRepository.getById(examId);
-        Member member = memberRepository.getById(accessor.id());
+        Exam exam = examRepository.findByIdOrThrow(examId);
+        Member member = memberRepository.findByIdOrThrow(accessor.id());
 
         if (exam.isNotWrittenBy(member.getId())) {
             throw new ForbiddenException(

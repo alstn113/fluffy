@@ -1,17 +1,22 @@
-package com.fluffy.integration;
+package com.fluffy.support;
 
 import com.fluffy.support.cleaner.DatabaseCleaner;
 import com.fluffy.support.cleaner.DatabaseClearExtension;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.redisson.api.RedissonClient;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ActiveProfiles;
 
-@SpringBootTest(classes = {AbstractIntegrationTest.TestConfig.class})
+@SpringBootTest(classes = {AbstractDatabaseTest.TestConfig.class})
 @ExtendWith(DatabaseClearExtension.class)
 @ActiveProfiles("test")
-public abstract class AbstractIntegrationTest {
+public abstract class AbstractDatabaseTest {
+
+    @MockBean
+    protected RedissonClient redissonClient;
 
     @TestConfiguration
     public static class TestConfig {

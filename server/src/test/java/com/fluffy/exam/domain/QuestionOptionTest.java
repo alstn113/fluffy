@@ -1,9 +1,8 @@
-package com.fluffy.unit.exam.domain;
+package com.fluffy.exam.domain;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import com.fluffy.exam.domain.QuestionOption;
 import com.fluffy.global.exception.BadRequestException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,21 +1,13 @@
 package com.fluffy.submission.domain;
 
 import com.fluffy.global.exception.NotFoundException;
-import java.util.List;
-import java.util.Optional;
-import org.springframework.data.repository.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface SubmissionRepository extends Repository<Submission, Long>, SubmissionRepositoryCustom {
-
-    List<Submission> findAll();
-
-    void save(Submission submission);
+public interface SubmissionRepository extends JpaRepository<Submission, Long>, SubmissionRepositoryCustom {
 
     boolean existsByExamIdAndMemberId(Long examId, Long memberId);
 
-    Optional<Submission> findById(Long submissionId);
-
-    default Submission getById(Long submissionId) {
+    default Submission findByIdOrThrow(Long submissionId) {
         return findById(submissionId)
                 .orElseThrow(() -> new NotFoundException("존재하지 않는 제출입니다. 제출 식별자: " + submissionId));
     }

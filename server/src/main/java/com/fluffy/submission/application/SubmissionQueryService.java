@@ -26,7 +26,7 @@ public class SubmissionQueryService {
 
     @Transactional(readOnly = true)
     public List<SubmissionSummaryDto> getSummariesByExamId(Long examId, Accessor accessor) {
-        Exam exam = examRepository.getById(examId);
+        Exam exam = examRepository.findByIdOrThrow(examId);
 
         if (exam.isNotWrittenBy(accessor.id())) {
             throw new ForbiddenException("해당 시험 제출 목록을 조회할 권한이 없습니다.");
@@ -37,15 +37,15 @@ public class SubmissionQueryService {
 
     @Transactional(readOnly = true)
     public SubmissionDetailResponse getDetail(Long examId, Long submissionId, Accessor accessor) {
-        Exam exam = examRepository.getById(examId);
-        Member member = memberRepository.getById(accessor.id());
+        Exam exam = examRepository.findByIdOrThrow(examId);
+        Member member = memberRepository.findByIdOrThrow(accessor.id());
 
         if (exam.isNotWrittenBy(member.getId())) {
             throw new ForbiddenException("해당 시험 제출을 조회할 권한이 없습니다.");
         }
 
-        Submission submission = submissionRepository.getById(submissionId);
-        Member submitter = memberRepository.getById(submission.getMemberId());
+        Submission submission = submissionRepository.findByIdOrThrow(submissionId);
+        Member submitter = memberRepository.findByIdOrThrow(submission.getMemberId());
 
         return submissionMapper.toDetailResponse(exam, submission, submitter);
     }

@@ -33,7 +33,7 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Page<ExamSummaryDto> findPublishedSummaries(Pageable pageable) {
+    public Page<ExamSummaryDto> findPublishedExamSummaries(Pageable pageable) {
         List<ExamSummaryDto> content = queryFactory
                 .selectDistinct(new QExamSummaryDto(
                         exam.id,
@@ -73,7 +73,7 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
     }
 
     @Override
-    public Page<ExamSummaryDto> findMySummaries(ExamStatus status, Pageable pageable, Long memberId) {
+    public Page<ExamSummaryDto> findMyExamSummaries(Pageable pageable, ExamStatus status, Long memberId) {
         List<ExamSummaryDto> content = queryFactory
                 .selectDistinct(new QExamSummaryDto(
                         exam.id,

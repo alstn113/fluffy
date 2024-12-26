@@ -1,4 +1,4 @@
-package com.fluffy.integration.exam;
+package com.fluffy.exam.application;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -6,10 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 import com.fluffy.auth.domain.Member;
 import com.fluffy.auth.domain.MemberRepository;
-import com.fluffy.exam.application.ExamService;
 import com.fluffy.exam.application.request.CreateExamAppRequest;
 import com.fluffy.exam.application.request.UpdateExamQuestionsAppRequest;
-import com.fluffy.exam.application.response.CreateExamResponse;
 import com.fluffy.exam.application.request.question.LongAnswerQuestionAppRequest;
 import com.fluffy.exam.application.request.question.MultipleChoiceAppRequest;
 import com.fluffy.exam.application.request.question.QuestionAppRequest;
@@ -17,21 +15,20 @@ import com.fluffy.exam.application.request.question.QuestionOptionRequest;
 import com.fluffy.exam.application.request.question.ShortAnswerQuestionAppRequest;
 import com.fluffy.exam.application.request.question.SingleChoiceQuestionAppRequest;
 import com.fluffy.exam.application.request.question.TrueOrFalseQuestionAppRequest;
+import com.fluffy.exam.application.response.CreateExamResponse;
 import com.fluffy.exam.domain.Exam;
 import com.fluffy.exam.domain.ExamRepository;
 import com.fluffy.exam.domain.QuestionRepository;
 import com.fluffy.global.exception.ForbiddenException;
 import com.fluffy.global.web.Accessor;
-import com.fluffy.integration.AbstractIntegrationTest;
+import com.fluffy.support.AbstractIntegrationTest;
 import com.fluffy.support.data.MemberTestData;
 import java.util.List;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Disabled("동시성 문제 해결 방법 미정으로 테스트 비활성화합니다.")
-class ExamServiceIntegrationTest extends AbstractIntegrationTest {
+class ExamServiceTest extends AbstractIntegrationTest {
 
     @Autowired
     private ExamService examService;

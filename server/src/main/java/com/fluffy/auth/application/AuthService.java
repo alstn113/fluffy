@@ -24,7 +24,7 @@ public class AuthService {
 
     @Transactional(readOnly = true)
     public MyInfoResponse getMyInfo(Long memberId) {
-        Member member = memberRepository.getById(memberId);
+        Member member = memberRepository.findByIdOrThrow(memberId);
 
         return memberMapper.toMyInfoResponse(member);
     }

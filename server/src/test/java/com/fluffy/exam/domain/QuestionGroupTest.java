@@ -1,9 +1,7 @@
-package com.fluffy.unit.exam.domain;
+package com.fluffy.exam.domain;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import com.fluffy.exam.domain.Question;
-import com.fluffy.exam.domain.QuestionGroup;
 import com.fluffy.global.exception.BadRequestException;
 import java.util.List;
 import java.util.stream.IntStream;

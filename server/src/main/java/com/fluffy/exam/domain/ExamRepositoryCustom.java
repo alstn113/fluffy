@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface ExamRepositoryCustom {
 
-    Page<ExamSummaryDto> findPublishedSummaries(Pageable pageable);
+    Page<ExamSummaryDto> findPublishedExamSummaries(Pageable pageable);
 
-    Page<ExamSummaryDto> findMySummaries(ExamStatus status, Pageable pageable, Long memberId);
+    Page<ExamSummaryDto> findMyExamSummaries(Pageable pageable, ExamStatus status, Long memberId);
 }

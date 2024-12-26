@@ -9,10 +9,8 @@ import com.fluffy.exam.domain.dto.ExamSummaryDto;
 import com.fluffy.global.exception.ForbiddenException;
 import com.fluffy.global.response.PageResponse;
 import com.fluffy.global.web.Accessor;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,28 +24,28 @@ public class ExamQueryService {
 
     @Transactional(readOnly = true)
     public PageResponse<ExamSummaryDto> getPublishedExamSummaries(Pageable pageable) {
-        Page<ExamSummaryDto> examSummaries = examRepository.findPublishedSummaries(pageable);
+        Page<ExamSummaryDto> examSummaries = examRepository.findPublishedExamSummaries(pageable);
 
         return PageResponse.of(examSummaries);
     }
 
     @Transactional(readOnly = true)
-    public PageResponse<ExamSummaryDto> getMyExamSummaries(ExamStatus status, Pageable pageable, Accessor accessor) {
-        Page<ExamSummaryDto> examSummaries = examRepository.findMySummaries(status, pageable, accessor.id());
+    public PageResponse<ExamSummaryDto> getMyExamSummaries(Pageable pageable, ExamStatus status, Accessor accessor) {
+        Page<ExamSummaryDto> examSummaries = examRepository.findMyExamSummaries(pageable, status, accessor.id());
 
         return PageResponse.of(examSummaries);
     }
 
     @Transactional(readOnly = true)
     public ExamResponse getExam(Long examId) {
-        Exam exam = examRepository.getById(examId);
+        Exam exam = examRepository.findByIdOrThrow(examId);
 
         return examMapper.toResponse(exam);
     }
 
     @Transactional(readOnly = true)
     public ExamWithAnswersResponse getExamWithAnswers(Long examId, Accessor accessor) {
-        Exam exam = examRepository.getById(examId);
+        Exam exam = examRepository.findByIdOrThrow(examId);
 
         if (exam.isNotWrittenBy(accessor.id())) {
             throw new ForbiddenException("해당 시험에 접근할 수 없습니다.");

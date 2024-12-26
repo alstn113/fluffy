@@ -1,4 +1,4 @@
-package com.fluffy.unit;
+package com.fluffy.support;
 
 import com.fluffy.auth.application.AuthService;
 import com.fluffy.auth.api.AuthController;

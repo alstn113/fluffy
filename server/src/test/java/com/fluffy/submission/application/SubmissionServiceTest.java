@@ -1,4 +1,4 @@
-package com.fluffy.integration.submission;
+package com.fluffy.submission.application;
 
 import static com.fluffy.auth.domain.OAuth2Provider.GOOGLE;
 import static java.util.concurrent.Executors.newFixedThreadPool;
@@ -10,8 +10,7 @@ import com.fluffy.exam.domain.Exam;
 import com.fluffy.exam.domain.ExamRepository;
 import com.fluffy.exam.domain.Question;
 import com.fluffy.global.web.Accessor;
-import com.fluffy.integration.AbstractIntegrationTest;
-import com.fluffy.submission.application.SubmissionService;
+import com.fluffy.support.AbstractIntegrationTest;
 import com.fluffy.submission.application.request.QuestionResponseAppRequest;
 import com.fluffy.submission.application.request.SubmissionAppRequest;
 import com.fluffy.submission.domain.Submission;
@@ -25,7 +24,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Disabled("동시성 문제 해결 방법 미정으로 테스트 비활성화합니다.")
-class SubmissionServiceIntegrationTest extends AbstractIntegrationTest {
+class SubmissionServiceTest extends AbstractIntegrationTest {
 
     @Autowired
     private SubmissionService submissionService;

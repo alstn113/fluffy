@@ -1,25 +1,23 @@
 package com.fluffy.exam.api;
 
-import com.fluffy.exam.application.ExamQueryService;
-import com.fluffy.exam.application.ExamService;
-import com.fluffy.exam.application.response.ExamResponse;
-import com.fluffy.exam.application.response.ExamWithAnswersResponse;
-import com.fluffy.exam.application.response.CreateExamResponse;
-import com.fluffy.exam.domain.ExamStatus;
-import com.fluffy.exam.domain.dto.ExamSummaryDto;
 import com.fluffy.exam.api.request.CreateExamWebRequest;
 import com.fluffy.exam.api.request.PublishExamWebRequest;
 import com.fluffy.exam.api.request.UpdateExamDescriptionWebRequest;
 import com.fluffy.exam.api.request.UpdateExamQuestionsWebRequest;
 import com.fluffy.exam.api.request.UpdateExamTitleWebRequest;
+import com.fluffy.exam.application.ExamQueryService;
+import com.fluffy.exam.application.ExamService;
+import com.fluffy.exam.application.response.CreateExamResponse;
+import com.fluffy.exam.application.response.ExamResponse;
+import com.fluffy.exam.application.response.ExamWithAnswersResponse;
+import com.fluffy.exam.domain.ExamStatus;
+import com.fluffy.exam.domain.dto.ExamSummaryDto;
 import com.fluffy.global.response.PageResponse;
 import com.fluffy.global.web.Accessor;
 import com.fluffy.global.web.Auth;
 import jakarta.validation.Valid;
 import java.net.URI;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -52,13 +50,13 @@ public class ExamController {
 
     @GetMapping("/api/v1/exams/mine")
     public ResponseEntity<PageResponse<ExamSummaryDto>> getMyExamSummaries(
-            @RequestParam(value = "status", defaultValue = "draft") ExamStatus status,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
+            @RequestParam(value = "status", defaultValue = "draft") ExamStatus status,
             @Auth Accessor accessor
     ) {
         Pageable pageable = PageRequest.of(page, size);
-        PageResponse<ExamSummaryDto> response = examQueryService.getMyExamSummaries(status, pageable, accessor);
+        PageResponse<ExamSummaryDto> response = examQueryService.getMyExamSummaries(pageable, status, accessor);
 
         return ResponseEntity.ok(response);
     }

@@ -23,8 +23,8 @@ public class SubmissionService {
 
     @DistributedLock(key = "#lockName")
     public void submit(SubmissionAppRequest request, String lockName) {
-        Member member = memberRepository.getById(request.accessor().id());
-        Exam exam = examRepository.getById(request.examId());
+        Member member = memberRepository.findByIdOrThrow(request.accessor().id());
+        Exam exam = examRepository.findByIdOrThrow(request.examId());
 
         if (exam.isNotPublished()) {
             throw new BadRequestException("시험이 공개되지 않았습니다.");

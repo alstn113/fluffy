@@ -1,10 +1,9 @@
-package com.fluffy.unit.exam.domain;
+package com.fluffy.exam.domain;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-import com.fluffy.exam.domain.ExamPeriod;
 import com.fluffy.global.exception.BadRequestException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;

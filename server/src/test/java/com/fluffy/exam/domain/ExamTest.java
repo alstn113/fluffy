@@ -1,13 +1,9 @@
-package com.fluffy.unit.exam.domain;
+package com.fluffy.exam.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-import com.fluffy.exam.domain.Exam;
-import com.fluffy.exam.domain.ExamStatus;
-import com.fluffy.exam.domain.Question;
-import com.fluffy.exam.domain.QuestionOption;
 import com.fluffy.global.exception.BadRequestException;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;

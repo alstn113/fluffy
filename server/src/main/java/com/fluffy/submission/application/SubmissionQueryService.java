@@ -32,15 +32,14 @@ public class SubmissionQueryService {
             throw new ForbiddenException("해당 시험 제출 목록을 조회할 권한이 없습니다.");
         }
 
-        return submissionRepository.findSummariesByExamId(examId);
+        return submissionRepository.findSubmissionSummariesByExamId(examId);
     }
 
     @Transactional(readOnly = true)
     public SubmissionDetailResponse getDetail(Long examId, Long submissionId, Accessor accessor) {
         Exam exam = examRepository.findByIdOrThrow(examId);
-        Member member = memberRepository.findByIdOrThrow(accessor.id());
 
-        if (exam.isNotWrittenBy(member.getId())) {
+        if (exam.isNotWrittenBy(accessor.id())) {
             throw new ForbiddenException("해당 시험 제출을 조회할 권한이 없습니다.");
         }
 

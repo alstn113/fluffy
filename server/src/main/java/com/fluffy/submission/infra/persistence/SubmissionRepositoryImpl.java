@@ -29,7 +29,7 @@ public class SubmissionRepositoryImpl implements SubmissionRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<SubmissionSummaryDto> findSummariesByExamId(Long examId) {
+    public List<SubmissionSummaryDto> findSubmissionSummariesByExamId(Long examId) {
         return queryFactory
                 .select(new QSubmissionSummaryDto(
                         submission.id,

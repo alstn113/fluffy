@@ -1,6 +1,6 @@
 package com.fluffy.exam.application;
 
-import com.fluffy.exam.application.response.ExamResponse;
+import com.fluffy.exam.application.response.ExamDetailResponse;
 import com.fluffy.exam.application.response.ExamWithAnswersResponse;
 import com.fluffy.exam.domain.Exam;
 import com.fluffy.exam.domain.ExamRepository;
@@ -37,10 +37,10 @@ public class ExamQueryService {
     }
 
     @Transactional(readOnly = true)
-    public ExamResponse getExam(Long examId) {
+    public ExamDetailResponse getExamDetail(Long examId) {
         Exam exam = examRepository.findByIdOrThrow(examId);
 
-        return examMapper.toResponse(exam);
+        return examMapper.toDetailResponse(exam);
     }
 
     @Transactional(readOnly = true)

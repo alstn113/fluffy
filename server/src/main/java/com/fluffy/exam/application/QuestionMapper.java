@@ -1,11 +1,5 @@
 package com.fluffy.exam.application;
 
-import com.fluffy.exam.application.response.ExamResponse.AnswerQuestionResponse;
-import com.fluffy.exam.application.response.ExamResponse.ChoiceQuestionResponse;
-import com.fluffy.exam.application.response.ExamResponse.QuestionResponse;
-import com.fluffy.exam.application.response.ExamWithAnswersResponse.AnswerQuestionWithAnswersResponse;
-import com.fluffy.exam.application.response.ExamWithAnswersResponse.ChoiceQuestionWithAnswersResponse;
-import com.fluffy.exam.application.response.ExamWithAnswersResponse.QuestionWithAnswersResponse;
 import com.fluffy.exam.application.request.question.LongAnswerQuestionAppRequest;
 import com.fluffy.exam.application.request.question.MultipleChoiceAppRequest;
 import com.fluffy.exam.application.request.question.QuestionAppRequest;
@@ -13,6 +7,12 @@ import com.fluffy.exam.application.request.question.QuestionOptionRequest;
 import com.fluffy.exam.application.request.question.ShortAnswerQuestionAppRequest;
 import com.fluffy.exam.application.request.question.SingleChoiceQuestionAppRequest;
 import com.fluffy.exam.application.request.question.TrueOrFalseQuestionAppRequest;
+import com.fluffy.exam.application.response.ExamDetailResponse.AnswerQuestionResponse;
+import com.fluffy.exam.application.response.ExamDetailResponse.ChoiceQuestionResponse;
+import com.fluffy.exam.application.response.ExamDetailResponse.QuestionResponse;
+import com.fluffy.exam.application.response.ExamWithAnswersResponse.AnswerQuestionWithAnswersResponse;
+import com.fluffy.exam.application.response.ExamWithAnswersResponse.ChoiceQuestionWithAnswersResponse;
+import com.fluffy.exam.application.response.ExamWithAnswersResponse.QuestionWithAnswersResponse;
 import com.fluffy.exam.domain.Question;
 import com.fluffy.exam.domain.QuestionOption;
 import com.fluffy.exam.domain.QuestionType;

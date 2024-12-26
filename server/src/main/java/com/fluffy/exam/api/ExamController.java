@@ -8,7 +8,7 @@ import com.fluffy.exam.api.request.UpdateExamTitleWebRequest;
 import com.fluffy.exam.application.ExamQueryService;
 import com.fluffy.exam.application.ExamService;
 import com.fluffy.exam.application.response.CreateExamResponse;
-import com.fluffy.exam.application.response.ExamResponse;
+import com.fluffy.exam.application.response.ExamDetailResponse;
 import com.fluffy.exam.application.response.ExamWithAnswersResponse;
 import com.fluffy.exam.domain.ExamStatus;
 import com.fluffy.exam.domain.dto.ExamSummaryDto;
@@ -63,8 +63,8 @@ public class ExamController {
 
 
     @GetMapping("/api/v1/exams/{examId}")
-    public ResponseEntity<ExamResponse> getExam(@PathVariable Long examId) {
-        ExamResponse response = examQueryService.getExam(examId);
+    public ResponseEntity<ExamDetailResponse> getExamDetail(@PathVariable Long examId) {
+        ExamDetailResponse response = examQueryService.getExamDetail(examId);
 
         return ResponseEntity.ok(response);
     }

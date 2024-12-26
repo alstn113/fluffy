@@ -1,8 +1,8 @@
 package com.fluffy.exam.application;
 
-import com.fluffy.exam.application.response.ExamResponse;
-import com.fluffy.exam.application.response.ExamWithAnswersResponse;
 import com.fluffy.exam.application.response.CreateExamResponse;
+import com.fluffy.exam.application.response.ExamDetailResponse;
+import com.fluffy.exam.application.response.ExamWithAnswersResponse;
 import com.fluffy.exam.domain.Exam;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -18,14 +18,14 @@ public class ExamMapper {
         return new CreateExamResponse(exam.getId(), exam.getTitle());
     }
 
-    public List<ExamResponse> toResponses(List<Exam> exams) {
+    public List<ExamDetailResponse> toResponses(List<Exam> exams) {
         return exams.stream()
-                .map(this::toResponse)
+                .map(this::toDetailResponse)
                 .toList();
     }
 
-    public ExamResponse toResponse(Exam exam) {
-        return new ExamResponse(
+    public ExamDetailResponse toDetailResponse(Exam exam) {
+        return new ExamDetailResponse(
                 exam.getId(),
                 exam.getTitle(),
                 exam.getDescription(),

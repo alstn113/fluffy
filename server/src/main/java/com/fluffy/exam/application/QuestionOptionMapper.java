@@ -1,6 +1,6 @@
 package com.fluffy.exam.application;
 
-import com.fluffy.exam.application.response.ExamResponse.ChoiceQuestionResponse.QuestionOptionResponse;
+import com.fluffy.exam.application.response.ExamDetailResponse.ChoiceQuestionResponse.QuestionOptionResponse;
 import com.fluffy.exam.application.response.ExamWithAnswersResponse.ChoiceQuestionWithAnswersResponse.QuestionOptionWithAnswersResponse;
 import com.fluffy.exam.domain.QuestionOption;
 import java.util.List;

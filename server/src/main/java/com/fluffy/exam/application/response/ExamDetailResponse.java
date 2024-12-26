@@ -3,7 +3,7 @@ package com.fluffy.exam.application.response;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public record ExamResponse(
+public record ExamDetailResponse(
         Long id,
         String title,
         String description,

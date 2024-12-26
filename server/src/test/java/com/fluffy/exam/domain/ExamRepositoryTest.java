@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import com.fluffy.auth.domain.Member;
 import com.fluffy.auth.domain.MemberRepository;
 import com.fluffy.exam.domain.dto.ExamSummaryDto;
-import com.fluffy.support.AbstractDatabaseTest;
+import com.fluffy.support.AbstractIntegrationTest;
 import com.fluffy.support.data.MemberTestData;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
-class ExamRepositoryTest extends AbstractDatabaseTest {
+class ExamRepositoryTest extends AbstractIntegrationTest {
 
     @Autowired
     private ExamRepository examRepository;

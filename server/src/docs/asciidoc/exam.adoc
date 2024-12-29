@@ -1,0 +1,37 @@
+== Exam API
+
+=== 출제된 시험 요약 목록 조회
+
+operation::api/v1/exams/get-published-exam-summaries[]
+
+=== 내가 출제한 시험 요약 목록 조회
+
+operation::api/v1/exams/get-my-exam-summaries[]
+
+=== 시험 상세 조회
+
+operation::api/v1/exams/get-exam-detail[]
+
+=== 시험 상세 정보와 답안을 함께 조회
+
+operation::api/v1/exams/get-exam-detail-with-answers[]
+
+=== 시험 생성
+
+operation::api/v1/exams/create-exam[]
+
+=== 시험 출제
+
+operation::api/v1/exams/publish[]
+
+=== 시험 문제 수정
+
+operation::api/v1/exams/questions[]
+
+=== 시험 제목 수정
+
+operation::api/v1/exams/update-title[]
+
+=== 시험 설명 수정
+
+operation::api/v1/exams/update-description[]

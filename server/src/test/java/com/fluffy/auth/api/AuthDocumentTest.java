@@ -53,7 +53,7 @@ class AuthDocumentTest extends AbstractDocumentTest {
                         content().json(objectMapper.writeValueAsString(response))
                 )
                 .andDo(document(
-                        "api/v1/auth/me",
+                        "api/v1/auth/get-my-info",
                         responseFields(
                                 fieldWithPath("id").description("사용자 식별자"),
                                 fieldWithPath("email").description("사용자 이메일"),

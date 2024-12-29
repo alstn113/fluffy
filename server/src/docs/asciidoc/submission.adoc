@@ -1,0 +1,13 @@
+== Submission API
+
+=== 시험 제출 요약 목록 조회
+
+operation::api/v1/exams/get-submission-summaries[]
+
+=== 시험 제출 상세 조회
+
+operation::api/v1/exams/get-submission-detail[]
+
+=== 시험 제출
+
+operation::api/v1/exams/submit[]

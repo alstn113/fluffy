@@ -1,7 +1,9 @@
+# written by @alstn113
+# ---
 .DS_Store
-
 .env.*
 !.env.example
+# ---
 
 HELP.md
 .gradle

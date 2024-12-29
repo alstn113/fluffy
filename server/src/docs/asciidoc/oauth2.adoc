@@ -1,0 +1,9 @@
+== OAuth2 API
+
+=== OAuth2 로그인 페이지로 리다이렉트
+
+operation::api/v1/auth/oauth2/redirect[]
+
+=== OAuth2 로그인 콜백 처리
+
+operation::api/v1/auth/oauth2/callback[]

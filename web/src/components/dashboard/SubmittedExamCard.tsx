@@ -33,7 +33,7 @@ const SubmittedExamCard = ({ submittedExam }: SubmittedExamCardProps) => {
       <Divider />
       <CardFooter className="flex justify-between">
         <div>{submittedExam.submissionCount}회 제출됨</div>
-        <Link href={Routes.exam.management.overview(submittedExam.examId)}>정보 확인하기</Link>
+        <Link href={Routes.exam.submissions(submittedExam.examId)}>정보 확인하기</Link>
       </CardFooter>
     </Card>
   );

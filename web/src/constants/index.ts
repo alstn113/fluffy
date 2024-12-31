@@ -7,6 +7,7 @@ export const Routes = {
   exam: {
     intro: (examId: number) => `/exams/${examId}/intro`,
     progress: (examId: number) => `/exams/${examId}/progress`,
+    submissions: (examId: number) => `/exams/${examId}/submissions`,
     management: {
       overview: (examId: number) => `/exams/${examId}/management/overview`,
       questions: (examId: number) => `/exams/${examId}/management/questions`,

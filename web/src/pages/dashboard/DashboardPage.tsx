@@ -3,7 +3,7 @@ import useGetMyExamSummaries from '@/hooks/api/exam/useGetMyExamSummaries';
 import DraftExamCard from '@/components/dashboard/DraftExamCard';
 import PublishedExamCard from '@/components/dashboard/PublishedExamCard';
 import { Pagination, Tab, Tabs } from '@nextui-org/react';
-import { BsFillFileEarmarkCheckFill } from 'react-icons/bs';
+import { BsFillFileEarmarkCheckFill, BsFillSendCheckFill } from 'react-icons/bs';
 import { PiPencilLineBold } from 'react-icons/pi';
 import NewExamButton from '@/components/exams/NewExamButton';
 import { useState } from 'react';
@@ -13,8 +13,8 @@ const DashboardPage = () => {
     <div className="container mx-auto px-5 py-12">
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h1 className="text-4xl font-bold">Dashboard</h1>
-          <p className="text-lg text-gray-500">Manage your exams here</p>
+          <h1 className="text-4xl font-bold">대시보드</h1>
+          <p className="text-lg text-gray-500">시험들을 생성하고 관리하세요!</p>
         </div>
         <NewExamButton />
       </div>
@@ -55,6 +55,20 @@ const DashboardPage = () => {
           >
             <AsyncBoundary>
               <div className="text-2xl font-semibold mb-5">출제 완료된 시험들</div>
+              <PublishedExamContent />
+            </AsyncBoundary>
+          </Tab>
+          <Tab
+            key="submissions"
+            title={
+              <div className="flex items-center space-x-2">
+                <BsFillSendCheckFill size={20} />
+                <span>제출한 시험</span>
+              </div>
+            }
+          >
+            <AsyncBoundary>
+              <div className="text-2xl font-semibold mb-5">제출한 시험들</div>
               <PublishedExamContent />
             </AsyncBoundary>
           </Tab>

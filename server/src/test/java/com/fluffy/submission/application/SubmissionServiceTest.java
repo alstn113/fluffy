@@ -45,6 +45,7 @@ class SubmissionServiceTest extends AbstractIntegrationTest {
         Member member1 = memberRepository.save(new Member("ex1@gmail.com", GOOGLE, "123", "ex1", "https://ex1.com"));
         Exam exam = Exam.create("시험 제목", member1.getId());
         exam.updateQuestions(List.of(Question.shortAnswer("단답형1", "답1")));
+        exam.updateIsSingleAttempt(true);
         exam.publish(null, null);
         examRepository.save(exam);
 
@@ -54,15 +55,13 @@ class SubmissionServiceTest extends AbstractIntegrationTest {
                 List.of(new QuestionResponseAppRequest(List.of("답1"))),
                 new Accessor(member1.getId())
         );
-        String lockName = "submit:%d:%d".formatted(exam.getId(), member1.getId());
-
         try (ExecutorService executorService = newFixedThreadPool(2)) {
             CountDownLatch countDownLatch = new CountDownLatch(2);
 
             for (int i = 0; i < 2; i++) {
                 executorService.execute(() -> {
                     try {
-                        submissionService.submit(request, lockName);
+                        submissionService.submit(request);
                     } finally {
                         countDownLatch.countDown();
                     }

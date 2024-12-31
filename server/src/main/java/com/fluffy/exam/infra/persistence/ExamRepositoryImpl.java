@@ -14,6 +14,7 @@ import com.fluffy.exam.domain.dto.QExamSummaryDto;
 import com.fluffy.exam.domain.dto.QSubmittedExamSummaryDto;
 import com.fluffy.exam.domain.dto.SubmittedExamSummaryDto;
 import com.querydsl.core.types.ConstructorExpression;
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
@@ -122,16 +123,21 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
                         exam.id,
                         exam.title.value,
                         exam.description.value,
+                        AUTHOR_PROJECTION,
                         submission.count(),
                         submission.createdAt.max()
                 ))
                 .from(exam)
                 .join(submission).on(exam.id.eq(submission.examId))
+                .join(member).on(exam.memberId.eq(member.id))
                 .where(submission.memberId.eq(memberId))
                 .groupBy(
                         exam.id,
                         exam.title,
-                        exam.description
+                        exam.description,
+                        member.id,
+                        member.name,
+                        member.avatarUrl
                 )
                 .orderBy(submission.createdAt.max().desc())
                 .offset(pageable.getOffset())

@@ -13,6 +13,7 @@ public class SubmittedExamSummaryDto {
     private Long examId;
     private String title;
     private String description;
+    private AuthorDto author;
     private Long submissionCount;
     private LocalDateTime lastSubmissionDate;
 
@@ -21,12 +22,14 @@ public class SubmittedExamSummaryDto {
             Long examId,
             String title,
             String description,
+            AuthorDto author,
             Long submissionCount,
             LocalDateTime lastSubmissionDate
     ) {
         this.examId = examId;
         this.title = title;
         this.description = description;
+        this.author = author;
         this.submissionCount = submissionCount;
         this.lastSubmissionDate = lastSubmissionDate;
     }

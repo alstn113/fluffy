@@ -80,7 +80,7 @@ public class ExamController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/api/v1/exams/submissions")
+    @GetMapping("/api/v1/exams/submitted")
     public ResponseEntity<PageResponse<SubmittedExamSummaryDto>> getSubmittedExamSummaries(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,

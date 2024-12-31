@@ -39,7 +39,7 @@ class SubmissionServiceTest extends AbstractIntegrationTest {
 
     @Test
     @DisplayName("분산 서버에서 레디스를 사용한 분산 락을 이용해서 중복 제출을 방지한다.")
-    @Disabled("레디스를 사용 중인 환경에서만 작동합니다.")
+    @Disabled("레디스를 사용 중인 환경에서만 작동합니다. AbstractIntegrationTest의 RedissonClient를 주석 처리해주세요.")
     void submit() throws InterruptedException {
         // given
         Member member1 = memberRepository.save(new Member("ex1@gmail.com", GOOGLE, "123", "ex1", "https://ex1.com"));

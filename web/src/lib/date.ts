@@ -31,4 +31,4 @@ export const fromNowDate = (date: string | Date): string => {
 export const fullDate = (date: string | Date): string => {
   const d = date instanceof Date ? date : new Date(date);
   return format(d, 'yyyy년 M월 d일 HH시 mm분');
-}
+};

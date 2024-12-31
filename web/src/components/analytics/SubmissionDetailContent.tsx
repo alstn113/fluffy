@@ -1,6 +1,6 @@
 import useGetSubmissionDetail from '@/hooks/api/submission/useGetSubmissionDetail';
 import { fromNowDate } from '@/lib/date.ts';
-import { Divider, User } from '@nextui-org/react';
+import { User } from '@nextui-org/react';
 import SubmissionAnswers from './SubmissionAnswers';
 
 const SubmissionDetailsContent = ({

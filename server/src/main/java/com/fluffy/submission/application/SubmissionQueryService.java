@@ -41,7 +41,7 @@ public class SubmissionQueryService {
         Exam exam = examRepository.findByIdOrThrow(examId);
         Submission submission = submissionRepository.findByIdOrThrow(submissionId);
 
-        if (exam.isNotWrittenBy(accessor.id()) || submission.isNotWrittenBy(accessor.id())) {
+        if (exam.isNotWrittenBy(accessor.id()) && submission.isNotWrittenBy(accessor.id())) {
             throw new ForbiddenException("해당 시험 제출을 조회할 권한이 없습니다.");
         }
 

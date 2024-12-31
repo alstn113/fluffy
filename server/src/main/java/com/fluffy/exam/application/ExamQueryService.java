@@ -10,8 +10,6 @@ import com.fluffy.exam.domain.dto.SubmittedExamSummaryDto;
 import com.fluffy.global.exception.ForbiddenException;
 import com.fluffy.global.response.PageResponse;
 import com.fluffy.global.web.Accessor;
-import com.fluffy.submission.domain.dto.MySubmissionSummaryDto;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

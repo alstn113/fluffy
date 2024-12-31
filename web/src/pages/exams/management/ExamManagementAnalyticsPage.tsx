@@ -12,7 +12,7 @@ import {
 } from '@nextui-org/react';
 import { Key, useCallback } from 'react';
 import { SubmissionSummaryResponse } from '@/api/submissionAPI.ts';
-import formatDate from '@/lib/formatDate.ts';
+import { fullDate } from '@/lib/date.ts';
 import SubmissionDetails from '@/components/analytics/SubmissionDetails';
 
 const ExamManagementAnalyticsPage = () => {
@@ -62,7 +62,7 @@ const ExamManagementAnalyticsContent = ({ examId }: { examId: number }) => {
       case 'submittedAt':
         return (
           <div className="flex flex-col">
-            <p className="text-bold text-sm capitalize">{formatDate(data.submittedAt)}</p>
+            <p className="text-bold text-sm capitalize">{fullDate(data.submittedAt)}</p>
           </div>
         );
       default:

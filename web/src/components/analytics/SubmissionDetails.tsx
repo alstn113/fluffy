@@ -1,5 +1,5 @@
 import useGetSubmissionDetail from '@/hooks/api/submission/useGetSubmissionDetail';
-import formatDate from '@/lib/formatDate';
+import { fromNowDate } from '@/lib/date.ts';
 import { Divider, User } from '@nextui-org/react';
 import { useSearchParams } from 'react-router';
 import SubmissionAnswers from './SubmissionAnswers';
@@ -41,7 +41,7 @@ const SubmissionDetailsContent = ({
         />
         <div className="flex flex-col">
           <div className="text-ㅡ">제출일</div>
-          <div className="text-gray-500 text-sm">{formatDate(data.submittedAt)}</div>
+          <div className="text-gray-500 text-sm">{fromNowDate(data.submittedAt)}</div>
         </div>
       </div>
       {data.answers.map((answer, index) => (

@@ -1,7 +1,7 @@
 import { format, formatDistanceToNow } from 'date-fns';
 import { ko } from 'date-fns/locale';
 
-const formatDate = (date: string | Date): string => {
+export const fromNowDate = (date: string | Date): string => {
   const d = date instanceof Date ? date : new Date(date);
   const now = Date.now();
   const diff = now - d.getTime();
@@ -28,4 +28,7 @@ const formatDate = (date: string | Date): string => {
   return format(d, 'yyyy년 M월 d일'); // 2019년 1월 1일
 };
 
-export default formatDate;
+export const fullDate = (date: string | Date): string => {
+  const d = date instanceof Date ? date : new Date(date);
+  return format(d, 'yyyy년 M월 d일 HH:mm:ss');
+}

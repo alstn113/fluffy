@@ -5,7 +5,9 @@ import static com.fluffy.auth.domain.QMember.member;
 import static com.fluffy.submission.domain.QSubmission.submission;
 
 import com.fluffy.submission.domain.SubmissionRepositoryCustom;
+import com.fluffy.submission.domain.dto.MySubmissionSummaryDto;
 import com.fluffy.submission.domain.dto.ParticipantDto;
+import com.fluffy.submission.domain.dto.QMySubmissionSummaryDto;
 import com.fluffy.submission.domain.dto.QParticipantDto;
 import com.fluffy.submission.domain.dto.QSubmissionSummaryDto;
 import com.fluffy.submission.domain.dto.SubmissionSummaryDto;
@@ -39,6 +41,19 @@ public class SubmissionRepositoryImpl implements SubmissionRepositoryCustom {
                 .from(submission)
                 .leftJoin(member).on(submission.memberId.eq(member.id))
                 .where(submission.examId.eq(examId))
+                .orderBy(submission.createdAt.desc())
+                .fetch();
+    }
+
+    @Override
+    public List<MySubmissionSummaryDto> findMySubmissionSummaries(Long examId, Long memberId) {
+        return queryFactory
+                .select(new QMySubmissionSummaryDto(
+                        submission.id,
+                        submission.createdAt
+                ))
+                .from(submission)
+                .where(submission.examId.eq(examId), submission.memberId.eq(memberId))
                 .orderBy(submission.createdAt.desc())
                 .fetch();
     }

@@ -14,7 +14,6 @@ import com.fluffy.exam.domain.dto.QExamSummaryDto;
 import com.fluffy.exam.domain.dto.QSubmittedExamSummaryDto;
 import com.fluffy.exam.domain.dto.SubmittedExamSummaryDto;
 import com.querydsl.core.types.ConstructorExpression;
-import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;

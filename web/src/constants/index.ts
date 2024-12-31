@@ -12,6 +12,8 @@ export const Routes = {
       overview: (examId: number) => `/exams/${examId}/management/overview`,
       questions: (examId: number) => `/exams/${examId}/management/questions`,
       analytics: (examId: number) => `/exams/${examId}/management/analytics`,
+      analytics_detail: (examId: number, submissionId: number) =>
+        `/exams/${examId}/management/analytics?submissionId=${submissionId}`,
       settings: (examId: number) => `/exams/${examId}/management/settings`,
     },
   },

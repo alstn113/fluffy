@@ -2,7 +2,7 @@ import useGetMySubmissionSummaries from '@/hooks/api/submission/useGetMySubmissi
 import { fullDate } from '@/lib/date';
 import { useEffect } from 'react';
 import AsyncBoundary from '../AsyncBoundary';
-import SubmissionWithAnswerViewPanel from './SubmissionWithAnswerViewPanel';
+import SubmissionDetailsContent from '../analytics/SubmissionDetailContent';
 
 interface ExamSubmissionsViewContentProps {
   examId: number;
@@ -58,12 +58,14 @@ const ExamSubmissionsViewContent = ({
       </div>
       <div className="flex grow flex-col h-full p-6 overflow-y-auto items-center">
         {current.currentSubmissionId && (
-          <AsyncBoundary>
-            <SubmissionWithAnswerViewPanel
-              examId={examId}
-              submissionId={current.currentSubmissionId}
-            />
-          </AsyncBoundary>
+          <div className="w-full max-w-[750px] h-full flex items-center flex-col gap-4">
+            <AsyncBoundary>
+              <SubmissionDetailsContent
+                examId={examId}
+                submissionId={current.currentSubmissionId}
+              />
+            </AsyncBoundary>
+          </div>
         )}
       </div>
     </>

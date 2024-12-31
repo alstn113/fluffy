@@ -13,6 +13,7 @@ import { Key, useCallback } from 'react';
 import { SubmissionSummaryResponse } from '@/api/submissionAPI.ts';
 import { fullDate } from '@/lib/date.ts';
 import SubmissionDetails from '@/components/analytics/SubmissionDetails';
+import { Routes } from '@/constants';
 
 const ExamManagementAnalyticsContent = ({ examId }: { examId: number }) => {
   const { data } = useGetSubmissionSummaries(examId);
@@ -68,9 +69,7 @@ const ExamManagementAnalyticsContent = ({ examId }: { examId: number }) => {
           <TableRow
             key={item.id}
             className="cursor-pointer hover:bg-gray-100 transition-colors"
-            onClick={() =>
-              navigate(`/exams/${examId}/management/analytics?submissionId=${item.id}`)
-            }
+            onClick={() => navigate(Routes.exam.management.analytics_detail(examId, item.id))}
           >
             {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
           </TableRow>

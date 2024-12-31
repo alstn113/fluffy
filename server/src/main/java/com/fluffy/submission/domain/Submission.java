@@ -51,4 +51,8 @@ public class Submission extends AuditableEntity {
         answers.forEach(answer -> answer.updateSubmission(this));
         this.answers.addAll(answers);
     }
+
+    public boolean isNotWrittenBy(Long memberId) {
+        return !this.memberId.equals(memberId);
+    }
 }

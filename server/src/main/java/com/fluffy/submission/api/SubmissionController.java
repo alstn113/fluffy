@@ -6,6 +6,7 @@ import com.fluffy.submission.api.request.SubmissionWebRequest;
 import com.fluffy.submission.application.SubmissionQueryService;
 import com.fluffy.submission.application.SubmissionService;
 import com.fluffy.submission.application.response.SubmissionDetailResponse;
+import com.fluffy.submission.domain.dto.MySubmissionSummaryDto;
 import com.fluffy.submission.domain.dto.SubmissionSummaryDto;
 import jakarta.validation.Valid;
 import java.util.List;
@@ -44,6 +45,17 @@ public class SubmissionController {
 
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/api/v1/exams/{examId}/submissions/me")
+    public ResponseEntity<List<MySubmissionSummaryDto>> getMySubmissionSummaries(
+            @PathVariable Long examId,
+            @Auth Accessor accessor
+    ) {
+        List<MySubmissionSummaryDto> response = submissionQueryService.getMySubmissionSummaries(examId, accessor);
+
+        return ResponseEntity.ok(response);
+    }
+
 
     @PostMapping("/api/v1/exams/{examId}/submissions")
     public ResponseEntity<Void> submit(

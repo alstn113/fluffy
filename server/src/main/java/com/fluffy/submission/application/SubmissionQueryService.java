@@ -9,6 +9,7 @@ import com.fluffy.global.web.Accessor;
 import com.fluffy.submission.application.response.SubmissionDetailResponse;
 import com.fluffy.submission.domain.Submission;
 import com.fluffy.submission.domain.SubmissionRepository;
+import com.fluffy.submission.domain.dto.MySubmissionSummaryDto;
 import com.fluffy.submission.domain.dto.SubmissionSummaryDto;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -38,14 +39,19 @@ public class SubmissionQueryService {
     @Transactional(readOnly = true)
     public SubmissionDetailResponse getDetail(Long examId, Long submissionId, Accessor accessor) {
         Exam exam = examRepository.findByIdOrThrow(examId);
+        Submission submission = submissionRepository.findByIdOrThrow(submissionId);
 
-        if (exam.isNotWrittenBy(accessor.id())) {
+        if (exam.isNotWrittenBy(accessor.id()) || submission.isNotWrittenBy(accessor.id())) {
             throw new ForbiddenException("해당 시험 제출을 조회할 권한이 없습니다.");
         }
 
-        Submission submission = submissionRepository.findByIdOrThrow(submissionId);
         Member submitter = memberRepository.findByIdOrThrow(submission.getMemberId());
 
         return submissionMapper.toDetailResponse(exam, submission, submitter);
+    }
+
+    @Transactional(readOnly = true)
+    public List<MySubmissionSummaryDto> getMySubmissionSummaries(Long examI, Accessor accessor) {
+        return submissionRepository.findMySubmissionSummaries(examI, accessor.id());
     }
 }

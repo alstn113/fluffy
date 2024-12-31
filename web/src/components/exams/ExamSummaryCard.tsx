@@ -54,7 +54,7 @@ const ExamSummaryCard = ({ exam }: ExamSummaryCardProps) => {
       <Divider />
       <CardBody>
         <h3 className="text-lg font-semibold">{exam.title}</h3>
-        <h2 className="text-default-500">{exam.description}</h2>
+        <p className="text-default-500 line-clamp-3">{exam.description}</p>
       </CardBody>
       <Divider />
       <CardFooter className="flex justify-between">

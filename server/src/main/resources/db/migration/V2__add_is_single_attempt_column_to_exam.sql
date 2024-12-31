@@ -1,0 +1,2 @@
+ALTER TABLE exam
+    ADD COLUMN is_single_attempt BOOLEAN NOT NULL DEFAULT FALSE;

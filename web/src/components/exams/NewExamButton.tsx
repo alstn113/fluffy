@@ -39,14 +39,19 @@ const NewExamButton = () => {
 
   return (
     <div>
-      <Button color="primary" variant="shadow" onPress={onOpen} startContent={<FaPlusCircle size={20} />}>
-        새로운 시험
+      <Button
+        color="primary"
+        variant="shadow"
+        onPress={onOpen}
+        startContent={<FaPlusCircle size={20} />}
+      >
+        시험 생성
       </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">새로운 시험 생성</ModalHeader>
+              <ModalHeader className="flex flex-col gap-1">시험 생성</ModalHeader>
               <ModalBody>
                 <Input label="시험 제목" value={title} onValueChange={setTitle} />
               </ModalBody>

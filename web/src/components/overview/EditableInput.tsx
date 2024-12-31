@@ -19,7 +19,14 @@ interface EditableInputProps {
  * 그러나 NextUI의 Button은 onPress, onClick이 먼저 작동하지 않았음.
  * 그래서 Button을 사용하지 않고 일반 button을 사용하여 해결함.
  */
-const EditableInput = ({ initialValue, onSave, label, placeholder, isTextarea, maxLength }: EditableInputProps) => {
+const EditableInput = ({
+  initialValue,
+  onSave,
+  label,
+  placeholder,
+  isTextarea,
+  maxLength,
+}: EditableInputProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState(initialValue);
 

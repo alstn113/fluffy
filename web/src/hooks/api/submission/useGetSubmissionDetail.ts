@@ -14,7 +14,12 @@ const useGetSubmissionDetail = (
   });
 };
 
-const getKey = (examId: number, submissionId: number) => ['exams', examId, 'submissions', submissionId];
+const getKey = (examId: number, submissionId: number) => [
+  'exams',
+  examId,
+  'submissions',
+  submissionId,
+];
 const fetcher = (examId: number, submissionId: number) => async () =>
   await SubmissionAPI.getDetail({ examId, submissionId });
 

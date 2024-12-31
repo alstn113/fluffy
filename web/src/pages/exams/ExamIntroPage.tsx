@@ -1,7 +1,7 @@
 import AsyncBoundary from '@/components/AsyncBoundary';
 import { Routes } from '@/constants';
 import useGetExam from '@/hooks/api/exam/useGetExam';
-import formatDate from '@/lib/formatDate';
+import { fullDate } from '@/lib/date.ts';
 import { Button, Divider } from '@nextui-org/react';
 import { useNavigate, useParams } from 'react-router';
 
@@ -42,11 +42,11 @@ const ExamProgressContent = ({ examId }: { examId: number }) => {
         </div>
         <div className="flex gap-4">
           <div className="min-w-32 font-semibold">최초 작성일</div>
-          <div className="text-gray-500">{formatDate(data.createdAt)}</div>
+          <div className="text-gray-500">{fullDate(data.createdAt)}</div>
         </div>
         <div className="flex gap-4">
           <div className="min-w-32 font-semibold">마지막 수정일</div>
-          <div className="text-gray-500">{formatDate(data.updatedAt)}</div>
+          <div className="text-gray-500">{fullDate(data.updatedAt)}</div>
         </div>
         <div className="flex gap-4">
           <div className="min-w-32 font-semibold">시험 상태</div>

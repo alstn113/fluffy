@@ -44,6 +44,9 @@ public class Exam extends AuditableEntity {
     @Embedded
     private ExamPeriod examPeriod;
 
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private boolean isSingleAttempt = false;
+
     public static Exam create(String title, Long memberId) {
         Exam exam = new Exam();
         exam.title = new ExamTitle(title);
@@ -92,7 +95,7 @@ public class Exam extends AuditableEntity {
 
     public void updateTitle(String title) {
         if (status.isPublished()) {
-            throw new BadRequestException("시험이 출시된 후에는 정보를 수정할 수 없습니다.");
+            throw new BadRequestException("시험이 출시된 후에는 제목를 수정할 수 없습니다.");
         }
 
         this.title = new ExamTitle(title);
@@ -100,10 +103,18 @@ public class Exam extends AuditableEntity {
 
     public void updateDescription(String description) {
         if (status.isPublished()) {
-            throw new BadRequestException("시험이 출시된 후에는 정보를 수정할 수 없습니다.");
+            throw new BadRequestException("시험이 출시된 후에는 설명를 수정할 수 없습니다.");
         }
 
         this.description = new ExamDescription(description);
+    }
+
+    public void updateIsSingleAttempt(boolean isSingleAttempt) {
+        if (status.isPublished()) {
+            throw new BadRequestException("시험이 출시된 후에는 응시 횟수 제한을 수정할 수 없습니다.");
+        }
+
+        this.isSingleAttempt = isSingleAttempt;
     }
 
     public String getTitle() {

@@ -1,9 +1,10 @@
 import { apiV1Client } from './apiClient';
 import { QuestionBaseRequest, QuestionResponse, QuestionWithAnswersResponse } from './questionAPI';
+import { PageParmas } from './request';
 import { PageResponse } from './response';
 
 export const ExamAPI = {
-  getPublishedExamSummaries: async ({ page, size }: ExamSummaryParams) => {
+  getPublishedExamSummaries: async ({ page, size }: PageParmas) => {
     const { data } = await apiV1Client.get<PageResponse<ExamSummaryResponse>>('/exams', {
       params: { page, size },
     });
@@ -24,6 +25,16 @@ export const ExamAPI = {
 
   getWithAnswersById: async (id: number) => {
     const { data } = await apiV1Client.get<ExamWithAnswersResponse>(`/exams/${id}/with-answers`);
+    return data;
+  },
+
+  getSubmittedExamSummaries: async ({ page, size }: PageParmas) => {
+    const { data } = await apiV1Client.get<PageResponse<SubmittedExamSummaryResponse>>(
+      '/exams/submitted',
+      {
+        params: { page, size },
+      },
+    );
     return data;
   },
 
@@ -75,9 +86,7 @@ export interface ExamSummaryResponse {
   updatedAt: string;
 }
 
-export interface MyExamSummaryParams {
-  page: number;
-  size: number;
+export interface MyExamSummaryParams extends PageParmas {
   status: ExamStatusType;
 }
 
@@ -99,6 +108,15 @@ interface ExamResponse {
 
 interface ExamWithAnswersResponse extends ExamResponse {
   questions: QuestionWithAnswersResponse[];
+}
+
+export interface SubmittedExamSummaryResponse {
+  examId: number;
+  title: string;
+  description: string;
+  author: AuthorResponse;
+  submissionCount: number;
+  lastSubmissionDate: string;
 }
 
 interface CreateExamRequest {

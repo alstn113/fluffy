@@ -2,7 +2,7 @@ import { Divider } from '@nextui-org/react';
 import { useParams } from 'react-router';
 import useGetExamWithAnswers from '@/hooks/api/exam/useGetExamWithAnswers';
 import AsyncBoundary from '@/components/AsyncBoundary';
-import formatDate from '@/lib/formatDate';
+import { fullDate } from '@/lib/date.ts';
 import ExamPublishButton from '@/components/overview/ExamPublishButton';
 import ExamTitleOverview from '@/components/overview/ExamTitleOverview';
 import ExamDescriptionOverview from '@/components/overview/ExamDescriptionOverview';
@@ -39,11 +39,11 @@ const ExamManagementOverviewContent = ({ examId }: { examId: number }) => {
         </div>
         <div className="flex gap-4">
           <div className="min-w-32 font-semibold">최초 작성일</div>
-          <div className="text-gray-500">{formatDate(data.createdAt)}</div>
+          <div className="text-gray-500">{fullDate(data.createdAt)}</div>
         </div>
         <div className="flex gap-4">
           <div className="min-w-32 font-semibold">마지막 수정일</div>
-          <div className="text-gray-500">{formatDate(data.updatedAt)}</div>
+          <div className="text-gray-500">{fullDate(data.updatedAt)}</div>
         </div>
         <div className="flex gap-4">
           <div className="min-w-32 font-semibold">시험 상태</div>

@@ -1,7 +1,7 @@
 import { ExamSummaryResponse } from '@/api/examAPI';
 import { Routes } from '@/constants';
 import useUser from '@/hooks/useUser';
-import formatDate from '@/lib/formatDate';
+import { fromNowDate } from '@/lib/date.ts';
 import {
   Button,
   Card,
@@ -37,7 +37,7 @@ const ExamSummaryCard = ({ exam }: ExamSummaryCardProps) => {
         <Image alt="avatar url" height={40} radius="sm" src={exam.author.avatarUrl} width={40} />
         <div className="flex flex-col">
           <p className="text-md">{exam.author.name}</p>
-          <p className="text-small text-default-500">{formatDate(exam.createdAt)}</p>
+          <p className="text-small text-default-500">{fromNowDate(exam.createdAt)}</p>
         </div>
         <div className="ml-auto mr-4 flex items-center">
           {exam.status == 'DRAFT' ? (
@@ -54,7 +54,7 @@ const ExamSummaryCard = ({ exam }: ExamSummaryCardProps) => {
       <Divider />
       <CardBody>
         <h3 className="text-lg font-semibold">{exam.title}</h3>
-        <h2 className="text-default-500">{exam.description}</h2>
+        <p className="text-default-500 line-clamp-3">{exam.description}</p>
       </CardBody>
       <Divider />
       <CardFooter className="flex justify-between">

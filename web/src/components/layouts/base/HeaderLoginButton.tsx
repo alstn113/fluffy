@@ -11,7 +11,7 @@ const HeaderLoginButton = () => {
 
   return (
     <NavbarItem>
-      <Button onPress={handleGithubLogin}>Login</Button>
+      <Button onPress={handleGithubLogin}>로그인</Button>
     </NavbarItem>
   );
 };

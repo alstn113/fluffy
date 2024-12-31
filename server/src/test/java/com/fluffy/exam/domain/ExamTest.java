@@ -26,7 +26,8 @@ class ExamTest {
                 () -> assertThat(exam.getTitle()).isEqualTo(title),
                 () -> assertThat(exam.getMemberId()).isEqualTo(memberId),
                 () -> assertThat(exam.getDescription()).isEmpty(),
-                () -> assertThat(exam.getStatus()).isEqualTo(ExamStatus.DRAFT)
+                () -> assertThat(exam.getStatus()).isEqualTo(ExamStatus.DRAFT),
+                () -> assertThat(exam.isSingleAttempt()).isFalse()
         );
     }
 
@@ -154,7 +155,7 @@ class ExamTest {
         // when & then
         assertThatThrownBy(() -> exam.updateTitle("수정된 시험 제목"))
                 .isInstanceOf(BadRequestException.class)
-                .hasMessage("시험이 출시된 후에는 정보를 수정할 수 없습니다.");
+                .hasMessage("시험이 출시된 후에는 제목를 수정할 수 없습니다.");
     }
 
     @Test
@@ -184,6 +185,36 @@ class ExamTest {
         // when & then
         assertThatThrownBy(() -> exam.updateDescription("시험 설명"))
                 .isInstanceOf(BadRequestException.class)
-                .hasMessage("시험이 출시된 후에는 정보를 수정할 수 없습니다.");
+                .hasMessage("시험이 출시된 후에는 설명를 수정할 수 없습니다.");
+    }
+
+    @Test
+    @DisplayName("시험 응시 횟수 제한을 설정할 수 있다.")
+    void updateIsSingleAttempt() {
+        // given
+        Exam exam = Exam.create("시험 제목", 1L);
+
+        // when
+        exam.updateIsSingleAttempt(true);
+
+        // then
+        assertThat(exam.isSingleAttempt()).isTrue();
+    }
+
+    @Test
+    @DisplayName("시험이 출시된 이후에는 응시 횟수 제한을 수정할 수 없다.")
+    void updateIsSingleAttemptAfterPublish() {
+        // given
+        Exam exam = Exam.create("시험 제목", 1L);
+        exam.updateQuestions(List.of(
+                Question.shortAnswer("단답형1", "답1"),
+                Question.trueOrFalse("O/X1", true)
+        ));
+        exam.publish(null, null);
+
+        // when & then
+        assertThatThrownBy(() -> exam.updateIsSingleAttempt(true))
+                .isInstanceOf(BadRequestException.class)
+                .hasMessage("시험이 출시된 후에는 응시 횟수 제한을 수정할 수 없습니다.");
     }
 }

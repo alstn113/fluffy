@@ -3,6 +3,7 @@ package com.fluffy.exam.infra.persistence;
 import static com.fluffy.auth.domain.QMember.member;
 import static com.fluffy.exam.domain.QExam.exam;
 import static com.fluffy.exam.domain.QQuestion.question;
+import static com.fluffy.submission.domain.QSubmission.submission;
 
 import com.fluffy.exam.domain.ExamRepositoryCustom;
 import com.fluffy.exam.domain.ExamStatus;
@@ -10,6 +11,8 @@ import com.fluffy.exam.domain.dto.AuthorDto;
 import com.fluffy.exam.domain.dto.ExamSummaryDto;
 import com.fluffy.exam.domain.dto.QAuthorDto;
 import com.fluffy.exam.domain.dto.QExamSummaryDto;
+import com.fluffy.exam.domain.dto.QSubmittedExamSummaryDto;
+import com.fluffy.exam.domain.dto.SubmittedExamSummaryDto;
 import com.querydsl.core.types.ConstructorExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -108,6 +111,42 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
         JPAQuery<Long> countQuery = queryFactory.select(exam.count())
                 .from(exam)
                 .where(exam.memberId.eq(memberId), exam.status.eq(status));
+
+        return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
+    }
+
+    @Override
+    public Page<SubmittedExamSummaryDto> findSubmittedExamSummaries(Pageable pageable, Long memberId) {
+        List<SubmittedExamSummaryDto> content = queryFactory
+                .select(new QSubmittedExamSummaryDto(
+                        exam.id,
+                        exam.title.value,
+                        exam.description.value,
+                        AUTHOR_PROJECTION,
+                        submission.count(),
+                        submission.createdAt.max()
+                ))
+                .from(exam)
+                .join(submission).on(exam.id.eq(submission.examId))
+                .join(member).on(exam.memberId.eq(member.id))
+                .where(submission.memberId.eq(memberId))
+                .groupBy(
+                        exam.id,
+                        exam.title,
+                        exam.description,
+                        member.id,
+                        member.name,
+                        member.avatarUrl
+                )
+                .orderBy(submission.createdAt.max().desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        JPAQuery<Long> countQuery = queryFactory.select(submission.count())
+                .from(exam)
+                .join(submission).on(exam.id.eq(submission.examId))
+                .where(submission.memberId.eq(memberId));
 
         return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
     }

@@ -151,7 +151,7 @@ class SubmissionDocumentTest extends AbstractDocumentTest {
                 new QuestionResponseAppRequest(List.of("닭은 동물입니다.", "닭은 곤충입니다."))
         ));
 
-        doNothing().when(submissionService).submit(any(), any());
+        doNothing().when(submissionService).submit(any());
 
         mockMvc.perform(RestDocumentationRequestBuilders.post("/api/v1/exams/{examId}/submissions", 1)
                         .contentType(MediaType.APPLICATION_JSON)

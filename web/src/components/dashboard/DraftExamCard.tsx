@@ -1,7 +1,16 @@
 import { ExamSummaryResponse } from '@/api/examAPI';
 import { Routes } from '@/constants';
-import formatDate from '@/lib/formatDate';
-import { Card, CardBody, CardFooter, CardHeader, Chip, Divider, Image, Link } from '@nextui-org/react';
+import { fromNowDate } from '@/lib/date.ts';
+import {
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Chip,
+  Divider,
+  Image,
+  Link,
+} from '@nextui-org/react';
 
 interface ExamSummaryCardProps {
   exam: ExamSummaryResponse;
@@ -14,8 +23,8 @@ const DraftExamCard = ({ exam }: ExamSummaryCardProps) => {
         <Image alt="avatar url" height={40} radius="sm" src={exam.author.avatarUrl} width={40} />
         <div className="flex flex-col">
           <p className="text-md">{exam.author.name}</p>
-          <p className="text-small text-default-500">생성 시간: {formatDate(exam.createdAt)}</p>
-          <p className="text-small text-default-500">수정 시간: {formatDate(exam.updatedAt)}</p>
+          <p className="text-small text-default-500">생성 시간: {fromNowDate(exam.createdAt)}</p>
+          <p className="text-small text-default-500">수정 시간: {fromNowDate(exam.updatedAt)}</p>
         </div>
         <div className="ml-auto mr-4 flex items-center">
           <Chip color="warning" variant="shadow" classNames={{ content: 'text-white' }}>
@@ -26,7 +35,7 @@ const DraftExamCard = ({ exam }: ExamSummaryCardProps) => {
       <Divider />
       <CardBody>
         <h3 className="text-lg font-semibold">{exam.title}</h3>
-        <h2 className="text-default-500">{exam.description}</h2>
+        <p className="text-default-500 line-clamp-3">{exam.description}</p>
       </CardBody>
       <Divider />
       <CardFooter className="flex justify-between">

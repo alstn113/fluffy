@@ -70,10 +70,10 @@ const Header = () => {
               </DropdownTrigger>
               <DropdownMenu aria-label="Profile Actions" variant="flat">
                 <DropdownItem key="home" href={Routes.home()}>
-                  Home
+                  홈
                 </DropdownItem>
                 <DropdownItem key="dashboard" href={Routes.dashboard()}>
-                  Dashboard
+                  대시보드
                 </DropdownItem>
                 <DropdownItem
                   key="new exam"
@@ -82,7 +82,7 @@ const Header = () => {
                   color="primary"
                   onPress={onOpen}
                 >
-                  New Exam
+                  시험 생성
                 </DropdownItem>
                 <DropdownItem
                   key="logout"
@@ -90,7 +90,7 @@ const Header = () => {
                   color="danger"
                   onPress={() => logout()}
                 >
-                  Log Out
+                  로그아웃
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
@@ -103,7 +103,7 @@ const Header = () => {
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">새로운 시험 생성</ModalHeader>
+              <ModalHeader className="flex flex-col gap-1">시험 생성</ModalHeader>
               <ModalBody>
                 <Input label="시험 제목" value={title} onValueChange={setTitle} />
               </ModalBody>

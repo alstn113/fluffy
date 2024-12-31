@@ -45,10 +45,10 @@ const ExamManagementHeader = () => {
             </DropdownTrigger>
             <DropdownMenu aria-label="Profile Actions" variant="flat">
               <DropdownItem key="home" href={Routes.home()}>
-                Home
+                홈
               </DropdownItem>
               <DropdownItem key="dashboard" href={Routes.dashboard()}>
-                Dashboard
+                대시보드
               </DropdownItem>
               <DropdownItem
                 key="logout"
@@ -56,7 +56,7 @@ const ExamManagementHeader = () => {
                 color="danger"
                 onPress={() => logout()}
               >
-                Logout
+                로그아웃
               </DropdownItem>
             </DropdownMenu>
           </Dropdown>

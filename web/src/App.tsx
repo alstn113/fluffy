@@ -15,6 +15,7 @@ import { NextUIProvider } from '@nextui-org/system';
 import ExamProgressLayout from '@/pages/exams/progress/layout/ExamProgressLayout';
 import ExamIntroPage from '@/pages/exams/ExamIntroPage';
 import ExamSubmissionsViewPage from './pages/exams/submissions/ExamSubmissionsViewPage';
+import BaseNoFooterLayout from './components/layouts/base/BaseNoFooterLayout';
 
 const App = () => {
   const navigate = useNavigate();
@@ -29,8 +30,10 @@ const App = () => {
           <Route path="about" element={<AboutPage />} />
           <Route path="dashboard" element={<DashBoardPage />} />
           <Route path="exams/:examId/intro" element={<ExamIntroPage />} />
-          <Route path="exams/:examId/submissions" element={<ExamSubmissionsViewPage />} />
           <Route path="*" element={<NotFoundPage />} />
+        </Route>
+        <Route element={<BaseNoFooterLayout />}>
+          <Route path="exams/:examId/submissions" element={<ExamSubmissionsViewPage />} />
         </Route>
         <Route path="exams/:examId/progress" element={<ExamProgressLayout />}>
           <Route index element={<ExamProgressPage />} />

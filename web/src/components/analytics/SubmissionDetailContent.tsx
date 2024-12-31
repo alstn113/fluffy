@@ -25,9 +25,11 @@ const SubmissionDetailsContent = ({
           <div className="text-gray-500 text-sm">{fromNowDate(data.submittedAt)}</div>
         </div>
       </div>
-      {data.answers.map((answer, index) => (
-        <SubmissionAnswers key={answer.id} answer={answer} index={index} />
-      ))}
+      <div className="w-full h-full overflow-y-auto flex flex-col gap-4">
+        {data.answers.map((answer, index) => (
+          <SubmissionAnswers key={answer.id} answer={answer} index={index} />
+        ))}
+      </div>
       <div className="mt-4" />
     </>
   );

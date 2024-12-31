@@ -56,7 +56,7 @@ const ExamSubmissionsViewContent = ({
           ))}
         </div>
       </div>
-      <div className="flex grow flex-col h-full p-6 overflow-y-auto items-center">
+      <div className="flex grow flex-col h-full pt-6 items-center overflow-y-auto">
         {current.currentSubmissionId && (
           <div className="w-full max-w-[750px] h-full flex items-center flex-col gap-4">
             <AsyncBoundary>

@@ -44,6 +44,9 @@ public class Exam extends AuditableEntity {
     @Embedded
     private ExamPeriod examPeriod;
 
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private boolean isSingleAttempt = false;
+
     public static Exam create(String title, Long memberId) {
         Exam exam = new Exam();
         exam.title = new ExamTitle(title);

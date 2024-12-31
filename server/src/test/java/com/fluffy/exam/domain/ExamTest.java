@@ -26,7 +26,8 @@ class ExamTest {
                 () -> assertThat(exam.getTitle()).isEqualTo(title),
                 () -> assertThat(exam.getMemberId()).isEqualTo(memberId),
                 () -> assertThat(exam.getDescription()).isEmpty(),
-                () -> assertThat(exam.getStatus()).isEqualTo(ExamStatus.DRAFT)
+                () -> assertThat(exam.getStatus()).isEqualTo(ExamStatus.DRAFT),
+                () -> assertThat(exam.isSingleAttempt()).isFalse()
         );
     }
 

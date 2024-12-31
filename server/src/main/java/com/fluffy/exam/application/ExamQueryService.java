@@ -6,6 +6,7 @@ import com.fluffy.exam.domain.Exam;
 import com.fluffy.exam.domain.ExamRepository;
 import com.fluffy.exam.domain.ExamStatus;
 import com.fluffy.exam.domain.dto.ExamSummaryDto;
+import com.fluffy.exam.domain.dto.SubmittedExamSummaryDto;
 import com.fluffy.global.exception.ForbiddenException;
 import com.fluffy.global.response.PageResponse;
 import com.fluffy.global.web.Accessor;
@@ -24,16 +25,16 @@ public class ExamQueryService {
 
     @Transactional(readOnly = true)
     public PageResponse<ExamSummaryDto> getPublishedExamSummaries(Pageable pageable) {
-        Page<ExamSummaryDto> examSummaries = examRepository.findPublishedExamSummaries(pageable);
+        Page<ExamSummaryDto> summaries = examRepository.findPublishedExamSummaries(pageable);
 
-        return PageResponse.of(examSummaries);
+        return PageResponse.of(summaries);
     }
 
     @Transactional(readOnly = true)
     public PageResponse<ExamSummaryDto> getMyExamSummaries(Pageable pageable, ExamStatus status, Accessor accessor) {
-        Page<ExamSummaryDto> examSummaries = examRepository.findMyExamSummaries(pageable, status, accessor.id());
+        Page<ExamSummaryDto> summaries = examRepository.findMyExamSummaries(pageable, status, accessor.id());
 
-        return PageResponse.of(examSummaries);
+        return PageResponse.of(summaries);
     }
 
     @Transactional(readOnly = true)
@@ -52,5 +53,12 @@ public class ExamQueryService {
         }
 
         return examMapper.toWithAnswersResponse(exam);
+    }
+
+    @Transactional(readOnly = true)
+    public PageResponse<SubmittedExamSummaryDto> getSubmittedExamSummaries(Pageable pageable, Accessor accessor) {
+        Page<SubmittedExamSummaryDto> summaries = examRepository.findSubmittedExamSummaries(pageable, accessor.id());
+
+        return PageResponse.of(summaries);
     }
 }

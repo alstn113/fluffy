@@ -20,7 +20,7 @@ public class SubmissionLockService {
     @DistributedLock(key = "#lockName")
     public void submitWithLock(SubmissionAppRequest request, Exam exam, Member member, String lockName) {
         if (submissionRepository.existsByExamIdAndMemberId(exam.getId(), member.getId())) {
-            throw new BadRequestException("이미 제출한 시험입니다.");
+            throw new BadRequestException("한 번만 제출 가능합니다.");
         }
 
         Submission submission = submissionMapper.toSubmission(exam, member.getId(), request);

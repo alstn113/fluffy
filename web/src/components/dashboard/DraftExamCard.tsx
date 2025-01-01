@@ -11,6 +11,7 @@ import {
   Image,
   Link,
 } from '@nextui-org/react';
+import CardDescription from '../common/CardDescription';
 
 interface ExamSummaryCardProps {
   exam: ExamSummaryResponse;
@@ -35,7 +36,7 @@ const DraftExamCard = ({ exam }: ExamSummaryCardProps) => {
       <Divider />
       <CardBody>
         <h3 className="text-lg font-semibold">{exam.title}</h3>
-        <p className="text-default-500 line-clamp-3">{exam.description}</p>
+        <CardDescription>{exam.description}</CardDescription>
       </CardBody>
       <Divider />
       <CardFooter className="flex justify-between">

@@ -2,19 +2,10 @@ import { ExamSummaryResponse } from '@/api/examAPI';
 import { Routes } from '@/constants';
 import useUser from '@/hooks/useUser';
 import { fromNowDate } from '@/lib/date.ts';
-import {
-  Button,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  Chip,
-  Divider,
-  Image,
-} from '@nextui-org/react';
+import { Button, Card, CardFooter, CardHeader, Chip, Divider, Image } from '@nextui-org/react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router';
-import CardDescription from '../common/CardDescription';
+import BaseCardBody from '../common/BaseCardBody';
 
 interface ExamSummaryCardProps {
   exam: ExamSummaryResponse;
@@ -53,10 +44,7 @@ const ExamSummaryCard = ({ exam }: ExamSummaryCardProps) => {
         </div>
       </CardHeader>
       <Divider />
-      <CardBody>
-        <h3 className="text-lg font-semibold">{exam.title}</h3>
-        <CardDescription>{exam.description}</CardDescription>
-      </CardBody>
+      <BaseCardBody title={exam.title} description={exam.description} />
       <Divider />
       <CardFooter className="flex justify-between">
         <div>문제 수: {exam.questionCount}</div>

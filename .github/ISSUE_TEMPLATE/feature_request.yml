@@ -1,35 +1,25 @@
 name: 기능 제안
-descrition: 추가하고 싶은 기능이나 개선 사항을 제안해주세요.
+description: 새로운 기능을 제안해주세요.
 labels: ['Feature']
 body:
   - type: markdown
     attributes:
       value: |
-        기능 구현을 제안해주셔서 감사합니다! 🙏 여러분의 소중한 의견이 시스템 개선에 큰 도움이 됩니다.
+        새로운 기능을 제안해주셔서 감사합니다! 🙏
   - type: textarea
-    id: what-feature
+    id: new-feature
     attributes:
-      label: 어떤 기능을 추가하거나 개선하고 싶으신가요? 🤔
-      description: 제안하고자 하는 기능에 대해 자세히 설명해주세요.
-      placeholder: 새로운 기능을 추가하면 사용자들이...
+      label: 어떤 기능을 제안하시나요? 🤔
+      description: 이 새로운 기능으로 어떤 효과를 기대하시나요? 🚀
+      placeholder: 이 기능이 있으면 좋겠다면, 이유를 적어주세요...
     validations:
       required: true
   - type: textarea
-    id: why-feature
+    id: how
     attributes:
-      label: 왜 이 기능이 필요한가요?
-      description: 제안하고자 하는 기능이 시스템에 어떤 도움을 줄 수 있는지 설명해주세요.
-      placeholder: 이 기능을 추가하면 사용자들이...
-    validations:
-      required: true
-  - type: textarea
-    id: how-feature
-    attributes:
-      label: 어떻게 구현할 수 있을까요?
-      description: 제안하고자 하는 기능을 구현하는 방법에 대해 자유롭게 적어주세요.
-      placeholder: 이 기능을 추가하려면...
-    validations:
-      required: false
+      label: 이 기능은 어떻게 구현할 수 있을까요? 🛠️
+      description: 필요한 기술 스택이나 구현 방법 등을 알려주세요. 💻
+      placeholder: 이러한 방법으로 구현할 수 있습니다...
   - type: checkboxes
     id: terms
     attributes:

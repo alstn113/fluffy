@@ -2,6 +2,7 @@ import { SubmittedExamSummaryResponse } from '@/api/examAPI';
 import { Routes } from '@/constants';
 import { fromNowDate } from '@/lib/date.ts';
 import { Card, CardBody, CardFooter, CardHeader, Divider, Image, Link } from '@nextui-org/react';
+import CardDescription from '../common/CardDescription';
 
 interface SubmittedExamCardProps {
   submittedExam: SubmittedExamSummaryResponse;
@@ -28,7 +29,7 @@ const SubmittedExamCard = ({ submittedExam }: SubmittedExamCardProps) => {
       <Divider />
       <CardBody>
         <h3 className="text-lg font-semibold">{submittedExam.title}</h3>
-        <p className="text-default-500 line-clamp-3">{submittedExam.description}</p>
+        <CardDescription>{submittedExam.description}</CardDescription>
       </CardBody>
       <Divider />
       <CardFooter className="flex justify-between">

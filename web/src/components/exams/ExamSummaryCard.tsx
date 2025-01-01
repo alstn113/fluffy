@@ -14,6 +14,7 @@ import {
 } from '@nextui-org/react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router';
+import CardDescription from '../common/CardDescription';
 
 interface ExamSummaryCardProps {
   exam: ExamSummaryResponse;
@@ -54,7 +55,7 @@ const ExamSummaryCard = ({ exam }: ExamSummaryCardProps) => {
       <Divider />
       <CardBody>
         <h3 className="text-lg font-semibold">{exam.title}</h3>
-        <p className="text-default-500 line-clamp-3">{exam.description}</p>
+        <CardDescription>{exam.description}</CardDescription>
       </CardBody>
       <Divider />
       <CardFooter className="flex justify-between">

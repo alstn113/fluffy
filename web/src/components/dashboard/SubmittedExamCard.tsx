@@ -1,8 +1,8 @@
 import { SubmittedExamSummaryResponse } from '@/api/examAPI';
 import { Routes } from '@/constants';
 import { fromNowDate } from '@/lib/date.ts';
-import { Card, CardBody, CardFooter, CardHeader, Divider, Image, Link } from '@nextui-org/react';
-import CardDescription from '../common/CardDescription';
+import { Card, CardFooter, CardHeader, Divider, Image, Link } from '@nextui-org/react';
+import BaseCardBody from '../common/BaseCardBody';
 
 interface SubmittedExamCardProps {
   submittedExam: SubmittedExamSummaryResponse;
@@ -27,10 +27,7 @@ const SubmittedExamCard = ({ submittedExam }: SubmittedExamCardProps) => {
         </div>
       </CardHeader>
       <Divider />
-      <CardBody>
-        <h3 className="text-lg font-semibold">{submittedExam.title}</h3>
-        <CardDescription>{submittedExam.description}</CardDescription>
-      </CardBody>
+      <BaseCardBody title={submittedExam.title} description={submittedExam.description} />
       <Divider />
       <CardFooter className="flex justify-between">
         <div>{submittedExam.submissionCount}회 제출됨</div>

@@ -18,12 +18,15 @@ public record ExamDetailResponse(
 
         String text();
 
+        String passage();
+
         String type();
     }
 
     public record AnswerQuestionResponse(
             Long id,
             String text,
+            String passage,
             String type
     ) implements QuestionResponse {
     }
@@ -31,6 +34,7 @@ public record ExamDetailResponse(
     public record ChoiceQuestionResponse(
             Long id,
             String text,
+            String passage,
             String type,
             List<QuestionOptionResponse> options
     ) implements QuestionResponse {

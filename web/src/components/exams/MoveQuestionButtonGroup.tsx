@@ -27,7 +27,7 @@ const MoveQuestionButtonGroup = () => {
       { examId, request: { questionResponses: questionResponses } },
       {
         onSuccess: () => {
-          navigate(Routes.home());
+          navigate(Routes.exam.submissions(examId));
         },
         onSettled: () => {
           onClose();
@@ -69,7 +69,10 @@ const MoveQuestionButtonGroup = () => {
             {(onClose) => (
               <>
                 <ModalHeader className="flex flex-col gap-1">정말 제출하시겠습니까?</ModalHeader>
-                <ModalBody>제출 후 수정이 불가능합니다.</ModalBody>
+                <ModalBody>
+                  <p>제출한 시험은 수정할 수 없습니다.</p>
+                  <p>제출 후 대시보드에서 결과를 확인할 수 있습니다.</p>
+                </ModalBody>
                 <ModalFooter>
                   <Button color="danger" variant="light" onPress={onClose}>
                     닫기

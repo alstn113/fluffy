@@ -102,10 +102,10 @@ class ExamServiceTest extends AbstractIntegrationTest {
 
     private List<QuestionAppRequest> createQuestionRequests() {
         return List.of(
-                new ShortAnswerQuestionAppRequest("주관식 질문", "SHORT_ANSWER", "주관식 질문 정답"),
-                new LongAnswerQuestionAppRequest("서술형 질문", "LONG_ANSWER"),
+                new ShortAnswerQuestionAppRequest("주관식 질문", "지문", "SHORT_ANSWER", "주관식 질문 정답"),
+                new LongAnswerQuestionAppRequest("서술형 질문", "지문", "LONG_ANSWER"),
                 new SingleChoiceQuestionAppRequest(
-                        "객관식 단일 선택 질문",
+                        "객관식 단일 선택 질문", "지문",
                         "SINGLE_CHOICE",
                         List.of(
                                 new QuestionOptionRequest("객관식 질문 1", true),
@@ -113,7 +113,7 @@ class ExamServiceTest extends AbstractIntegrationTest {
                         )
                 ),
                 new MultipleChoiceAppRequest(
-                        "객관식 다중 선택 질문",
+                        "객관식 다중 선택 질문", "지문",
                         "MULTIPLE_CHOICE",
                         List.of(
                                 new QuestionOptionRequest("객관식 질문 1", true),
@@ -122,7 +122,7 @@ class ExamServiceTest extends AbstractIntegrationTest {
                         )
                 ),
                 new TrueOrFalseQuestionAppRequest(
-                        "참/거짓 질문",
+                        "참/거짓 질문", "지문",
                         "TRUE_OR_FALSE",
                         false
                 )

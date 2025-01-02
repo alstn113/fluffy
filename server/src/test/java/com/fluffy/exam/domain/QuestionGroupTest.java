@@ -16,7 +16,7 @@ class QuestionGroupTest {
         // given
         int questionSize = 201;
         List<Question> overSizedQuestions = IntStream.range(0, questionSize)
-                .mapToObj(i -> Question.shortAnswer("질문 %d".formatted(i + 1), "정답"))
+                .mapToObj(i -> Question.shortAnswer("질문 %d".formatted(i + 1), "지문", "정답"))
                 .toList();
 
         // when & then

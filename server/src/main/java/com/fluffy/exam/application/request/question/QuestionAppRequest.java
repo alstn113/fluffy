@@ -22,4 +22,6 @@ public interface QuestionAppRequest {
     String text();
 
     String type();
+
+    String passage();
 }

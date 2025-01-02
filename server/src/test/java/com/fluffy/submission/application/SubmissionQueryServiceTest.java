@@ -46,7 +46,7 @@ class SubmissionQueryServiceTest extends AbstractIntegrationTest {
         memberRepository.save(author);
 
         Exam exam = Exam.create("title", author.getId());
-        exam.updateQuestions(List.of(Question.shortAnswer("질문", "답")));
+        exam.updateQuestions(List.of(Question.shortAnswer("질문", "지문", "답")));
         exam.publish(null, null);
         examRepository.save(exam);
 
@@ -90,7 +90,7 @@ class SubmissionQueryServiceTest extends AbstractIntegrationTest {
         memberRepository.save(author);
 
         Exam exam = Exam.create("title", author.getId());
-        exam.updateQuestions(List.of(Question.shortAnswer("질문", "답")));
+        exam.updateQuestions(List.of(Question.shortAnswer("질문", "지문", "답")));
         exam.publish(null, null);
         examRepository.save(exam);
 
@@ -111,7 +111,7 @@ class SubmissionQueryServiceTest extends AbstractIntegrationTest {
         memberRepository.save(author);
 
         Exam exam = Exam.create("title", author.getId());
-        exam.updateQuestions(List.of(Question.shortAnswer("질문", "질문 답")));
+        exam.updateQuestions(List.of(Question.shortAnswer("질문", "지문", "질문 답")));
         exam.publish(null, null);
         examRepository.save(exam);
 
@@ -150,7 +150,7 @@ class SubmissionQueryServiceTest extends AbstractIntegrationTest {
         memberRepository.save(author);
 
         Exam exam = Exam.create("title", author.getId());
-        exam.updateQuestions(List.of(Question.shortAnswer("질문", "질문 답")));
+        exam.updateQuestions(List.of(Question.shortAnswer("질문", "지문", "질문 답")));
         exam.publish(null, null);
         examRepository.save(exam);
 

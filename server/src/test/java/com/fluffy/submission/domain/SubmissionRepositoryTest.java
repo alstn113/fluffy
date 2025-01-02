@@ -36,12 +36,12 @@ class SubmissionRepositoryTest extends AbstractIntegrationTest {
         memberRepository.save(author);
 
         Exam exam = Exam.create("exam", author.getId());
-        exam.updateQuestions(List.of(Question.shortAnswer("질문1", "답1")));
+        exam.updateQuestions(List.of(Question.shortAnswer("질문1", "지문", "답1")));
         exam.publish(null, null);
         examRepository.save(exam);
 
         Exam otherExam = Exam.create("otherExam", author.getId());
-        otherExam.updateQuestions(List.of(Question.shortAnswer("질문2", "답2")));
+        otherExam.updateQuestions(List.of(Question.shortAnswer("질문2", "지문", "답2")));
         otherExam.publish(null, null);
         examRepository.save(otherExam);
 

@@ -183,15 +183,15 @@ class ExamDocumentTest extends AbstractDocumentTest {
     void getExamDetail() throws Exception {
         ExamDetailResponse response = new ExamDetailResponse(1L, "시험1", "설명1", ExamStatus.PUBLISHED.name(),
                 List.of(
-                        new AnswerQuestionResponse(1L, "질문1", "SHORT_ANSWER"),
-                        new AnswerQuestionResponse(2L, "질문2", "LONG_ANSWER"),
-                        new ChoiceQuestionResponse(3L, "질문3", "SINGLE_CHOICE",
+                        new AnswerQuestionResponse(1L, "질문1", "지문", "SHORT_ANSWER"),
+                        new AnswerQuestionResponse(2L, "질문2", "지문", "LONG_ANSWER"),
+                        new ChoiceQuestionResponse(3L, "질문3", "지문", "SINGLE_CHOICE",
                                 List.of(new QuestionOptionResponse(1L, "선택1"), new QuestionOptionResponse(2L, "선택2"))
                         ),
-                        new ChoiceQuestionResponse(4L, "질문4", "MULTIPLE_CHOICE",
+                        new ChoiceQuestionResponse(4L, "질문4", "지문", "MULTIPLE_CHOICE",
                                 List.of(new QuestionOptionResponse(3L, "선택3"), new QuestionOptionResponse(4L, "선택4"))
                         ),
-                        new ChoiceQuestionResponse(5L, "질문5", "TRUE_OR_FALSE",
+                        new ChoiceQuestionResponse(5L, "질문5", "지문", "TRUE_OR_FALSE",
                                 List.of(new QuestionOptionResponse(5L, "TRUE"), new QuestionOptionResponse(6L, "FALSE"))
                         )
 
@@ -223,6 +223,7 @@ class ExamDocumentTest extends AbstractDocumentTest {
                                 fieldWithPath("questions").description("문제 목록"),
                                 fieldWithPath("questions[].id").description("문제 ID"),
                                 fieldWithPath("questions[].text").description("문제 내용"),
+                                fieldWithPath("questions[].passage").description("문제 지문"),
                                 fieldWithPath("questions[].type").description("문제 유형"),
                                 fieldWithPath("questions[].options").description("선택지 목록").optional(),
                                 fieldWithPath("questions[].options[].id").description("선택지 ID").optional(),
@@ -238,21 +239,24 @@ class ExamDocumentTest extends AbstractDocumentTest {
     void getExamDetailWithAnswers() throws Exception {
         ExamWithAnswersResponse response = new ExamWithAnswersResponse(1L, "시험1", "설명1", ExamStatus.PUBLISHED.name(),
                 List.of(
-                        new ExamWithAnswersResponse.AnswerQuestionWithAnswersResponse(1L, "질문1", "SHORT_ANSWER", "정답1"),
-                        new ExamWithAnswersResponse.AnswerQuestionWithAnswersResponse(2L, "질문2", "LONG_ANSWER", "정답2"),
-                        new ExamWithAnswersResponse.ChoiceQuestionWithAnswersResponse(3L, "질문3", "SINGLE_CHOICE",
+                        new ExamWithAnswersResponse.AnswerQuestionWithAnswersResponse(1L, "질문1", "지문", "SHORT_ANSWER",
+                                "정답1"),
+                        new ExamWithAnswersResponse.AnswerQuestionWithAnswersResponse(2L, "질문2", "지문", "LONG_ANSWER",
+                                "정답2"),
+                        new ExamWithAnswersResponse.ChoiceQuestionWithAnswersResponse(3L, "질문3", "지문", "SINGLE_CHOICE",
                                 List.of(new ExamWithAnswersResponse.ChoiceQuestionWithAnswersResponse.QuestionOptionWithAnswersResponse(
                                                 1L, "선택1", true),
                                         new ExamWithAnswersResponse.ChoiceQuestionWithAnswersResponse.QuestionOptionWithAnswersResponse(
                                                 2L, "선택2", false))
                         ),
-                        new ExamWithAnswersResponse.ChoiceQuestionWithAnswersResponse(4L, "질문4", "MULTIPLE_CHOICE",
+                        new ExamWithAnswersResponse.ChoiceQuestionWithAnswersResponse(4L, "질문4", "지문",
+                                "MULTIPLE_CHOICE",
                                 List.of(new ExamWithAnswersResponse.ChoiceQuestionWithAnswersResponse.QuestionOptionWithAnswersResponse(
                                                 3L, "선택1", true),
                                         new ExamWithAnswersResponse.ChoiceQuestionWithAnswersResponse.QuestionOptionWithAnswersResponse(
                                                 4L, "선택2", true))
                         ),
-                        new ExamWithAnswersResponse.ChoiceQuestionWithAnswersResponse(5L, "질문5", "TRUE_OR_FALSE",
+                        new ExamWithAnswersResponse.ChoiceQuestionWithAnswersResponse(5L, "질문5", "지문", "TRUE_OR_FALSE",
                                 List.of(new ExamWithAnswersResponse.ChoiceQuestionWithAnswersResponse.QuestionOptionWithAnswersResponse(
                                                 5L, "TRUE", true),
                                         new ExamWithAnswersResponse.ChoiceQuestionWithAnswersResponse.QuestionOptionWithAnswersResponse(
@@ -287,6 +291,7 @@ class ExamDocumentTest extends AbstractDocumentTest {
                                 fieldWithPath("questions").description("문제 목록"),
                                 fieldWithPath("questions[].id").description("문제 ID"),
                                 fieldWithPath("questions[].text").description("문제 내용"),
+                                fieldWithPath("questions[].passage").description("문제 지문"),
                                 fieldWithPath("questions[].type").description("문제 유형"),
                                 fieldWithPath("questions[].correctAnswer").description("정답").optional(),
                                 fieldWithPath("questions[].options").description("선택지 목록").optional(),
@@ -337,15 +342,15 @@ class ExamDocumentTest extends AbstractDocumentTest {
     void publish() throws Exception {
         PublishExamWebRequest request = new PublishExamWebRequest(
                 List.of(
-                        new ShortAnswerQuestionAppRequest("질문1", "SHORT_ANSWER", "답"),
-                        new LongAnswerQuestionAppRequest("질문2", "LONG_ANSWER"),
-                        new SingleChoiceQuestionAppRequest("질문3", "SINGLE_CHOICE",
+                        new ShortAnswerQuestionAppRequest("질문1", "지문", "SHORT_ANSWER", "답"),
+                        new LongAnswerQuestionAppRequest("질문2", "지문", "LONG_ANSWER"),
+                        new SingleChoiceQuestionAppRequest("질문3", "지문", "SINGLE_CHOICE",
                                 List.of(new QuestionOptionRequest("선택1", false),
                                         new QuestionOptionRequest("선택2", true))),
-                        new MultipleChoiceAppRequest("질문4", "MULTIPLE_CHOICE",
+                        new MultipleChoiceAppRequest("질문4", "지문", "MULTIPLE_CHOICE",
                                 List.of(new QuestionOptionRequest("선택1", true),
                                         new QuestionOptionRequest("선택2", true))),
-                        new TrueOrFalseQuestionAppRequest("질문5", "TRUE_OR_FALSE", true)
+                        new TrueOrFalseQuestionAppRequest("질문5", "지문", "TRUE_OR_FALSE", true)
                 ),
                 LocalDateTime.now(),
                 LocalDateTime.now().plusDays(1)
@@ -370,6 +375,7 @@ class ExamDocumentTest extends AbstractDocumentTest {
                         requestFields(
                                 fieldWithPath("questions").description("문제 목록"),
                                 fieldWithPath("questions[].text").description("문제 내용"),
+                                fieldWithPath("questions[].passage").description("문제 지문").optional(),
                                 fieldWithPath("questions[].type").description("문제 유형"),
                                 fieldWithPath("questions[].correctAnswer").description("정답").optional(),
                                 fieldWithPath("questions[].trueOrFalse").description("true or false 정답").optional(),
@@ -387,15 +393,15 @@ class ExamDocumentTest extends AbstractDocumentTest {
     void updateQuestions() throws Exception {
         UpdateExamQuestionsWebRequest request = new UpdateExamQuestionsWebRequest(
                 List.of(
-                        new ShortAnswerQuestionAppRequest("질문1", "SHORT_ANSWER", "답"),
-                        new LongAnswerQuestionAppRequest("질문2", "LONG_ANSWER"),
-                        new SingleChoiceQuestionAppRequest("질문3", "SINGLE_CHOICE",
+                        new ShortAnswerQuestionAppRequest("질문1", "지문", "SHORT_ANSWER", "답"),
+                        new LongAnswerQuestionAppRequest("질문2", "지문", "LONG_ANSWER"),
+                        new SingleChoiceQuestionAppRequest("질문3", "지문", "SINGLE_CHOICE",
                                 List.of(new QuestionOptionRequest("선택1", false),
                                         new QuestionOptionRequest("선택2", true))),
-                        new MultipleChoiceAppRequest("질문4", "MULTIPLE_CHOICE",
+                        new MultipleChoiceAppRequest("질문4", "지문", "MULTIPLE_CHOICE",
                                 List.of(new QuestionOptionRequest("선택1", true),
                                         new QuestionOptionRequest("선택2", true))),
-                        new TrueOrFalseQuestionAppRequest("질문5", "TRUE_OR_FALSE", true)
+                        new TrueOrFalseQuestionAppRequest("질문5", "지문", "TRUE_OR_FALSE", true)
                 )
         );
         mockMvc.perform(RestDocumentationRequestBuilders.put("/api/v1/exams/{examId}/questions", 1)
@@ -415,6 +421,7 @@ class ExamDocumentTest extends AbstractDocumentTest {
                         requestFields(
                                 fieldWithPath("questions").description("문제 목록"),
                                 fieldWithPath("questions[].text").description("문제 내용"),
+                                fieldWithPath("questions[].passage").description("문제 지문"),
                                 fieldWithPath("questions[].type").description("문제 유형"),
                                 fieldWithPath("questions[].correctAnswer").description("정답").optional(),
                                 fieldWithPath("questions[].trueOrFalse").description("true or false 정답").optional(),

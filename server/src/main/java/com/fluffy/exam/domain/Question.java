@@ -29,8 +29,11 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "VARCHAR(2000)")
     private String text;
+
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String passage;
 
     @Column(nullable = false, columnDefinition = "VARCHAR(50)")
     @Enumerated(EnumType.STRING)

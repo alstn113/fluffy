@@ -22,6 +22,7 @@ export type QuestionWithAnswersResponse =
 export interface QuestionBaseResponse {
   id: number;
   text: string;
+  passage: string;
   type: QuestionType;
 }
 
@@ -58,6 +59,7 @@ export interface QuestionOptionWithAnswersResponse extends QuestionOptionRespons
 
 export interface QuestionBaseRequest {
   text: string;
+  passage: string;
   type: QuestionType;
 }
 

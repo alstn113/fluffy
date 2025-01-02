@@ -5,11 +5,11 @@ body:
   - type: markdown
     attributes:
       value: |
-        버그 신고를 작성해주셔서 감사합니다! 🙏
+        버그 신고를 작성해주셔서 감사합니다!
   - type: textarea
     id: what-happened
     attributes:
-      label: 어떤 일이 발생했나요? 🤔
+      label: 어떤 일이 발생했나요?
       description: 또한, 어떤 결과를 기대했었는지 알려주세요.
       placeholder: 예상치 못한 버그가 발생했습니다...
     validations:
@@ -31,8 +31,8 @@ body:
   - type: checkboxes
     id: terms
     attributes:
-      label: 동의 👍
+      label: 동의
       description: 아래 항목을 모두 확인하고 체크해주세요.
       options:
-        - label: 다른 이슈가 있는지 확인했습니다. ✅
+        - label: 다른 이슈가 있는지 확인했습니다.
           required: true

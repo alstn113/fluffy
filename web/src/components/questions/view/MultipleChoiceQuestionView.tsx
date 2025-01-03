@@ -7,7 +7,7 @@ const MultipleChoiceQuestionView = () => {
   const question = questions[currentIndex] as MultipleChoiceQuestionRequest;
 
   return (
-    <div className="flex flex-col mt-8">
+    <div className="flex flex-col mt-4">
       <label className="mb-2 font-semibold">선택지와 정답</label>
       <div>
         {question.options.map((option, index) => (

@@ -7,7 +7,7 @@ const SingleChoiceQuestionView = () => {
   const question = questions[currentIndex] as SingleChoiceQuestionRequest;
 
   return (
-    <div className="flex flex-col mt-8">
+    <div className="flex flex-col mt-4">
       <label className="mb-2 font-semibold">선택지와 정답</label>
       <RadioGroup value={question.options.findIndex((option) => option.isCorrect).toString()}>
         <div>

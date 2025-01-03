@@ -65,7 +65,7 @@ const SingleChoiceQuestionEditor = () => {
   };
 
   return (
-    <div className="flex flex-col mt-8">
+    <div className="flex flex-col mt-4">
       <div className="flex items-center gap-2 mb-2 ">
         <label className="font-semibold">선택지와 정답</label>
         <div>

@@ -7,7 +7,7 @@ const ShortAnswerQuestionView = () => {
   const question = questions[currentIndex] as ShortAnswerQuestionRequest;
 
   return (
-    <div className="mt-8">
+    <div className="mt-4">
       <Input
         isReadOnly
         value={question.correctAnswer}

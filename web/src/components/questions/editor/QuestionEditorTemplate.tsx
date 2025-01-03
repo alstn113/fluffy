@@ -6,7 +6,7 @@ import MultipleChoiceQuestionEditor from './MultipleChoiceQuestionEditor';
 import TrueOrFalseQuestionEditor from './TrueOrFalseQuestionEditor';
 import React from 'react';
 import useExamEditorStore from '@/stores/useExamEditorStore';
-import { Button, Input } from '@nextui-org/react';
+import { Button, Input, Textarea } from '@nextui-org/react';
 
 const QuestionEditorTemplate = () => {
   const {
@@ -28,6 +28,11 @@ const QuestionEditorTemplate = () => {
 
   const handleUpdateText = (text: string) => {
     const newQuestion = { ...question, text };
+    handleUpdateQuestion(currentIndex, newQuestion);
+  };
+
+  const handleUpdatePassage = (passage: string) => {
+    const newQuestion = { ...question, passage };
     handleUpdateQuestion(currentIndex, newQuestion);
   };
 
@@ -57,7 +62,14 @@ const QuestionEditorTemplate = () => {
           label: 'text-xl font-semibold text-gray-800',
         }}
       />
-
+      <Textarea
+        value={question.passage}
+        placeholder="지문이 필요한 경우 입력하세요. (선택사항)"
+        onValueChange={handleUpdatePassage}
+        variant="flat"
+        className="mt-4"
+        maxRows={30}
+      />
       {editorMap[question.type]}
     </div>
   );

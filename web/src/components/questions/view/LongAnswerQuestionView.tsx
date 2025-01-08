@@ -1,5 +1,5 @@
 const LongAnswerQuestionView = () => {
-  return <div></div>;
+  return <div className="mt-4"></div>;
 };
 
 export default LongAnswerQuestionView;

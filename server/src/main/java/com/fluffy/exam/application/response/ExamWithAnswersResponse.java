@@ -18,12 +18,15 @@ public record ExamWithAnswersResponse(
 
         String text();
 
+        String passage();
+
         String type();
     }
 
     public record AnswerQuestionWithAnswersResponse(
             Long id,
             String text,
+            String passage,
             String type,
             String correctAnswer
     ) implements QuestionWithAnswersResponse {
@@ -32,6 +35,7 @@ public record ExamWithAnswersResponse(
     public record ChoiceQuestionWithAnswersResponse(
             Long id,
             String text,
+            String passage,
             String type,
             List<QuestionOptionWithAnswersResponse> options
     ) implements QuestionWithAnswersResponse {

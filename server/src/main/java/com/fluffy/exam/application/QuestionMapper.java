@@ -47,28 +47,29 @@ public class QuestionMapper {
     private Question toQuestion(ShortAnswerQuestionAppRequest request) {
         return Question.shortAnswer(
                 request.text(),
+                request.passage(),
                 request.correctAnswer()
         );
     }
 
     private Question toQuestion(LongAnswerQuestionAppRequest request) {
-        return Question.longAnswer(request.text());
+        return Question.longAnswer(request.text(), request.passage());
     }
 
     private Question toQuestion(SingleChoiceQuestionAppRequest request) {
         List<QuestionOption> questionOptions = toQuestionOptions(request.options());
 
-        return Question.singleChoice(request.text(), questionOptions);
+        return Question.singleChoice(request.text(), request.passage(), questionOptions);
     }
 
     private Question toQuestion(MultipleChoiceAppRequest request) {
         List<QuestionOption> questionOptions = toQuestionOptions(request.options());
 
-        return Question.multipleChoice(request.text(), questionOptions);
+        return Question.multipleChoice(request.text(), request.passage(), questionOptions);
     }
 
     private Question toQuestion(TrueOrFalseQuestionAppRequest request) {
-        return Question.trueOrFalse(request.text(), request.trueOrFalse());
+        return Question.trueOrFalse(request.text(), request.passage(), request.trueOrFalse());
     }
 
     private List<QuestionOption> toQuestionOptions(List<QuestionOptionRequest> requests) {
@@ -99,6 +100,7 @@ public class QuestionMapper {
         return new AnswerQuestionResponse(
                 question.getId(),
                 question.getText(),
+                question.getPassage(),
                 question.getType().name()
         );
     }
@@ -107,6 +109,7 @@ public class QuestionMapper {
         return new ChoiceQuestionResponse(
                 question.getId(),
                 question.getText(),
+                question.getPassage(),
                 question.getType().name(),
                 questionOptionMapper.toResponses(question.getOptionGroup().toList())
         );
@@ -130,6 +133,7 @@ public class QuestionMapper {
         return new AnswerQuestionWithAnswersResponse(
                 question.getId(),
                 question.getText(),
+                question.getPassage(),
                 question.getType().name(),
                 question.getCorrectAnswer()
         );
@@ -139,6 +143,7 @@ public class QuestionMapper {
         return new ChoiceQuestionWithAnswersResponse(
                 question.getId(),
                 question.getText(),
+                question.getPassage(),
                 question.getType().name(),
                 questionOptionMapper.toWithAnswersResponses(question.getOptionGroup().toList())
         );

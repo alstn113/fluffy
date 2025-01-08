@@ -12,7 +12,7 @@ const ShortAnswerQuestionEditor = () => {
   };
 
   return (
-    <div className="mt-8">
+    <div className="mt-4">
       <Input
         value={question.correctAnswer}
         label="정답"

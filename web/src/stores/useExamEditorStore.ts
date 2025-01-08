@@ -106,17 +106,20 @@ const initializeQuestions = (questions: QuestionWithAnswersResponse[]): Question
       case 'SHORT_ANSWER':
         return {
           text: question.text,
+          passage: question.passage,
           correctAnswer: question.correctAnswer,
           type: question.type,
         } as ShortAnswerQuestionRequest;
       case 'LONG_ANSWER':
         return {
           text: question.text,
+          passage: question.passage,
           type: question.type,
         } as LongAnswerQuestionRequest;
       case 'SINGLE_CHOICE':
         return {
           text: question.text,
+          passage: question.passage,
           type: question.type,
           options: question.options.map((option) => ({
             text: option.text,
@@ -126,6 +129,7 @@ const initializeQuestions = (questions: QuestionWithAnswersResponse[]): Question
       case 'MULTIPLE_CHOICE':
         return {
           text: question.text,
+          passage: question.passage,
           type: question.type,
           options: question.options.map((option) => ({
             text: option.text,
@@ -135,6 +139,7 @@ const initializeQuestions = (questions: QuestionWithAnswersResponse[]): Question
       case 'TRUE_OR_FALSE':
         return {
           text: question.text,
+          passage: question.passage,
           type: question.type,
           trueOrFalse: question.options[0].isCorrect,
         } as TrueOrFalseQuestionRequest;
@@ -149,14 +154,16 @@ const createQuestion = (type: QuestionType): QuestionBaseRequest => {
     case 'SHORT_ANSWER':
       return {
         text: '단답형 질문',
+        passage: '',
         correctAnswer: '정답을 입력하세요...',
         type,
       } as ShortAnswerQuestionRequest;
     case 'LONG_ANSWER':
-      return { text: '서술형 질문', type } as LongAnswerQuestionRequest;
+      return { text: '서술형 질문', passage: '', type } as LongAnswerQuestionRequest;
     case 'SINGLE_CHOICE':
       return {
         text: '객관식 단일 선택 질문',
+        passage: '',
         type,
         options: [
           {
@@ -172,6 +179,7 @@ const createQuestion = (type: QuestionType): QuestionBaseRequest => {
     case 'MULTIPLE_CHOICE':
       return {
         text: '객관식 복수 선택 질문',
+        passage: '',
         type,
         options: [
           {
@@ -187,6 +195,7 @@ const createQuestion = (type: QuestionType): QuestionBaseRequest => {
     case 'TRUE_OR_FALSE':
       return {
         text: 'True / False 질문',
+        passage: '',
         type,
         trueOrFalse: true,
       } as TrueOrFalseQuestionRequest;

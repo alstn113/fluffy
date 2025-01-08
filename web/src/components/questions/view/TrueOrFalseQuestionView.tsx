@@ -7,7 +7,7 @@ const TrueOrFalseQuestionView = () => {
   const question = questions[currentIndex] as TrueOrFalseQuestionRequest;
 
   return (
-    <div className="flex flex-col mt-8">
+    <div className="flex flex-col mt-4">
       <label className="mb-2 font-semibold">정답</label>
       <div className="flex w-full flex-col">
         <div className="flex gap-2">

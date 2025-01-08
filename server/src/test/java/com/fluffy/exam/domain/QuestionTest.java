@@ -19,7 +19,7 @@ class QuestionTest {
     @DisplayName("질문의 길이는 공백일 수 없습니다.")
     void failWhenTextIsBlank(String text) {
         // when & then
-        assertThatThrownBy(() -> Question.shortAnswer(text, "정답"))
+        assertThatThrownBy(() -> Question.shortAnswer(text, "지문", "정답"))
                 .isInstanceOf(BadRequestException.class)
                 .hasMessage("질문의 길이는 1자 이상 2000자 이하여야 합니다.");
     }
@@ -34,7 +34,7 @@ class QuestionTest {
         String text = "a".repeat(length);
 
         // then
-        assertThatThrownBy(() -> Question.shortAnswer(text, "정답"))
+        assertThatThrownBy(() -> Question.shortAnswer(text, "지문", "정답"))
                 .isInstanceOf(BadRequestException.class)
                 .hasMessage("질문의 길이는 1자 이상 2000자 이하여야 합니다.");
     }
@@ -49,7 +49,7 @@ class QuestionTest {
         String correctAnswer = "a".repeat(length);
 
         // then
-        assertThatThrownBy(() -> Question.shortAnswer("질문", correctAnswer))
+        assertThatThrownBy(() -> Question.shortAnswer("질문", "지문", correctAnswer))
                 .isInstanceOf(BadRequestException.class)
                 .hasMessage("정답의 길이는 1자 이상 2000자 이하여야 합니다.");
     }
@@ -63,7 +63,7 @@ class QuestionTest {
         List<QuestionOption> options = List.of(correctOption, incorrectOption);
 
         // when & then
-        assertThatThrownBy(() -> Question.singleChoice("질문", options))
+        assertThatThrownBy(() -> Question.singleChoice("질문", "지문", options))
                 .isInstanceOf(BadRequestException.class)
                 .hasMessage("객관식 단일 선택은 정답이 1개여야 합니다.");
     }
@@ -72,12 +72,13 @@ class QuestionTest {
     @DisplayName("True or False 질문을 생성할 수 있다")
     void trueOrFalse() {
         // given
-        Question question = Question.trueOrFalse("질문", false);
+        Question question = Question.trueOrFalse("질문", "지문", false);
 
         // then
         List<QuestionOption> options = question.getOptionGroup().toList();
         assertAll(
                 () -> assertThat(question.getText()).isEqualTo("질문"),
+                () -> assertThat(question.getPassage()).isEqualTo("지문"),
                 () -> assertThat(question.getType()).isEqualTo(QuestionType.TRUE_OR_FALSE),
                 () -> assertThat(options).extracting(QuestionOption::getText, QuestionOption::isCorrect)
                         .containsExactly(tuple("TRUE", false), tuple("FALSE", true))

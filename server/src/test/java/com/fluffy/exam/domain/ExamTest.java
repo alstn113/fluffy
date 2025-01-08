@@ -37,8 +37,8 @@ class ExamTest {
         // given
         Exam exam = Exam.create("시험 제목", 1L);
         exam.updateQuestions(List.of(
-                Question.shortAnswer("단답형1", "답1"),
-                Question.trueOrFalse("O/X1", true)
+                Question.shortAnswer("단답형1", "지문", "답1"),
+                Question.trueOrFalse("O/X1", "지문", true)
         ));
 
         List<Question> prevQuestions = exam.getQuestionGroup().toList();
@@ -46,7 +46,7 @@ class ExamTest {
 
         // when
         exam.updateQuestions(List.of(
-                Question.multipleChoice("객관식 복수", List.of(
+                Question.multipleChoice("객관식 복수", "지문", List.of(
                                 new QuestionOption("선택1", true),
                                 new QuestionOption("선택2", false),
                                 new QuestionOption("선택3", false)
@@ -67,8 +67,8 @@ class ExamTest {
         // given
         Exam exam = Exam.create("시험 제목", 1L);
         exam.updateQuestions(List.of(
-                Question.shortAnswer("단답형1", "답1"),
-                Question.trueOrFalse("O/X1", true)
+                Question.shortAnswer("단답형1", "지문", "답1"),
+                Question.trueOrFalse("O/X1", "지문", true)
         ));
 
         // when
@@ -87,8 +87,8 @@ class ExamTest {
         // given
         Exam exam = Exam.create("시험 제목", 1L);
         exam.updateQuestions(List.of(
-                Question.shortAnswer("단답형1", "답1"),
-                Question.trueOrFalse("O/X1", true)
+                Question.shortAnswer("단답형1", "지문", "답1"),
+                Question.trueOrFalse("O/X1", "지문", true)
         ));
         exam.publish(null, null);
 
@@ -116,13 +116,13 @@ class ExamTest {
         // given
         Exam exam = Exam.create("시험 제목", 1L);
         exam.updateQuestions(List.of(
-                Question.shortAnswer("단답형1", "답1"),
-                Question.trueOrFalse("O/X1", true)
+                Question.shortAnswer("단답형1", "지문", "답1"),
+                Question.trueOrFalse("O/X1", "지문", true)
         ));
         exam.publish(null, null);
 
         // when & then
-        List<Question> questions = List.of(Question.shortAnswer("단답형2", "답2"));
+        List<Question> questions = List.of(Question.shortAnswer("단답형2", "지문", "답2"));
         assertThatThrownBy(() -> exam.updateQuestions(questions))
                 .isInstanceOf(BadRequestException.class)
                 .hasMessage("시험이 출시된 후에는 문제를 수정할 수 없습니다.");
@@ -147,8 +147,8 @@ class ExamTest {
         // given
         Exam exam = Exam.create("시험 제목", 1L);
         exam.updateQuestions(List.of(
-                Question.shortAnswer("단답형1", "답1"),
-                Question.trueOrFalse("O/X1", true)
+                Question.shortAnswer("단답형1", "지문", "답1"),
+                Question.trueOrFalse("O/X1", "지문", true)
         ));
         exam.publish(null, null);
 
@@ -177,8 +177,8 @@ class ExamTest {
         // given
         Exam exam = Exam.create("시험 제목", 1L);
         exam.updateQuestions(List.of(
-                Question.shortAnswer("단답형1", "답1"),
-                Question.trueOrFalse("O/X1", true)
+                Question.shortAnswer("단답형1", "지문", "답1"),
+                Question.trueOrFalse("O/X1", "지문", true)
         ));
         exam.publish(null, null);
 
@@ -207,8 +207,8 @@ class ExamTest {
         // given
         Exam exam = Exam.create("시험 제목", 1L);
         exam.updateQuestions(List.of(
-                Question.shortAnswer("단답형1", "답1"),
-                Question.trueOrFalse("O/X1", true)
+                Question.shortAnswer("단답형1", "지문", "답1"),
+                Question.trueOrFalse("O/X1", "지문", true)
         ));
         exam.publish(null, null);
 

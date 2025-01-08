@@ -1,6 +1,6 @@
 import { QuestionType } from '@/api/questionAPI';
 import useExamEditorStore from '@/stores/useExamEditorStore';
-import { Input } from '@nextui-org/react';
+import { Input, Textarea } from '@nextui-org/react';
 import ShortAnswerQuestionView from './ShortAnswerQuestionView';
 import LongAnswerQuestionView from './LongAnswerQuestionView';
 import SingleChoiceQuestionView from './SingleChoiceQuestionView';
@@ -34,6 +34,7 @@ const QuestionViewTemplate = () => {
           label: 'text-xl font-semibold text-gray-800',
         }}
       />
+      <Textarea isReadOnly value={question.passage} variant="flat" className="mt-4" />
       {viewMap[question.type]}
     </div>
   );

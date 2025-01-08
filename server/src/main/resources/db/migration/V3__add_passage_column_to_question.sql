@@ -1,0 +1,2 @@
+ALTER TABLE question
+    ADD COLUMN passage TEXT NOT NULL DEFAULT '';

@@ -1,16 +1,8 @@
 import { ExamSummaryResponse } from '@/api/examAPI';
 import { Routes } from '@/constants';
 import { fromNowDate } from '@/lib/date.ts';
-import {
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  Chip,
-  Divider,
-  Image,
-  Link,
-} from '@nextui-org/react';
+import { Card, CardFooter, CardHeader, Chip, Divider, Image, Link } from '@nextui-org/react';
+import BaseCardBody from '../common/BaseCardBody';
 
 interface ExamSummaryCardProps {
   exam: ExamSummaryResponse;
@@ -33,10 +25,7 @@ const PublishedExamCard = ({ exam }: ExamSummaryCardProps) => {
         </div>
       </CardHeader>
       <Divider />
-      <CardBody>
-        <h3 className="text-lg font-semibold">{exam.title}</h3>
-        <p className="text-default-500 line-clamp-3">{exam.description}</p>
-      </CardBody>
+      <BaseCardBody title={exam.title} description={exam.description} />
       <Divider />
       <CardFooter className="flex justify-between">
         <div>문제 수: {exam.questionCount}</div>

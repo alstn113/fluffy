@@ -1,18 +1,28 @@
+x-app: &app
+  image: ${DOCKER_APP_IMAGE}
+  env_file:
+    - .env
+  environment:
+    TZ: Asia/Seoul
+    SPRING_PROFILES_ACTIVE: prod
+  restart: always
+  depends_on:
+    - redis
+
 services:
-  app:
-    container_name: fluffy-app
-    image: ${DOCKER_APP_IMAGE}
-    ports:
-      - '8080:8080'
-    env_file:
-      - .env
-    environment:
-      TZ: Asia/Seoul
-      SPRING_PROFILES_ACTIVE: prod
-    restart: always
   redis:
-    container_name: fluffy-redis
+    container_name: redis
     image: redis:7.4.1
     restart: always
     ports:
       - '6379:6379'
+  app-blue:
+    <<: *app
+    container_name: app-blue
+    ports:
+      - '8080:8080'
+  app-green:
+    <<: *app
+    container_name: app-green
+    ports:
+      - '8081:8080'

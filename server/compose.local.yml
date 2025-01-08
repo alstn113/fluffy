@@ -1,6 +1,6 @@
 services:
   redis:
-    container_name: fluffy-redis
+    container_name: redis
     image: redis:7.4.1
     restart: always
     ports:

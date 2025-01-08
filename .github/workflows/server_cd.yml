@@ -84,11 +84,13 @@ jobs:
       - name: View
         run: cat .env
 
-      - name: Compose Docker image
+      - name: Compose Docker image and Update Nginx configuration
         env:
           DOCKER_APP_IMAGE: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
 
-        run: docker compose -f compose.yml up -d
+        run: |
+          chmod +x ./scripts/deploy.sh # 실행 권한 부여
+          sudo -E ./scripts/deploy.sh # 환경 변수 유지 및 실행
 
       - name: Docker remove unused images
         run: docker image prune -af

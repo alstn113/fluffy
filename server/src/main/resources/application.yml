@@ -1,7 +1,6 @@
 spring:
   profiles:
     active: local
-
 ---
 spring:
   config:
@@ -61,6 +60,14 @@ logging:
     org.springframework.orm.transaction: DEBUG
     org.hibernate.orm.jdbc.bind: trace
 
+management:
+  server:
+    port: 8082
+  endpoints:
+    web:
+      exposure:
+        include: health
+
 ---
 spring:
   config:
@@ -84,7 +91,7 @@ spring:
       ddl-auto: validate
   data:
     redis:
-      host: fluffy-redis
+      host: redis
       port: 6379
 
 api-host: https://api.fluffy.run
@@ -118,3 +125,11 @@ logging:
     org.springframework.orm.jpa: DEBUG
     org.springframework.orm.transaction: DEBUG
     org.hibernate.orm.jdbc.bind: trace
+
+management:
+  server:
+    port: 8082
+  endpoints:
+    web:
+      exposure:
+        include: health

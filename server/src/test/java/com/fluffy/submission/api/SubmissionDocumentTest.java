@@ -3,13 +3,11 @@ package com.fluffy.submission.api;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -61,13 +59,11 @@ class SubmissionDocumentTest extends AbstractDocumentTest {
 
         mockMvc.perform(RestDocumentationRequestBuilders.get("/api/v1/exams/{examId}/submissions", 1)
                         .cookie(new Cookie("accessToken", "{ACCESS_TOKEN}")))
-                .andDo(print())
                 .andExpectAll(
                         status().isOk(),
                         content().json(objectMapper.writeValueAsString(response))
                 )
-                .andDo(document(
-                        "api/v1/exams/get-(examId)-submissions",
+                .andDo(restDocs.document(
                         pathParameters(
                                 parameterWithName("examId").description("시험 ID")
                         ),
@@ -112,13 +108,11 @@ class SubmissionDocumentTest extends AbstractDocumentTest {
         mockMvc.perform(RestDocumentationRequestBuilders.get("/api/v1/exams/{examId}/submissions/{submissionId}", 1, 1)
                         .cookie(new Cookie("accessToken", "{ACCESS_TOKEN}"))
                 )
-                .andDo(print())
                 .andExpectAll(
                         status().isOk(),
                         content().json(objectMapper.writeValueAsString(response))
                 )
-                .andDo(document(
-                        "api/v1/exams/get-(examId)-submissions-(submissionId)",
+                .andDo(restDocs.document(
                         pathParameters(
                                 parameterWithName("examId").description("시험 ID"),
                                 parameterWithName("submissionId").description("제출 ID")
@@ -158,13 +152,11 @@ class SubmissionDocumentTest extends AbstractDocumentTest {
         mockMvc.perform(RestDocumentationRequestBuilders.get("/api/v1/exams/{examId}/submissions/me", 1)
                         .cookie(new Cookie("accessToken", "{ACCESS_TOKEN}"))
                 )
-                .andDo(print())
                 .andExpectAll(
                         status().isOk(),
                         content().json(objectMapper.writeValueAsString(response))
                 )
-                .andDo(document(
-                        "api/v1/exams/get-(examId)-submissions-me",
+                .andDo(restDocs.document(
                         pathParameters(
                                 parameterWithName("examId").description("시험 ID")
                         ),
@@ -190,12 +182,10 @@ class SubmissionDocumentTest extends AbstractDocumentTest {
                         .content(objectMapper.writeValueAsString(request))
                         .cookie(new Cookie("accessToken", "{ACCESS_TOKEN}"))
                 )
-                .andDo(print())
                 .andExpectAll(
                         status().isOk()
                 )
-                .andDo(document(
-                        "api/v1/exams/post-(examId)-submissions",
+                .andDo(restDocs.document(
                         pathParameters(
                                 parameterWithName("examId").description("시험 ID")
                         ),

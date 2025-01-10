@@ -2,16 +2,16 @@
 
 === 시험 제출 요약 목록 조회
 
-operation::api/v1/exams/get-(examId)-submissions[]
+operation::submission-document-test/get-summaries[]
 
 === 시험 제출 상세 조회
 
-operation::api/v1/exams/get-(examId)-submissions-(submissionId)[]
+operation::submission-document-test/get-detail[]
 
 === 나의 시험 제출 요약 목록 조회
 
-operation::api/v1/exams/get-(examId)-submissions-me[]
+operation::submission-document-test/get-my-submission-summaries[]
 
 === 시험 제출
 
-operation::api/v1/exams/post-(examId)-submissions[]
+operation::submission-document-test/submit[]

@@ -38,6 +38,7 @@ import com.fluffy.exam.application.response.ExamWithAnswersResponse;
 import com.fluffy.exam.domain.ExamStatus;
 import com.fluffy.exam.domain.dto.AuthorDto;
 import com.fluffy.exam.domain.dto.ExamSummaryDto;
+import com.fluffy.exam.domain.dto.SubmittedExamSummaryDto;
 import com.fluffy.global.response.PageInfo;
 import com.fluffy.global.response.PageResponse;
 import com.fluffy.support.AbstractDocumentTest;
@@ -91,7 +92,7 @@ class ExamDocumentTest extends AbstractDocumentTest {
                         content().json(objectMapper.writeValueAsString(response))
                 )
                 .andDo(document(
-                        "api/v1/exams/get-published-exam-summaries",
+                        "api/v1/exams/get-exams",
                         queryParameters(
                                 parameterWithName("page").description("페이지 번호"),
                                 parameterWithName("size").description("페이지당 항목 수")
@@ -134,13 +135,10 @@ class ExamDocumentTest extends AbstractDocumentTest {
         );
         PageResponse<ExamSummaryDto> response = new PageResponse<>(pageInfo, summaries);
 
-        when(examQueryService.getPublishedExamSummaries(any()))
+        when(examQueryService.getMyExamSummaries(any(), any(), any()))
                 .thenReturn(response);
 
-        when(examQueryService.getPublishedExamSummaries(any()))
-                .thenReturn(response);
-
-        mockMvc.perform(get("/api/v1/exams")
+        mockMvc.perform(get("/api/v1/exams/mine")
                         .param("page", "0")
                         .param("size", "2")
                         .accept(MediaType.APPLICATION_JSON)
@@ -149,7 +147,7 @@ class ExamDocumentTest extends AbstractDocumentTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andDo(document(
-                        "api/v1/exams/get-published-exam-summaries",
+                        "api/v1/exams/get-mine",
                         queryParameters(
                                 parameterWithName("page").description("페이지 번호"),
                                 parameterWithName("size").description("페이지당 항목 수")
@@ -211,7 +209,7 @@ class ExamDocumentTest extends AbstractDocumentTest {
                         content().json(objectMapper.writeValueAsString(response))
                 )
                 .andDo(document(
-                        "api/v1/exams/get-exam-detail",
+                        "api/v1/exams/get-exam-(examId)",
                         pathParameters(
                                 parameterWithName("examId").description("시험 ID")
                         ),
@@ -279,7 +277,7 @@ class ExamDocumentTest extends AbstractDocumentTest {
                         content().json(objectMapper.writeValueAsString(response))
                 )
                 .andDo(document(
-                        "api/v1/exams/get-exam-detail-with-answers",
+                        "api/v1/exams/get-(examId)-with-answers",
                         pathParameters(
                                 parameterWithName("examId").description("시험 ID")
                         ),
@@ -300,6 +298,61 @@ class ExamDocumentTest extends AbstractDocumentTest {
                                 fieldWithPath("questions[].options[].isCorrect").description("정답 여부").optional(),
                                 fieldWithPath("createdAt").description("생성일"),
                                 fieldWithPath("updatedAt").description("수정일")
+                        )
+                ));
+    }
+
+    @Test
+    @DisplayName("출제된 시험 요약 목록을 조회할 수 있다.")
+    void getSubmittedExamSummaries() throws Exception {
+        PageInfo pageInfo = new PageInfo(0, 1, 1, false, false);
+        List<SubmittedExamSummaryDto> summaries = List.of(new SubmittedExamSummaryDto(
+                1L,
+                "시험1",
+                "설명1",
+                new AuthorDto(1L, "작성자1", "https://avatar.com"),
+                3L,
+                LocalDateTime.now())
+        );
+        PageResponse<SubmittedExamSummaryDto> response = new PageResponse<>(pageInfo, summaries);
+
+        when(examQueryService.getSubmittedExamSummaries(any(), any()))
+                .thenReturn(response);
+
+        mockMvc.perform(get("/api/v1/exams/submitted")
+                        .param("page", "0")
+                        .param("size", "9")
+                        .cookie(new Cookie("accessToken", "{ACCESS_TOKEN}"))
+                )
+                .andDo(print())
+                .andExpectAll(
+                        status().isOk(),
+                        content().json(objectMapper.writeValueAsString(response))
+                )
+                .andDo(document(
+                        "api/v1/exams/get-submitted",
+                        queryParameters(
+                                parameterWithName("page").description("페이지 번호"),
+                                parameterWithName("size").description("페이지당 항목 수")
+                        ),
+                        responseFields(
+                                fieldWithPath("pageInfo").description("페이지 정보"),
+                                fieldWithPath("pageInfo.currentPage").description("현재 페이지 번호"),
+                                fieldWithPath("pageInfo.totalPages").description("전체 페이지 수"),
+                                fieldWithPath("pageInfo.totalElements").description("전체 항목 수"),
+                                fieldWithPath("pageInfo.hasNext").description("다음 페이지 존재 여부"),
+                                fieldWithPath("pageInfo.hasPrevious").description("이전 페이지 존재 여부"),
+
+                                fieldWithPath("content").description("내용"),
+                                fieldWithPath("content[].examId").description("시험 ID"),
+                                fieldWithPath("content[].title").description("시험 제목"),
+                                fieldWithPath("content[].description").description("시험 설명"),
+                                fieldWithPath("content[].author").description("작성자 정보"),
+                                fieldWithPath("content[].submissionCount").description("제출 수"),
+                                fieldWithPath("content[].lastSubmissionDate").description("마지막 제출일"),
+                                fieldWithPath("content[].author.id").description("작성자 ID"),
+                                fieldWithPath("content[].author.name").description("작성자 이름"),
+                                fieldWithPath("content[].author.avatarUrl").description("작성자 아바타 URL")
                         )
                 ));
     }
@@ -326,7 +379,7 @@ class ExamDocumentTest extends AbstractDocumentTest {
                         content().json(objectMapper.writeValueAsString(response))
                 )
                 .andDo(document(
-                        "api/v1/exams/create-exam",
+                        "api/v1/exams/post",
                         requestFields(
                                 fieldWithPath("title").description("시험 제목")
                         ),
@@ -366,7 +419,7 @@ class ExamDocumentTest extends AbstractDocumentTest {
                         status().isOk()
                 )
                 .andDo(document(
-                        "api/v1/exams/publish",
+                        "api/v1/exams/post-publish",
                         pathParameters(
                                 parameterWithName("examId").description("시험 ID")
                         ),
@@ -410,7 +463,7 @@ class ExamDocumentTest extends AbstractDocumentTest {
                         status().isNoContent()
                 )
                 .andDo(document(
-                        "api/v1/exams/questions",
+                        "api/v1/exams/put-(examId)-questions",
                         pathParameters(
                                 parameterWithName("examId").description("시험 ID")
                         ),
@@ -441,7 +494,7 @@ class ExamDocumentTest extends AbstractDocumentTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andDo(document(
-                        "api/v1/exams/update-title",
+                        "api/v1/exams/patch-title",
                         pathParameters(
                                 parameterWithName("examId").description("시험 ID")
                         ),
@@ -464,7 +517,7 @@ class ExamDocumentTest extends AbstractDocumentTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andDo(document(
-                        "api/v1/exams/update-description",
+                        "api/v1/exams/patch-description",
                         pathParameters(
                                 parameterWithName("examId").description("시험 ID")
                         ),

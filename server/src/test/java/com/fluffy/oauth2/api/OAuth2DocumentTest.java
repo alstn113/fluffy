@@ -2,11 +2,9 @@ package com.fluffy.oauth2.api;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.restdocs.request.RequestDocumentation.queryParameters;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -40,18 +38,16 @@ class OAuth2DocumentTest extends AbstractDocumentTest {
         mockMvc.perform(RestDocumentationRequestBuilders.get("/api/v1/auth/oauth2/redirect/{provider}", "github")
                         .param("next", "/")
                 )
-                .andDo(print())
                 .andExpectAll(
                         status().is3xxRedirection(),
                         header().string("Location", redirectUrl)
                 )
-                .andDo(document(
-                        "api/v1/auth/oauth2/redirect",
+                .andDo(restDocs.document(
                         pathParameters(
                                 parameterWithName("provider").description("OAuth2 제공자")
                         ),
                         queryParameters(
-                                parameterWithName("next").description("리다이렉트 후 이동할 URL")
+                                parameterWithName("next").description("리다이렉트 후 이동할 URL").optional()
                         )
                 ));
     }
@@ -76,20 +72,18 @@ class OAuth2DocumentTest extends AbstractDocumentTest {
                         .param("code", "{CODE}")
                         .param("next", "{NEXT}")
                 )
-                .andDo(print())
                 .andExpectAll(
                         status().is3xxRedirection(),
                         header().string("Location", "https://fluffy.run/{NEXT}"),
                         header().exists("Set-Cookie")
                 )
-                .andDo(document(
-                        "api/v1/auth/oauth2/callback",
+                .andDo(restDocs.document(
                         pathParameters(
                                 parameterWithName("provider").description("OAuth2 제공자")
                         ),
                         queryParameters(
                                 parameterWithName("code").description("인증 코드"),
-                                parameterWithName("next").description("리다이렉트 후 이동할 URL")
+                                parameterWithName("next").description("리다이렉트 후 이동할 URL").optional()
                         )
                 ));
     }

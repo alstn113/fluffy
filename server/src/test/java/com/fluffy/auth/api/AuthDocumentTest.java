@@ -2,12 +2,10 @@ package com.fluffy.auth.api;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -47,13 +45,11 @@ class AuthDocumentTest extends AbstractDocumentTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .cookie(new Cookie("access_token", "{ACCESS_TOKEN}"))
                 )
-                .andDo(print())
                 .andExpectAll(
                         status().isOk(),
                         content().json(objectMapper.writeValueAsString(response))
                 )
-                .andDo(document(
-                        "api/v1/auth/get-my-info",
+                .andDo(restDocs.document(
                         responseFields(
                                 fieldWithPath("id").description("사용자 식별자"),
                                 fieldWithPath("email").description("사용자 이메일"),
@@ -80,13 +76,11 @@ class AuthDocumentTest extends AbstractDocumentTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .cookie(new Cookie("access_token", "{ACCESS_TOKEN}"))
                 )
-                .andDo(print())
                 .andExpectAll(
                         status().isOk(),
                         header().doesNotExist("access_token")
                 )
-                .andDo(document(
-                        "api/v1/auth/logout"
+                .andDo(restDocs.document(
                 ));
     }
 }

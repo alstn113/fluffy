@@ -3,13 +3,11 @@ package com.fluffy.submission.api;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -21,6 +19,7 @@ import com.fluffy.submission.application.response.SubmissionDetailResponse;
 import com.fluffy.submission.application.response.SubmissionDetailResponse.ChoiceAnswerResponse;
 import com.fluffy.submission.application.response.SubmissionDetailResponse.ChoiceResponse;
 import com.fluffy.submission.application.response.SubmissionDetailResponse.TextAnswerResponse;
+import com.fluffy.submission.domain.dto.MySubmissionSummaryDto;
 import com.fluffy.submission.domain.dto.ParticipantDto;
 import com.fluffy.submission.domain.dto.SubmissionSummaryDto;
 import com.fluffy.support.AbstractDocumentTest;
@@ -60,13 +59,11 @@ class SubmissionDocumentTest extends AbstractDocumentTest {
 
         mockMvc.perform(RestDocumentationRequestBuilders.get("/api/v1/exams/{examId}/submissions", 1)
                         .cookie(new Cookie("accessToken", "{ACCESS_TOKEN}")))
-                .andDo(print())
                 .andExpectAll(
                         status().isOk(),
                         content().json(objectMapper.writeValueAsString(response))
                 )
-                .andDo(document(
-                        "api/v1/exams/get-submission-summaries",
+                .andDo(restDocs.document(
                         pathParameters(
                                 parameterWithName("examId").description("시험 ID")
                         ),
@@ -111,13 +108,11 @@ class SubmissionDocumentTest extends AbstractDocumentTest {
         mockMvc.perform(RestDocumentationRequestBuilders.get("/api/v1/exams/{examId}/submissions/{submissionId}", 1, 1)
                         .cookie(new Cookie("accessToken", "{ACCESS_TOKEN}"))
                 )
-                .andDo(print())
                 .andExpectAll(
                         status().isOk(),
                         content().json(objectMapper.writeValueAsString(response))
                 )
-                .andDo(document(
-                        "api/v1/exams/get-submission-detail",
+                .andDo(restDocs.document(
                         pathParameters(
                                 parameterWithName("examId").description("시험 ID"),
                                 parameterWithName("submissionId").description("제출 ID")
@@ -144,6 +139,35 @@ class SubmissionDocumentTest extends AbstractDocumentTest {
     }
 
     @Test
+    @DisplayName("나의 시험 제출 요약 목록을 조회할 수 있다.")
+    void getMySubmissionSummaries() throws Exception {
+        List<MySubmissionSummaryDto> response = List.of(
+                new MySubmissionSummaryDto(1L, LocalDateTime.now()),
+                new MySubmissionSummaryDto(2L, LocalDateTime.now())
+        );
+
+        when(submissionQueryService.getMySubmissionSummaries(any(), any()))
+                .thenReturn(response);
+
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/api/v1/exams/{examId}/submissions/me", 1)
+                        .cookie(new Cookie("accessToken", "{ACCESS_TOKEN}"))
+                )
+                .andExpectAll(
+                        status().isOk(),
+                        content().json(objectMapper.writeValueAsString(response))
+                )
+                .andDo(restDocs.document(
+                        pathParameters(
+                                parameterWithName("examId").description("시험 ID")
+                        ),
+                        responseFields(
+                                fieldWithPath("[].submissionId").description("제출 ID"),
+                                fieldWithPath("[].submittedAt").description("제출 시각")
+                        )
+                ));
+    }
+
+    @Test
     @DisplayName("시험 제출을 할 수 있다.")
     void submit() throws Exception {
         SubmissionWebRequest request = new SubmissionWebRequest(List.of(
@@ -158,12 +182,10 @@ class SubmissionDocumentTest extends AbstractDocumentTest {
                         .content(objectMapper.writeValueAsString(request))
                         .cookie(new Cookie("accessToken", "{ACCESS_TOKEN}"))
                 )
-                .andDo(print())
                 .andExpectAll(
                         status().isOk()
                 )
-                .andDo(document(
-                        "api/v1/exams/submit",
+                .andDo(restDocs.document(
                         pathParameters(
                                 parameterWithName("examId").description("시험 ID")
                         ),
@@ -172,6 +194,4 @@ class SubmissionDocumentTest extends AbstractDocumentTest {
                         )
                 ));
     }
-
-
 }

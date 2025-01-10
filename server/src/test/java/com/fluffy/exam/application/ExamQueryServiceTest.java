@@ -48,17 +48,17 @@ class ExamQueryServiceTest extends AbstractIntegrationTest {
 
         Exam exam1 = Exam.create("시험 제목1", author.getId());
         exam1.updateQuestions(List.of(Question.shortAnswer("질문1", "지문", "답1")));
-        exam1.publish(null, null);
+        exam1.publish();
         examRepository.save(exam1);
 
         Exam exam2 = Exam.create("시험 제목2", author.getId());
         exam2.updateQuestions(List.of(Question.shortAnswer("질문2", "지문", "답2")));
-        exam2.publish(null, null);
+        exam2.publish();
         examRepository.save(exam2);
 
         Exam exam3 = Exam.create("시험 제목3", author.getId());
         exam3.updateQuestions(List.of(Question.shortAnswer("질문3", "지문", "답3")));
-        exam3.publish(null, null);
+        exam3.publish();
         examRepository.save(exam3);
 
         // when
@@ -86,12 +86,12 @@ class ExamQueryServiceTest extends AbstractIntegrationTest {
 
         Exam exam1 = Exam.create("시험 제목1", author.getId());
         exam1.updateQuestions(List.of(Question.shortAnswer("질문1", "지문", "답1")));
-        exam1.publish(null, null);
+        exam1.publish();
         examRepository.save(exam1);
 
         Exam exam2 = Exam.create("시험 제목2", author.getId());
         exam2.updateQuestions(List.of(Question.shortAnswer("질문2", "지문", "답2")));
-        exam2.publish(null, null);
+        exam2.publish();
         examRepository.save(exam2);
 
         Exam otherExam1 = Exam.create("시험 제목3", author.getId());
@@ -100,12 +100,12 @@ class ExamQueryServiceTest extends AbstractIntegrationTest {
 
         Exam exam4 = Exam.create("시험 제목4", another.getId());
         exam4.updateQuestions(List.of(Question.shortAnswer("질문4", "지문", "답4")));
-        exam4.publish(null, null);
+        exam4.publish();
         examRepository.save(exam4);
 
         Exam exam5 = Exam.create("시험 제목5", author.getId());
         exam5.updateQuestions(List.of(Question.shortAnswer("질문5", "지문", "답5")));
-        exam5.publish(null, null);
+        exam5.publish();
         examRepository.save(exam5);
 
         // when
@@ -131,7 +131,7 @@ class ExamQueryServiceTest extends AbstractIntegrationTest {
 
         Exam exam = Exam.create("시험 제목", member.getId());
         exam.updateQuestions(List.of(Question.shortAnswer("질문", "지문", "답")));
-        exam.publish(null, null);
+        exam.publish();
         examRepository.save(exam);
 
         // when
@@ -157,7 +157,7 @@ class ExamQueryServiceTest extends AbstractIntegrationTest {
 
         Exam exam = Exam.create("시험 제목", member.getId());
         exam.updateQuestions(List.of(Question.shortAnswer("질문", "지문", "답")));
-        exam.publish(null, null);
+        exam.publish();
         examRepository.save(exam);
 
         // when
@@ -187,7 +187,7 @@ class ExamQueryServiceTest extends AbstractIntegrationTest {
 
         Exam exam = Exam.create("시험 제목", member.getId());
         exam.updateQuestions(List.of(Question.shortAnswer("질문", "지문", "답")));
-        exam.publish(null, null);
+        exam.publish();
         examRepository.save(exam);
 
         // when

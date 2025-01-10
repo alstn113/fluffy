@@ -72,13 +72,10 @@ class ExamTest {
         ));
 
         // when
-        exam.publish(null, null);
+        exam.publish();
 
         // then
-        assertAll(
-                () -> assertThat(exam.getStatus()).isEqualTo(ExamStatus.PUBLISHED),
-                () -> assertThat(exam.getExamPeriod().getStartAt()).isNotNull()
-        );
+        assertThat(exam.getStatus()).isEqualTo(ExamStatus.PUBLISHED);
     }
 
     @Test
@@ -90,10 +87,10 @@ class ExamTest {
                 Question.shortAnswer("단답형1", "지문", "답1"),
                 Question.trueOrFalse("O/X1", "지문", true)
         ));
-        exam.publish(null, null);
+        exam.publish();
 
         // when & then
-        assertThatThrownBy(() -> exam.publish(null, null))
+        assertThatThrownBy(() -> exam.publish())
                 .isInstanceOf(BadRequestException.class)
                 .hasMessage("시험은 이미 출시되었습니다.");
     }
@@ -105,7 +102,7 @@ class ExamTest {
         Exam exam = Exam.create("시험 제목", 1L);
 
         // when & then
-        assertThatThrownBy(() -> exam.publish(null, null))
+        assertThatThrownBy(() -> exam.publish())
                 .isInstanceOf(BadRequestException.class)
                 .hasMessage("시험을 출시하기 위해서는 최소 1개 이상의 문제를 추가해야 합니다.");
     }
@@ -119,7 +116,7 @@ class ExamTest {
                 Question.shortAnswer("단답형1", "지문", "답1"),
                 Question.trueOrFalse("O/X1", "지문", true)
         ));
-        exam.publish(null, null);
+        exam.publish();
 
         // when & then
         List<Question> questions = List.of(Question.shortAnswer("단답형2", "지문", "답2"));
@@ -150,7 +147,7 @@ class ExamTest {
                 Question.shortAnswer("단답형1", "지문", "답1"),
                 Question.trueOrFalse("O/X1", "지문", true)
         ));
-        exam.publish(null, null);
+        exam.publish();
 
         // when & then
         assertThatThrownBy(() -> exam.updateTitle("수정된 시험 제목"))
@@ -180,7 +177,7 @@ class ExamTest {
                 Question.shortAnswer("단답형1", "지문", "답1"),
                 Question.trueOrFalse("O/X1", "지문", true)
         ));
-        exam.publish(null, null);
+        exam.publish();
 
         // when & then
         assertThatThrownBy(() -> exam.updateDescription("시험 설명"))
@@ -210,7 +207,7 @@ class ExamTest {
                 Question.shortAnswer("단답형1", "지문", "답1"),
                 Question.trueOrFalse("O/X1", "지문", true)
         ));
-        exam.publish(null, null);
+        exam.publish();
 
         // when & then
         assertThatThrownBy(() -> exam.updateIsSingleAttempt(true))

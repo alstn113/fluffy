@@ -47,7 +47,7 @@ class SubmissionQueryServiceTest extends AbstractIntegrationTest {
 
         Exam exam = Exam.create("title", author.getId());
         exam.updateQuestions(List.of(Question.shortAnswer("질문", "지문", "답")));
-        exam.publish(null, null);
+        exam.publish();
         examRepository.save(exam);
 
         Member submitter1 = MemberTestData.defaultMember().build();
@@ -91,7 +91,7 @@ class SubmissionQueryServiceTest extends AbstractIntegrationTest {
 
         Exam exam = Exam.create("title", author.getId());
         exam.updateQuestions(List.of(Question.shortAnswer("질문", "지문", "답")));
-        exam.publish(null, null);
+        exam.publish();
         examRepository.save(exam);
 
         // when
@@ -112,7 +112,7 @@ class SubmissionQueryServiceTest extends AbstractIntegrationTest {
 
         Exam exam = Exam.create("title", author.getId());
         exam.updateQuestions(List.of(Question.shortAnswer("질문", "지문", "질문 답")));
-        exam.publish(null, null);
+        exam.publish();
         examRepository.save(exam);
 
         Member submitter = MemberTestData.defaultMember().build();
@@ -151,7 +151,7 @@ class SubmissionQueryServiceTest extends AbstractIntegrationTest {
 
         Exam exam = Exam.create("title", author.getId());
         exam.updateQuestions(List.of(Question.shortAnswer("질문", "지문", "질문 답")));
-        exam.publish(null, null);
+        exam.publish();
         examRepository.save(exam);
 
         Member submitter = MemberTestData.defaultMember().build();

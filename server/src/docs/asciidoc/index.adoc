@@ -4,7 +4,7 @@
 :toclevels: 2
 :sectlinks:
 
-= Fluffy API 문서
+= Fluffy API 명세서
 
 include::auth.adoc[]
 include::oauth2.adoc[]

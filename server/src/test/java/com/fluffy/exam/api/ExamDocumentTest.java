@@ -3,7 +3,6 @@ package com.fluffy.exam.api;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
@@ -38,6 +37,7 @@ import com.fluffy.exam.application.response.ExamWithAnswersResponse;
 import com.fluffy.exam.domain.ExamStatus;
 import com.fluffy.exam.domain.dto.AuthorDto;
 import com.fluffy.exam.domain.dto.ExamSummaryDto;
+import com.fluffy.exam.domain.dto.SubmittedExamSummaryDto;
 import com.fluffy.global.response.PageInfo;
 import com.fluffy.global.response.PageResponse;
 import com.fluffy.support.AbstractDocumentTest;
@@ -85,16 +85,14 @@ class ExamDocumentTest extends AbstractDocumentTest {
                         .param("size", "2")
                         .accept(MediaType.APPLICATION_JSON)
                 )
-                .andDo(print())
                 .andExpectAll(
                         status().isOk(),
                         content().json(objectMapper.writeValueAsString(response))
                 )
-                .andDo(document(
-                        "api/v1/exams/get-published-exam-summaries",
+                .andDo(restDocs.document(
                         queryParameters(
-                                parameterWithName("page").description("페이지 번호"),
-                                parameterWithName("size").description("페이지당 항목 수")
+                                parameterWithName("page").description("페이지 번호").optional(),
+                                parameterWithName("size").description("페이지당 항목 수").optional()
                         ),
                         responseFields(
                                 fieldWithPath("pageInfo").description("페이지 정보"),
@@ -134,25 +132,20 @@ class ExamDocumentTest extends AbstractDocumentTest {
         );
         PageResponse<ExamSummaryDto> response = new PageResponse<>(pageInfo, summaries);
 
-        when(examQueryService.getPublishedExamSummaries(any()))
+        when(examQueryService.getMyExamSummaries(any(), any(), any()))
                 .thenReturn(response);
 
-        when(examQueryService.getPublishedExamSummaries(any()))
-                .thenReturn(response);
-
-        mockMvc.perform(get("/api/v1/exams")
+        mockMvc.perform(get("/api/v1/exams/mine")
                         .param("page", "0")
                         .param("size", "2")
                         .accept(MediaType.APPLICATION_JSON)
                         .cookie(new Cookie("accessToken", "{ACCESS_TOKEN}"))
                 )
-                .andDo(print())
                 .andExpect(status().isOk())
-                .andDo(document(
-                        "api/v1/exams/get-published-exam-summaries",
+                .andDo(restDocs.document(
                         queryParameters(
-                                parameterWithName("page").description("페이지 번호"),
-                                parameterWithName("size").description("페이지당 항목 수")
+                                parameterWithName("page").description("페이지 번호").optional(),
+                                parameterWithName("size").description("페이지당 항목 수").optional()
                         ),
                         responseFields(
                                 fieldWithPath("pageInfo").description("페이지 정보"),
@@ -205,13 +198,11 @@ class ExamDocumentTest extends AbstractDocumentTest {
                         .param("size", "2")
                         .accept(MediaType.APPLICATION_JSON)
                 )
-                .andDo(print())
                 .andExpectAll(
                         status().isOk(),
                         content().json(objectMapper.writeValueAsString(response))
                 )
-                .andDo(document(
-                        "api/v1/exams/get-exam-detail",
+                .andDo(restDocs.document(
                         pathParameters(
                                 parameterWithName("examId").description("시험 ID")
                         ),
@@ -273,13 +264,11 @@ class ExamDocumentTest extends AbstractDocumentTest {
                         .accept(MediaType.APPLICATION_JSON)
                         .cookie(new Cookie("accessToken", "{ACCESS_TOKEN}"))
                 )
-                .andDo(print())
                 .andExpectAll(
                         status().isOk(),
                         content().json(objectMapper.writeValueAsString(response))
                 )
-                .andDo(document(
-                        "api/v1/exams/get-exam-detail-with-answers",
+                .andDo(restDocs.document(
                         pathParameters(
                                 parameterWithName("examId").description("시험 ID")
                         ),
@@ -305,6 +294,59 @@ class ExamDocumentTest extends AbstractDocumentTest {
     }
 
     @Test
+    @DisplayName("출제된 시험 요약 목록을 조회할 수 있다.")
+    void getSubmittedExamSummaries() throws Exception {
+        PageInfo pageInfo = new PageInfo(0, 1, 1, false, false);
+        List<SubmittedExamSummaryDto> summaries = List.of(new SubmittedExamSummaryDto(
+                1L,
+                "시험1",
+                "설명1",
+                new AuthorDto(1L, "작성자1", "https://avatar.com"),
+                3L,
+                LocalDateTime.now())
+        );
+        PageResponse<SubmittedExamSummaryDto> response = new PageResponse<>(pageInfo, summaries);
+
+        when(examQueryService.getSubmittedExamSummaries(any(), any()))
+                .thenReturn(response);
+
+        mockMvc.perform(get("/api/v1/exams/submitted")
+                        .param("page", "0")
+                        .param("size", "9")
+                        .cookie(new Cookie("accessToken", "{ACCESS_TOKEN}"))
+                )
+                .andExpectAll(
+                        status().isOk(),
+                        content().json(objectMapper.writeValueAsString(response))
+                )
+                .andDo(restDocs.document(
+                        queryParameters(
+                                parameterWithName("page").description("페이지 번호").optional(),
+                                parameterWithName("size").description("페이지당 항목 수").optional()
+                        ),
+                        responseFields(
+                                fieldWithPath("pageInfo").description("페이지 정보"),
+                                fieldWithPath("pageInfo.currentPage").description("현재 페이지 번호"),
+                                fieldWithPath("pageInfo.totalPages").description("전체 페이지 수"),
+                                fieldWithPath("pageInfo.totalElements").description("전체 항목 수"),
+                                fieldWithPath("pageInfo.hasNext").description("다음 페이지 존재 여부"),
+                                fieldWithPath("pageInfo.hasPrevious").description("이전 페이지 존재 여부"),
+
+                                fieldWithPath("content").description("내용"),
+                                fieldWithPath("content[].examId").description("시험 ID"),
+                                fieldWithPath("content[].title").description("시험 제목"),
+                                fieldWithPath("content[].description").description("시험 설명"),
+                                fieldWithPath("content[].author").description("작성자 정보"),
+                                fieldWithPath("content[].submissionCount").description("제출 수"),
+                                fieldWithPath("content[].lastSubmissionDate").description("마지막 제출일"),
+                                fieldWithPath("content[].author.id").description("작성자 ID"),
+                                fieldWithPath("content[].author.name").description("작성자 이름"),
+                                fieldWithPath("content[].author.avatarUrl").description("작성자 아바타 URL")
+                        )
+                ));
+    }
+
+    @Test
     @DisplayName("시험을 생성할 수 있다.")
     void createExam() throws Exception {
         CreateExamWebRequest request = new CreateExamWebRequest("시험 제목");
@@ -319,14 +361,12 @@ class ExamDocumentTest extends AbstractDocumentTest {
                         .cookie(new Cookie("accessToken", "{ACCESS_TOKEN}"))
                         .content(objectMapper.writeValueAsString(request))
                 )
-                .andDo(print())
                 .andExpectAll(
                         status().isCreated(),
                         header().string("Location", "/api/v1/exams/1"),
                         content().json(objectMapper.writeValueAsString(response))
                 )
-                .andDo(document(
-                        "api/v1/exams/create-exam",
+                .andDo(restDocs.document(
                         requestFields(
                                 fieldWithPath("title").description("시험 제목")
                         ),
@@ -365,8 +405,7 @@ class ExamDocumentTest extends AbstractDocumentTest {
                 .andExpectAll(
                         status().isOk()
                 )
-                .andDo(document(
-                        "api/v1/exams/publish",
+                .andDo(restDocs.document(
                         pathParameters(
                                 parameterWithName("examId").description("시험 ID")
                         ),
@@ -405,12 +444,10 @@ class ExamDocumentTest extends AbstractDocumentTest {
                         .cookie(new Cookie("accessToken", "{ACCESS_TOKEN}"))
                         .content(objectMapper.writeValueAsString(request))
                 )
-                .andDo(print())
                 .andExpectAll(
                         status().isNoContent()
                 )
-                .andDo(document(
-                        "api/v1/exams/questions",
+                .andDo(restDocs.document(
                         pathParameters(
                                 parameterWithName("examId").description("시험 ID")
                         ),
@@ -438,10 +475,8 @@ class ExamDocumentTest extends AbstractDocumentTest {
                         .cookie(new Cookie("accessToken", "{ACCESS_TOKEN}"))
                         .content(objectMapper.writeValueAsString(request))
                 )
-                .andDo(print())
                 .andExpect(status().isOk())
-                .andDo(document(
-                        "api/v1/exams/update-title",
+                .andDo(restDocs.document(
                         pathParameters(
                                 parameterWithName("examId").description("시험 ID")
                         ),
@@ -461,10 +496,8 @@ class ExamDocumentTest extends AbstractDocumentTest {
                         .cookie(new Cookie("accessToken", "{ACCESS_TOKEN}"))
                         .content(objectMapper.writeValueAsString(request))
                 )
-                .andDo(print())
                 .andExpect(status().isOk())
-                .andDo(document(
-                        "api/v1/exams/update-description",
+                .andDo(restDocs.document(
                         pathParameters(
                                 parameterWithName("examId").description("시험 ID")
                         ),

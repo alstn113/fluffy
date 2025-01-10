@@ -82,6 +82,7 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    delete snippetsDir // generated-snippets 디렉토리 삭제
     outputs.dir snippetsDir
 }
 

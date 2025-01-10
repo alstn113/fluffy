@@ -51,7 +51,7 @@ class OAuth2DocumentTest extends AbstractDocumentTest {
                                 parameterWithName("provider").description("OAuth2 제공자")
                         ),
                         queryParameters(
-                                parameterWithName("next").description("리다이렉트 후 이동할 URL")
+                                parameterWithName("next").description("리다이렉트 후 이동할 URL").optional()
                         )
                 ));
     }
@@ -89,7 +89,7 @@ class OAuth2DocumentTest extends AbstractDocumentTest {
                         ),
                         queryParameters(
                                 parameterWithName("code").description("인증 코드"),
-                                parameterWithName("next").description("리다이렉트 후 이동할 URL")
+                                parameterWithName("next").description("리다이렉트 후 이동할 URL").optional()
                         )
                 ));
     }

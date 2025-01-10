@@ -94,8 +94,8 @@ class ExamDocumentTest extends AbstractDocumentTest {
                 .andDo(document(
                         "api/v1/exams/get-exams",
                         queryParameters(
-                                parameterWithName("page").description("페이지 번호"),
-                                parameterWithName("size").description("페이지당 항목 수")
+                                parameterWithName("page").description("페이지 번호").optional(),
+                                parameterWithName("size").description("페이지당 항목 수").optional()
                         ),
                         responseFields(
                                 fieldWithPath("pageInfo").description("페이지 정보"),
@@ -149,8 +149,8 @@ class ExamDocumentTest extends AbstractDocumentTest {
                 .andDo(document(
                         "api/v1/exams/get-mine",
                         queryParameters(
-                                parameterWithName("page").description("페이지 번호"),
-                                parameterWithName("size").description("페이지당 항목 수")
+                                parameterWithName("page").description("페이지 번호").optional(),
+                                parameterWithName("size").description("페이지당 항목 수").optional()
                         ),
                         responseFields(
                                 fieldWithPath("pageInfo").description("페이지 정보"),
@@ -332,8 +332,8 @@ class ExamDocumentTest extends AbstractDocumentTest {
                 .andDo(document(
                         "api/v1/exams/get-submitted",
                         queryParameters(
-                                parameterWithName("page").description("페이지 번호"),
-                                parameterWithName("size").description("페이지당 항목 수")
+                                parameterWithName("page").description("페이지 번호").optional(),
+                                parameterWithName("size").description("페이지당 항목 수").optional()
                         ),
                         responseFields(
                                 fieldWithPath("pageInfo").description("페이지 정보"),

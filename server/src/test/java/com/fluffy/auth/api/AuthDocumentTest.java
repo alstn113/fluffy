@@ -53,7 +53,7 @@ class AuthDocumentTest extends AbstractDocumentTest {
                         content().json(objectMapper.writeValueAsString(response))
                 )
                 .andDo(document(
-                        "api/v1/auth/get-my-info",
+                        "api/v1/auth/get-me",
                         responseFields(
                                 fieldWithPath("id").description("사용자 식별자"),
                                 fieldWithPath("email").description("사용자 이메일"),
@@ -86,7 +86,7 @@ class AuthDocumentTest extends AbstractDocumentTest {
                         header().doesNotExist("access_token")
                 )
                 .andDo(document(
-                        "api/v1/auth/logout"
+                        "api/v1/auth/post-logout"
                 ));
     }
 }

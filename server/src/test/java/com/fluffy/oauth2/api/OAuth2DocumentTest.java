@@ -46,7 +46,7 @@ class OAuth2DocumentTest extends AbstractDocumentTest {
                         header().string("Location", redirectUrl)
                 )
                 .andDo(document(
-                        "api/v1/auth/oauth2/redirect",
+                        "api/v1/auth/oauth2/get-redirect-(provider)",
                         pathParameters(
                                 parameterWithName("provider").description("OAuth2 제공자")
                         ),
@@ -83,7 +83,7 @@ class OAuth2DocumentTest extends AbstractDocumentTest {
                         header().exists("Set-Cookie")
                 )
                 .andDo(document(
-                        "api/v1/auth/oauth2/callback",
+                        "api/v1/auth/oauth2/get-callback-(provider)",
                         pathParameters(
                                 parameterWithName("provider").description("OAuth2 제공자")
                         ),

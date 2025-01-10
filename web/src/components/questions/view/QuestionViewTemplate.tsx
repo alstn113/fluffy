@@ -34,7 +34,9 @@ const QuestionViewTemplate = () => {
           label: 'text-xl font-semibold text-gray-800',
         }}
       />
-      <Textarea isReadOnly value={question.passage} variant="flat" className="mt-4" />
+      {question.passage && (
+        <Textarea isReadOnly value={question.passage} variant="flat" className="mt-4" />
+      )}
       {viewMap[question.type]}
     </div>
   );

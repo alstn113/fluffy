@@ -46,7 +46,7 @@ class SubmissionServiceTest extends AbstractIntegrationTest {
         Exam exam = Exam.create("시험 제목", member1.getId());
         exam.updateQuestions(List.of(Question.shortAnswer("단답형1", "지문", "답1")));
         exam.updateIsSingleAttempt(true);
-        exam.publish(null, null);
+        exam.publish();
         examRepository.save(exam);
 
         // when

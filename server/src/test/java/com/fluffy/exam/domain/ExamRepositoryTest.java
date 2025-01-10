@@ -35,7 +35,7 @@ class ExamRepositoryTest extends AbstractIntegrationTest {
 
         Exam publishedExam1 = Exam.create("publishedExam1", member1.getId());
         publishedExam1.updateQuestions(List.of(Question.shortAnswer("질문1", "지문", "답1")));
-        publishedExam1.publish(null, null);
+        publishedExam1.publish();
         examRepository.save(publishedExam1);
 
         Exam publishedExam2 = Exam.create("publishedExam2", member1.getId());
@@ -43,7 +43,7 @@ class ExamRepositoryTest extends AbstractIntegrationTest {
                 Question.shortAnswer("질문3", "지문", "답3"),
                 Question.shortAnswer("질문5", "지문", "답5")
         ));
-        publishedExam2.publish(null, null);
+        publishedExam2.publish();
         examRepository.save(publishedExam2);
 
         Exam draftExam1 = Exam.create("draftExam1", member1.getId());
@@ -56,7 +56,7 @@ class ExamRepositoryTest extends AbstractIntegrationTest {
                 Question.shortAnswer("질문6", "지문", "답6"),
                 Question.shortAnswer("질문7", "지문", "답7")
         ));
-        publishedExam3.publish(null, null);
+        publishedExam3.publish();
         examRepository.save(publishedExam3);
 
         // when
@@ -88,7 +88,7 @@ class ExamRepositoryTest extends AbstractIntegrationTest {
 
         Exam publishedExam1 = Exam.create("publishedExam1", member1.getId());
         publishedExam1.updateQuestions(List.of(Question.shortAnswer("질문1", "지문", "답1")));
-        publishedExam1.publish(null, null);
+        publishedExam1.publish();
         examRepository.save(publishedExam1);
 
         Exam publishedExam2 = Exam.create("publishedExam2", member2.getId());
@@ -96,7 +96,7 @@ class ExamRepositoryTest extends AbstractIntegrationTest {
                 Question.shortAnswer("질문3", "지문", "답3"),
                 Question.shortAnswer("질문5", "지문", "답5")
         ));
-        publishedExam2.publish(null, null);
+        publishedExam2.publish();
         examRepository.save(publishedExam2);
 
         Exam draftExam1 = Exam.create("draftExam1", member1.getId());
@@ -109,7 +109,7 @@ class ExamRepositoryTest extends AbstractIntegrationTest {
                 Question.shortAnswer("질문6", "지문", "답6"),
                 Question.shortAnswer("질문7", "지문", "답7")
         ));
-        publishedExam3.publish(null, null);
+        publishedExam3.publish();
         examRepository.save(publishedExam3);
 
         // when

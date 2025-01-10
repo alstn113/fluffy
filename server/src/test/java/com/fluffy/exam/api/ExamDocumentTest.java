@@ -351,9 +351,7 @@ class ExamDocumentTest extends AbstractDocumentTest {
                                 List.of(new QuestionOptionRequest("선택1", true),
                                         new QuestionOptionRequest("선택2", true))),
                         new TrueOrFalseQuestionAppRequest("질문5", "지문", "TRUE_OR_FALSE", true)
-                ),
-                LocalDateTime.now(),
-                LocalDateTime.now().plusDays(1)
+                )
         );
 
         doNothing().when(examService).publish(any());
@@ -381,9 +379,7 @@ class ExamDocumentTest extends AbstractDocumentTest {
                                 fieldWithPath("questions[].trueOrFalse").description("true or false 정답").optional(),
                                 fieldWithPath("questions[].options").description("선택지 목록").optional(),
                                 fieldWithPath("questions[].options[].text").description("선택지 내용").optional(),
-                                fieldWithPath("questions[].options[].isCorrect").description("정답 여부").optional(),
-                                fieldWithPath("startAt").description("시작 시간").optional(),
-                                fieldWithPath("endAt").description("종료 시간").optional()
+                                fieldWithPath("questions[].options[].isCorrect").description("정답 여부").optional()
                         )
                 ));
     }

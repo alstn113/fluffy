@@ -10,7 +10,6 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import java.time.LocalDateTime;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -41,9 +40,6 @@ public class Exam extends AuditableEntity {
     @Embedded
     private final QuestionGroup questionGroup = new QuestionGroup();
 
-    @Embedded
-    private ExamPeriod examPeriod;
-
     @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
     private boolean isSingleAttempt = false;
 
@@ -57,7 +53,7 @@ public class Exam extends AuditableEntity {
         return exam;
     }
 
-    public void publish(LocalDateTime startAt, LocalDateTime endAt) {
+    public void publish() {
         if (status.isPublished()) {
             throw new BadRequestException("시험은 이미 출시되었습니다.");
         }
@@ -66,7 +62,6 @@ public class Exam extends AuditableEntity {
             throw new BadRequestException("시험을 출시하기 위해서는 최소 1개 이상의 문제를 추가해야 합니다.");
         }
 
-        this.examPeriod = ExamPeriod.create(startAt, endAt);
         this.status = ExamStatus.PUBLISHED;
     }
 

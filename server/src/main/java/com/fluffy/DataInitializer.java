@@ -7,7 +7,6 @@ import com.fluffy.exam.domain.Exam;
 import com.fluffy.exam.domain.ExamRepository;
 import com.fluffy.exam.domain.Question;
 import com.fluffy.exam.domain.QuestionOption;
-import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
@@ -89,7 +88,7 @@ public class DataInitializer implements ApplicationRunner {
                 )),
                 Question.trueOrFalse("펭귄은 날 수 있는 새이다.", "", false)
         ));
-        exam1.publish(null, null);
+        exam1.publish();
         examRepository.save(exam1);
 
         Exam exam2 = Exam.create("역사 시험", member1.getId());
@@ -128,7 +127,7 @@ public class DataInitializer implements ApplicationRunner {
                 Question.shortAnswer("로제타 스톤의 중요성은 무엇인가요?", "", "고대 이집트 문자의 해독"),
                 Question.longAnswer("콜럼버스의 발견과 그 영향에 대해 설명하세요.", "")
         ));
-        exam2.publish(null, LocalDateTime.now().plusDays(3));
+        exam2.publish();
         examRepository.save(exam2);
 
         Exam exam3 = Exam.create("영어 시험", member2.getId());
@@ -172,7 +171,7 @@ public class DataInitializer implements ApplicationRunner {
                 Question.shortAnswer("‘beneficial’의 의미는 무엇인가요?", "", "유익한"),
                 Question.longAnswer("‘I wish I had studied harder’ 문장의 의미를 설명하세요.", "")
         ));
-        exam3.publish(LocalDateTime.now().plusDays(1), LocalDateTime.now().plusDays(2));
+        exam3.publish();
         examRepository.save(exam3);
 
         Exam exam4 = Exam.create("과학 시험", member2.getId());
@@ -209,7 +208,7 @@ public class DataInitializer implements ApplicationRunner {
                 Question.trueOrFalse("빛은 물질을 통과할 수 없다.", "", false),
                 Question.longAnswer("지구의 내부 구조에 대해 설명하세요.", "")
         ));
-        exam4.publish(LocalDateTime.now().plusDays(2), LocalDateTime.now().plusDays(4));
+        exam4.publish();
         examRepository.save(exam4);
 
         Exam exam5 = Exam.create("문화 시험", member2.getId());
@@ -248,7 +247,7 @@ public class DataInitializer implements ApplicationRunner {
                 Question.shortAnswer("‘매트릭스’ 영화의 주제는 무엇인가요?", "", "가상 현실과 인간의 자유 의지"),
                 Question.longAnswer("세계 각국의 전통 축제에 대해 설명하세요.", "")
         ));
-        exam5.publish(LocalDateTime.now().plusDays(1), LocalDateTime.now().plusDays(3));
+        exam5.publish();
         examRepository.save(exam5);
 
         Exam exam6 = Exam.create("컴퓨터 시험", member3.getId());
@@ -287,7 +286,7 @@ public class DataInitializer implements ApplicationRunner {
                 Question.shortAnswer("오픈 소스 소프트웨어의 장점은 무엇인가요?", "", "자유로운 사용, 수정 가능"),
                 Question.longAnswer("기술 발전이 사회에 미친 영향에 대해 설명하세요.", "")
         ));
-        exam6.publish(LocalDateTime.now().plusDays(2), LocalDateTime.now().plusDays(4));
+        exam6.publish();
         examRepository.save(exam6);
     }
 }

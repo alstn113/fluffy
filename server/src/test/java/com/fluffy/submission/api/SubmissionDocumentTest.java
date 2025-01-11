@@ -12,8 +12,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fluffy.submission.api.request.SubmissionWebRequest;
-import com.fluffy.submission.application.SubmissionQueryService;
-import com.fluffy.submission.application.SubmissionService;
 import com.fluffy.submission.application.request.QuestionResponseAppRequest;
 import com.fluffy.submission.application.response.SubmissionDetailResponse;
 import com.fluffy.submission.application.response.SubmissionDetailResponse.ChoiceAnswerResponse;
@@ -28,18 +26,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 
 class SubmissionDocumentTest extends AbstractDocumentTest {
-
-    @MockBean
-    private SubmissionService submissionService;
-
-    @MockBean
-    private SubmissionQueryService submissionQueryService;
 
     @Test
     @DisplayName("시험 제출 요약 목록을 조회할 수 있다.")

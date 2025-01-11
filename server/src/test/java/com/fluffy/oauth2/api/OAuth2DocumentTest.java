@@ -9,23 +9,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fluffy.auth.application.response.TokenResponse;
-import com.fluffy.global.web.cookie.CookieManager;
-import com.fluffy.oauth2.application.OAuth2Service;
 import com.fluffy.support.AbstractDocumentTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.ResponseCookie;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 
 class OAuth2DocumentTest extends AbstractDocumentTest {
-
-    @MockBean
-    private OAuth2Service oauth2Service;
-
-    @MockBean
-    private CookieManager cookieManager;
 
     @Test
     @DisplayName("OAuth2 로그인 페이지로 리다이렉트 된다.")

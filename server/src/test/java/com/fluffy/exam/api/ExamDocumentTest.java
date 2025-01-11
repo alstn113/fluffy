@@ -51,7 +51,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 
-@WebMvcTest(ExamController.class)
 class ExamDocumentTest extends AbstractDocumentTest {
 
     @MockBean

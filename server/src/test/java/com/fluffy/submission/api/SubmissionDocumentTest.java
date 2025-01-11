@@ -33,7 +33,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 
-@WebMvcTest(SubmissionController.class)
 class SubmissionDocumentTest extends AbstractDocumentTest {
 
     @MockBean

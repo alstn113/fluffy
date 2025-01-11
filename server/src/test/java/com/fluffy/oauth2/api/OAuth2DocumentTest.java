@@ -19,7 +19,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.ResponseCookie;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 
-@WebMvcTest(OAuth2Controller.class)
 class OAuth2DocumentTest extends AbstractDocumentTest {
 
     @MockBean

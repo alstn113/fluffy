@@ -23,8 +23,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseCookie;
 
-@WebMvcTest(AuthController.class)
-@Import({CookieManager.class})
+@Import(CookieManager.class)
 class AuthDocumentTest extends AbstractDocumentTest {
 
     @MockBean

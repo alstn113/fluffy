@@ -20,8 +20,6 @@ import com.fluffy.exam.api.request.PublishExamWebRequest;
 import com.fluffy.exam.api.request.UpdateExamDescriptionWebRequest;
 import com.fluffy.exam.api.request.UpdateExamQuestionsWebRequest;
 import com.fluffy.exam.api.request.UpdateExamTitleWebRequest;
-import com.fluffy.exam.application.ExamQueryService;
-import com.fluffy.exam.application.ExamService;
 import com.fluffy.exam.application.request.question.LongAnswerQuestionAppRequest;
 import com.fluffy.exam.application.request.question.MultipleChoiceAppRequest;
 import com.fluffy.exam.application.request.question.QuestionOptionRequest;
@@ -46,19 +44,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 
-@WebMvcTest(ExamController.class)
 class ExamDocumentTest extends AbstractDocumentTest {
-
-    @MockBean
-    private ExamService examService;
-
-    @MockBean
-    private ExamQueryService examQueryService;
 
     @Test
     @DisplayName("출제된 시험 요약 목록을 조회할 수 있다.")

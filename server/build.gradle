@@ -93,13 +93,6 @@ asciidoctor {
     baseDirFollowsSourceFile()
 }
 
-bootJar {
-    dependsOn asciidoctor
-    from("${asciidoctor.outputDir}") {
-        into 'static/docs'
-    }
-}
-
 tasks.register('copyDocument', Copy) {
     dependsOn asciidoctor
     from file("build/docs/asciidoc")

@@ -10,28 +10,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.fluffy.auth.application.AuthService;
 import com.fluffy.auth.application.response.MyInfoResponse;
 import com.fluffy.global.web.cookie.CookieManager;
 import com.fluffy.support.AbstractDocumentTest;
 import jakarta.servlet.http.Cookie;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseCookie;
 
-@WebMvcTest(AuthController.class)
-@Import({CookieManager.class})
+@Import(CookieManager.class)
 class AuthDocumentTest extends AbstractDocumentTest {
-
-    @MockBean
-    private AuthService authService;
-
-    @MockBean
-    private CookieManager cookieManager;
 
     @Test
     @DisplayName("나의 정보를 조회할 수 있다.")

@@ -86,6 +86,10 @@ test {
     outputs.dir snippetsDir
 }
 
+asciidoctor.doFirst {
+    delete file("src/main/resources/static/docs") // docs 디렉토리 삭제
+}
+
 asciidoctor {
     inputs.dir snippetsDir
     configurations 'asciidoctorExt'

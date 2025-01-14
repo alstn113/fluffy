@@ -1,9 +1,7 @@
 import { ExamSummaryResponse } from '@/api/examAPI';
 import { Routes } from '@/constants';
-import useUser from '@/hooks/useUser';
 import { fromNowDate } from '@/lib/date.ts';
 import { Button, Card, CardFooter, CardHeader, Chip, Divider, Image } from '@nextui-org/react';
-import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router';
 import BaseCardBody from '../common/BaseCardBody';
 
@@ -12,14 +10,8 @@ interface ExamSummaryCardProps {
 }
 
 const ExamSummaryCard = ({ exam }: ExamSummaryCardProps) => {
-  const user = useUser();
   const navigate = useNavigate();
   const handleExamStart = () => {
-    if (!user) {
-      toast.error('로그인이 필요합니다.');
-      return;
-    }
-
     navigate(Routes.exam.intro(exam.id));
   };
 

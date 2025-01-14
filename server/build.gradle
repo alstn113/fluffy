@@ -81,27 +81,20 @@ dependencies {
 
 test {
     useJUnitPlatform()
-    delete snippetsDir // generated-snippets 디렉토리 삭제
     outputs.dir snippetsDir
-}
-
-asciidoctor.doFirst {
-    delete file("src/main/resources/static/docs") // docs 디렉토리 삭제
 }
 
 asciidoctor {
     inputs.dir snippetsDir
     configurations 'asciidoctorExt'
     dependsOn test
+
     baseDirFollowsSourceFile()
 }
 
-tasks.register('copyDocument', Copy) {
+bootJar {
     dependsOn asciidoctor
-    from file("build/docs/asciidoc")
-    into file("src/main/resources/static/docs")
-}
-
-build {
-    dependsOn copyDocument
+    from ("${asciidoctor.outputDir}") {
+        into 'static/docs'
+    }
 }

@@ -30,7 +30,7 @@ const ExamManagementQuestionsPanel = ({
 const ExamEditorPanel = ({ examId }: { examId: number }) => {
   const { data } = useGetExamWithAnswers(examId);
   const { questionTypeSelectorActive, questions } = useExamEditorStore();
-  const { mutate } = useUpdateExamQuestions();
+  const { mutate, isPending } = useUpdateExamQuestions();
 
   const handleUpdateQuestions = () => {
     mutate({
@@ -50,6 +50,7 @@ const ExamEditorPanel = ({ examId }: { examId: number }) => {
           variant="shadow"
           onPress={handleUpdateQuestions}
           className="text-white"
+          isLoading={isPending}
         >
           임시 저장
         </Button>

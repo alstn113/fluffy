@@ -102,6 +102,6 @@ tasks.register('copyDocument', Copy) {
     into file("src/main/resources/static/docs")
 }
 
-build {
+bootJar {
     dependsOn copyDocument
 }

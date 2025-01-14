@@ -1,8 +1,10 @@
 import AsyncBoundary from '@/components/AsyncBoundary';
 import { Routes } from '@/constants';
 import useGetExam from '@/hooks/api/exam/useGetExam';
+import useUser from '@/hooks/useUser';
 import { fullDate } from '@/lib/date.ts';
 import { Button, Divider } from '@nextui-org/react';
+import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router';
 
 const ExamIntroPage = () => {
@@ -21,10 +23,15 @@ const ExamIntroPage = () => {
 };
 
 const ExamProgressContent = ({ examId }: { examId: number }) => {
+  const user = useUser();
   const { data } = useGetExam(examId);
   const navigate = useNavigate();
 
   const handleExamStart = () => {
+    if (!user) {
+      toast.error('로그인이 필요합니다.');
+      return;
+    }
     navigate(Routes.exam.progress(examId));
   };
 

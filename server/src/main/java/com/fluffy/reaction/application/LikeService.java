@@ -1,5 +1,6 @@
 package com.fluffy.reaction.application;
 
+import com.fluffy.global.exception.BadRequestException;
 import com.fluffy.global.exception.NotFoundException;
 import com.fluffy.reaction.domain.Reaction;
 import com.fluffy.reaction.domain.ReactionRepository;
@@ -28,7 +29,7 @@ public class LikeService {
     @Transactional
     public Long removeLike(ReactionTarget target, Long targetId, Long memberId) {
         Reaction reaction = reactionRepository.findByTargetAndTargetIdAndMemberId(target, targetId, memberId)
-                .orElseThrow(() -> new NotFoundException("좋아요를 한 상태가 아닙니다."));
+                .orElseThrow(() -> new BadRequestException("좋아요를 한 상태가 아닙니다."));
 
         reaction.delete();
 

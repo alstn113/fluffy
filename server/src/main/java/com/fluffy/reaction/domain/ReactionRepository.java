@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ReactionRepository extends JpaRepository<Reaction, Long>, ExamRepositoryCustom {
 
-    Optional<Reaction> findByTargetAndTargetIdAndMemberId(ReactionTarget target, Long targetId, Long memberId);
+    Optional<Reaction> findByTargetTypeAndTargetIdAndMemberId(String targetType, Long targetId, Long memberId);
 }

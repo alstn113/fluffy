@@ -12,7 +12,7 @@ class ReactionTest {
     @DisplayName("반응을 정상적으로 생성할 수 있다.")
     void create() {
         // when & then
-        assertThatCode(() -> new Reaction(ReactionTarget.EXAM, 1L, 1L, ReactionType.LIKE))
+        assertThatCode(() -> new Reaction("EXAM", 1L, 1L, ReactionType.LIKE))
                 .doesNotThrowAnyException();
     }
 
@@ -20,7 +20,7 @@ class ReactionTest {
     @DisplayName("반응을 삭제 상태로 변경할 수 있다.")
     void delete() {
         // given
-        Reaction reaction = new Reaction(ReactionTarget.EXAM, 1L, 1L, ReactionType.LIKE);
+        Reaction reaction = new Reaction("EXAM", 1L, 1L, ReactionType.LIKE);
 
         // when
         reaction.delete();
@@ -33,7 +33,7 @@ class ReactionTest {
     @DisplayName("삭제 상태의 반응을 활성 상태로 변경할 수 있다.")
     void active() {
         // given
-        Reaction reaction = new Reaction(ReactionTarget.EXAM, 1L, 1L, ReactionType.LIKE);
+        Reaction reaction = new Reaction("EXAM", 1L, 1L, ReactionType.LIKE);
         reaction.delete();
 
         // when

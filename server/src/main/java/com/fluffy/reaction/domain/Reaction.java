@@ -21,9 +21,8 @@ public class Reaction extends AuditableEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private ReactionTarget target;
+    private String targetType;
 
     @Column(nullable = false)
     private Long targetId;
@@ -39,20 +38,20 @@ public class Reaction extends AuditableEntity {
     @Column(nullable = false)
     private ReactionStatus status;
 
-    public Reaction(ReactionTarget target, Long targetId, Long memberId, ReactionType type) {
-        this(null, target, targetId, memberId, type, ReactionStatus.ACTIVE);
+    public Reaction(String targetType, Long targetId, Long memberId, ReactionType type) {
+        this(null, targetType, targetId, memberId, type, ReactionStatus.ACTIVE);
     }
 
     public Reaction(
             Long id,
-            ReactionTarget target,
+            String targetType,
             Long targetId,
             Long memberId,
             ReactionType type,
             ReactionStatus status
     ) {
         this.id = id;
-        this.target = target;
+        this.targetType = targetType;
         this.targetId = targetId;
         this.memberId = memberId;
         this.type = type;

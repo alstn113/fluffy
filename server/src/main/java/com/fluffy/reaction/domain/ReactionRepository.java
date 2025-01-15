@@ -1,10 +1,9 @@
 package com.fluffy.reaction.domain;
 
-import com.fluffy.exam.domain.ExamRepositoryCustom;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ReactionRepository extends JpaRepository<Reaction, Long>, ExamRepositoryCustom {
+public interface ReactionRepository extends JpaRepository<Reaction, Long> {
 
     Optional<Reaction> findByTargetTypeAndTargetIdAndMemberId(String targetType, Long targetId, Long memberId);
 }

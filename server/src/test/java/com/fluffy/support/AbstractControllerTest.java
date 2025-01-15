@@ -7,6 +7,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fluffy.auth.api.AuthController;
 import com.fluffy.auth.application.AuthService;
 import com.fluffy.exam.api.ExamController;
+import com.fluffy.exam.api.ExamLikeController;
+import com.fluffy.exam.application.ExamLikeService;
 import com.fluffy.exam.application.ExamQueryService;
 import com.fluffy.exam.application.ExamService;
 import com.fluffy.global.web.Accessor;
@@ -27,6 +29,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @WebMvcTest({
         AuthController.class,
         ExamController.class,
+        ExamLikeController.class,
         OAuth2Controller.class,
         SubmissionController.class,
 })
@@ -49,6 +52,9 @@ public abstract class AbstractControllerTest {
 
     @MockBean
     protected ExamService examService;
+
+    @MockBean
+    protected ExamLikeService examLikeService;
 
     @MockBean
     protected ExamQueryService examQueryService;

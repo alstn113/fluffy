@@ -19,7 +19,7 @@ const MoveQuestionButtonGroup = () => {
   const params = useParams() as { examId: string };
   const examId = Number(params.examId);
   const navigate = useNavigate();
-  const { mutate } = useCreateSubmission();
+  const { mutate, isPending } = useCreateSubmission();
   const { questionResponses } = useSubmissionStore();
 
   const handleSubmit = () => {
@@ -77,7 +77,7 @@ const MoveQuestionButtonGroup = () => {
                   <Button color="danger" variant="light" onPress={onClose}>
                     닫기
                   </Button>
-                  <Button color="primary" onPress={handleSubmit}>
+                  <Button color="primary" onPress={handleSubmit} isLoading={isPending}>
                     확인
                   </Button>
                 </ModalFooter>

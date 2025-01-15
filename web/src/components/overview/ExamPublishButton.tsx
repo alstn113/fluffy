@@ -19,7 +19,7 @@ interface ExamPublishButtonProps {
 const ExamPublishButton = ({ examId }: ExamPublishButtonProps) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const { questions } = useExamEditorStore();
-  const { mutate: publishExamMutate } = usePublishExam();
+  const { mutate: publishExamMutate, isPending } = usePublishExam();
   const navigate = useNavigate();
 
   const handlePublishExam = () => {
@@ -59,7 +59,7 @@ const ExamPublishButton = ({ examId }: ExamPublishButtonProps) => {
                 <Button color="danger" variant="light" onPress={onClose}>
                   취소
                 </Button>
-                <Button color="primary" onPress={handlePublishExam}>
+                <Button color="primary" onPress={handlePublishExam} isLoading={isPending}>
                   확인
                 </Button>
               </ModalFooter>

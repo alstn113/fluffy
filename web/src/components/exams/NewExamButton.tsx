@@ -17,7 +17,7 @@ import { FaPlusCircle } from 'react-icons/fa';
 const NewExamButton = () => {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [title, setTitle] = useState('');
-  const { mutate } = useCreateExam();
+  const { mutate, isPending } = useCreateExam();
   const navigate = useNavigate();
 
   const handleCreateNewExam = async () => {
@@ -59,7 +59,7 @@ const NewExamButton = () => {
                 <Button color="danger" variant="light" onPress={onClose}>
                   닫기
                 </Button>
-                <Button color="primary" onPress={handleCreateNewExam}>
+                <Button color="primary" onPress={handleCreateNewExam} isLoading={isPending}>
                   확인
                 </Button>
               </ModalFooter>

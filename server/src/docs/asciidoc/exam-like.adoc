@@ -1,0 +1,9 @@
+== Exam Like API
+
+=== 시험 좋아요 등록
+
+operation::exam-like-document-test/like[]
+
+=== 시험 좋아요 취소
+
+operation::exam-like-document-test/unlike[]

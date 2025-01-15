@@ -7,6 +7,10 @@
 = Fluffy API 명세서
 
 include::auth.adoc[]
+
 include::oauth2.adoc[]
+
 include::exam.adoc[]
+include::exam-like.adoc[]
+
 include::submission.adoc[]

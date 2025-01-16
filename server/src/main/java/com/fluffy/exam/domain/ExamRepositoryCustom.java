@@ -1,5 +1,6 @@
 package com.fluffy.exam.domain;
 
+import com.fluffy.exam.domain.dto.ExamDetailSummaryDto;
 import com.fluffy.exam.domain.dto.ExamSummaryDto;
 import com.fluffy.exam.domain.dto.MyExamSummaryDto;
 import com.fluffy.exam.domain.dto.SubmittedExamSummaryDto;
@@ -13,4 +14,6 @@ public interface ExamRepositoryCustom {
     Page<MyExamSummaryDto> findMyExamSummaries(Pageable pageable, ExamStatus status, Long memberId);
 
     Page<SubmittedExamSummaryDto> findSubmittedExamSummaries(Pageable pageable, Long memberId);
+
+    ExamDetailSummaryDto findExamDetailSummary(Long examId);
 }

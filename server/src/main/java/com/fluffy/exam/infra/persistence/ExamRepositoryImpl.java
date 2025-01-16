@@ -9,9 +9,11 @@ import static com.fluffy.submission.domain.QSubmission.submission;
 import com.fluffy.exam.domain.ExamRepositoryCustom;
 import com.fluffy.exam.domain.ExamStatus;
 import com.fluffy.exam.domain.dto.AuthorDto;
+import com.fluffy.exam.domain.dto.ExamDetailSummaryDto;
 import com.fluffy.exam.domain.dto.ExamSummaryDto;
 import com.fluffy.exam.domain.dto.MyExamSummaryDto;
 import com.fluffy.exam.domain.dto.QAuthorDto;
+import com.fluffy.exam.domain.dto.QExamDetailSummaryDto;
 import com.fluffy.exam.domain.dto.QExamSummaryDto;
 import com.fluffy.exam.domain.dto.QMyExamSummaryDto;
 import com.fluffy.exam.domain.dto.QSubmittedExamSummaryDto;
@@ -206,5 +208,33 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
         return pagedExams.stream()
                 .map(tuple -> tuple.get(exam.id))
                 .toList();
+    }
+
+
+    @Override
+    public ExamDetailSummaryDto findExamDetailSummary(Long examId) {
+        return queryFactory
+                .select(new QExamDetailSummaryDto(
+                        exam.id,
+                        exam.title.value,
+                        exam.description.value,
+                        exam.status,
+                        AUTHOR_PROJECTION,
+                        question.countDistinct(),
+                        reaction.countDistinct(),
+                        exam.createdAt,
+                        exam.updatedAt
+                ))
+                .from(exam)
+                .join(member).on(exam.memberId.eq(member.id))
+                .join(exam.questionGroup.questions, question)
+                .join(reaction).on(
+                        exam.id.eq(reaction.targetId)
+                                .and(reaction.targetType.eq(LikeTarget.EXAM.name()))
+                                .and(reaction.type.eq(ReactionType.LIKE))
+                                .and(reaction.status.eq(ReactionStatus.ACTIVE))
+                )
+                .where(exam.id.eq(examId))
+                .fetchOne();
     }
 }

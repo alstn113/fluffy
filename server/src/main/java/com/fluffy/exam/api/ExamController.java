@@ -9,6 +9,7 @@ import com.fluffy.exam.application.ExamQueryService;
 import com.fluffy.exam.application.ExamService;
 import com.fluffy.exam.application.response.CreateExamResponse;
 import com.fluffy.exam.application.response.ExamDetailResponse;
+import com.fluffy.exam.application.response.ExamDetailSummaryResponse;
 import com.fluffy.exam.application.response.ExamWithAnswersResponse;
 import com.fluffy.exam.domain.ExamStatus;
 import com.fluffy.exam.domain.dto.ExamSummaryDto;
@@ -63,6 +64,15 @@ public class ExamController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/api/v1/exams/{examId}/summary")
+    public ResponseEntity<ExamDetailSummaryResponse> getExamDetailSummary(
+            @PathVariable Long examId,
+            @Auth(required = false) Accessor accessor
+    ) {
+        ExamDetailSummaryResponse response = examQueryService.getExamDetailSummary(examId, accessor);
+
+        return ResponseEntity.ok(response);
+    }
 
     @GetMapping("/api/v1/exams/{examId}")
     public ResponseEntity<ExamDetailResponse> getExamDetail(@PathVariable Long examId) {

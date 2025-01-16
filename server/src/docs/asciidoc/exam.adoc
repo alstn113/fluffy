@@ -8,6 +8,10 @@ operation::exam-document-test/get-published-exam-summaries[]
 
 operation::exam-document-test/get-my-exam-summaries[]
 
+=== 시험 상세 요약 조회
+
+operation::exam-document-test/get-exam-detail-summary[]
+
 === 시험 상세 조회
 
 operation::exam-document-test/get-exam-detail[]

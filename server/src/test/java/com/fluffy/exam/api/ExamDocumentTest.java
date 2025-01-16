@@ -31,6 +31,7 @@ import com.fluffy.exam.application.response.ExamDetailResponse;
 import com.fluffy.exam.application.response.ExamDetailResponse.AnswerQuestionResponse;
 import com.fluffy.exam.application.response.ExamDetailResponse.ChoiceQuestionResponse;
 import com.fluffy.exam.application.response.ExamDetailResponse.ChoiceQuestionResponse.QuestionOptionResponse;
+import com.fluffy.exam.application.response.ExamDetailSummaryResponse;
 import com.fluffy.exam.application.response.ExamWithAnswersResponse;
 import com.fluffy.exam.domain.ExamStatus;
 import com.fluffy.exam.domain.dto.AuthorDto;
@@ -158,6 +159,55 @@ class ExamDocumentTest extends AbstractDocumentTest {
                                 fieldWithPath("content[].author.id").description("작성자 ID"),
                                 fieldWithPath("content[].author.name").description("작성자 이름"),
                                 fieldWithPath("content[].author.avatarUrl").description("작성자 아바타 URL")
+                        )
+                ));
+    }
+
+    @Test
+    @DisplayName("시험 상세 요약 정보를 조회할 수 있다.")
+    void getExamDetailSummary() throws Exception {
+        ExamDetailSummaryResponse response = new ExamDetailSummaryResponse(
+                1L,
+                "시험1",
+                "설명1",
+                ExamStatus.PUBLISHED.name(),
+                new AuthorDto(1L, "작성자1", "https://avatar.com"),
+                3L,
+                2L,
+                true,
+                LocalDateTime.now(),
+                LocalDateTime.now()
+        );
+
+        when(examQueryService.getExamDetailSummary(any(), any()))
+                .thenReturn(response);
+
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/api/v1/exams/{examId}/summary", 1)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .cookie(new Cookie("accessToken", "{ACCESS_TOKEN}"))
+                )
+                .andExpectAll(
+                        status().isOk(),
+                        content().json(objectMapper.writeValueAsString(response))
+                )
+                .andDo(restDocs.document(
+                        pathParameters(
+                                parameterWithName("examId").description("시험 ID")
+                        ),
+                        responseFields(
+                                fieldWithPath("id").description("시험 ID"),
+                                fieldWithPath("title").description("시험 제목"),
+                                fieldWithPath("description").description("시험 설명"),
+                                fieldWithPath("status").description("시험 상태"),
+                                fieldWithPath("author").description("작성자 정보"),
+                                fieldWithPath("author.id").description("작성자 ID"),
+                                fieldWithPath("author.name").description("작성자 이름"),
+                                fieldWithPath("author.avatarUrl").description("작성자 아바타 URL"),
+                                fieldWithPath("questionCount").description("문제 수"),
+                                fieldWithPath("likeCount").description("좋아요 수"),
+                                fieldWithPath("isLiked").description("좋아요 여부"),
+                                fieldWithPath("createdAt").description("생성일"),
+                                fieldWithPath("updatedAt").description("수정일")
                         )
                 ));
     }

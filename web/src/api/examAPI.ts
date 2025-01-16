@@ -67,6 +67,16 @@ export const ExamAPI = {
     const { data } = await apiV1Client.patch<void>(`/exams/${examId}/description`, request);
     return data;
   },
+
+  like: async (examId: number) => {
+    const { data } = await apiV1Client.post<void>(`/exams/${examId}/like`);
+    return data;
+  },
+
+  unlike: async (examId: number) => {
+    const { data } = await apiV1Client.delete<void>(`/exams/${examId}/like`);
+    return data;
+  }
 };
 
 export const EXAM_STATUS = {

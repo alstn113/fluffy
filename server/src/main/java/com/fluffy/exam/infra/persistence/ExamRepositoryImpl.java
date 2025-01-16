@@ -173,18 +173,11 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
                         exam.description.value,
                         AUTHOR_PROJECTION,
                         submission.countDistinct(),
-                        reaction.countDistinct(),
                         submission.createdAt.max()
                 ))
                 .from(exam)
                 .join(submission).on(exam.id.eq(submission.examId))
                 .join(member).on(exam.memberId.eq(member.id))
-                .join(reaction).on(
-                        exam.id.eq(reaction.targetId)
-                                .and(reaction.targetType.eq(LikeTarget.EXAM.name()))
-                                .and(reaction.type.eq(ReactionType.LIKE))
-                                .and(reaction.status.eq(ReactionStatus.ACTIVE))
-                )
                 .where(exam.id.in(examIds))
                 .groupBy(
                         exam.id,

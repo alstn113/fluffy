@@ -16,7 +16,7 @@ operation::exam-document-test/get-exam-detail[]
 
 operation::exam-document-test/get-exam-detail-with-answers[]
 
-=== 출제된 시험 요약 목록 조회
+=== 내가 제출한 시험 요약 목록 조회
 
 operation::exam-document-test/get-submitted-exam-summaries[]
 

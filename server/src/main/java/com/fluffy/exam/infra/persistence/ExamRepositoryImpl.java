@@ -21,7 +21,6 @@ import com.fluffy.exam.domain.dto.SubmittedExamSummaryDto;
 import com.fluffy.reaction.domain.LikeTarget;
 import com.fluffy.reaction.domain.ReactionStatus;
 import com.fluffy.reaction.domain.ReactionType;
-import com.querydsl.core.Tuple;
 import com.querydsl.core.types.ConstructorExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -92,17 +91,13 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
     }
 
     private List<Long> getPagedExamIds(Pageable pageable) {
-        List<Tuple> pagedExams = queryFactory.select(exam.id, exam.updatedAt)
+        return queryFactory.select(exam.id)
                 .from(exam)
                 .where(exam.status.eq(ExamStatus.PUBLISHED))
                 .orderBy(exam.updatedAt.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
-
-        return pagedExams.stream()
-                .map(tuple -> tuple.get(exam.id))
-                .toList();
     }
 
     @Override
@@ -146,17 +141,13 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
     }
 
     private List<Long> getMyExamIds(Pageable pageable, Long memberId, ExamStatus status) {
-        List<Tuple> pagedExams = queryFactory.select(exam.id, exam.updatedAt)
+        return queryFactory.select(exam.id)
                 .from(exam)
                 .where(exam.memberId.eq(memberId), exam.status.eq(status))
                 .orderBy(exam.updatedAt.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
-
-        return pagedExams.stream()
-                .map(tuple -> tuple.get(exam.id))
-                .toList();
     }
 
     @Override
@@ -196,7 +187,7 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
     }
 
     private List<Long> getSubmittedExamIds(Pageable pageable, Long memberId) {
-        List<Tuple> pagedExams = queryFactory.select(exam.id, submission.createdAt.max())
+        return queryFactory.select(exam.id)
                 .from(exam)
                 .join(submission).on(exam.id.eq(submission.examId))
                 .where(submission.memberId.eq(memberId))
@@ -204,10 +195,6 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
-
-        return pagedExams.stream()
-                .map(tuple -> tuple.get(exam.id))
-                .toList();
     }
 
 

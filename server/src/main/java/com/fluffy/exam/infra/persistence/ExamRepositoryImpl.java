@@ -197,7 +197,6 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
                 .fetch();
     }
 
-
     @Override
     public ExamDetailSummaryDto findExamDetailSummary(Long examId) {
         return queryFactory

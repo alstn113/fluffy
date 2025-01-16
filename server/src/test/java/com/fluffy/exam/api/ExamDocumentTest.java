@@ -35,6 +35,7 @@ import com.fluffy.exam.application.response.ExamWithAnswersResponse;
 import com.fluffy.exam.domain.ExamStatus;
 import com.fluffy.exam.domain.dto.AuthorDto;
 import com.fluffy.exam.domain.dto.ExamSummaryDto;
+import com.fluffy.exam.domain.dto.MyExamSummaryDto;
 import com.fluffy.exam.domain.dto.SubmittedExamSummaryDto;
 import com.fluffy.global.response.PageInfo;
 import com.fluffy.global.response.PageResponse;
@@ -56,10 +57,10 @@ class ExamDocumentTest extends AbstractDocumentTest {
         List<ExamSummaryDto> summaries = List.of(
                 new ExamSummaryDto(1L, "시험1", "설명1", ExamStatus.PUBLISHED,
                         new AuthorDto(1L, "작성자1", "a@gmail.com"),
-                        3L, LocalDateTime.now(), LocalDateTime.now()),
+                        3L, 2L, LocalDateTime.now(), LocalDateTime.now()),
                 new ExamSummaryDto(2L, "시험2", "설명2", ExamStatus.PUBLISHED,
                         new AuthorDto(2L, "작성자2", "b@gmail.com"),
-                        3L, LocalDateTime.now(), LocalDateTime.now())
+                        3L, 1L, LocalDateTime.now(), LocalDateTime.now())
         );
         PageResponse<ExamSummaryDto> response = new PageResponse<>(pageInfo, summaries);
 
@@ -98,6 +99,7 @@ class ExamDocumentTest extends AbstractDocumentTest {
                                 fieldWithPath("content[].status").description("시험 상태"),
                                 fieldWithPath("content[].author").description("작성자 정보"),
                                 fieldWithPath("content[].questionCount").description("문제 수"),
+                                fieldWithPath("content[].likeCount").description("좋아요 수"),
                                 fieldWithPath("content[].createdAt").description("생성일"),
                                 fieldWithPath("content[].updatedAt").description("수정일"),
                                 fieldWithPath("content[].author.id").description("작성자 ID"),
@@ -111,15 +113,15 @@ class ExamDocumentTest extends AbstractDocumentTest {
     @DisplayName("내가 출제한 시험 요약 목록을 조회할 수 있다.")
     void getMyExamSummaries() throws Exception {
         PageInfo pageInfo = new PageInfo(0, 2, 4, true, false);
-        List<ExamSummaryDto> summaries = List.of(
-                new ExamSummaryDto(1L, "시험1", "설명1", ExamStatus.PUBLISHED,
+        List<MyExamSummaryDto> summaries = List.of(
+                new MyExamSummaryDto(1L, "시험1", "설명1", ExamStatus.PUBLISHED,
                         new AuthorDto(1L, "작성자1", "a@gmail.com"),
                         3L, LocalDateTime.now(), LocalDateTime.now()),
-                new ExamSummaryDto(2L, "시험2", "설명2", ExamStatus.PUBLISHED,
+                new MyExamSummaryDto(2L, "시험2", "설명2", ExamStatus.PUBLISHED,
                         new AuthorDto(1L, "작성자1", "a@gmail.com"),
                         2L, LocalDateTime.now(), LocalDateTime.now())
         );
-        PageResponse<ExamSummaryDto> response = new PageResponse<>(pageInfo, summaries);
+        PageResponse<MyExamSummaryDto> response = new PageResponse<>(pageInfo, summaries);
 
         when(examQueryService.getMyExamSummaries(any(), any(), any()))
                 .thenReturn(response);
@@ -292,6 +294,7 @@ class ExamDocumentTest extends AbstractDocumentTest {
                 "설명1",
                 new AuthorDto(1L, "작성자1", "https://avatar.com"),
                 3L,
+                2L,
                 LocalDateTime.now())
         );
         PageResponse<SubmittedExamSummaryDto> response = new PageResponse<>(pageInfo, summaries);
@@ -327,6 +330,7 @@ class ExamDocumentTest extends AbstractDocumentTest {
                                 fieldWithPath("content[].description").description("시험 설명"),
                                 fieldWithPath("content[].author").description("작성자 정보"),
                                 fieldWithPath("content[].submissionCount").description("제출 수"),
+                                fieldWithPath("content[].likeCount").description("좋아요 수"),
                                 fieldWithPath("content[].lastSubmissionDate").description("마지막 제출일"),
                                 fieldWithPath("content[].author.id").description("작성자 ID"),
                                 fieldWithPath("content[].author.name").description("작성자 이름"),

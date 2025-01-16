@@ -6,6 +6,7 @@ import com.fluffy.exam.domain.Exam;
 import com.fluffy.exam.domain.ExamRepository;
 import com.fluffy.exam.domain.ExamStatus;
 import com.fluffy.exam.domain.dto.ExamSummaryDto;
+import com.fluffy.exam.domain.dto.MyExamSummaryDto;
 import com.fluffy.exam.domain.dto.SubmittedExamSummaryDto;
 import com.fluffy.global.exception.ForbiddenException;
 import com.fluffy.global.response.PageResponse;
@@ -31,8 +32,8 @@ public class ExamQueryService {
     }
 
     @Transactional(readOnly = true)
-    public PageResponse<ExamSummaryDto> getMyExamSummaries(Pageable pageable, ExamStatus status, Accessor accessor) {
-        Page<ExamSummaryDto> summaries = examRepository.findMyExamSummaries(pageable, status, accessor.id());
+    public PageResponse<MyExamSummaryDto> getMyExamSummaries(Pageable pageable, ExamStatus status, Accessor accessor) {
+        Page<MyExamSummaryDto> summaries = examRepository.findMyExamSummaries(pageable, status, accessor.id());
 
         return PageResponse.of(summaries);
     }

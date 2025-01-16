@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import com.fluffy.auth.domain.Member;
 import com.fluffy.auth.domain.MemberRepository;
 import com.fluffy.exam.domain.dto.ExamSummaryDto;
+import com.fluffy.exam.domain.dto.MyExamSummaryDto;
 import com.fluffy.support.AbstractIntegrationTest;
 import com.fluffy.support.data.MemberTestData;
 import java.util.List;
@@ -114,7 +115,7 @@ class ExamRepositoryTest extends AbstractIntegrationTest {
 
         // when
         PageRequest pageable = PageRequest.of(0, 2);
-        Page<ExamSummaryDto> myExamSummaries = examRepository.findMyExamSummaries(
+        Page<MyExamSummaryDto> myExamSummaries = examRepository.findMyExamSummaries(
                 pageable,
                 ExamStatus.PUBLISHED,
                 member1.getId()
@@ -126,9 +127,9 @@ class ExamRepositoryTest extends AbstractIntegrationTest {
                 () -> assertThat(myExamSummaries.getTotalPages()).isEqualTo(1),
                 () -> assertThat(myExamSummaries.getNumber()).isZero(),
                 () -> assertThat(myExamSummaries.getSize()).isEqualTo(2),
-                () -> assertThat(myExamSummaries.getContent().stream().map(ExamSummaryDto::getId))
+                () -> assertThat(myExamSummaries.getContent().stream().map(MyExamSummaryDto::getId))
                         .containsExactlyElementsOf(List.of(publishedExam3.getId(), publishedExam1.getId())),
-                () -> assertThat(myExamSummaries.getContent().stream().map(ExamSummaryDto::getQuestionCount))
+                () -> assertThat(myExamSummaries.getContent().stream().map(MyExamSummaryDto::getQuestionCount))
                         .containsExactlyElementsOf(List.of(3L, 1L))
         );
     }

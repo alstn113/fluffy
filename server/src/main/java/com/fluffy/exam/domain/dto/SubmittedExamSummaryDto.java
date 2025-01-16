@@ -15,6 +15,7 @@ public class SubmittedExamSummaryDto {
     private String description;
     private AuthorDto author;
     private Long submissionCount;
+    private Long likeCount;
     private LocalDateTime lastSubmissionDate;
 
     @QueryProjection
@@ -24,6 +25,7 @@ public class SubmittedExamSummaryDto {
             String description,
             AuthorDto author,
             Long submissionCount,
+            Long likeCount,
             LocalDateTime lastSubmissionDate
     ) {
         this.examId = examId;
@@ -31,6 +33,7 @@ public class SubmittedExamSummaryDto {
         this.description = description;
         this.author = author;
         this.submissionCount = submissionCount;
+        this.likeCount = likeCount;
         this.lastSubmissionDate = lastSubmissionDate;
     }
 }

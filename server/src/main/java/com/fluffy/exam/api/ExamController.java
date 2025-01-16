@@ -12,6 +12,7 @@ import com.fluffy.exam.application.response.ExamDetailResponse;
 import com.fluffy.exam.application.response.ExamWithAnswersResponse;
 import com.fluffy.exam.domain.ExamStatus;
 import com.fluffy.exam.domain.dto.ExamSummaryDto;
+import com.fluffy.exam.domain.dto.MyExamSummaryDto;
 import com.fluffy.exam.domain.dto.SubmittedExamSummaryDto;
 import com.fluffy.global.response.PageResponse;
 import com.fluffy.global.web.Accessor;
@@ -50,14 +51,14 @@ public class ExamController {
     }
 
     @GetMapping("/api/v1/exams/mine")
-    public ResponseEntity<PageResponse<ExamSummaryDto>> getMyExamSummaries(
+    public ResponseEntity<PageResponse<MyExamSummaryDto>> getMyExamSummaries(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(value = "status", defaultValue = "draft") ExamStatus status,
             @Auth Accessor accessor
     ) {
         Pageable pageable = PageRequest.of(page, size);
-        PageResponse<ExamSummaryDto> response = examQueryService.getMyExamSummaries(pageable, status, accessor);
+        PageResponse<MyExamSummaryDto> response = examQueryService.getMyExamSummaries(pageable, status, accessor);
 
         return ResponseEntity.ok(response);
     }

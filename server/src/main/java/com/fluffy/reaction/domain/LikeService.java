@@ -1,9 +1,6 @@
-package com.fluffy.reaction.application;
+package com.fluffy.reaction.domain;
 
 import com.fluffy.global.exception.BadRequestException;
-import com.fluffy.reaction.domain.Reaction;
-import com.fluffy.reaction.domain.ReactionRepository;
-import com.fluffy.reaction.domain.ReactionType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

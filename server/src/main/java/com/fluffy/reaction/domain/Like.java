@@ -1,4 +1,4 @@
-package com.fluffy.reaction.application;
+package com.fluffy.reaction.domain;
 
 public record Like(LikeTarget target, Long targetId) {
 }

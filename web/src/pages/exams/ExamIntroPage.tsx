@@ -59,6 +59,10 @@ const ExamProgressContent = ({ examId }: { examId: number }) => {
           <div className="min-w-32 font-semibold">시험 상태</div>
           <div className="text-gray-500">출제 완료</div>
         </div>
+        <div className="flex gap-4">
+          <div className="min-w-32 font-semibold">좋아요 수</div>
+          <div className="text-gray-500">{data.likeCount} 개</div>
+        </div>
       </div>
       <Divider className="my-6" />
       <div className="flex flex-col gap-2 w-full">

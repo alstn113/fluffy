@@ -1,11 +1,11 @@
 import AsyncBoundary from '@/components/AsyncBoundary';
 import { Routes } from '@/constants';
-import useGetExam from '@/hooks/api/exam/useGetExam';
 import useUser from '@/hooks/useUser';
 import { fullDate } from '@/lib/date.ts';
 import { Button, Divider } from '@nextui-org/react';
 import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router';
+import useGetExamDetailSummary from '@/hooks/api/exam/useGetExamDetailSummary.ts';
 
 const ExamIntroPage = () => {
   const params = useParams() as { examId: string };
@@ -24,7 +24,7 @@ const ExamIntroPage = () => {
 
 const ExamProgressContent = ({ examId }: { examId: number }) => {
   const user = useUser();
-  const { data } = useGetExam(examId);
+  const { data } = useGetExamDetailSummary(examId);
   const navigate = useNavigate();
 
   const handleExamStart = () => {
@@ -45,7 +45,7 @@ const ExamProgressContent = ({ examId }: { examId: number }) => {
       <div className="flex flex-col gap-2 w-full">
         <div className="flex gap-4">
           <div className="min-w-32 font-semibold">시험 문항 수</div>
-          <div className="text-gray-500">{data.questions.length} 문항</div>
+          <div className="text-gray-500">{data.questionCount} 문항</div>
         </div>
         <div className="flex gap-4">
           <div className="min-w-32 font-semibold">최초 작성일</div>

@@ -18,8 +18,13 @@ export const ExamAPI = {
     return data;
   },
 
-  getById: async (id: number) => {
-    const { data } = await apiV1Client.get<ExamResponse>(`/exams/${id}`);
+  getExamDetailSummary: async (id: number) => {
+    const { data } = await apiV1Client.get<ExamDetailSummaryResponse>(`/exams/${id}/summary`);
+    return data;
+  },
+
+  getExamDetail: async (id: number) => {
+    const { data } = await apiV1Client.get<ExamDetailResponse>(`/exams/${id}`);
     return data;
   },
 
@@ -82,6 +87,7 @@ export interface ExamSummaryResponse {
   status: typeof EXAM_STATUS.draft;
   author: AuthorResponse;
   questionCount: number;
+  likeCount: number;
   createdAt: string;
   updatedAt: string;
 }
@@ -96,7 +102,20 @@ interface AuthorResponse {
   avatarUrl: string;
 }
 
-interface ExamResponse {
+interface ExamDetailSummaryResponse {
+  id: number;
+  title: string;
+  description: string;
+  status: ExamStatusType;
+  author: AuthorResponse;
+  questionCount: number;
+  likeCount: number;
+  isLiked: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+interface ExamDetailResponse {
   id: number;
   title: string;
   description: string;
@@ -106,7 +125,7 @@ interface ExamResponse {
   updatedAt: string;
 }
 
-interface ExamWithAnswersResponse extends ExamResponse {
+interface ExamWithAnswersResponse extends ExamDetailResponse {
   questions: QuestionWithAnswersResponse[];
 }
 

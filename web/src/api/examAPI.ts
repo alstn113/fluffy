@@ -85,11 +85,6 @@ export const EXAM_STATUS = {
 } as const;
 export type ExamStatusType = (typeof EXAM_STATUS)[keyof typeof EXAM_STATUS];
 
-export interface ExamSummaryParams {
-  page: number;
-  size: number;
-}
-
 export interface ExamSummaryResponse {
   id: number;
   title: string;

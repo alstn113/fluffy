@@ -170,7 +170,7 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
                         submission.createdAt.max()
                 ))
                 .from(exam)
-                .leftJoin(submission).on(exam.id.eq(submission.examId))
+                .join(submission).on(exam.id.eq(submission.examId))
                 .leftJoin(member).on(exam.memberId.eq(member.id))
                 .where(exam.id.in(examIds))
                 .groupBy(
@@ -190,7 +190,7 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
     private List<Long> getSubmittedExamIds(Pageable pageable, Long memberId) {
         return queryFactory.select(exam.id)
                 .from(exam)
-                .leftJoin(submission).on(exam.id.eq(submission.examId))
+                .join(submission).on(exam.id.eq(submission.examId))
                 .where(submission.memberId.eq(memberId))
                 .orderBy(submission.createdAt.max().desc())
                 .offset(pageable.getOffset())

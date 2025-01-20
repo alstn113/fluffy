@@ -11,6 +11,7 @@ import com.fluffy.exam.domain.dto.ExamSummaryDto;
 import com.fluffy.exam.domain.dto.MyExamSummaryDto;
 import com.fluffy.exam.domain.dto.SubmittedExamSummaryDto;
 import com.fluffy.global.exception.ForbiddenException;
+import com.fluffy.global.exception.NotFoundException;
 import com.fluffy.global.response.PageResponse;
 import com.fluffy.global.web.Accessor;
 import com.fluffy.reaction.domain.Like;
@@ -46,7 +47,8 @@ public class ExamQueryService {
 
     @Transactional(readOnly = true)
     public ExamDetailSummaryResponse getExamDetailSummary(Long examId, Accessor accessor) {
-        ExamDetailSummaryDto dto = examRepository.findExamDetailSummary(examId);
+        ExamDetailSummaryDto dto = examRepository.findExamDetailSummary(examId)
+                .orElseThrow(() -> new NotFoundException("시험을 찾을 수 없습니다."));
         boolean isLiked = likeQueryService.isLiked(new Like(LikeTarget.EXAM, examId), accessor.id());
 
         return examMapper.toDetailSummaryResponse(dto, isLiked);

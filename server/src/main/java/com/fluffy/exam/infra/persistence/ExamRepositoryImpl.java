@@ -25,6 +25,7 @@ import com.querydsl.core.types.ConstructorExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -154,7 +155,7 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
     public Page<SubmittedExamSummaryDto> findSubmittedExamSummaries(Pageable pageable, Long memberId) {
         JPAQuery<Long> countQuery = queryFactory.select(submission.count())
                 .from(exam)
-                .join(submission).on(exam.id.eq(submission.examId))
+                .leftJoin(submission).on(exam.id.eq(submission.examId))
                 .where(submission.memberId.eq(memberId));
 
         List<Long> examIds = getSubmittedExamIds(pageable, memberId);
@@ -169,8 +170,8 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
                         submission.createdAt.max()
                 ))
                 .from(exam)
-                .join(submission).on(exam.id.eq(submission.examId))
-                .join(member).on(exam.memberId.eq(member.id))
+                .leftJoin(submission).on(exam.id.eq(submission.examId))
+                .leftJoin(member).on(exam.memberId.eq(member.id))
                 .where(exam.id.in(examIds))
                 .groupBy(
                         exam.id,
@@ -189,7 +190,7 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
     private List<Long> getSubmittedExamIds(Pageable pageable, Long memberId) {
         return queryFactory.select(exam.id)
                 .from(exam)
-                .join(submission).on(exam.id.eq(submission.examId))
+                .leftJoin(submission).on(exam.id.eq(submission.examId))
                 .where(submission.memberId.eq(memberId))
                 .orderBy(submission.createdAt.max().desc())
                 .offset(pageable.getOffset())
@@ -198,8 +199,8 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
     }
 
     @Override
-    public ExamDetailSummaryDto findExamDetailSummary(Long examId) {
-        return queryFactory
+    public Optional<ExamDetailSummaryDto> findExamDetailSummary(Long examId) {
+        ExamDetailSummaryDto dto = queryFactory
                 .select(new QExamDetailSummaryDto(
                         exam.id,
                         exam.title.value,
@@ -212,15 +213,28 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
                         exam.updatedAt
                 ))
                 .from(exam)
-                .join(member).on(exam.memberId.eq(member.id))
-                .join(exam.questionGroup.questions, question)
-                .join(reaction).on(
+                .leftJoin(member).on(exam.memberId.eq(member.id))
+                .leftJoin(exam.questionGroup.questions, question)
+                .leftJoin(reaction).on(
                         exam.id.eq(reaction.targetId)
                                 .and(reaction.targetType.eq(LikeTarget.EXAM.name()))
                                 .and(reaction.type.eq(ReactionType.LIKE))
                                 .and(reaction.status.eq(ReactionStatus.ACTIVE))
                 )
                 .where(exam.id.eq(examId))
+                .groupBy(
+                        exam.id,
+                        exam.title,
+                        exam.description,
+                        exam.status,
+                        member.id,
+                        member.name,
+                        member.avatarUrl,
+                        exam.createdAt,
+                        exam.updatedAt
+                )
                 .fetchOne();
+
+        return Optional.ofNullable(dto);
     }
 }

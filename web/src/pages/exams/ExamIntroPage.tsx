@@ -7,6 +7,7 @@ import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router';
 import useGetExamDetailSummary from '@/hooks/api/exam/useGetExamDetailSummary.ts';
 import useExamLikeManager from '@/hooks/api/exam/useExamLikeManager';
+import { PiThumbsUpBold } from 'react-icons/pi';
 
 const ExamIntroPage = () => {
   const params = useParams() as { examId: string };
@@ -66,15 +67,8 @@ const ExamProgressContent = ({ examId }: { examId: number }) => {
           <div className="text-gray-500">출제 완료</div>
         </div>
         <div className="flex gap-4">
-          <div>
-            <div className="min-w-32 font-semibold">좋아요 수</div>
-            <div className="text-gray-500">{likeCount} 개</div>
-          </div>
-          <div>
-            <Button onClick={toggleLike} variant="shadow" color={isLiked ? 'primary' : 'default'}>
-              {isLiked ? '좋아요 취소' : '좋아요'}
-            </Button>
-          </div>
+          <div className="min-w-32 font-semibold">좋아요 수</div>
+          <div className="text-gray-500">{likeCount} 개</div>
         </div>
       </div>
       <Divider className="my-6" />
@@ -82,10 +76,22 @@ const ExamProgressContent = ({ examId }: { examId: number }) => {
         <div className="font-semibold">시험 설명</div>
         <div className="text-gray-500 break-words">{data.description}</div>
       </div>
-      <div className="w-full flex justify-center mt-6">
-        <Button onClick={handleExamStart} variant="shadow" color="primary">
-          시험 응시
-        </Button>
+      <div className="w-full flex justify-center mt-6 gap-4">
+        <div className="flex items-center justify-center">
+          <Button onClick={handleExamStart} variant="shadow" color="primary">
+            시험 응시
+          </Button>
+        </div>
+        <div className="flex items-center justify-center">
+          <Button
+            onClick={toggleLike}
+            variant="shadow"
+            isIconOnly
+            color={isLiked ? 'danger' : 'default'}
+          >
+            <PiThumbsUpBold />
+          </Button>
+        </div>
       </div>
     </>
   );

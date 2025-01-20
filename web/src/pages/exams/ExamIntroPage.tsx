@@ -6,6 +6,7 @@ import { Button, Divider } from '@nextui-org/react';
 import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router';
 import useGetExamDetailSummary from '@/hooks/api/exam/useGetExamDetailSummary.ts';
+import useExamLikeManager from '@/hooks/api/exam/useExamLikeManager';
 
 const ExamIntroPage = () => {
   const params = useParams() as { examId: string };
@@ -26,6 +27,11 @@ const ExamProgressContent = ({ examId }: { examId: number }) => {
   const user = useUser();
   const { data } = useGetExamDetailSummary(examId);
   const navigate = useNavigate();
+  const { isLiked, likeCount, toggleLike } = useExamLikeManager({
+    examId,
+    initialIsLiked: data.isLiked,
+    initialLikeCount: data.likeCount,
+  });
 
   const handleExamStart = () => {
     if (!user) {
@@ -60,8 +66,15 @@ const ExamProgressContent = ({ examId }: { examId: number }) => {
           <div className="text-gray-500">출제 완료</div>
         </div>
         <div className="flex gap-4">
-          <div className="min-w-32 font-semibold">좋아요 수</div>
-          <div className="text-gray-500">{data.likeCount} 개</div>
+          <div>
+            <div className="min-w-32 font-semibold">좋아요 수</div>
+            <div className="text-gray-500">{likeCount} 개</div>
+          </div>
+          <div>
+            <Button onClick={toggleLike} variant="shadow" color={isLiked ? 'primary' : 'default'}>
+              {isLiked ? '좋아요 취소' : '좋아요'}
+            </Button>
+          </div>
         </div>
       </div>
       <Divider className="my-6" />

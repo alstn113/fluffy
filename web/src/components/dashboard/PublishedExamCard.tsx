@@ -39,7 +39,7 @@ const PublishedExamCard = ({ exam }: PublishedExamCardProps) => {
       <Divider />
       <CardFooter className="flex justify-between">
         <Tooltip content="문항 수" placement="top" showArrow color="foreground">
-          <div className="flex gap-1 text-indigo-500">
+          <div className="flex gap-1 text-indigo-400 font-bold">
             <PiListChecksBold size={24} />
             {exam.questionCount}
           </div>

@@ -51,13 +51,13 @@ const ExamSummaryCard = ({ exam }: ExamSummaryCardProps) => {
       <CardFooter className="flex justify-between">
         <div className="flex gap-2">
           <Tooltip content="문항 수" placement="top" showArrow color="foreground">
-            <div className="flex gap-1 text-indigo-500">
+            <div className="flex gap-1 text-indigo-400 font-bold">
               <PiListChecksBold size={24} />
               {exam.questionCount}
             </div>
           </Tooltip>
           <Tooltip content="좋아요 수" placement="top" showArrow color="foreground">
-            <div className="flex gap-1 text-rose-500">
+            <div className="flex gap-1 text-rose-400 font-bold">
               <PiThumbsUpBold size={24} />
               {exam.likeCount}
             </div>

@@ -1,8 +1,8 @@
 import { useQueryClient } from '@tanstack/react-query';
 import useUser from '@/hooks/useUser.ts';
 import { useEffect, useState } from 'react';
-import useLikeExam from '@/hooks/api/exam/useLikeExam.ts';
-import useUnlikeExam from '@/hooks/api/exam/useUnlikeExam.ts';
+import useLikeExam from '@/hooks/api/exam/like/useLikeExam.ts';
+import useUnlikeExam from '@/hooks/api/exam/like/useUnlikeExam.ts';
 import toast from 'react-hot-toast';
 import useGetExamDetailSummary from '@/hooks/api/exam/useGetExamDetailSummary.ts';
 

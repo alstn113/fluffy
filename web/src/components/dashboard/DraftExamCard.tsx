@@ -1,14 +1,14 @@
-import { ExamSummaryResponse } from '@/api/examAPI';
+import { MyExamSummaryResponse } from '@/api/examAPI';
 import { Routes } from '@/constants';
 import { fromNowDate } from '@/lib/date.ts';
 import { Card, CardFooter, CardHeader, Chip, Divider, Image, Link } from '@nextui-org/react';
 import BaseCardBody from '../common/BaseCardBody';
 
-interface ExamSummaryCardProps {
-  exam: ExamSummaryResponse;
+interface DraftExamCardProps {
+  exam: MyExamSummaryResponse;
 }
 
-const DraftExamCard = ({ exam }: ExamSummaryCardProps) => {
+const DraftExamCard = ({ exam }: DraftExamCardProps) => {
   return (
     <Card className="max-w-[400px]">
       <CardHeader className="flex gap-3">

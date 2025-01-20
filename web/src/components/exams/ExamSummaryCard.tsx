@@ -39,7 +39,10 @@ const ExamSummaryCard = ({ exam }: ExamSummaryCardProps) => {
       <BaseCardBody title={exam.title} description={exam.description} />
       <Divider />
       <CardFooter className="flex justify-between">
-        <div>문제 수: {exam.questionCount}</div>
+        <div className="flex gap-3">
+          <div>문제 수: {exam.questionCount}</div>
+          <div>좋아요 수: {exam.likeCount}</div>
+        </div>
         <Button size="sm" variant="shadow" onPress={handleExamStart}>
           시험 보기
         </Button>

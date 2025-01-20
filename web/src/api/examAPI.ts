@@ -12,7 +12,7 @@ export const ExamAPI = {
   },
 
   getMyExamSummaries: async ({ page, size, status }: MyExamSummaryParams) => {
-    const { data } = await apiV1Client.get<PageResponse<ExamSummaryResponse>>('/exams/mine', {
+    const { data } = await apiV1Client.get<PageResponse<MyExamSummaryResponse>>('/exams/mine', {
       params: { status, page, size },
     });
     return data;
@@ -76,7 +76,7 @@ export const ExamAPI = {
   unlike: async (examId: number) => {
     const { data } = await apiV1Client.delete<void>(`/exams/${examId}/like`);
     return data;
-  }
+  },
 };
 
 export const EXAM_STATUS = {
@@ -99,6 +99,17 @@ export interface ExamSummaryResponse {
 
 export interface MyExamSummaryParams extends PageParmas {
   status: ExamStatusType;
+}
+
+export interface MyExamSummaryResponse {
+  id: number;
+  title: string;
+  description: string;
+  status: ExamStatusType;
+  author: AuthorResponse;
+  questionCount: number;
+  createdAt: string;
+  updatedAt: string;
 }
 
 interface AuthorResponse {

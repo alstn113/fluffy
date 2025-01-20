@@ -16,10 +16,11 @@ public class LikeQueryService {
             return false;
         }
 
-        return reactionRepository.existsByTargetTypeAndTargetIdAndMemberId(
+        return reactionRepository.findByTargetTypeAndTargetIdAndMemberIdAndType(
                 like.target().name(),
                 like.targetId(),
-                memberId
-        );
+                memberId,
+                ReactionType.LIKE
+        ).map(reaction -> reaction.getStatus() == ReactionStatus.ACTIVE).orElse(false);
     }
 }

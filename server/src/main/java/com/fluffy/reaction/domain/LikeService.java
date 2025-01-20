@@ -16,8 +16,12 @@ public class LikeService {
         String targetType = like.target().name();
         Long targetId = like.targetId();
 
-        Reaction reaction = reactionRepository.findByTargetTypeAndTargetIdAndMemberId(targetType, targetId, memberId)
-                .orElse(reactionRepository.save(new Reaction(targetType, targetId, memberId, ReactionType.LIKE)));
+        Reaction reaction = reactionRepository
+                .findByTargetTypeAndTargetIdAndMemberIdAndType(targetType, targetId, memberId, ReactionType.LIKE)
+                .orElseGet(() -> {
+                    Reaction newReaction = new Reaction(targetType, targetId, memberId, ReactionType.LIKE);
+                    return reactionRepository.save(newReaction);
+                });
 
         reaction.active();
 
@@ -29,7 +33,8 @@ public class LikeService {
         String targetType = like.target().name();
         Long targetId = like.targetId();
 
-        Reaction reaction = reactionRepository.findByTargetTypeAndTargetIdAndMemberId(targetType, targetId, memberId)
+        Reaction reaction = reactionRepository
+                .findByTargetTypeAndTargetIdAndMemberIdAndType(targetType, targetId, memberId, ReactionType.LIKE)
                 .orElseThrow(() -> new BadRequestException("좋아요를 한 상태가 아닙니다."));
 
         reaction.delete();

@@ -52,6 +52,10 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
 
         List<Long> examIds = getPagedExamIds(pageable);
 
+        if (examIds.isEmpty()) {
+            return PageableExecutionUtils.getPage(List.of(), pageable, countQuery::fetchOne);
+        }
+
         List<ExamSummaryDto> content = queryFactory
                 .selectDistinct(new QExamSummaryDto(
                         exam.id,
@@ -109,6 +113,10 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
 
         List<Long> examIds = getMyExamIds(pageable, memberId, status);
 
+        if (examIds.isEmpty()) {
+            return PageableExecutionUtils.getPage(List.of(), pageable, countQuery::fetchOne);
+        }
+
         List<MyExamSummaryDto> content = queryFactory
                 .selectDistinct(new QMyExamSummaryDto(
                         exam.id,
@@ -153,12 +161,16 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
 
     @Override
     public Page<SubmittedExamSummaryDto> findSubmittedExamSummaries(Pageable pageable, Long memberId) {
-        JPAQuery<Long> countQuery = queryFactory.select(submission.count())
+        JPAQuery<Long> countQuery = queryFactory.select(exam.count())
                 .from(exam)
-                .leftJoin(submission).on(exam.id.eq(submission.examId))
+                .join(submission).on(exam.id.eq(submission.examId))
                 .where(submission.memberId.eq(memberId));
 
         List<Long> examIds = getSubmittedExamIds(pageable, memberId);
+
+        if (examIds.isEmpty()) {
+            return PageableExecutionUtils.getPage(List.of(), pageable, countQuery::fetchOne);
+        }
 
         List<SubmittedExamSummaryDto> content = queryFactory
                 .select(new QSubmittedExamSummaryDto(
@@ -170,8 +182,8 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
                         submission.createdAt.max()
                 ))
                 .from(exam)
-                .join(submission).on(exam.id.eq(submission.examId))
                 .leftJoin(member).on(exam.memberId.eq(member.id))
+                .join(submission).on(exam.id.eq(submission.examId))
                 .where(exam.id.in(examIds))
                 .groupBy(
                         exam.id,
@@ -193,6 +205,7 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
                 .join(submission).on(exam.id.eq(submission.examId))
                 .where(submission.memberId.eq(memberId))
                 .orderBy(submission.createdAt.max().desc())
+                .groupBy(exam.id)
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();

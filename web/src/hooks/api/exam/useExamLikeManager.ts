@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import useUser from '@/hooks/useUser.ts';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import useGetExamDetailSummary from '@/hooks/api/exam/useGetExamDetailSummary.ts';
 import { ExamAPI, ExamDetailSummaryResponse } from '@/api/examAPI';
@@ -21,6 +21,20 @@ const useExamLikeManager = ({
 
   const [isLiked, setIsLiked] = useState<boolean>(initialIsLiked);
   const [likeCount, setLikeCount] = useState<number>(initialLikeCount);
+
+  const debounceTimeout = useRef<number | null>(null);
+
+  const invalidateQueryDebounced = () => {
+    if (debounceTimeout.current) {
+      clearTimeout(debounceTimeout.current);
+    }
+    debounceTimeout.current = setTimeout(async () => {
+      await queryClient.invalidateQueries({
+        queryKey: useGetExamDetailSummary.getKey(examId),
+        refetchType: 'all',
+      });
+    }, 300);
+  };
 
   const { mutate: likeExam } = useMutation({
     mutationFn: ExamAPI.like,
@@ -47,10 +61,7 @@ const useExamLikeManager = ({
       setLikeCount(likeCount - 1);
     },
     onSettled: async () => {
-      await queryClient.invalidateQueries({
-        queryKey: useGetExamDetailSummary.getKey(examId),
-        refetchType: 'all',
-      });
+      invalidateQueryDebounced();
     },
   });
 
@@ -79,10 +90,7 @@ const useExamLikeManager = ({
       setLikeCount(likeCount + 1);
     },
     onSettled: async () => {
-      await queryClient.invalidateQueries({
-        queryKey: useGetExamDetailSummary.getKey(examId),
-        refetchType: 'all',
-      });
+      invalidateQueryDebounced();
     },
   });
 

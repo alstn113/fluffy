@@ -1,8 +1,18 @@
 import { MyExamSummaryResponse } from '@/api/examAPI';
 import { Routes } from '@/constants';
 import { fromNowDate } from '@/lib/date.ts';
-import { Card, CardFooter, CardHeader, Chip, Divider, Image, Link } from '@nextui-org/react';
+import {
+  Card,
+  CardFooter,
+  CardHeader,
+  Chip,
+  Divider,
+  Image,
+  Link,
+  Tooltip,
+} from '@nextui-org/react';
 import BaseCardBody from '../common/BaseCardBody';
+import { PiListChecksBold } from 'react-icons/pi';
 
 interface PublishedExamCardProps {
   exam: MyExamSummaryResponse;
@@ -28,7 +38,12 @@ const PublishedExamCard = ({ exam }: PublishedExamCardProps) => {
       <BaseCardBody title={exam.title} description={exam.description} />
       <Divider />
       <CardFooter className="flex justify-between">
-        <div>문제 수: {exam.questionCount}</div>
+        <Tooltip content="문항 수" placement="top" showArrow color="foreground">
+          <div className="flex gap-1 text-indigo-500">
+            <PiListChecksBold size={24} />
+            {exam.questionCount}
+          </div>
+        </Tooltip>{' '}
         <Link href={Routes.exam.management.overview(exam.id)}>정보 확인하기</Link>
       </CardFooter>
     </Card>

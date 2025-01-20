@@ -15,6 +15,7 @@ import com.fluffy.exam.domain.ExamRepository;
 import com.fluffy.exam.domain.ExamStatus;
 import com.fluffy.exam.domain.Question;
 import com.fluffy.exam.domain.dto.ExamSummaryDto;
+import com.fluffy.exam.domain.dto.MyExamSummaryDto;
 import com.fluffy.global.exception.ForbiddenException;
 import com.fluffy.global.response.PageInfo;
 import com.fluffy.global.response.PageResponse;
@@ -110,14 +111,14 @@ class ExamQueryServiceTest extends AbstractIntegrationTest {
 
         // when
         Pageable pageable = PageRequest.of(0, 2);
-        PageResponse<ExamSummaryDto> summaries = examQueryService
+        PageResponse<MyExamSummaryDto> summaries = examQueryService
                 .getMyExamSummaries(pageable, ExamStatus.PUBLISHED, new Accessor(author.getId()));
 
         // then
         assertAll(
                 () -> assertThat(summaries.content()).hasSize(2),
                 () -> assertThat(summaries.pageInfo()).isEqualTo(new PageInfo(0, 2, 3, true, false)),
-                () -> assertThat(summaries.content().stream().map(ExamSummaryDto::getId))
+                () -> assertThat(summaries.content().stream().map(MyExamSummaryDto::getId))
                         .containsExactlyElementsOf(List.of(exam5.getId(), exam2.getId()))
         );
     }

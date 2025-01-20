@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ExamSummaryDto {
+public class MyExamSummaryDto {
 
     private Long id;
     private String title;
@@ -17,19 +17,17 @@ public class ExamSummaryDto {
     private ExamStatus status;
     private AuthorDto author;
     private Long questionCount;
-    private Long likeCount;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
     @QueryProjection
-    public ExamSummaryDto(
+    public MyExamSummaryDto(
             Long id,
             String title,
             String description,
             ExamStatus status,
             AuthorDto author,
             Long questionCount,
-            Long likeCount,
             LocalDateTime createdAt,
             LocalDateTime updatedAt
     ) {
@@ -39,7 +37,6 @@ public class ExamSummaryDto {
         this.status = status;
         this.author = author;
         this.questionCount = questionCount;
-        this.likeCount = likeCount;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }

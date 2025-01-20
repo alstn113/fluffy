@@ -2,8 +2,10 @@ package com.fluffy.exam.application;
 
 import com.fluffy.exam.application.response.CreateExamResponse;
 import com.fluffy.exam.application.response.ExamDetailResponse;
+import com.fluffy.exam.application.response.ExamDetailSummaryResponse;
 import com.fluffy.exam.application.response.ExamWithAnswersResponse;
 import com.fluffy.exam.domain.Exam;
+import com.fluffy.exam.domain.dto.ExamDetailSummaryDto;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -45,6 +47,21 @@ public class ExamMapper {
                 questionMapper.toWithAnswersResponses(exam.getQuestionGroup().toList()),
                 exam.getCreatedAt(),
                 exam.getUpdatedAt()
+        );
+    }
+
+    public ExamDetailSummaryResponse toDetailSummaryResponse(ExamDetailSummaryDto dto, boolean isLiked) {
+        return new ExamDetailSummaryResponse(
+                dto.getId(),
+                dto.getTitle(),
+                dto.getDescription(),
+                dto.getStatus().name(),
+                dto.getAuthor(),
+                dto.getQuestionCount(),
+                dto.getLikeCount(),
+                isLiked,
+                dto.getCreatedAt(),
+                dto.getUpdatedAt()
         );
     }
 }

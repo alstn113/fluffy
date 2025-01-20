@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router';
-import useGetExam from '@/hooks/api/exam/useGetExam.ts';
+import useGetExamDetail from '@/hooks/api/exam/useGetExamDetail.ts';
 import QuestionDetailTemplate from '@/components/questions/details/QuestionDetailTemplate.tsx';
 import useSubmissionStore from '@/stores/useSubmissionStore.ts';
 import AsyncBoundary from '@/components/AsyncBoundary.tsx';
@@ -29,7 +29,7 @@ const ExamProgressPage = () => {
 };
 
 const ExamProgressContent = ({ examId }: { examId: number }) => {
-  const { data } = useGetExam(examId);
+  const { data } = useGetExamDetail(examId);
   const { initialize, currentQuestionIndex } = useSubmissionStore();
 
   useEffect(() => {

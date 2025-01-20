@@ -7,6 +7,10 @@ import com.fluffy.exam.domain.Exam;
 import com.fluffy.exam.domain.ExamRepository;
 import com.fluffy.exam.domain.Question;
 import com.fluffy.exam.domain.QuestionOption;
+import com.fluffy.reaction.domain.LikeTarget;
+import com.fluffy.reaction.domain.Reaction;
+import com.fluffy.reaction.domain.ReactionRepository;
+import com.fluffy.reaction.domain.ReactionType;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
@@ -23,6 +27,7 @@ public class DataInitializer implements ApplicationRunner {
 
     private final MemberRepository memberRepository;
     private final ExamRepository examRepository;
+    private final ReactionRepository reactionRepository;
 
     @Override
     public void run(ApplicationArguments args) {
@@ -288,5 +293,12 @@ public class DataInitializer implements ApplicationRunner {
         ));
         exam6.publish();
         examRepository.save(exam6);
+
+        List<Long> memberIds = List.of(member1.getId(), member2.getId(), member3.getId());
+        for (Long memberId : memberIds) {
+            reactionRepository.save(new Reaction(LikeTarget.EXAM.name(), exam1.getId(), memberId, ReactionType.LIKE));
+            reactionRepository.save(new Reaction(LikeTarget.EXAM.name(), exam2.getId(), memberId, ReactionType.LIKE));
+            reactionRepository.save(new Reaction(LikeTarget.EXAM.name(), exam3.getId(), memberId, ReactionType.LIKE));
+        }
     }
 }

@@ -1,9 +1,19 @@
 import { ExamSummaryResponse } from '@/api/examAPI';
 import { Routes } from '@/constants';
 import { fromNowDate } from '@/lib/date.ts';
-import { Button, Card, CardFooter, CardHeader, Chip, Divider, Image } from '@nextui-org/react';
+import {
+  Button,
+  Card,
+  CardFooter,
+  CardHeader,
+  Chip,
+  Divider,
+  Image,
+  Tooltip,
+} from '@nextui-org/react';
 import { useNavigate } from 'react-router';
 import BaseCardBody from '../common/BaseCardBody';
+import { PiListChecksBold, PiThumbsUpBold } from 'react-icons/pi';
 
 interface ExamSummaryCardProps {
   exam: ExamSummaryResponse;
@@ -39,7 +49,20 @@ const ExamSummaryCard = ({ exam }: ExamSummaryCardProps) => {
       <BaseCardBody title={exam.title} description={exam.description} />
       <Divider />
       <CardFooter className="flex justify-between">
-        <div>문제 수: {exam.questionCount}</div>
+        <div className="flex gap-2">
+          <Tooltip content="문항 수" placement="top" showArrow color="foreground">
+            <div className="flex gap-1 text-indigo-400 font-bold">
+              <PiListChecksBold size={24} />
+              {exam.questionCount}
+            </div>
+          </Tooltip>
+          <Tooltip content="좋아요 수" placement="top" showArrow color="foreground">
+            <div className="flex gap-1 text-rose-400 font-bold">
+              <PiThumbsUpBold size={24} />
+              {exam.likeCount}
+            </div>
+          </Tooltip>
+        </div>
         <Button size="sm" variant="shadow" onPress={handleExamStart}>
           시험 보기
         </Button>

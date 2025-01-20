@@ -1,9 +1,9 @@
 package com.fluffy.exam.application;
 
 import com.fluffy.global.web.Accessor;
-import com.fluffy.reaction.application.Like;
-import com.fluffy.reaction.application.LikeService;
-import com.fluffy.reaction.application.LikeTarget;
+import com.fluffy.reaction.domain.Like;
+import com.fluffy.reaction.domain.LikeService;
+import com.fluffy.reaction.domain.LikeTarget;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

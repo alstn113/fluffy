@@ -23,7 +23,7 @@ const ErrorFallback = ({ error, resetErrorBoundary }: ErrorFallbackProps) => {
       case 404:
         return '404: 요청한 리소스를 찾을 수 없습니다.';
       default:
-        return '알 수 없는 에러가 발생했습니다.';
+        return '서버 내에서 알 수 없는 오류가 발생했습니다.';
     }
   };
 

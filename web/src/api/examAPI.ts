@@ -12,14 +12,19 @@ export const ExamAPI = {
   },
 
   getMyExamSummaries: async ({ page, size, status }: MyExamSummaryParams) => {
-    const { data } = await apiV1Client.get<PageResponse<ExamSummaryResponse>>('/exams/mine', {
+    const { data } = await apiV1Client.get<PageResponse<MyExamSummaryResponse>>('/exams/mine', {
       params: { status, page, size },
     });
     return data;
   },
 
-  getById: async (id: number) => {
-    const { data } = await apiV1Client.get<ExamResponse>(`/exams/${id}`);
+  getExamDetailSummary: async (id: number) => {
+    const { data } = await apiV1Client.get<ExamDetailSummaryResponse>(`/exams/${id}/summary`);
+    return data;
+  },
+
+  getExamDetail: async (id: number) => {
+    const { data } = await apiV1Client.get<ExamDetailResponse>(`/exams/${id}`);
     return data;
   },
 
@@ -62,6 +67,20 @@ export const ExamAPI = {
     const { data } = await apiV1Client.patch<void>(`/exams/${examId}/description`, request);
     return data;
   },
+
+  like: async (examId: number, controller?: AbortController) => {
+    const { data } = await apiV1Client.post<void>(`/exams/${examId}/like`, {
+      signal: controller?.signal,
+    });
+    return data;
+  },
+
+  unlike: async (examId: number, controller?: AbortController) => {
+    const { data } = await apiV1Client.delete<void>(`/exams/${examId}/like`, {
+      signal: controller?.signal,
+    });
+    return data;
+  },
 };
 
 export const EXAM_STATUS = {
@@ -70,11 +89,6 @@ export const EXAM_STATUS = {
 } as const;
 export type ExamStatusType = (typeof EXAM_STATUS)[keyof typeof EXAM_STATUS];
 
-export interface ExamSummaryParams {
-  page: number;
-  size: number;
-}
-
 export interface ExamSummaryResponse {
   id: number;
   title: string;
@@ -82,6 +96,7 @@ export interface ExamSummaryResponse {
   status: typeof EXAM_STATUS.draft;
   author: AuthorResponse;
   questionCount: number;
+  likeCount: number;
   createdAt: string;
   updatedAt: string;
 }
@@ -90,13 +105,37 @@ export interface MyExamSummaryParams extends PageParmas {
   status: ExamStatusType;
 }
 
+export interface MyExamSummaryResponse {
+  id: number;
+  title: string;
+  description: string;
+  status: ExamStatusType;
+  author: AuthorResponse;
+  questionCount: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
 interface AuthorResponse {
   id: number;
   name: string;
   avatarUrl: string;
 }
 
-interface ExamResponse {
+export interface ExamDetailSummaryResponse {
+  id: number;
+  title: string;
+  description: string;
+  status: ExamStatusType;
+  author: AuthorResponse;
+  questionCount: number;
+  likeCount: number;
+  isLiked: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+interface ExamDetailResponse {
   id: number;
   title: string;
   description: string;
@@ -106,7 +145,7 @@ interface ExamResponse {
   updatedAt: string;
 }
 
-interface ExamWithAnswersResponse extends ExamResponse {
+interface ExamWithAnswersResponse extends ExamDetailResponse {
   questions: QuestionWithAnswersResponse[];
 }
 

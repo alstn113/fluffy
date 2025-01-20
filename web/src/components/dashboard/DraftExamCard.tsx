@@ -1,14 +1,24 @@
-import { ExamSummaryResponse } from '@/api/examAPI';
+import { MyExamSummaryResponse } from '@/api/examAPI';
 import { Routes } from '@/constants';
 import { fromNowDate } from '@/lib/date.ts';
-import { Card, CardFooter, CardHeader, Chip, Divider, Image, Link } from '@nextui-org/react';
+import {
+  Card,
+  CardFooter,
+  CardHeader,
+  Chip,
+  Divider,
+  Image,
+  Link,
+  Tooltip,
+} from '@nextui-org/react';
 import BaseCardBody from '../common/BaseCardBody';
+import { PiListChecksBold } from 'react-icons/pi';
 
-interface ExamSummaryCardProps {
-  exam: ExamSummaryResponse;
+interface DraftExamCardProps {
+  exam: MyExamSummaryResponse;
 }
 
-const DraftExamCard = ({ exam }: ExamSummaryCardProps) => {
+const DraftExamCard = ({ exam }: DraftExamCardProps) => {
   return (
     <Card className="max-w-[400px]">
       <CardHeader className="flex gap-3">
@@ -28,7 +38,12 @@ const DraftExamCard = ({ exam }: ExamSummaryCardProps) => {
       <BaseCardBody title={exam.title} description={exam.description} />
       <Divider />
       <CardFooter className="flex justify-between">
-        <div>문제 수: {exam.questionCount}</div>
+        <Tooltip content="문항 수" placement="top" showArrow color="foreground">
+          <div className="flex gap-1 text-indigo-400 font-bold">
+            <PiListChecksBold size={24} />
+            {exam.questionCount}
+          </div>
+        </Tooltip>
         <Link href={Routes.exam.management.questions(exam.id)}>이어서 편집하기</Link>
       </CardFooter>
     </Card>

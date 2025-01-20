@@ -31,10 +31,12 @@ import com.fluffy.exam.application.response.ExamDetailResponse;
 import com.fluffy.exam.application.response.ExamDetailResponse.AnswerQuestionResponse;
 import com.fluffy.exam.application.response.ExamDetailResponse.ChoiceQuestionResponse;
 import com.fluffy.exam.application.response.ExamDetailResponse.ChoiceQuestionResponse.QuestionOptionResponse;
+import com.fluffy.exam.application.response.ExamDetailSummaryResponse;
 import com.fluffy.exam.application.response.ExamWithAnswersResponse;
 import com.fluffy.exam.domain.ExamStatus;
 import com.fluffy.exam.domain.dto.AuthorDto;
 import com.fluffy.exam.domain.dto.ExamSummaryDto;
+import com.fluffy.exam.domain.dto.MyExamSummaryDto;
 import com.fluffy.exam.domain.dto.SubmittedExamSummaryDto;
 import com.fluffy.global.response.PageInfo;
 import com.fluffy.global.response.PageResponse;
@@ -56,10 +58,10 @@ class ExamDocumentTest extends AbstractDocumentTest {
         List<ExamSummaryDto> summaries = List.of(
                 new ExamSummaryDto(1L, "시험1", "설명1", ExamStatus.PUBLISHED,
                         new AuthorDto(1L, "작성자1", "a@gmail.com"),
-                        3L, LocalDateTime.now(), LocalDateTime.now()),
+                        3L, 2L, LocalDateTime.now(), LocalDateTime.now()),
                 new ExamSummaryDto(2L, "시험2", "설명2", ExamStatus.PUBLISHED,
                         new AuthorDto(2L, "작성자2", "b@gmail.com"),
-                        3L, LocalDateTime.now(), LocalDateTime.now())
+                        3L, 1L, LocalDateTime.now(), LocalDateTime.now())
         );
         PageResponse<ExamSummaryDto> response = new PageResponse<>(pageInfo, summaries);
 
@@ -98,6 +100,7 @@ class ExamDocumentTest extends AbstractDocumentTest {
                                 fieldWithPath("content[].status").description("시험 상태"),
                                 fieldWithPath("content[].author").description("작성자 정보"),
                                 fieldWithPath("content[].questionCount").description("문제 수"),
+                                fieldWithPath("content[].likeCount").description("좋아요 수"),
                                 fieldWithPath("content[].createdAt").description("생성일"),
                                 fieldWithPath("content[].updatedAt").description("수정일"),
                                 fieldWithPath("content[].author.id").description("작성자 ID"),
@@ -111,15 +114,15 @@ class ExamDocumentTest extends AbstractDocumentTest {
     @DisplayName("내가 출제한 시험 요약 목록을 조회할 수 있다.")
     void getMyExamSummaries() throws Exception {
         PageInfo pageInfo = new PageInfo(0, 2, 4, true, false);
-        List<ExamSummaryDto> summaries = List.of(
-                new ExamSummaryDto(1L, "시험1", "설명1", ExamStatus.PUBLISHED,
+        List<MyExamSummaryDto> summaries = List.of(
+                new MyExamSummaryDto(1L, "시험1", "설명1", ExamStatus.PUBLISHED,
                         new AuthorDto(1L, "작성자1", "a@gmail.com"),
                         3L, LocalDateTime.now(), LocalDateTime.now()),
-                new ExamSummaryDto(2L, "시험2", "설명2", ExamStatus.PUBLISHED,
+                new MyExamSummaryDto(2L, "시험2", "설명2", ExamStatus.PUBLISHED,
                         new AuthorDto(1L, "작성자1", "a@gmail.com"),
                         2L, LocalDateTime.now(), LocalDateTime.now())
         );
-        PageResponse<ExamSummaryDto> response = new PageResponse<>(pageInfo, summaries);
+        PageResponse<MyExamSummaryDto> response = new PageResponse<>(pageInfo, summaries);
 
         when(examQueryService.getMyExamSummaries(any(), any(), any()))
                 .thenReturn(response);
@@ -156,6 +159,55 @@ class ExamDocumentTest extends AbstractDocumentTest {
                                 fieldWithPath("content[].author.id").description("작성자 ID"),
                                 fieldWithPath("content[].author.name").description("작성자 이름"),
                                 fieldWithPath("content[].author.avatarUrl").description("작성자 아바타 URL")
+                        )
+                ));
+    }
+
+    @Test
+    @DisplayName("시험 상세 요약 정보를 조회할 수 있다.")
+    void getExamDetailSummary() throws Exception {
+        ExamDetailSummaryResponse response = new ExamDetailSummaryResponse(
+                1L,
+                "시험1",
+                "설명1",
+                ExamStatus.PUBLISHED.name(),
+                new AuthorDto(1L, "작성자1", "https://avatar.com"),
+                3L,
+                2L,
+                true,
+                LocalDateTime.now(),
+                LocalDateTime.now()
+        );
+
+        when(examQueryService.getExamDetailSummary(any(), any()))
+                .thenReturn(response);
+
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/api/v1/exams/{examId}/summary", 1)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .cookie(new Cookie("accessToken", "{ACCESS_TOKEN}"))
+                )
+                .andExpectAll(
+                        status().isOk(),
+                        content().json(objectMapper.writeValueAsString(response))
+                )
+                .andDo(restDocs.document(
+                        pathParameters(
+                                parameterWithName("examId").description("시험 ID")
+                        ),
+                        responseFields(
+                                fieldWithPath("id").description("시험 ID"),
+                                fieldWithPath("title").description("시험 제목"),
+                                fieldWithPath("description").description("시험 설명"),
+                                fieldWithPath("status").description("시험 상태"),
+                                fieldWithPath("author").description("작성자 정보"),
+                                fieldWithPath("author.id").description("작성자 ID"),
+                                fieldWithPath("author.name").description("작성자 이름"),
+                                fieldWithPath("author.avatarUrl").description("작성자 아바타 URL"),
+                                fieldWithPath("questionCount").description("문제 수"),
+                                fieldWithPath("likeCount").description("좋아요 수"),
+                                fieldWithPath("isLiked").description("좋아요 여부"),
+                                fieldWithPath("createdAt").description("생성일"),
+                                fieldWithPath("updatedAt").description("수정일")
                         )
                 ));
     }
@@ -283,7 +335,7 @@ class ExamDocumentTest extends AbstractDocumentTest {
     }
 
     @Test
-    @DisplayName("출제된 시험 요약 목록을 조회할 수 있다.")
+    @DisplayName("내가 제출한 시험 요약 목록을 조회할 수 있다.")
     void getSubmittedExamSummaries() throws Exception {
         PageInfo pageInfo = new PageInfo(0, 1, 1, false, false);
         List<SubmittedExamSummaryDto> summaries = List.of(new SubmittedExamSummaryDto(
@@ -292,8 +344,8 @@ class ExamDocumentTest extends AbstractDocumentTest {
                 "설명1",
                 new AuthorDto(1L, "작성자1", "https://avatar.com"),
                 3L,
-                LocalDateTime.now())
-        );
+                LocalDateTime.now()
+        ));
         PageResponse<SubmittedExamSummaryDto> response = new PageResponse<>(pageInfo, summaries);
 
         when(examQueryService.getSubmittedExamSummaries(any(), any()))

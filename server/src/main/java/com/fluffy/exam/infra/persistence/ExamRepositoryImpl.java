@@ -161,7 +161,7 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
 
     @Override
     public Page<SubmittedExamSummaryDto> findSubmittedExamSummaries(Pageable pageable, Long memberId) {
-        JPAQuery<Long> countQuery = queryFactory.select(exam.count())
+        JPAQuery<Long> countQuery = queryFactory.select(exam.countDistinct())
                 .from(exam)
                 .join(submission).on(exam.id.eq(submission.examId))
                 .where(submission.memberId.eq(memberId));
@@ -184,7 +184,7 @@ public class ExamRepositoryImpl implements ExamRepositoryCustom {
                 .from(exam)
                 .leftJoin(member).on(exam.memberId.eq(member.id))
                 .join(submission).on(exam.id.eq(submission.examId))
-                .where(exam.id.in(examIds))
+                .where(exam.id.in(examIds).and(submission.memberId.eq(memberId)))
                 .groupBy(
                         exam.id,
                         exam.title,

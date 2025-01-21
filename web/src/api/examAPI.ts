@@ -68,17 +68,14 @@ export const ExamAPI = {
     return data;
   },
 
-  like: async (examId: number, controller?: AbortController) => {
-    const { data } = await apiV1Client.post<void>(`/exams/${examId}/like`, {
-      signal: controller?.signal,
-    });
+  like: async (examId: number) => {
+    const { data } = await apiV1Client.post<void>(`/exams/${examId}/like`);
+
     return data;
   },
 
-  unlike: async (examId: number, controller?: AbortController) => {
-    const { data } = await apiV1Client.delete<void>(`/exams/${examId}/like`, {
-      signal: controller?.signal,
-    });
+  unlike: async (examId: number) => {
+    const { data } = await apiV1Client.delete<void>(`/exams/${examId}/like`);
     return data;
   },
 };

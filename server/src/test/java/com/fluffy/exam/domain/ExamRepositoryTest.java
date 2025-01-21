@@ -7,6 +7,10 @@ import com.fluffy.auth.domain.Member;
 import com.fluffy.auth.domain.MemberRepository;
 import com.fluffy.exam.domain.dto.ExamSummaryDto;
 import com.fluffy.exam.domain.dto.MyExamSummaryDto;
+import com.fluffy.exam.domain.dto.SubmittedExamSummaryDto;
+import com.fluffy.submission.domain.Answer;
+import com.fluffy.submission.domain.Submission;
+import com.fluffy.submission.domain.SubmissionRepository;
 import com.fluffy.support.AbstractIntegrationTest;
 import com.fluffy.support.data.MemberTestData;
 import java.util.List;
@@ -23,6 +27,9 @@ class ExamRepositoryTest extends AbstractIntegrationTest {
 
     @Autowired
     private MemberRepository memberRepository;
+
+    @Autowired
+    private SubmissionRepository submissionRepository;
 
     @Test
     @DisplayName("출제된 시험 요약 목록을 조회할 수 있다.")
@@ -131,6 +138,78 @@ class ExamRepositoryTest extends AbstractIntegrationTest {
                         .containsExactlyElementsOf(List.of(publishedExam3.getId(), publishedExam1.getId())),
                 () -> assertThat(myExamSummaries.getContent().stream().map(MyExamSummaryDto::getQuestionCount))
                         .containsExactlyElementsOf(List.of(3L, 1L))
+        );
+    }
+
+    @Test
+    @DisplayName("내가 제출한 시험 요약 목록을 조회할 수 있다.")
+    void findSubmittedExamSummaries() {
+        // given
+        Member member1 = MemberTestData.defaultMember().build();
+        memberRepository.save(member1);
+
+        Member member2 = MemberTestData.defaultMember().build();
+        memberRepository.save(member2);
+
+        Exam publishedExam1 = Exam.create("publishedExam1", member1.getId());
+        publishedExam1.updateQuestions(List.of(Question.shortAnswer("질문1", "지문", "답1")));
+        publishedExam1.publish();
+        examRepository.save(publishedExam1);
+
+        Exam publishedExam2 = Exam.create("publishedExam2", member1.getId());
+        publishedExam2.updateQuestions(List.of(Question.shortAnswer("질문1", "지문", "답1")));
+        publishedExam2.publish();
+        examRepository.save(publishedExam2);
+
+        submissionRepository.save(new Submission(
+                publishedExam1.getId(),
+                member1.getId(),
+                List.of(Answer.textAnswer(1L, "답1"))
+        ));
+
+        submissionRepository.save(new Submission(
+                publishedExam2.getId(),
+                member1.getId(),
+                List.of(Answer.textAnswer(1L, "답2"))
+        ));
+
+        submissionRepository.save(new Submission(
+                publishedExam1.getId(),
+                member2.getId(),
+                List.of(Answer.textAnswer(1L, "답3"))
+        ));
+
+        submissionRepository.save(new Submission(
+                publishedExam1.getId(),
+                member1.getId(),
+                List.of(Answer.textAnswer(1L, "답1"))
+        ));
+
+        // when
+        PageRequest pageable = PageRequest.of(0, 2);
+        Page<SubmittedExamSummaryDto> submittedExamSummaries = examRepository.findSubmittedExamSummaries(
+                pageable,
+                member1.getId()
+        );
+
+        System.out.println(submittedExamSummaries.getContent());
+        System.out.println(submittedExamSummaries.getTotalElements());
+        System.out.println(submittedExamSummaries.getTotalPages());
+        System.out.println(submittedExamSummaries.getNumber());
+        System.out.println(submittedExamSummaries.getSize());
+
+        // then
+        assertAll(
+                () -> assertThat(submittedExamSummaries.getTotalElements()).isEqualTo(2),
+                () -> assertThat(submittedExamSummaries.getTotalPages()).isEqualTo(1),
+                () -> assertThat(submittedExamSummaries.getContent()
+                        .stream()
+                        .map(SubmittedExamSummaryDto::getSubmissionCount)
+                ).containsExactlyElementsOf(List.of(2L, 1L)),
+                () -> assertThat(submittedExamSummaries.getContent()
+                        .stream()
+                        .map(SubmittedExamSummaryDto::getTitle)
+                ).containsExactlyElementsOf(List.of("publishedExam1", "publishedExam2"))
         );
     }
 }

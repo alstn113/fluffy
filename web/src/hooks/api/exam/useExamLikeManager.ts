@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import useGetExamDetailSummary from '@/hooks/api/exam/useGetExamDetailSummary.ts';
 import { ExamAPI, ExamDetailSummaryResponse } from '@/api/examAPI';
 
-interface useExamLikeManagerProps {
+interface UseExamLikeManagerProps {
   examId: number;
   initialIsLiked: boolean;
   initialLikeCount: number;
@@ -15,7 +15,7 @@ const useExamLikeManager = ({
   examId,
   initialIsLiked,
   initialLikeCount,
-}: useExamLikeManagerProps) => {
+}: UseExamLikeManagerProps) => {
   const queryClient = useQueryClient();
   const user = useUser();
 
@@ -24,88 +24,67 @@ const useExamLikeManager = ({
 
   const debounceTimeout = useRef<number | null>(null);
 
-  const invalidateQueryDebounced = () => {
+  const debounceInvalidateQueries = () => {
     if (debounceTimeout.current) {
       clearTimeout(debounceTimeout.current);
     }
-    debounceTimeout.current = setTimeout(async () => {
-      await queryClient.invalidateQueries({
+    debounceTimeout.current = setTimeout(() => {
+      queryClient.invalidateQueries({
         queryKey: useGetExamDetailSummary.getKey(examId),
         refetchType: 'all',
       });
     }, 300);
   };
 
-  const { mutate: likeExam } = useMutation({
-    mutationFn: ExamAPI.like,
-    onMutate: async () => {
-      await queryClient.cancelQueries({
-        queryKey: useGetExamDetailSummary.getKey(examId),
-      });
+  const useLikeMutation = (
+    mutationFunction: (examId: number) => Promise<void>,
+    isLikeAction: boolean,
+  ) => {
+    return useMutation({
+      mutationFn: mutationFunction,
+      onMutate: async () => {
+        await queryClient.cancelQueries({
+          queryKey: useGetExamDetailSummary.getKey(examId),
+        });
 
-      const prevData = queryClient.getQueryData<ExamDetailSummaryResponse>(
-        useGetExamDetailSummary.getKey(examId),
-      );
+        setIsLiked(isLikeAction);
+        setLikeCount((prevCount) => prevCount + (isLikeAction ? 1 : -1));
 
-      setIsLiked(true);
-      setLikeCount(likeCount + 1);
+        const previousData = queryClient.getQueryData<ExamDetailSummaryResponse>(
+          useGetExamDetailSummary.getKey(examId),
+        );
 
-      return prevData;
-    },
-    onError: (_error, _variables, context) => {
-      if (context) {
-        queryClient.setQueryData(useGetExamDetailSummary.getKey(examId), context);
-      }
+        return { previousData };
+      },
+      onError: (_error, _variables, context) => {
+        if (context) {
+          queryClient.setQueryData(useGetExamDetailSummary.getKey(examId), context.previousData);
+        }
 
-      setIsLiked(false);
-      setLikeCount(likeCount - 1);
-    },
-    onSettled: async () => {
-      invalidateQueryDebounced();
-    },
-  });
+        toast.error(`좋아요${isLikeAction ? '에' : ' 취소에'} 실패했습니다.`);
 
-  const { mutate: unlikeExam } = useMutation({
-    mutationFn: ExamAPI.unlike,
-    onMutate: async () => {
-      await queryClient.cancelQueries({
-        queryKey: useGetExamDetailSummary.getKey(examId),
-      });
+        setIsLiked(!isLikeAction);
+        setLikeCount((prevCount) => prevCount - (isLikeAction ? 1 : -1));
+      },
+      onSettled: debounceInvalidateQueries,
+    });
+  };
 
-      const prevData = queryClient.getQueryData<ExamDetailSummaryResponse>(
-        useGetExamDetailSummary.getKey(examId),
-      );
-
-      setIsLiked(false);
-      setLikeCount(likeCount - 1);
-
-      return prevData;
-    },
-    onError: (_error, _variables, context) => {
-      if (context) {
-        queryClient.setQueryData(useGetExamDetailSummary.getKey(examId), context);
-      }
-
-      setIsLiked(true);
-      setLikeCount(likeCount + 1);
-    },
-    onSettled: async () => {
-      invalidateQueryDebounced();
-    },
-  });
+  const { mutate: like } = useLikeMutation(ExamAPI.like, true);
+  const { mutate: unlike } = useLikeMutation(ExamAPI.unlike, false);
 
   const toggleLike = () => {
     if (!user) {
-      toast.error('로그인이 필요합니다.');
+      toast.error('좋아요를 누르려면 로그인이 필요합니다.');
       return;
     }
 
     if (isLiked) {
-      unlikeExam(examId);
+      unlike(examId);
       return;
     }
 
-    likeExam(examId);
+    like(examId);
   };
 
   return {

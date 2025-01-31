@@ -71,6 +71,10 @@ dependencies {
     // monitoring
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
+    // aws
+    implementation platform('io.awspring.cloud:spring-cloud-aws-dependencies:3.1.1')
+    implementation 'io.awspring.cloud:spring-cloud-aws-starter-s3'
+
     // test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'

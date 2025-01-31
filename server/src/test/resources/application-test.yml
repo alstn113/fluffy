@@ -12,6 +12,16 @@ spring:
     redis:
       host: localhost
       port: 6379
+  cloud:
+    aws:
+      credentials:
+        access-key: access-key
+        secret-key: secret-key
+      region:
+        static: ap-northeast-2
+      s3:
+        bucket: bucket
+
 
 api-host: http://localhost:8080
 client-host: http://localhost:5173

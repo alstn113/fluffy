@@ -1,6 +1,5 @@
 package com.fluffy.support;
 
-import com.fluffy.storage.application.StorageClient;
 import com.fluffy.support.cleaner.DatabaseCleaner;
 import com.fluffy.support.cleaner.DatabaseClearExtension;
 import org.junit.jupiter.api.extension.ExtendWith;

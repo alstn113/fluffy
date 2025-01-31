@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,8 +17,8 @@ import lombok.NoArgsConstructor;
 public class ExamImage extends AuditableEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @Column(nullable = false)
     private Long memberId;
@@ -35,7 +36,7 @@ public class ExamImage extends AuditableEntity {
         this(null, memberId, examId, path, fileSize);
     }
 
-    public ExamImage(Long id, Long memberId, Long examId, String path, Long fileSize) {
+    public ExamImage(UUID id, Long memberId, Long examId, String path, Long fileSize) {
         this.id = id;
         this.memberId = memberId;
         this.examId = examId;

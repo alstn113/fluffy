@@ -36,7 +36,10 @@ spring:
         static: ${AWS_S3_REGION}
       s3:
         bucket: ${AWS_S3_BUCKET}
-
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
 
 api-host: http://localhost:8080
 client-host: http://localhost:5173
@@ -112,6 +115,10 @@ spring:
         static: ${AWS_S3_REGION}
       s3:
         bucket: ${AWS_S3_BUCKET}
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
 
 api-host: https://api.fluffy.run
 client-host: https://www.fluffy.run

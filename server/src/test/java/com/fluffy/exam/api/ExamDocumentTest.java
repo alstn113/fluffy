@@ -3,12 +3,15 @@ package com.fluffy.exam.api;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.multipart;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.partWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.restdocs.request.RequestDocumentation.queryParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.requestParts;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -20,6 +23,7 @@ import com.fluffy.exam.api.request.PublishExamWebRequest;
 import com.fluffy.exam.api.request.UpdateExamDescriptionWebRequest;
 import com.fluffy.exam.api.request.UpdateExamQuestionsWebRequest;
 import com.fluffy.exam.api.request.UpdateExamTitleWebRequest;
+import com.fluffy.exam.api.response.UploadExamImageResponse;
 import com.fluffy.exam.application.request.question.LongAnswerQuestionAppRequest;
 import com.fluffy.exam.application.request.question.MultipleChoiceAppRequest;
 import com.fluffy.exam.application.request.question.QuestionOptionRequest;
@@ -47,6 +51,7 @@ import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 
 class ExamDocumentTest extends AbstractDocumentTest {
@@ -460,6 +465,40 @@ class ExamDocumentTest extends AbstractDocumentTest {
                                 fieldWithPath("questions[].options").description("선택지 목록").optional(),
                                 fieldWithPath("questions[].options[].text").description("선택지 내용").optional(),
                                 fieldWithPath("questions[].options[].isCorrect").description("정답 여부").optional()
+                        )
+                ));
+    }
+
+    @Test
+    @DisplayName("시험에 대한 이미지를 업로드할 수 있다.")
+    void uploadImage() throws Exception {
+        MockMultipartFile imageFile = new MockMultipartFile(
+                "image",
+                "test.jpg",
+                MediaType.IMAGE_JPEG_VALUE,
+                "dummy content".getBytes()
+        );
+
+        String filePath = "https://s3.ap-northeast-2.amazonaws.com/images/4/exams/uuid.png";
+        when(examImageService.uploadImage(any(), any(), any()))
+                .thenReturn(filePath);
+
+        mockMvc.perform(multipart("/api/v1/exams/{examId}/images", 1L)
+                        .file(imageFile)
+                        .param("examId", "1")
+                        .contentType(MediaType.MULTIPART_FORM_DATA)
+                        .cookie(new Cookie("accessToken", "{ACCESS_TOKEN}"))
+                )
+                .andExpectAll(
+                        status().isOk(),
+                        content().json(objectMapper.writeValueAsString(new UploadExamImageResponse(filePath)))
+                )
+                .andDo(restDocs.document(
+                        pathParameters(
+                                parameterWithName("examId").description("시험 ID")
+                        ),
+                        requestParts(
+                                partWithName("image").description("업로드할 이미지 파일")
                         )
                 ));
     }

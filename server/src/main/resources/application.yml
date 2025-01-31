@@ -27,6 +27,16 @@ spring:
     redis:
       host: localhost
       port: 6379
+  cloud:
+    aws:
+      credentials:
+        access-key: ${AWS_ACCESS_KEY}
+        secret-key: ${AWS_SECRET_KEY}
+      region:
+        static: ${AWS_S3_REGION}
+      s3:
+        bucket: ${AWS_S3_BUCKET}
+
 
 api-host: http://localhost:8080
 client-host: http://localhost:5173
@@ -93,6 +103,15 @@ spring:
     redis:
       host: redis
       port: 6379
+  cloud:
+    aws:
+      credentials:
+        access-key: ${AWS_ACCESS_KEY}
+        secret-key: ${AWS_SECRET_KEY}
+      region:
+        static: ${AWS_S3_REGION}
+      s3:
+        bucket: ${AWS_S3_BUCKET}
 
 api-host: https://api.fluffy.run
 client-host: https://www.fluffy.run

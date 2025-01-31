@@ -32,6 +32,10 @@ operation::exam-document-test/create-exam[]
 
 operation::exam-document-test/publish[]
 
+=== 시험 지문 이미지 업로드
+
+operation::exam-document-test/upload-image[]
+
 === 시험 문제 수정
 
 operation::exam-document-test/update-questions[]

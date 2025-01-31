@@ -5,6 +5,8 @@ import com.fluffy.exam.api.request.PublishExamWebRequest;
 import com.fluffy.exam.api.request.UpdateExamDescriptionWebRequest;
 import com.fluffy.exam.api.request.UpdateExamQuestionsWebRequest;
 import com.fluffy.exam.api.request.UpdateExamTitleWebRequest;
+import com.fluffy.exam.api.response.UploadExamImageResponse;
+import com.fluffy.exam.application.ExamImageService;
 import com.fluffy.exam.application.ExamQueryService;
 import com.fluffy.exam.application.ExamService;
 import com.fluffy.exam.application.response.CreateExamResponse;
@@ -32,12 +34,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
 public class ExamController {
 
     private final ExamService examService;
+    private final ExamImageService examImageService;
     private final ExamQueryService examQueryService;
 
     @GetMapping("/api/v1/exams")
@@ -123,6 +127,18 @@ public class ExamController {
         examService.publish(request.toAppRequest(examId, accessor));
 
         return ResponseEntity.ok().build();
+    }
+
+
+    @PostMapping("/api/v1/exams/{examId}/images")
+    public ResponseEntity<UploadExamImageResponse> uploadImage(
+            @PathVariable Long examId,
+            @RequestParam MultipartFile image,
+            @Auth Accessor accessor
+    ) {
+        String path = examImageService.uploadImage(examId, image, accessor);
+
+        return ResponseEntity.ok(new UploadExamImageResponse(path));
     }
 
     @PutMapping("/api/v1/exams/{examId}/questions")

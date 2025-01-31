@@ -8,6 +8,7 @@ import com.fluffy.auth.api.AuthController;
 import com.fluffy.auth.application.AuthService;
 import com.fluffy.exam.api.ExamController;
 import com.fluffy.exam.api.ExamLikeController;
+import com.fluffy.exam.application.ExamImageService;
 import com.fluffy.exam.application.ExamLikeService;
 import com.fluffy.exam.application.ExamQueryService;
 import com.fluffy.exam.application.ExamService;
@@ -67,6 +68,9 @@ public abstract class AbstractControllerTest {
 
     @MockBean
     protected SubmissionQueryService submissionQueryService;
+
+    @MockBean
+    protected ExamImageService examImageService;
 
     @BeforeEach
     public void setUp() {

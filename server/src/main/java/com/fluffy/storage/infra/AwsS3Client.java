@@ -8,7 +8,6 @@ import io.awspring.cloud.s3.S3Resource;
 import io.awspring.cloud.s3.S3Template;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.SimpleDateFormat;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -24,13 +23,11 @@ public class AwsS3Client implements StorageClient {
     private String bucketName;
 
     @Override
-    public String upload(MultipartFile file) {
+    public String upload(MultipartFile file, String fileName) {
 
         if (file.isEmpty()) {
             throw new BadRequestException("파일이 비어있습니다.");
         }
-
-        String fileName = generateFileName(file.getOriginalFilename());
 
         try (InputStream is = file.getInputStream()) {
             S3Resource upload = s3Template.upload(bucketName, fileName, is);
@@ -48,20 +45,5 @@ public class AwsS3Client implements StorageClient {
         } catch (S3Exception e) {
             throw new NotFoundException("파일을 찾을 수 없습니다.", e);
         }
-    }
-
-    private String generateFileName(String originalFileName) {
-        if (originalFileName == null) {
-            throw new NotFoundException("파일 이름을 찾을 수 없습니다.");
-        }
-
-        int extensionIndex = originalFileName.lastIndexOf(".");
-
-        String extension = originalFileName.substring(extensionIndex);
-        String fileName = originalFileName.substring(0, extensionIndex);
-
-        String now = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss_SSS").format(System.currentTimeMillis());
-
-        return "%s-%s%s".formatted(fileName, now, extension);
     }
 }

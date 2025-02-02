@@ -55,7 +55,11 @@ const ExamEditorPanel = ({ examId }: { examId: number }) => {
           임시 저장
         </Button>
       </h1>
-      {questionTypeSelectorActive ? <QuestionTypeSelector /> : <QuestionEditorTemplate />}
+      {questionTypeSelectorActive ? (
+        <QuestionTypeSelector />
+      ) : (
+        <QuestionEditorTemplate examId={examId} />
+      )}
     </>
   );
 };

@@ -53,6 +53,17 @@ export const ExamAPI = {
     return data;
   },
 
+  uploadImage: async ({ examId, image }: { examId: number; image: File }) => {
+    const formData = new FormData();
+    formData.append('image', image);
+
+    const { data } = await apiV1Client.post<{ path: string }>(`/exams/${examId}/images`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+
+    return data;
+  },
+
   updateQuestions: async ({ examId, request }: UpdateExamQuestionsParams) => {
     const { data } = await apiV1Client.put<void>(`/exams/${examId}/questions`, request);
     return data;

@@ -85,7 +85,7 @@ const MarkdownEditor = ({ examId, value, onChange }: MarkdownEditorProps) => {
         }}
       />
       <div
-        className="w-full mt-2 hover:bg-gray-100 p-3 rounded-md cursor-pointer"
+        className="w-full mt-2 hover:bg-gray-100 p-3 rounded-md cursor-pointer transition-colors"
         onClick={handleUpload}
       >
         <div className="flex text-gray-500 text-sm">

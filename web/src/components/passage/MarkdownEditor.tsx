@@ -38,25 +38,26 @@ const onImagePasted = async (
   onChange: (value: string) => void,
   examId: number,
 ) => {
-  const images: File[] = [];
-  for (let i = 0; i < data.items.length; i++) {
-    const image = data.files.item(i);
+  const files = data.files;
+  if (!files) return;
+  if (!files.item(0)) return;
 
-    if (image) images.push(image);
-  }
+  const image = files.item(0) as File;
+  const imageName = image?.name || '이미지.png';
 
-  await Promise.all(
-    images.map(async (image) => {
-      const { path } = await ExamAPI.uploadImage({ examId, image });
-      const insertMarkdown = insertToTextArea(`![](${path})`);
-      if (!insertMarkdown) return;
+  const loadingText = `<!-- Uploading "${imageName}"... -->`;
 
-      onChange(insertMarkdown);
-    }),
-  );
+  const insertMarkdown = insertToTextArea(loadingText);
+  if (!insertMarkdown) return;
+  onChange(insertMarkdown);
+
+  await ExamAPI.uploadImage({ examId, image }).then(({ path }) => {
+    const finalMarkdown = insertMarkdown.replace(loadingText, `![](${encodeURI(path)})`);
+    onChange(finalMarkdown);
+  });
 };
 
-const insertToTextArea = (text: string) => {
+const insertToTextArea = (intsertString: string) => {
   const textarea = document.querySelector('textarea');
   if (!textarea) return;
 
@@ -68,10 +69,10 @@ const insertToTextArea = (text: string) => {
   const front = sentence.slice(0, pos);
   const back = sentence.slice(pos, len);
 
-  sentence = front + text + back;
+  sentence = front + intsertString + back;
 
   textarea.value = sentence;
-  textarea.selectionEnd = end + text.length;
+  textarea.selectionEnd = end + intsertString.length;
 
   return sentence;
 };

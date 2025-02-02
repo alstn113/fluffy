@@ -6,6 +6,7 @@ import com.fluffy.exam.domain.Exam;
 import com.fluffy.exam.domain.ExamImage;
 import com.fluffy.exam.domain.ExamImageRepository;
 import com.fluffy.exam.domain.ExamRepository;
+import com.fluffy.global.exception.BadRequestException;
 import com.fluffy.global.exception.ForbiddenException;
 import com.fluffy.global.web.Accessor;
 import com.fluffy.storage.application.StorageClient;
@@ -31,7 +32,7 @@ public class ExamImageService {
         UUID imageId = UUID.randomUUID();
 
         Long fileSize = image.getSize();
-        String filePath = generateUploadPath(imageId, accessor.id(), image.getOriginalFilename());
+        String filePath = generateUploadPath(imageId, accessor.id(), image);
 
         ExamImage examImage = new ExamImage(imageId, accessor.id(), examId, filePath, fileSize);
         examImageRepository.save(examImage);
@@ -53,7 +54,13 @@ public class ExamImageService {
         }
     }
 
-    private String generateUploadPath(UUID imageId, Long memberId, String originalFilename) {
+    private String generateUploadPath(UUID imageId, Long memberId, MultipartFile image) {
+        String originalFilename = image.getOriginalFilename();
+
+        if (image.isEmpty() || originalFilename == null) {
+            throw new BadRequestException("이미지 파일이 비어있습니다.");
+        }
+
         int lastDotIndex = originalFilename.lastIndexOf(".");
         String extension = originalFilename.substring(lastDotIndex + 1);
 

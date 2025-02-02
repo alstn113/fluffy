@@ -1,6 +1,10 @@
 import { ExamAPI } from '@/api/examAPI';
 import MDEditor from '@uiw/react-md-editor';
 import rehypeSanitize from 'rehype-sanitize';
+import ImageLoadingSpinner from './ImageLoadingSpinner';
+import { FiPaperclip } from 'react-icons/fi';
+import { useState } from 'react';
+import useUpload from '@/hooks/useUpload';
 
 interface MarkdownEditorProps {
   examId: number;
@@ -9,6 +13,44 @@ interface MarkdownEditorProps {
 }
 
 const MarkdownEditor = ({ examId, value, onChange }: MarkdownEditorProps) => {
+  const noDragOverText = 'Paste, drop, or click to add files';
+  const dragOverText = 'Drop to add files';
+
+  const [dropText, setDropText] = useState(noDragOverText);
+  const [isImageLoading, setIsImageLoading] = useState(false);
+
+  const { upload } = useUpload();
+
+  const handleUpload = async () => {
+    upload(async (file) => {
+      if (!file) return;
+      setIsImageLoading(true);
+      await handleImageUpload(file);
+      setIsImageLoading(false);
+    });
+  };
+
+  const handlePasteOrDrop = async (data: DataTransfer) => {
+    const files = data.files;
+    if (!files || !files.length) return;
+
+    const image = files.item(0) as File;
+    await handleImageUpload(image);
+  };
+
+  const handleImageUpload = async (image: File) => {
+    const imageName = image?.name || '이미지.png';
+    const loadingText = `<!-- Uploading "${imageName}"... -->`;
+
+    const insertMarkdown = insertToTextArea(loadingText);
+    if (!insertMarkdown) return;
+    onChange(insertMarkdown);
+
+    const { path } = await ExamAPI.uploadImage({ examId, image });
+    const finalMarkdown = insertMarkdown.replace(loadingText, `![](${encodeURI(path)})`);
+    onChange(finalMarkdown);
+  };
+
   return (
     <div>
       <MDEditor
@@ -22,59 +64,55 @@ const MarkdownEditor = ({ examId, value, onChange }: MarkdownEditorProps) => {
         }}
         onPaste={async (e) => {
           e.preventDefault();
-          await onImagePasted(e.clipboardData, onChange, examId);
+          setIsImageLoading(true);
+          await handlePasteOrDrop(e.clipboardData);
+          setIsImageLoading(false);
         }}
         onDrop={async (e) => {
           e.preventDefault();
-          await onImagePasted(e.dataTransfer, onChange, examId);
+          setIsImageLoading(true);
+          setDropText(noDragOverText);
+          await handlePasteOrDrop(e.dataTransfer);
+          setIsImageLoading(false);
+        }}
+        onDragOver={(e) => {
+          e.preventDefault();
+          setDropText(dragOverText);
+        }}
+        onDragLeave={(e) => {
+          e.preventDefault();
+          setDropText(noDragOverText);
         }}
       />
+      <div
+        className="w-full mt-2 hover:bg-gray-100 p-3 rounded-md cursor-pointer"
+        onClick={handleUpload}
+      >
+        <div className="flex text-gray-500 text-sm">
+          <div className="flex items-center justify-center gap-2">
+            {isImageLoading ? <ImageLoadingSpinner /> : <FiPaperclip size={20} />}
+            <div>{dropText}</div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
 
-const onImagePasted = async (
-  data: DataTransfer,
-  onChange: (value: string) => void,
-  examId: number,
-) => {
-  const files = data.files;
-  if (!files) return;
-  if (!files.item(0)) return;
-
-  const image = files.item(0) as File;
-  const imageName = image?.name || '이미지.png';
-
-  const loadingText = `<!-- Uploading "${imageName}"... -->`;
-
-  const insertMarkdown = insertToTextArea(loadingText);
-  if (!insertMarkdown) return;
-  onChange(insertMarkdown);
-
-  await ExamAPI.uploadImage({ examId, image }).then(({ path }) => {
-    const finalMarkdown = insertMarkdown.replace(loadingText, `![](${encodeURI(path)})`);
-    onChange(finalMarkdown);
-  });
-};
-
-const insertToTextArea = (intsertString: string) => {
+const insertToTextArea = (insertString: string) => {
   const textarea = document.querySelector('textarea');
   if (!textarea) return;
 
-  let sentence = textarea.value;
-  const len = sentence.length;
+  const sentence = textarea.value;
   const pos = textarea.selectionStart;
   const end = textarea.selectionEnd;
 
-  const front = sentence.slice(0, pos);
-  const back = sentence.slice(pos, len);
+  const updatedSentence = sentence.slice(0, pos) + insertString + sentence.slice(pos);
 
-  sentence = front + intsertString + back;
+  textarea.value = updatedSentence;
+  textarea.selectionEnd = end + insertString.length;
 
-  textarea.value = sentence;
-  textarea.selectionEnd = end + intsertString.length;
-
-  return sentence;
+  return updatedSentence;
 };
 
 export default MarkdownEditor;

@@ -63,7 +63,6 @@ const MarkdownEditor = ({ examId, value, onChange }: MarkdownEditorProps) => {
           rehypePlugins: [[rehypeSanitize]],
         }}
         onPaste={async (e) => {
-          e.preventDefault();
           setIsImageLoading(true);
           await handlePasteOrDrop(e.clipboardData);
           setIsImageLoading(false);
@@ -80,7 +79,6 @@ const MarkdownEditor = ({ examId, value, onChange }: MarkdownEditorProps) => {
           setDropText(dragOverText);
         }}
         onDragLeave={(e) => {
-          e.preventDefault();
           setDropText(noDragOverText);
         }}
       />

@@ -52,7 +52,7 @@ const MarkdownEditor = ({ examId, value, onChange }: MarkdownEditorProps) => {
   };
 
   return (
-    <div>
+    <div className="mt-4">
       <MDEditor
         value={value}
         onChange={(v) => onChange(v!)}

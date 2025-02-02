@@ -6,6 +6,7 @@ import LongAnswerQuestionView from './LongAnswerQuestionView';
 import SingleChoiceQuestionView from './SingleChoiceQuestionView';
 import MultipleChoiceQuestionView from './MultipleChoiceQuestionView';
 import TrueOrFalseQuestionView from './TrueOrFalseQuestionView';
+import MDEditor from '@uiw/react-md-editor';
 
 const QuestionViewTemplate = () => {
   const { currentIndex, questions } = useExamEditorStore();
@@ -35,7 +36,11 @@ const QuestionViewTemplate = () => {
         }}
       />
       {question.passage && (
-        <Textarea isReadOnly value={question.passage} variant="flat" className="mt-4" />
+        <MDEditor.Markdown
+          className="mt-4"
+          source={question.passage}
+          style={{ whiteSpace: 'pre-wrap' }}
+        />
       )}
       {viewMap[question.type]}
     </div>

@@ -78,7 +78,7 @@ const MarkdownEditor = ({ examId, value, onChange }: MarkdownEditorProps) => {
           e.preventDefault();
           setDropText(dragOverText);
         }}
-        onDragLeave={(e) => {
+        onDragLeave={() => {
           setDropText(noDragOverText);
         }}
       />

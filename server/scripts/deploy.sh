@@ -8,9 +8,9 @@ GREEN_PORT=8081
 BLUE_HEALTH_CHECK_URL="http://localhost:8082/actuator/health"
 GREEN_HEALTH_CHECK_URL="http://localhost:8083/actuator/health"
 
-HEALTH_CHECK_ATTEMPTS=5
+HEALTH_CHECK_ATTEMPTS=10
 HEALTH_CHECK_DELAY=5
-BEFORE_HEALTH_CHECK_DELAY=20
+BEFORE_HEALTH_CHECK_DELAY=30
 
 health_check() {
     local target_url=$1

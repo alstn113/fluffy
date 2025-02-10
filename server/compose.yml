@@ -6,16 +6,8 @@ x-app: &app
     TZ: Asia/Seoul
     SPRING_PROFILES_ACTIVE: prod
   restart: always
-  depends_on:
-    - redis
 
 services:
-  redis:
-    container_name: redis
-    image: redis:7.4.1
-    restart: always
-    ports:
-      - '6379:6379'
   app-blue:
     <<: *app
     container_name: app-blue

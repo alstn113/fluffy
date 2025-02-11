@@ -18,6 +18,7 @@ import com.fluffy.reaction.domain.Like;
 import com.fluffy.reaction.domain.LikeQueryService;
 import com.fluffy.reaction.domain.LikeTarget;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -55,6 +56,7 @@ public class ExamQueryService {
     }
 
     @Transactional(readOnly = true)
+    @Cacheable(value = "examDetail", key = "#examId")
     public ExamDetailResponse getExamDetail(Long examId) {
         Exam exam = examRepository.findByIdOrThrow(examId);
 
@@ -62,6 +64,7 @@ public class ExamQueryService {
     }
 
     @Transactional(readOnly = true)
+    @Cacheable(value = "examWithAnswers", key = "#examId")
     public ExamWithAnswersResponse getExamWithAnswers(Long examId, Accessor accessor) {
         Exam exam = examRepository.findByIdOrThrow(examId);
 

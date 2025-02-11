@@ -3,7 +3,7 @@ package com.fluffy.submission.application;
 import com.fluffy.auth.domain.Member;
 import com.fluffy.exam.domain.Exam;
 import com.fluffy.global.exception.BadRequestException;
-import com.fluffy.global.redis.DistributedLock;
+import com.fluffy.global.redis.distributedLock.DistributedLock;
 import com.fluffy.submission.application.request.SubmissionAppRequest;
 import com.fluffy.submission.domain.Submission;
 import com.fluffy.submission.domain.SubmissionRepository;

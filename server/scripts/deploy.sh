@@ -2,77 +2,129 @@
 
 NGINX_CONFIG_PATH="/etc/nginx/sites-available/api.fluffy.run"
 
-BLUE_PORT=8080
-GREEN_PORT=8081
+APP1_BLUE="app1-blue"
+APP1_GREEN="app1-green"
+APP2_BLUE="app2-blue"
+APP2_GREEN="app2-green"
 
-BLUE_HEALTH_CHECK_URL="http://localhost:8082/actuator/health"
-GREEN_HEALTH_CHECK_URL="http://localhost:8083/actuator/health"
+APP1_BLUE_PORT=8080
+APP1_GREEN_PORT=8081
+APP2_BLUE_PORT=8082
+APP2_GREEN_PORT=8083
+
+APP1_BLUE_HEALTH_CHECK_URL="http://localhost:8090/actuator/health"
+APP1_GREEN_HEALTH_CHECK_URL="http://localhost:8091/actuator/health"
+APP2_BLUE_HEALTH_CHECK_URL="http://localhost:8092/actuator/health"
+APP2_GREEN_HEALTH_CHECK_URL="http://localhost:8093/actuator/health"
 
 HEALTH_CHECK_ATTEMPTS=10
 HEALTH_CHECK_DELAY=5
 BEFORE_HEALTH_CHECK_DELAY=30
 
 health_check() {
-    local target_url=$1
+    local app1_health_check_url=$1
+    local app2_health_check_url=$2
 
-    echo "Performing health check for $target_url (attempts: $HEALTH_CHECK_ATTEMPTS, delay: $HEALTH_CHECK_DELAY)..."
+    echo "헬스 체크 시작 (app1: $app1_health_check_url, app2: $app2_health_check_url), (시도: $HEALTH_CHECK_ATTEMPTS, 딜레이: $HEALTH_CHECK_DELAY)"
+
+    sleep $BEFORE_HEALTH_CHECK_DELAY
 
     for i in $(seq 1 $HEALTH_CHECK_ATTEMPTS); do
-        response=$(curl -s -o /dev/null -w "%{http_code}" "$target_url")
+        app1_response=$(curl -s -o /dev/null -w "%{http_code}" "$app1_health_check_url")
+        app2_response=$(curl -s -o /dev/null -w "%{http_code}" "$app2_health_check_url")
 
-        if [ "$response" -eq 200 ]; then
-            echo "Health check attempt ($i/$HEALTH_CHECK_ATTEMPTS) passed"
-            echo "Health check successful for $target_url"
+        app1_success=$(echo "$app1_response" | grep 200)
+        app2_success=$(echo "$app2_response" | grep 200)
+
+        if [ -n "$app1_success" ] && [ -n "$app2_success" ]; then
+            echo "헬스 체크 성공 (app1: $app1_response, app2: $app2_response) (시도: $i/$HEALTH_CHECK_ATTEMPTS)"
             return 0
-        else 
-            echo "Health check attempt ($i/$HEALTH_CHECK_ATTEMPTS) failed"
+        else
+            echo "헬스 체크 실패 (app1: $app1_response, app2: $app2_response) (시도: $i/$HEALTH_CHECK_ATTEMPTS)"
         fi
 
         sleep $HEALTH_CHECK_DELAY
     done
 
-    echo "Health check failed for $target_url"
+    echo "헬스 체크에 실패했습니다."
     return 1
 }
 
 switch_container() {
     local prev_container=$1
-    local prev_port=$2
-    local next_container=$3
-    local next_port=$4
-    local health_check_url=$5
 
-    echo "Starting $next_container (port: $next_port)..."
-    docker compose -f compose.yml up "$next_container" -d
+    local prev_app1
+    local prev_app2
+    local prev_app1_port
+    local prev_app2_port
 
-    echo "Waiting for $next_container to start..."
-    sleep $BEFORE_HEALTH_CHECK_DELAY
+    local next_app1
+    local next_app2
+    local next_app1_port
+    local next_app2_port
 
-    if ! health_check "$health_check_url"; then
-        echo "Health check failed, rolling back..."
-        docker compose -f compose.yml down "$next_container"
+    local app1_health_check_url
+    local app2_health_check_url
+
+    if [ "$prev_container" = "app-blue" ]; then
+        prev_app1="$APP1_BLUE"
+        prev_app2="$APP2_BLUE"
+        prev_app1_port="$APP1_BLUE_PORT"
+        prev_app2_port="$APP2_BLUE_PORT"
+
+        next_app1="$APP1_GREEN"
+        next_app2="$APP2_GREEN"
+        next_app1_port="$APP1_GREEN_PORT"
+        next_app2_port="$APP2_GREEN_PORT"
+
+        app1_health_check_url="$APP1_GREEN_HEALTH_CHECK_URL"
+        app2_health_check_url="$APP2_GREEN_HEALTH_CHECK_URL"
+    elif [ "$prev_container" = "app-green" ]; then
+        prev_app1="$APP1_GREEN"
+        prev_app2="$APP2_GREEN"
+        prev_app1_port="$APP1_GREEN_PORT"
+        prev_app2_port="$APP2_GREEN_PORT"
+
+        next_app1="$APP1_BLUE"
+        next_app2="$APP2_BLUE"
+        next_app1_port="$APP1_BLUE_PORT"
+        next_app2_port="$APP2_BLUE_PORT"
+
+        app1_health_check_url="$APP1_BLUE_HEALTH_CHECK_URL"
+        app2_health_check_url="$APP2_BLUE_HEALTH_CHECK_URL"
+    fi
+
+    echo "$next_app1, $next_app2 를 시작합니다."
+    docker compose -f compose.yml up -d "$next_app1" "$next_app2"
+
+    if ! health_check "$app1_health_check_url" "$app2_health_check_url"; then
+        docker compose -f compose.yml down "$next_app1" "$next_app2"
         return
     fi
 
-    echo "Updating Nginx configuration... $prev_container (port: $prev_port) -> $next_container (port: $next_port)"
-    sed -i "s/server localhost:$prev_port/server localhost:$next_port/" "$NGINX_CONFIG_PATH"
+    # NGINX 에서 server localhost:xxxx 부분을 변경
+    echo "NGINX 설정을 변경합니다."
+    sed -i "s/server localhost:$prev_app1_port/server localhost:$next_app1_port/" "$NGINX_CONFIG_PATH"
+    sed -i "s/server localhost:$prev_app2_port/server localhost:$next_app2_port/" "$NGINX_CONFIG_PATH"
 
-    echo "Reloading Nginx configuration..."
     if ! sudo nginx -s reload; then
-        echo "Failed to reload Nginx: $(sudo nginx -t 2>&1)"
+        echo "NGINX 를 reload 하는데 실패했습니다. $(sudo nginx -t 2>&1)"
         return
     fi
 
-    echo "$next_container is now live, stopping $prev_container..."
-    docker compose -f compose.yml down "$prev_container"
+    echo "$prev_app1, $prev_app2 를 중지합니다."
+    docker compose -f compose.yml down "$prev_app1" "$prev_app2"
+
+    echo "컨테이너 상태"
+    docker ps -a
 }
 
-IS_GREEN=$(docker container ps | grep app-green)
+IS_GREEN=$(docker container ps | grep "$APP1_GREEN")
 
 if [ -z "$IS_GREEN" ]; then
     echo "### BLUE >> GREEN ###"
-    switch_container "app-blue" "$BLUE_PORT" "app-green" "$GREEN_PORT" "$GREEN_HEALTH_CHECK_URL"
+    switch_container "app-blue"
 else
     echo "### GREEN >> BLUE ###"
-    switch_container "app-green" "$GREEN_PORT" "app-blue" "$BLUE_PORT" "$BLUE_HEALTH_CHECK_URL"
+    switch_container "app-green"
 fi

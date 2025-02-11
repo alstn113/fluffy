@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -26,6 +27,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @EnableCaching
 @Configuration
 @RequiredArgsConstructor
+@Profile("!test")
 public class RedisConfig {
 
     private final RedisProperties properties;
@@ -72,7 +74,7 @@ public class RedisConfig {
         objectMapper.registerModule(new JavaTimeModule()); // Java 8 날짜/시간 직렬화를 위한 모듈 등록
         objectMapper.activateDefaultTyping(
                 BasicPolymorphicTypeValidator.builder().allowIfBaseType(Object.class).build(),
-                DefaultTyping.NON_FINAL,
+                DefaultTyping.EVERYTHING, // Deprecated 되었지만 나머지 값들은 예외 발생함.
                 JsonTypeInfo.As.PROPERTY
         );
 

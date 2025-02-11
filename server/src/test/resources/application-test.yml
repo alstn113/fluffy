@@ -12,6 +12,10 @@ spring:
     redis:
       host: localhost
       port: 6379
+      ssl:
+        enabled: false
+  cache:
+    type: redis
   cloud:
     aws:
       credentials:

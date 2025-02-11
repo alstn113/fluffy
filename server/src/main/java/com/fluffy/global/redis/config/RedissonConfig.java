@@ -1,4 +1,4 @@
-package com.fluffy.global.redis;
+package com.fluffy.global.redis.config;
 
 import lombok.RequiredArgsConstructor;
 import org.redisson.Redisson;
@@ -9,7 +9,10 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @RequiredArgsConstructor
-public class RedisConfig {
+public class RedissonConfig {
+
+    private static final String REDIS_URL = "redis://%s:%d";
+    private static final String REDIS_SSL_URL = "rediss://%s:%d";
 
     private final RedisProperties properties;
 
@@ -25,8 +28,8 @@ public class RedisConfig {
 
     private String createUrl() {
         if (Boolean.TRUE.equals(properties.ssl().enabled())) {
-            return "rediss://%s:%d";
+            return REDIS_SSL_URL;
         }
-        return "redis://%s:%d";
+        return REDIS_URL;
     }
 }

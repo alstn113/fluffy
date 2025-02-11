@@ -1,4 +1,4 @@
-package com.fluffy.global.redis;
+package com.fluffy.global.redis.config;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

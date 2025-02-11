@@ -1,4 +1,4 @@
-package com.fluffy.global.redis;
+package com.fluffy.global.redis.distributedLock;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

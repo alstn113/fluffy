@@ -18,16 +18,18 @@
 
 ### 기술 스택
 
-- spring boot
-- aws(ec2, ses, s3)
-- redis
-- supabase(postgreSQL)
+- Spring Boot
+- AWS EC2
+- Docker
+- AWS RDS (PostgreSQL)
+- AWS S3
+- AWS ElastiCache (Valkey)
 
 ## 웹 프론트엔드
 
 ### 기술 스택
 
-- react
-- vite
-- tailwindcss
-- vercel
+- React
+- Vite
+- Tailwind CSS
+- Vercel

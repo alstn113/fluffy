@@ -1,29 +1,29 @@
 package com.fluffy.support;
 
-import com.fluffy.support.cleaner.DatabaseCleaner;
 import com.fluffy.support.cleaner.DatabaseClearExtension;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.redisson.api.RedissonClient;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+import org.testcontainers.containers.GenericContainer;
 
-@SpringBootTest(classes = {AbstractIntegrationTest.TestConfig.class})
+@SpringBootTest
 @ExtendWith(DatabaseClearExtension.class)
 @ActiveProfiles("test")
 public abstract class AbstractIntegrationTest {
 
-    @MockBean
-    protected RedissonClient redissonClient;
+    public static GenericContainer<?> REDIS = new GenericContainer<>("redis:7-alpine")
+            .withExposedPorts(6379);
 
-    @TestConfiguration
-    public static class TestConfig {
+    static {
+        REDIS.start();
+    }
 
-        @Bean
-        public DatabaseCleaner databaseCleaner() {
-            return new DatabaseCleaner();
-        }
+    @DynamicPropertySource
+    static void overrideProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.data.redis.host", REDIS::getHost);
+        registry.add("spring.data.redis.port", REDIS::getFirstMappedPort);
+        registry.add("spring.data.redis.ssl.enabled", () -> false);
     }
 }

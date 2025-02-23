@@ -18,7 +18,6 @@ import com.fluffy.support.AbstractIntegrationTest;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +37,7 @@ class SubmissionServiceTest extends AbstractIntegrationTest {
     private SubmissionRepository submissionRepository;
 
     @Test
-    @DisplayName("분산 서버에서 레디스를 사용한 분산 락을 이용해서 중복 제출을 방지한다.")
-    @Disabled("레디스를 사용 중인 환경에서만 작동합니다. AbstractIntegrationTest의 RedissonClient를 주석 처리해주세요.")
+    @DisplayName("한 번만 제출할 수 있는 시험에 중복 제출 요청이 들어오면 한 번만 제출된다.")
     void submit() throws InterruptedException {
         // given
         Member member1 = memberRepository.save(new Member("ex1@gmail.com", GOOGLE, "123", "ex1", "https://ex1.com"));

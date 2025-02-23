@@ -1,6 +1,6 @@
 package com.fluffy.support;
 
-import com.fluffy.support.cleaner.DatabaseClearExtension;
+import com.fluffy.support.cleaner.DataClearExtension;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -10,7 +10,7 @@ import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
 
 @SpringBootTest
-@ExtendWith(DatabaseClearExtension.class)
+@ExtendWith(DataClearExtension.class)
 @ActiveProfiles("test")
 public abstract class AbstractIntegrationTest {
 

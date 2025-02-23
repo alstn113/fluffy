@@ -81,6 +81,11 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+
+    // testcontainers
+    testImplementation "org.testcontainers:testcontainers:1.20.5"
+    testImplementation "org.testcontainers:junit-jupiter:1.20.5"
+    testImplementation 'org.testcontainers:postgresql:1.20.0'
 }
 
 
@@ -99,7 +104,7 @@ asciidoctor {
 
 bootJar {
     dependsOn asciidoctor
-    from ("${asciidoctor.outputDir}") {
+    from("${asciidoctor.outputDir}") {
         into 'static/docs'
     }
 }

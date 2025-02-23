@@ -1,29 +1,19 @@
 package com.fluffy.support;
 
-import com.fluffy.support.cleaner.DatabaseCleaner;
-import com.fluffy.support.cleaner.DatabaseClearExtension;
+import com.fluffy.support.cleaner.DataClearExtension;
+import com.fluffy.support.testcontainers.PostgreSQLContainerInitializer;
+import com.fluffy.support.testcontainers.RedisContainerInitializer;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.redisson.api.RedissonClient;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
 
-@SpringBootTest(classes = {AbstractIntegrationTest.TestConfig.class})
-@ExtendWith(DatabaseClearExtension.class)
+@SpringBootTest
+@ExtendWith(DataClearExtension.class)
 @ActiveProfiles("test")
+@ContextConfiguration(initializers = {
+        RedisContainerInitializer.class,
+        PostgreSQLContainerInitializer.class
+})
 public abstract class AbstractIntegrationTest {
-
-    @MockBean
-    protected RedissonClient redissonClient;
-
-    @TestConfiguration
-    public static class TestConfig {
-
-        @Bean
-        public DatabaseCleaner databaseCleaner() {
-            return new DatabaseCleaner();
-        }
-    }
 }

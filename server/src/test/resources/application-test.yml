@@ -7,7 +7,8 @@ spring:
         format_sql: true
         highlight_sql: true
   flyway:
-    enabled: false
+    enabled: true
+    baseline-on-migrate: true
   data:
     redis:
       host: localhost

@@ -1,7 +1,7 @@
 services:
   redis:
     container_name: valkey
-    image: valkey/valkey:8.0.1 # ElastiCache와 동일 버전 사용
+    image: valkey/valkey:8-alpine # ElastiCache와 동일 버전 사용
     restart: always
     ports:
       - '6379:6379'

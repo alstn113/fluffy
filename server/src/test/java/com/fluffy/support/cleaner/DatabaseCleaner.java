@@ -32,9 +32,9 @@ public class DatabaseCleaner {
     }
 
     private void truncate() {
-        em.createNativeQuery("SET REFERENTIAL_INTEGRITY = 0").executeUpdate();
+        em.createNativeQuery("SET CONSTRAINTS ALL DEFERRED").executeUpdate();
         getTruncateQueries().forEach(query -> em.createNativeQuery(query).executeUpdate());
-        em.createNativeQuery("SET REFERENTIAL_INTEGRITY = 1").executeUpdate();
+        em.createNativeQuery("SET CONSTRAINTS ALL IMMEDIATE").executeUpdate();
 
         log.info("[DatabaseCleaner] All tables are truncated.");
     }
@@ -42,10 +42,10 @@ public class DatabaseCleaner {
     @SuppressWarnings("unchecked")
     private List<String> getTruncateQueries() {
         String sql = """
-                SELECT Concat('TRUNCATE TABLE ', TABLE_NAME, ' RESTART IDENTITY', ';') AS q
-                FROM INFORMATION_SCHEMA.TABLES
-                WHERE TABLE_SCHEMA = 'PUBLIC'
-                """;
+            SELECT 'TRUNCATE TABLE ' || tablename || ' RESTART IDENTITY CASCADE;' 
+            FROM pg_tables 
+            WHERE schemaname = 'public'
+            """;
 
         return em.createNativeQuery(sql).getResultList();
     }

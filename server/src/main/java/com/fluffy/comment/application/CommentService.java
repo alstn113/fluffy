@@ -7,6 +7,7 @@ import com.fluffy.comment.application.dto.CreateCommentResponse;
 import com.fluffy.comment.application.dto.DeleteCommentRequest;
 import com.fluffy.comment.domain.Comment;
 import com.fluffy.comment.domain.CommentRepository;
+import com.fluffy.exam.domain.Exam;
 import com.fluffy.exam.domain.ExamRepository;
 import com.fluffy.global.exception.ForbiddenException;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +25,11 @@ public class CommentService {
     @Transactional
     public CreateCommentResponse createComment(CreateCommentRequest request) {
         Member member = memberRepository.findByIdOrThrow(request.memberId());
-        examRepository.findByIdOrThrow(request.examId());
+        Exam exam = examRepository.findByIdOrThrow(request.examId());
+
+        if (exam.isNotPublished()) {
+            throw new ForbiddenException("출제되지 않은 시험에는 댓글을 작성할 수 없습니다.");
+        }
 
         boolean isRootComment = request.parentCommentId() == null;
         if (isRootComment) {
@@ -44,6 +49,7 @@ public class CommentService {
             throw new ForbiddenException("댓글 작성자만 삭제할 수 있습니다.");
         }
 
+        comment.delete();
         return comment.getId();
     }
 

@@ -80,4 +80,8 @@ public class Comment extends AuditableEntity {
     public boolean isReply() {
         return parentCommentId != null;
     }
+
+    public boolean isNotWrittenBy(Long memberId) {
+        return !this.memberId.equals(memberId);
+    }
 }

@@ -38,12 +38,7 @@ public class Comment extends AuditableEntity {
     private LocalDateTime deletedAt;
 
     public static Comment create(String content, Long examId, Long memberId) {
-        Comment comment = new Comment();
-        comment.content = content;
-        comment.examId = examId;
-        comment.memberId = memberId;
-
-        return comment;
+        return new Comment(content, examId, memberId, null);
     }
 
     public Comment(String content, Long examId, Long memberId, Long parentCommentId) {
@@ -67,10 +62,7 @@ public class Comment extends AuditableEntity {
             throw new BadRequestException("답글에는 답글을 작성할 수 없습니다.");
         }
 
-        Comment comment = create(content, examId, memberId);
-        comment.parentCommentId = id;
-
-        return comment;
+        return new Comment(content, examId, memberId, id);
     }
 
     public void delete() {

@@ -14,13 +14,11 @@ import com.fluffy.exam.domain.ExamRepository;
 import com.fluffy.global.exception.BadRequestException;
 import com.fluffy.global.exception.ForbiddenException;
 import com.fluffy.global.web.Accessor;
-import com.fluffy.storage.application.StorageClient;
 import com.fluffy.support.AbstractIntegrationTest;
 import com.fluffy.support.data.MemberTestData;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 

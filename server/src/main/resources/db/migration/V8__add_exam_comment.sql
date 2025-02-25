@@ -12,3 +12,7 @@ CREATE TABLE IF NOT EXISTS exam_comment
     CONSTRAINT fk_exam_comment_exam FOREIGN KEY (exam_id) REFERENCES exam (id),
     CONSTRAINT fk_exam_comment_member FOREIGN KEY (member_id) REFERENCES member (id)
 );
+
+CREATE INDEX idx_exam_comment_exam_id ON exam_comment (exam_id);
+CREATE INDEX idx_exam_comment_member_id ON exam_comment (member_id);
+CREATE INDEX idx_exam_comment_parent_comment_id ON exam_comment (parent_comment_id);

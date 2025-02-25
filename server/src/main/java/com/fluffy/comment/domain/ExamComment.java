@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class Comment extends AuditableEntity {
+public class ExamComment extends AuditableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,15 +37,15 @@ public class Comment extends AuditableEntity {
     @Column
     private LocalDateTime deletedAt;
 
-    public static Comment create(String content, Long examId, Long memberId) {
-        return new Comment(content, examId, memberId, null);
+    public static ExamComment create(String content, Long examId, Long memberId) {
+        return new ExamComment(content, examId, memberId, null);
     }
 
-    public Comment(String content, Long examId, Long memberId, Long parentCommentId) {
+    public ExamComment(String content, Long examId, Long memberId, Long parentCommentId) {
         this(null, content, examId, memberId, parentCommentId);
     }
 
-    public Comment(Long id, String content, Long examId, Long memberId, Long parentCommentId) {
+    public ExamComment(Long id, String content, Long examId, Long memberId, Long parentCommentId) {
         this.id = id;
         this.content = content;
         this.examId = examId;
@@ -53,7 +53,7 @@ public class Comment extends AuditableEntity {
         this.parentCommentId = parentCommentId;
     }
 
-    public Comment reply(String content, Long memberId) {
+    public ExamComment reply(String content, Long memberId) {
         if (isDeleted()) {
             throw new BadRequestException("삭제된 댓글에는 답글을 작성할 수 없습니다.");
         }
@@ -62,7 +62,7 @@ public class Comment extends AuditableEntity {
             throw new BadRequestException("답글에는 답글을 작성할 수 없습니다.");
         }
 
-        return new Comment(content, examId, memberId, id);
+        return new ExamComment(content, examId, memberId, id);
     }
 
     public void delete() {

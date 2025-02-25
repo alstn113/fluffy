@@ -8,7 +8,7 @@ import com.fluffy.global.exception.BadRequestException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class CommentTest {
+class ExamCommentTest {
 
     @Test
     @DisplayName("댓글을 생성할 수 있다.")
@@ -19,15 +19,15 @@ class CommentTest {
         Long examId = 1L;
 
         // when
-        Comment comment = Comment.create(content, memberId, examId);
+        ExamComment examComment = ExamComment.create(content, memberId, examId);
 
         // then
         assertAll(
-                () -> assertThat(comment.getContent()).isEqualTo(content),
-                () -> assertThat(comment.getMemberId()).isEqualTo(memberId),
-                () -> assertThat(comment.getExamId()).isEqualTo(examId),
-                () -> assertThat(comment.getParentCommentId()).isNull(),
-                () -> assertThat(comment.isDeleted()).isFalse()
+                () -> assertThat(examComment.getContent()).isEqualTo(content),
+                () -> assertThat(examComment.getMemberId()).isEqualTo(memberId),
+                () -> assertThat(examComment.getExamId()).isEqualTo(examId),
+                () -> assertThat(examComment.getParentCommentId()).isNull(),
+                () -> assertThat(examComment.isDeleted()).isFalse()
         );
     }
 
@@ -35,24 +35,24 @@ class CommentTest {
     @DisplayName("댓글을 논리적으로 삭제할 수 있다.")
     void delete() {
         // given
-        Comment comment = Comment.create("댓글 내용", 1L, 1L);
+        ExamComment examComment = ExamComment.create("댓글 내용", 1L, 1L);
 
         // when
-        comment.delete();
+        examComment.delete();
 
         // then
-        assertThat(comment.isDeleted()).isTrue();
+        assertThat(examComment.isDeleted()).isTrue();
     }
 
     @Test
     @DisplayName("삭제된 댓글은 삭제할 수 없다.")
     void delete_deletedComment() {
         // given
-        Comment comment = Comment.create("댓글 내용", 1L, 1L);
-        comment.delete();
+        ExamComment examComment = ExamComment.create("댓글 내용", 1L, 1L);
+        examComment.delete();
 
         // when, then
-        assertThatThrownBy(comment::delete)
+        assertThatThrownBy(examComment::delete)
                 .isInstanceOf(BadRequestException.class)
                 .hasMessage("이미 삭제된 댓글입니다.");
     }
@@ -61,10 +61,10 @@ class CommentTest {
     @DisplayName("댓글에 답글을 작성할 수 있다.")
     void reply() {
         // given
-        Comment root = Comment.create("댓글 내용", 1L, 1L);
+        ExamComment root = ExamComment.create("댓글 내용", 1L, 1L);
 
         // when
-        Comment reply = root.reply("답글 내용", 2L);
+        ExamComment reply = root.reply("답글 내용", 2L);
 
         // then
         assertThat(reply.getParentCommentId()).isEqualTo(root.getId());
@@ -74,7 +74,7 @@ class CommentTest {
     @DisplayName("삭제된 댓글에는 답글을 작성할 수 없다.")
     void reply_deletedComment() {
         // given
-        Comment root = Comment.create("댓글 내용", 1L, 1L);
+        ExamComment root = ExamComment.create("댓글 내용", 1L, 1L);
         root.delete();
 
         // when, then
@@ -88,7 +88,7 @@ class CommentTest {
     void reply_replyComment() {
         // given
         Long parentCommentId = 1L;
-        Comment reply = new Comment("답글 내용", 1L, 1L, parentCommentId);
+        ExamComment reply = new ExamComment("답글 내용", 1L, 1L, parentCommentId);
 
         // when, then
         assertThatThrownBy(() -> reply.reply("답글 내용", 1L))

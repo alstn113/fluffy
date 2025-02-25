@@ -7,11 +7,11 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 import com.fluffy.auth.domain.Member;
 import com.fluffy.auth.domain.MemberRepository;
-import com.fluffy.comment.application.dto.CreateCommentRequest;
-import com.fluffy.comment.application.dto.CreateCommentResponse;
-import com.fluffy.comment.application.dto.DeleteCommentRequest;
-import com.fluffy.comment.domain.Comment;
-import com.fluffy.comment.domain.CommentRepository;
+import com.fluffy.comment.application.dto.CreateExamCommentRequest;
+import com.fluffy.comment.application.dto.CreateExamCommentResponse;
+import com.fluffy.comment.application.dto.DeleteExamCommentRequest;
+import com.fluffy.comment.domain.ExamComment;
+import com.fluffy.comment.domain.ExamCommentRepository;
 import com.fluffy.exam.domain.Exam;
 import com.fluffy.exam.domain.ExamRepository;
 import com.fluffy.exam.domain.Question;
@@ -23,10 +23,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-class CommentServiceTest extends AbstractIntegrationTest {
+class ExamCommentServiceTest extends AbstractIntegrationTest {
 
     @Autowired
-    private CommentService commentService;
+    private ExamCommentService examCommentService;
 
     @Autowired
     private MemberRepository memberRepository;
@@ -35,7 +35,7 @@ class CommentServiceTest extends AbstractIntegrationTest {
     private ExamRepository examRepository;
 
     @Autowired
-    private CommentRepository commentRepository;
+    private ExamCommentRepository examCommentRepository;
 
     @Test
     @DisplayName("댓글을 작성할 수 있다.")
@@ -45,8 +45,8 @@ class CommentServiceTest extends AbstractIntegrationTest {
         Exam exam = createExam(member, true);
 
         // when
-        CreateCommentRequest request = new CreateCommentRequest("댓글", exam.getId(), member.getId(), null);
-        CreateCommentResponse response = commentService.createComment(request);
+        CreateExamCommentRequest request = new CreateExamCommentRequest("댓글", exam.getId(), member.getId(), null);
+        CreateExamCommentResponse response = examCommentService.createComment(request);
 
         // then
         assertAll(
@@ -57,7 +57,7 @@ class CommentServiceTest extends AbstractIntegrationTest {
                 () -> assertThat(response.author().id()).isEqualTo(member.getId()),
                 () -> assertThat(response.author().name()).isEqualTo(member.getName()),
                 () -> assertThat(response.author().avatarUrl()).isEqualTo(member.getAvatarUrl()),
-                () -> assertThat(commentRepository.findAll()).hasSize(1)
+                () -> assertThat(examCommentRepository.findAll()).hasSize(1)
         );
     }
 
@@ -69,9 +69,9 @@ class CommentServiceTest extends AbstractIntegrationTest {
         Exam exam = createExam(member, false);
 
         // when, then
-        CreateCommentRequest request = new CreateCommentRequest("댓글", exam.getId(), member.getId(), null);
+        CreateExamCommentRequest request = new CreateExamCommentRequest("댓글", exam.getId(), member.getId(), null);
 
-        assertThatThrownBy(() -> commentService.createComment(request))
+        assertThatThrownBy(() -> examCommentService.createComment(request))
                 .isInstanceOf(ForbiddenException.class)
                 .hasMessage("출제되지 않은 시험에는 댓글을 작성할 수 없습니다.");
 
@@ -83,16 +83,21 @@ class CommentServiceTest extends AbstractIntegrationTest {
         // given
         Member member = createMember();
         Exam exam = createExam(member, true);
-        Comment root = commentRepository.save(Comment.create("댓글", exam.getId(), member.getId()));
+        ExamComment root = examCommentRepository.save(ExamComment.create("댓글", exam.getId(), member.getId()));
 
         // when
-        CreateCommentRequest request = new CreateCommentRequest("답글", exam.getId(), member.getId(), root.getId());
-        CreateCommentResponse response = commentService.createComment(request);
+        CreateExamCommentRequest request = new CreateExamCommentRequest(
+                "답글",
+                exam.getId(),
+                member.getId(),
+                root.getId()
+        );
+        CreateExamCommentResponse response = examCommentService.createComment(request);
 
         // then
         assertAll(
                 () -> assertThat(response.parentCommentId()).isEqualTo(root.getId()),
-                () -> assertThat(commentRepository.findAll()).hasSize(2)
+                () -> assertThat(examCommentRepository.findAll()).hasSize(2)
         );
     }
 
@@ -102,15 +107,21 @@ class CommentServiceTest extends AbstractIntegrationTest {
         // given
         Member member = createMember();
         Exam exam = createExam(member, true);
-        Comment comment = commentRepository.save(Comment.create("댓글", exam.getId(), member.getId()));
+        ExamComment examComment = examCommentRepository.save(ExamComment.create("댓글", exam.getId(), member.getId()));
 
         // when
-        DeleteCommentRequest deleteCommentRequest = new DeleteCommentRequest(comment.getId(), member.getId());
-        commentService.deleteComment(deleteCommentRequest);
+        DeleteExamCommentRequest deleteExamCommentRequest = new DeleteExamCommentRequest(
+                examComment.getId(),
+                member.getId()
+        );
+        Long deletedCommentId = examCommentService.deleteComment(deleteExamCommentRequest);
 
         // then
-        Comment deletedComment = commentRepository.findByIdOrThrow(comment.getId());
-        assertThat(deletedComment.isDeleted()).isTrue();
+        ExamComment deletedExamComment = examCommentRepository.findByIdOrThrow(examComment.getId());
+        assertAll(
+                () -> assertThat(deletedCommentId).isEqualTo(examComment.getId()),
+                () -> assertThat(deletedExamComment.isDeleted()).isTrue()
+        );
     }
 
     @Test
@@ -119,13 +130,13 @@ class CommentServiceTest extends AbstractIntegrationTest {
         // given
         Member member = createMember();
         Exam exam = createExam(member, true);
-        Comment comment = commentRepository.save(Comment.create("댓글", exam.getId(), member.getId()));
+        ExamComment examComment = examCommentRepository.save(ExamComment.create("댓글", exam.getId(), member.getId()));
 
         // when, then
         Long anotherMemberId = member.getId() + 1;
-        DeleteCommentRequest deleteCommentRequest = new DeleteCommentRequest(comment.getId(), anotherMemberId);
+        DeleteExamCommentRequest request = new DeleteExamCommentRequest(examComment.getId(), anotherMemberId);
 
-        assertThatThrownBy(() -> commentService.deleteComment(deleteCommentRequest))
+        assertThatThrownBy(() -> examCommentService.deleteComment(request))
                 .isInstanceOf(ForbiddenException.class)
                 .hasMessage("댓글 작성자만 삭제할 수 있습니다.");
     }

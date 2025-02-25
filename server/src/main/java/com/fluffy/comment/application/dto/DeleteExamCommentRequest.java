@@ -1,6 +1,6 @@
 package com.fluffy.comment.application.dto;
 
-public record DeleteCommentRequest(
+public record DeleteExamCommentRequest(
         Long commentId,
         Long memberId
 ) {

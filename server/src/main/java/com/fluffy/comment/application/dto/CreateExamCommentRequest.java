@@ -1,6 +1,6 @@
 package com.fluffy.comment.application.dto;
 
-public record CreateCommentRequest(
+public record CreateExamCommentRequest(
         String content,
         Long examId,
         Long memberId,

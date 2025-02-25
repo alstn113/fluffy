@@ -1,0 +1,13 @@
+== Exam Comment API
+
+=== 시험 댓글 작성
+
+operation::exam-comment-document-test/create-root-comment[]
+
+=== 시험 답글 작성
+
+operation::exam-comment-document-test/create-reply-comment[]
+
+=== 시험 댓글 삭제
+
+operation::exam-comment-document-test/delete-comment[]

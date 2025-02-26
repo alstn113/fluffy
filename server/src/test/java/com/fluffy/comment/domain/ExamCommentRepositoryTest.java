@@ -151,7 +151,8 @@ class ExamCommentRepositoryTest extends AbstractIntegrationTest {
         examCommentRepository.save(root1.reply("댓글1-답글2", member1.getId()));
 
         // when
-        ExamRootCommentWithRepliesDto dto = examCommentRepository.findRootCommentWithReplies(exam.getId(), root1.getId());
+        ExamRootCommentWithRepliesDto dto = examCommentRepository.findRootCommentWithReplies(exam.getId(),
+                root1.getId());
 
         // then
         assertAll(
@@ -188,7 +189,8 @@ class ExamCommentRepositoryTest extends AbstractIntegrationTest {
         examCommentRepository.save(root1.reply("댓글1-답글2", member1.getId()));
 
         // when
-        ExamRootCommentWithRepliesDto dto = examCommentRepository.findRootCommentWithReplies(exam.getId(), root1.getId());
+        ExamRootCommentWithRepliesDto dto = examCommentRepository.findRootCommentWithReplies(exam.getId(),
+                root1.getId());
 
         // then
         assertAll(

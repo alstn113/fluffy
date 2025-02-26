@@ -31,24 +31,28 @@ public class ExamCommentRepositoryImpl implements ExamCommentRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
 
+    /**
+     * 루트 댓글이 삭제되지 않았거나, 답글이 1개 이상 있는 루트 댓글들을 조회한다.
+     */
     @Override
     public List<ExamRootCommentDto> findRootComments(Long examId) {
-        QExamComment parentComment = new QExamComment("parentComment");
+        QExamComment replyComment = new QExamComment("replyComment");
 
         return queryFactory.select(new QExamRootCommentDto(
                         examComment.id,
                         examComment.content,
                         AUTHOR_PROJECTION,
-                        count(parentComment.id),
+                        replyComment.id.count(),
                         examComment.deletedAt.isNotNull(),
                         examComment.createdAt,
                         examComment.updatedAt
                 ))
                 .from(examComment)
                 .leftJoin(member).on(examComment.memberId.eq(member.id))
-                .leftJoin(parentComment).on(examComment.parentCommentId.eq(parentComment.id))
+                .leftJoin(replyComment).on(examComment.id.eq(replyComment.parentCommentId)
+                        .and(replyComment.deletedAt.isNull()))
                 .where(examComment.examId.eq(examId).and(examComment.parentCommentId.isNull()))
-                .orderBy(examComment.createdAt.desc())
+                .orderBy(examComment.createdAt.asc())
                 .groupBy(
                         examComment.id,
                         examComment.content,
@@ -57,9 +61,13 @@ public class ExamCommentRepositoryImpl implements ExamCommentRepositoryCustom {
                         examComment.createdAt,
                         examComment.updatedAt
                 )
+                .having(examComment.deletedAt.isNull().or(replyComment.id.count().gt(0)))
                 .fetch();
     }
 
+    /**
+     * 루트 댓글과 삭제되지 않은 답글들을 조회한다.
+     */
     @Override
     public ExamRootCommentWithRepliesDto findRootCommentWithReplies(Long examId, Long parentCommentId) {
         QExamComment replyComment = new QExamComment("replyComment");
@@ -74,8 +82,9 @@ public class ExamCommentRepositoryImpl implements ExamCommentRepositoryCustom {
                 ))
                 .from(examComment)
                 .leftJoin(member).on(examComment.memberId.eq(member.id))
-                .leftJoin(replyComment).on(examComment.id.eq(replyComment.parentCommentId))
-                .where(examComment.examId.eq(examId).and(examComment.parentCommentId.eq(parentCommentId)))
+                .leftJoin(replyComment).on(examComment.id.eq(replyComment.parentCommentId)
+                        .and(replyComment.deletedAt.isNull()))
+                .where(examComment.examId.eq(examId).and(examComment.id.eq(parentCommentId)))
                 .orderBy(replyComment.createdAt.asc())
                 .fetch();
 

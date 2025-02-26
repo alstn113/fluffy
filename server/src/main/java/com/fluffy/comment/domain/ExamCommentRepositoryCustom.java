@@ -8,5 +8,5 @@ public interface ExamCommentRepositoryCustom {
 
     List<ExamRootCommentDto> findRootComments(Long examId);
 
-    ExamRootCommentWithRepliesDto findRootCommentWithReplies(Long examId, Long parentCommentId);
+    ExamRootCommentWithRepliesDto findRootCommentWithReplies(Long commentId);
 }

@@ -68,7 +68,7 @@ public class ExamCommentRepositoryImpl implements ExamCommentRepositoryCustom {
      * 루트 댓글과 삭제되지 않은 답글들을 조회한다.
      */
     @Override
-    public ExamRootCommentWithRepliesDto findRootCommentWithReplies(Long examId, Long parentCommentId) {
+    public ExamRootCommentWithRepliesDto findRootCommentWithReplies(Long commentId) {
         QExamComment replyComment = new QExamComment("replyComment");
 
         List<ExamReplyCommentDto> replies = queryFactory.select(new QExamReplyCommentDto(
@@ -83,10 +83,10 @@ public class ExamCommentRepositoryImpl implements ExamCommentRepositoryCustom {
                 .leftJoin(member).on(examComment.memberId.eq(member.id))
                 .leftJoin(replyComment).on(examComment.id.eq(replyComment.parentCommentId)
                         .and(replyComment.deletedAt.isNull()))
-                .where(examComment.examId.eq(examId).and(examComment.id.eq(parentCommentId)))
+                .where(examComment.id.eq(commentId))
                 .orderBy(replyComment.createdAt.asc())
                 .fetch();
 
-        return new ExamRootCommentWithRepliesDto(parentCommentId, replies);
+        return new ExamRootCommentWithRepliesDto(commentId, replies);
     }
 }

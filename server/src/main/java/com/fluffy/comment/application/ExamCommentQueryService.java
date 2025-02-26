@@ -20,7 +20,7 @@ public class ExamCommentQueryService {
     }
 
     @Transactional(readOnly = true)
-    public ExamRootCommentWithRepliesDto getRootCommentWithReplies(Long examId, Long commentId) {
-        return examCommentRepository.findRootCommentWithReplies(examId, commentId);
+    public ExamRootCommentWithRepliesDto getRootCommentWithReplies(Long commentId) {
+        return examCommentRepository.findRootCommentWithReplies(commentId);
     }
 }

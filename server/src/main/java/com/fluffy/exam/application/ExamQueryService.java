@@ -64,7 +64,6 @@ public class ExamQueryService {
     }
 
     @Transactional(readOnly = true)
-    @Cacheable(value = "examWithAnswers", key = "#examId")
     public ExamWithAnswersResponse getExamWithAnswers(Long examId, Accessor accessor) {
         Exam exam = examRepository.findByIdOrThrow(examId);
 

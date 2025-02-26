@@ -122,7 +122,7 @@ class ExamCommentDocumentTest extends AbstractDocumentTest {
         when(examCommentService.deleteComment(any()))
                 .thenReturn(1L);
 
-        mockMvc.perform(RestDocumentationRequestBuilders.delete("/api/v1/comments/{commentId}", 1L)
+        mockMvc.perform(RestDocumentationRequestBuilders.delete("/api/v1/exams/comments/{commentId}", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .cookie(new Cookie("access_token", "{ACCESS_TOKEN}"))
                 )

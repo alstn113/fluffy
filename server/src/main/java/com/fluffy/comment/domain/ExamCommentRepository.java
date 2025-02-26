@@ -3,7 +3,7 @@ package com.fluffy.comment.domain;
 import com.fluffy.global.exception.NotFoundException;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ExamCommentRepository extends JpaRepository<ExamComment, Long> {
+public interface ExamCommentRepository extends JpaRepository<ExamComment, Long>, ExamCommentRepositoryCustom {
 
     default ExamComment findByIdOrThrow(Long id) {
         return findById(id)

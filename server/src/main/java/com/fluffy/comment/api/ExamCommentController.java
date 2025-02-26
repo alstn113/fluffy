@@ -35,7 +35,7 @@ public class ExamCommentController {
         return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping("/api/v1/comments/{commentId}")
+    @DeleteMapping("/api/v1/exams/comments/{commentId}")
     public ResponseEntity<DeleteExamCommentWebResponse> deleteComment(
             @PathVariable Long commentId,
             @Auth Accessor accessor

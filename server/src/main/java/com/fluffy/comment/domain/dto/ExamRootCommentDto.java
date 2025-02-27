@@ -1,5 +1,6 @@
 package com.fluffy.comment.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.querydsl.core.annotations.QueryProjection;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
@@ -16,6 +17,7 @@ public class ExamRootCommentDto {
     private String content;
     private AuthorDto author;
     private Long replyCount;
+    @JsonProperty("isDeleted")
     private boolean isDeleted;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

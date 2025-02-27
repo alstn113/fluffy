@@ -74,7 +74,6 @@ public class ExamCommentRepositoryImpl implements ExamCommentRepositoryCustom {
                         replyComment.id,
                         replyComment.content,
                         AUTHOR_PROJECTION,
-                        replyComment.deletedAt.isNotNull(),
                         replyComment.createdAt,
                         replyComment.updatedAt
                 ))

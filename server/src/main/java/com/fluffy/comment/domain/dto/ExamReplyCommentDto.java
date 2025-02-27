@@ -13,7 +13,6 @@ public class ExamReplyCommentDto {
     private Long id;
     private String content;
     private AuthorDto author;
-    private boolean isDeleted;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
@@ -22,14 +21,12 @@ public class ExamReplyCommentDto {
             Long id,
             String content,
             AuthorDto author,
-            boolean isDeleted,
             LocalDateTime createdAt,
             LocalDateTime updatedAt
     ) {
         this.id = id;
         this.content = content;
         this.author = author;
-        this.isDeleted = isDeleted;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }

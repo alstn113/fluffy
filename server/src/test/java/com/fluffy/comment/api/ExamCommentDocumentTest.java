@@ -15,15 +15,98 @@ import com.fluffy.comment.api.dto.CreateExamCommentWebRequest;
 import com.fluffy.comment.api.dto.DeleteExamCommentWebResponse;
 import com.fluffy.comment.application.dto.AuthorResponse;
 import com.fluffy.comment.application.dto.CreateExamCommentResponse;
+import com.fluffy.comment.domain.dto.AuthorDto;
+import com.fluffy.comment.domain.dto.ExamReplyCommentDto;
+import com.fluffy.comment.domain.dto.ExamRootCommentDto;
 import com.fluffy.support.AbstractDocumentTest;
 import jakarta.servlet.http.Cookie;
 import java.time.LocalDateTime;
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 
 class ExamCommentDocumentTest extends AbstractDocumentTest {
+
+    @Test
+    @DisplayName("해당 시험에 대한 루트 댓글들을 조회할 수 있다.")
+    void getRootComments() throws Exception {
+        when(examCommentQueryService.getRootComments(any()))
+                .thenReturn(List.of(
+                        new ExamRootCommentDto(1L, "댓글",
+                                new AuthorDto(1L, "사람", "https://image.com"),
+                                0L,
+                                false,
+                                LocalDateTime.now(),
+                                LocalDateTime.now()
+                        ),
+                        new ExamRootCommentDto(-1L, "",
+                                new AuthorDto(-1L, "", ""),
+                                1L,
+                                true,
+                                LocalDateTime.now(),
+                                LocalDateTime.now()
+                        )
+                ));
+
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/api/v1/exams/{examId}/comments", 1L)
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andExpectAll(
+                        status().isOk()
+                )
+                .andDo(restDocs.document(
+                        pathParameters(
+                                parameterWithName("examId").description("시험 식별자")
+                        ),
+                        responseFields(
+                                fieldWithPath("comments.[].id").description("댓글 식별자"),
+                                fieldWithPath("comments.[].content").description("댓글 내용"),
+                                fieldWithPath("comments.[].author.id").description("작성자 식별자"),
+                                fieldWithPath("comments.[].author.name").description("작성자 이름"),
+                                fieldWithPath("comments.[].author.avatarUrl").description("작성자 프로필 이미지 URL"),
+                                fieldWithPath("comments.[].replyCount").description("답글 수"),
+                                fieldWithPath("comments.[].isDeleted").description("삭제 여부"),
+                                fieldWithPath("comments.[].createdAt").description("댓글 작성 시각"),
+                                fieldWithPath("comments.[].updatedAt").description("댓글 수정 시각")
+                        )
+                ));
+    }
+
+    @Test
+    @DisplayName("시험에서 댓글에 대한 답글들을 조회할 수 있다.")
+    void getReplyComments() throws Exception {
+        when(examCommentQueryService.getReplyComments(any()))
+                .thenReturn(List.of(
+                        new ExamReplyCommentDto(1L, "답글",
+                                new AuthorDto(1L, "사람", "https://image.com"),
+                                LocalDateTime.now(),
+                                LocalDateTime.now()
+                        )
+                ));
+
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/api/v1/exams/comments/{commentId}/replies", 1L)
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andExpectAll(
+                        status().isOk()
+                )
+                .andDo(restDocs.document(
+                        pathParameters(
+                                parameterWithName("commentId").description("댓글 식별자")
+                        ),
+                        responseFields(
+                                fieldWithPath("replies.[].id").description("댓글 식별자"),
+                                fieldWithPath("replies.[].content").description("댓글 내용"),
+                                fieldWithPath("replies.[].author.id").description("작성자 식별자"),
+                                fieldWithPath("replies.[].author.name").description("작성자 이름"),
+                                fieldWithPath("replies.[].author.avatarUrl").description("작성자 프로필 이미지 URL"),
+                                fieldWithPath("replies.[].createdAt").description("댓글 작성 시각"),
+                                fieldWithPath("replies.[].updatedAt").description("댓글 수정 시각")
+                        )
+                ));
+    }
 
     @Test
     @DisplayName("댓글을 작성할 수 있다.")

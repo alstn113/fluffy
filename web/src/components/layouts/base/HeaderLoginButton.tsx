@@ -1,5 +1,5 @@
 import { GITHUB_OAUTH_LOGIN_URL } from '@/constants';
-import { Button, NavbarItem } from '@nextui-org/react';
+import { Button, NavbarItem } from '@heroui/react';
 import { useLocation } from 'react-router';
 
 const HeaderLoginButton = () => {

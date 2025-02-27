@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { UseMutationOptionsOf } from '../types';
 import { ExamAPI } from '@/api/examAPI';
-import toast from 'react-hot-toast';
+import { toast } from 'sonner';
 
 const useUpdateExamTitle = (options: UseMutationOptionsOf<typeof ExamAPI.updateTitle> = {}) => {
   return useMutation({

@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios';
-import { Button } from '@nextui-org/react';
+import { Button } from '@heroui/react';
 import { useNavigate } from 'react-router';
 import { Routes } from '@/constants';
 

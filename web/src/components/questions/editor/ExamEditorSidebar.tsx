@@ -1,6 +1,6 @@
 import { DragDropContext, Draggable, Droppable, DropResult } from '@hello-pangea/dnd';
 import useExamEditorStore from '@/stores/useExamEditorStore';
-import { Tooltip } from '@nextui-org/react';
+import { Tooltip } from '@heroui/react';
 import { BsFillQuestionCircleFill } from 'react-icons/bs';
 
 const ExamEditorSidebar = () => {

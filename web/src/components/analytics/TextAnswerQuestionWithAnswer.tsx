@@ -1,6 +1,6 @@
 import { TextQuestionType } from '@/api/questionAPI';
 import { TextAnswerResponse } from '@/api/submissionAPI';
-import { Chip } from '@nextui-org/react';
+import { Chip } from '@heroui/react';
 
 interface TextAnswerQuestionWithAnswerProps {
   answer: TextAnswerResponse;

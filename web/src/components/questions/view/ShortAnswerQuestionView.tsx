@@ -1,6 +1,6 @@
 import { ShortAnswerQuestionRequest } from '@/api/questionAPI';
 import useExamEditorStore from '@/stores/useExamEditorStore';
-import { Input } from '@nextui-org/react';
+import { Input } from '@heroui/react';
 
 const ShortAnswerQuestionView = () => {
   const { currentIndex, questions } = useExamEditorStore();

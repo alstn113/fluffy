@@ -4,7 +4,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import App from './App';
 import { BrowserRouter } from 'react-router';
 import AsyncBoundary from './components/AsyncBoundary.tsx';
-import { Toaster } from 'react-hot-toast';
+import { Toaster } from 'sonner';
 
 import '@/styles/global.css';
 
@@ -23,7 +23,7 @@ createRoot(document.getElementById('root')!).render(
       <ReactQueryDevtools initialIsOpen={false} />
       <BrowserRouter>
         <App />
-        <Toaster />
+        <Toaster richColors />
       </BrowserRouter>
     </QueryClientProvider>
   </AsyncBoundary>,

@@ -1,6 +1,6 @@
 import useExamEditorStore from '@/stores/useExamEditorStore';
 import { SingleChoiceQuestionRequest } from '@/api/questionAPI';
-import { Radio, RadioGroup } from '@nextui-org/radio';
+import { Radio, RadioGroup } from '@heroui/radio';
 
 const SingleChoiceQuestionView = () => {
   const { currentIndex, questions } = useExamEditorStore();

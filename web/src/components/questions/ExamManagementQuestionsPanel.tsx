@@ -1,6 +1,6 @@
 import QuestionEditorTemplate from '@/components/questions/editor/QuestionEditorTemplate.tsx';
 import QuestionTypeSelector from '@/components/questions/editor/QuestionTypeSelector.tsx';
-import { Button } from '@nextui-org/react';
+import { Button } from '@heroui/react';
 import useExamEditorStore from '@/stores/useExamEditorStore.ts';
 import useUpdateExamQuestions from '@/hooks/api/exam/useUpdateExamQuestions.ts';
 import useGetExamWithAnswers from '@/hooks/api/exam/useGetExamWithAnswers';

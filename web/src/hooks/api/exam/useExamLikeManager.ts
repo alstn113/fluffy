@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import useUser from '@/hooks/useUser.ts';
 import { useRef, useState } from 'react';
-import toast from 'react-hot-toast';
+import { toast } from 'sonner';
 import useGetExamDetailSummary from '@/hooks/api/exam/useGetExamDetailSummary.ts';
 import { ExamAPI, ExamDetailSummaryResponse } from '@/api/examAPI';
 

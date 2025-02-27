@@ -110,7 +110,7 @@ class ExamCommentQueryServiceTest extends AbstractIntegrationTest {
         assertAll(
                 () -> assertThat(rootComments).hasSize(2),
 
-                () -> assertThat(rootComments.get(0).getId()).isEqualTo(-1L),
+                () -> assertThat(rootComments.get(0).getId()).isEqualTo(root1.getId()),
                 () -> assertThat(rootComments.get(0).getContent()).isEmpty(),
                 () -> assertThat(rootComments.get(0).isDeleted()).isTrue(),
                 () -> assertThat(rootComments.get(0).getReplyCount()).isEqualTo(1),
@@ -200,6 +200,57 @@ class ExamCommentQueryServiceTest extends AbstractIntegrationTest {
         assertThatThrownBy(() -> examCommentQueryService.getReplyComments(root1Id))
                 .isInstanceOf(NotFoundException.class)
                 .hasMessage("존재하지 않는 댓글입니다. 댓글 식별자: %d".formatted(root1Id));
+    }
+
+    @Test
+    @DisplayName("루트 댓글들을 조회하고, 루트 댓글들의 식별자를 이용해서 답글들을 조회할 수 있다.")
+    void getRootCommentsAndReplyComments() {
+        // given
+        Member member1 = createMember(1L);
+        Member member2 = createMember(2L);
+        Exam exam = createExam(member1);
+
+        /*
+        댓글 구조
+
+        root1 (deleted)
+            - root1reply1
+        root2
+            - root2reply1
+         */
+        ExamComment root1 = examCommentRepository.save(ExamComment.create("댓글1", exam.getId(), member1.getId()));
+        ExamComment root1reply1 = examCommentRepository.save(root1.reply("댓글1-답글1", member2.getId()));
+        root1.delete();
+        examCommentRepository.save(root1);
+
+        ExamComment root2 = examCommentRepository.save(ExamComment.create("댓글2", exam.getId(), member1.getId()));
+        ExamComment root2reply1 = examCommentRepository.save(root2.reply("댓글2-답글1", member2.getId()));
+
+        // when
+        List<ExamRootCommentDto> rootComments = examCommentQueryService.getRootComments(exam.getId());
+
+        List<ExamReplyCommentDto> root1replies = examCommentQueryService.getReplyComments(root1.getId());
+        List<ExamReplyCommentDto> root2replies = examCommentQueryService.getReplyComments(root2.getId());
+
+        // then
+        assertAll(
+                () -> assertThat(rootComments).hasSize(2),
+                () -> assertThat(rootComments.get(0).getId()).isEqualTo(root1.getId()),
+                () -> assertThat(rootComments.get(0).getContent()).isEmpty(),
+                () -> assertThat(rootComments.get(0).isDeleted()).isTrue(),
+                () -> assertThat(rootComments.get(0).getReplyCount()).isEqualTo(1),
+
+                () -> assertThat(rootComments.get(1).getId()).isEqualTo(root2.getId()),
+                () -> assertThat(rootComments.get(1).getContent()).isEqualTo("댓글2"),
+                () -> assertThat(rootComments.get(1).isDeleted()).isFalse(),
+                () -> assertThat(rootComments.get(1).getReplyCount()).isEqualTo(1),
+
+                () -> assertThat(root1replies).hasSize(1),
+                () -> assertThat(root1replies.get(0).getId()).isEqualTo(root1reply1.getId()),
+
+                () -> assertThat(root2replies).hasSize(1),
+                () -> assertThat(root2replies.get(0).getId()).isEqualTo(root2reply1.getId())
+        );
     }
 
     private Member createMember(Long id) {

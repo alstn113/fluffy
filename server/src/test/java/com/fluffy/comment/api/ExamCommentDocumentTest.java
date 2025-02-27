@@ -41,7 +41,7 @@ class ExamCommentDocumentTest extends AbstractDocumentTest {
                                 LocalDateTime.now(),
                                 LocalDateTime.now()
                         ),
-                        new ExamRootCommentDto(-1L, "",
+                        new ExamRootCommentDto(2L, "",
                                 new AuthorDto(-1L, "", ""),
                                 1L,
                                 true,

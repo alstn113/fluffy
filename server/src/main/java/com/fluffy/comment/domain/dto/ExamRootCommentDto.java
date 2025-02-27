@@ -43,7 +43,7 @@ public class ExamRootCommentDto {
 
     public ExamRootCommentDto asDeleted() {
         return new ExamRootCommentDto(
-                -1L,
+                id, // 삭제된 댓글에 답글이 있을 경우 삭제된 댓글을 이용해 답글들을 조회하기 위해 id를 마스킹 하지 않음.
                 "",
                 AuthorDto.EMPTY,
                 replyCount,

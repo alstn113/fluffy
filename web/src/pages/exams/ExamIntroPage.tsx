@@ -8,6 +8,7 @@ import { useNavigate, useParams } from 'react-router';
 import useGetExamDetailSummary from '@/hooks/api/exam/useGetExamDetailSummary.ts';
 import useExamLikeManager from '@/hooks/api/exam/useExamLikeManager';
 import { PiThumbsUpBold } from 'react-icons/pi';
+import ExamCommentsViewer from '@/components/exams/comments/ExamCommentsViewer';
 
 const ExamIntroPage = () => {
   const params = useParams() as { examId: string };
@@ -93,6 +94,8 @@ const ExamProgressContent = ({ examId }: { examId: number }) => {
           </Button>
         </div>
       </div>
+      {/* TODO: 댓글 컴포넌트 */}
+      <ExamCommentsViewer examId={examId} />
     </>
   );
 };

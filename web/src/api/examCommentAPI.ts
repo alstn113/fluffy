@@ -35,7 +35,7 @@ interface GetExamRootCommentsResponse {
   comments: ExamRootCommentResponse[];
 }
 
-interface ExamRootCommentResponse {
+export interface ExamRootCommentResponse {
   id: number;
   content: string;
   author: AuthorResponse;
@@ -49,7 +49,7 @@ interface GetExamReplyCommentsResponse {
   replies: ExamReplyCommentResponse[];
 }
 
-interface ExamReplyCommentResponse {
+export interface ExamReplyCommentResponse {
   id: number;
   content: string;
   author: AuthorResponse;

@@ -3,6 +3,8 @@ package com.fluffy;
 import com.fluffy.auth.domain.Member;
 import com.fluffy.auth.domain.MemberRepository;
 import com.fluffy.auth.domain.OAuth2Provider;
+import com.fluffy.comment.domain.ExamComment;
+import com.fluffy.comment.domain.ExamCommentRepository;
 import com.fluffy.exam.domain.Exam;
 import com.fluffy.exam.domain.ExamRepository;
 import com.fluffy.exam.domain.Question;
@@ -28,6 +30,7 @@ public class DataInitializer implements ApplicationRunner {
     private final MemberRepository memberRepository;
     private final ExamRepository examRepository;
     private final ReactionRepository reactionRepository;
+    private final ExamCommentRepository examCommentRepository;
 
     @Override
     public void run(ApplicationArguments args) {
@@ -300,5 +303,54 @@ public class DataInitializer implements ApplicationRunner {
             reactionRepository.save(new Reaction(LikeTarget.EXAM.name(), exam2.getId(), memberId, ReactionType.LIKE));
             reactionRepository.save(new Reaction(LikeTarget.EXAM.name(), exam3.getId(), memberId, ReactionType.LIKE));
         }
+
+        /*
+        댓글 구조 - Exam id: 1
+
+        - root1
+            - root1-reply1
+            - root1-reply2
+        - root2
+        - root3
+            - root3-reply1
+         */
+        ExamComment exam1root1 = examCommentRepository.save(ExamComment.create("댓글1", exam1.getId(), member1.getId()));
+        examCommentRepository.save(exam1root1.reply("댓글1의 답글1", member2.getId()));
+        examCommentRepository.save(exam1root1.reply("댓글1의 답글2", member3.getId()));
+        examCommentRepository.save(ExamComment.create("댓글2", exam1.getId(), member2.getId()));
+        ExamComment exam1root3 = examCommentRepository.save(ExamComment.create("댓글3", exam1.getId(), member3.getId()));
+        examCommentRepository.save(exam1root3.reply("댓글3의 답글1", member1.getId()));
+
+        /*
+        댓글 구조 - Exam id: 2
+
+        - root1 (deleted)
+            - root1-reply1
+        - root2 (deleted)
+        - root3 (deleted)
+            - root4-reply1 (deleted)
+         */
+
+        /*
+        댓글 뷰 - Exam id: 2
+
+        - deleted
+            - root1-reply1
+         */
+        ExamComment exam2root1 = examCommentRepository.save(ExamComment.create("댓글1", exam2.getId(), member1.getId()));
+        examCommentRepository.save(exam2root1.reply("댓글1의 답글1", member2.getId()));
+        exam2root1.delete();
+        examCommentRepository.save(exam2root1);
+
+        ExamComment exam2root2 = examCommentRepository.save(ExamComment.create("댓글2", exam2.getId(), member2.getId()));
+        exam2root2.delete();
+        examCommentRepository.save(exam2root2);
+
+        ExamComment exam2root3 = examCommentRepository.save(ExamComment.create("댓글3", exam2.getId(), member1.getId()));
+        ExamComment exam2root3reply1 = examCommentRepository.save(exam2root3.reply("댓글3의 답글1", member2.getId()));
+        exam2root3.delete();
+        exam2root3reply1.delete();
+        examCommentRepository.save(exam2root3);
+        examCommentRepository.save(exam2root3reply1);
     }
 }

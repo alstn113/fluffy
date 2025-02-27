@@ -16,7 +16,7 @@ const ExamRootCommentItem = ({ examId, comment }: ExamRootCommentItemProps) => {
 
   return (
     <>
-      <div className="flex space-x-4 py-2">
+      <div className="flex space-x-4 py-3">
         {/* 프로필 이미지 */}
         <div className="flex-shrink-0">
           <Avatar src={comment.author.avatarUrl} alt={comment.author.name} size="md" />
@@ -26,7 +26,7 @@ const ExamRootCommentItem = ({ examId, comment }: ExamRootCommentItemProps) => {
         <div className="flex-1">
           {comment.isDeleted ? (
             <>
-              <div className="text-gray-500">삭제된 댓글입니다.</div>
+              <div className="text-gray-500 font-semibold">삭제된 댓글입니다.</div>
             </>
           ) : (
             <>

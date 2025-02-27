@@ -61,20 +61,20 @@ class ExamCommentRepositoryTest extends AbstractIntegrationTest {
         assertAll(
                 () -> assertThat(rootComments).hasSize(3),
 
-                () -> assertThat(rootComments.get(0).getId()).isEqualTo(root1.getId()),
-                () -> assertThat(rootComments.get(0).getContent()).isEqualTo("댓글1"),
-                () -> assertThat(rootComments.get(0).getAuthor().getName()).isEqualTo(member1.getName()),
-                () -> assertThat(rootComments.get(0).getReplyCount()).isEqualTo(2),
+                () -> assertThat(rootComments.get(0).getId()).isEqualTo(root3.getId()),
+                () -> assertThat(rootComments.get(0).getContent()).isEqualTo("댓글3"),
+                () -> assertThat(rootComments.get(0).getAuthor().getName()).isEqualTo(member2.getName()),
+                () -> assertThat(rootComments.get(0).getReplyCount()).isEqualTo(1),
 
                 () -> assertThat(rootComments.get(1).getId()).isEqualTo(root2.getId()),
                 () -> assertThat(rootComments.get(1).getContent()).isEqualTo("댓글2"),
                 () -> assertThat(rootComments.get(1).getAuthor().getName()).isEqualTo(member2.getName()),
                 () -> assertThat(rootComments.get(1).getReplyCount()).isZero(),
 
-                () -> assertThat(rootComments.get(2).getId()).isEqualTo(root3.getId()),
-                () -> assertThat(rootComments.get(2).getContent()).isEqualTo("댓글3"),
-                () -> assertThat(rootComments.get(2).getAuthor().getName()).isEqualTo(member2.getName()),
-                () -> assertThat(rootComments.get(2).getReplyCount()).isEqualTo(1)
+                () -> assertThat(rootComments.get(2).getId()).isEqualTo(root1.getId()),
+                () -> assertThat(rootComments.get(2).getContent()).isEqualTo("댓글1"),
+                () -> assertThat(rootComments.get(2).getAuthor().getName()).isEqualTo(member1.getName()),
+                () -> assertThat(rootComments.get(2).getReplyCount()).isEqualTo(2)
         );
     }
 
@@ -118,13 +118,14 @@ class ExamCommentRepositoryTest extends AbstractIntegrationTest {
         assertAll(
                 () -> assertThat(rootComments).hasSize(2),
 
-                () -> assertThat(rootComments.get(0).getId()).isEqualTo(root2.getId()),
-                () -> assertThat(rootComments.get(0).isDeleted()).isTrue(),
-                () -> assertThat(rootComments.get(0).getReplyCount()).isEqualTo(1),
 
-                () -> assertThat(rootComments.get(1).getId()).isEqualTo(root3.getId()),
-                () -> assertThat(rootComments.get(1).isDeleted()).isFalse(),
-                () -> assertThat(rootComments.get(1).getReplyCount()).isZero()
+                () -> assertThat(rootComments.get(0).getId()).isEqualTo(root3.getId()),
+                () -> assertThat(rootComments.get(0).isDeleted()).isFalse(),
+                () -> assertThat(rootComments.get(0).getReplyCount()).isZero(),
+
+                () -> assertThat(rootComments.get(1).getId()).isEqualTo(root2.getId()),
+                () -> assertThat(rootComments.get(1).isDeleted()).isTrue(),
+                () -> assertThat(rootComments.get(1).getReplyCount()).isEqualTo(1)
         );
     }
 
@@ -154,10 +155,10 @@ class ExamCommentRepositoryTest extends AbstractIntegrationTest {
         assertAll(
                 () -> assertThat(replies).hasSize(2),
 
-                () -> assertThat(replies.get(0).getContent()).isEqualTo("댓글1-답글1"),
+                () -> assertThat(replies.get(0).getContent()).isEqualTo("댓글1-답글2"),
                 () -> assertThat(replies.get(0).getAuthor().getName()).isEqualTo(member1.getName()),
 
-                () -> assertThat(replies.get(1).getContent()).isEqualTo("댓글1-답글2"),
+                () -> assertThat(replies.get(1).getContent()).isEqualTo("댓글1-답글1"),
                 () -> assertThat(replies.get(1).getAuthor().getName()).isEqualTo(member1.getName())
         );
     }

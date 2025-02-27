@@ -56,9 +56,6 @@ class ExamCommentRepositoryTest extends AbstractIntegrationTest {
 
         // when
         List<ExamRootCommentDto> rootComments = examCommentRepository.findRootComments(exam.getId());
-        for (ExamRootCommentDto rootComment : rootComments) {
-            System.out.println(rootComment);
-        }
 
         // then
         assertAll(

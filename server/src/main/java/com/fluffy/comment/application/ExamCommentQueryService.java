@@ -37,7 +37,6 @@ public class ExamCommentQueryService {
     public List<ExamReplyCommentDto> getReplyComments(Long commentId) {
         ExamComment rootComment = examCommentRepository.findByIdOrThrow(commentId);
         List<ExamReplyCommentDto> replies = examCommentRepository.findRootCommentWithReplies(commentId);
-        System.out.println("replies = " + replies);
 
         if (rootComment.isDeleted() && replies.isEmpty()) {
             throw new NotFoundException("존재하지 않는 댓글입니다. 댓글 식별자: %d".formatted(commentId));

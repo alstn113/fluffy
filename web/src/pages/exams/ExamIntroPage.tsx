@@ -78,13 +78,13 @@ const ExamProgressContent = ({ examId }: { examId: number }) => {
       </div>
       <div className="w-full flex justify-center mt-6 gap-4">
         <div className="flex items-center justify-center">
-          <Button onClick={handleExamStart} variant="shadow" color="primary">
+          <Button onPress={handleExamStart} variant="shadow" color="primary">
             시험 응시
           </Button>
         </div>
         <div className="flex items-center justify-center">
           <Button
-            onClick={toggleLike}
+            onPress={toggleLike}
             variant="shadow"
             isIconOnly
             color={isLiked ? 'danger' : 'default'}

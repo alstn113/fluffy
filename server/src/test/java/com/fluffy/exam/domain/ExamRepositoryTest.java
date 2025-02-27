@@ -192,12 +192,6 @@ class ExamRepositoryTest extends AbstractIntegrationTest {
                 member1.getId()
         );
 
-        System.out.println(submittedExamSummaries.getContent());
-        System.out.println(submittedExamSummaries.getTotalElements());
-        System.out.println(submittedExamSummaries.getTotalPages());
-        System.out.println(submittedExamSummaries.getNumber());
-        System.out.println(submittedExamSummaries.getSize());
-
         // then
         assertAll(
                 () -> assertThat(submittedExamSummaries.getTotalElements()).isEqualTo(2),

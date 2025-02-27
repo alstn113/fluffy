@@ -6,6 +6,9 @@ import static org.mockito.Mockito.when;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fluffy.auth.api.AuthController;
 import com.fluffy.auth.application.AuthService;
+import com.fluffy.comment.api.ExamCommentController;
+import com.fluffy.comment.application.ExamCommentQueryService;
+import com.fluffy.comment.application.ExamCommentService;
 import com.fluffy.exam.api.ExamController;
 import com.fluffy.exam.api.ExamLikeController;
 import com.fluffy.exam.application.ExamImageService;
@@ -30,6 +33,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @WebMvcTest({
         AuthController.class,
         ExamController.class,
+        ExamCommentController.class,
         ExamLikeController.class,
         OAuth2Controller.class,
         SubmissionController.class,
@@ -71,6 +75,12 @@ public abstract class AbstractControllerTest {
 
     @MockBean
     protected ExamImageService examImageService;
+
+    @MockBean
+    protected ExamCommentService examCommentService;
+
+    @MockBean
+    protected ExamCommentQueryService examCommentQueryService;
 
     @BeforeEach
     public void setUp() {

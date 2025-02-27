@@ -1,0 +1,21 @@
+== Exam Comment API
+
+=== 해당 시험에 대한 루트 댓글 목록 조회
+
+operation::exam-comment-document-test/get-root-comments[]
+
+=== 시험에서 댓글에 대한 답글 목록 조회
+
+operation::exam-comment-document-test/get-reply-comments[]
+
+=== 시험 댓글 작성
+
+operation::exam-comment-document-test/create-root-comment[]
+
+=== 시험 답글 작성
+
+operation::exam-comment-document-test/create-reply-comment[]
+
+=== 시험 댓글 삭제
+
+operation::exam-comment-document-test/delete-comment[]

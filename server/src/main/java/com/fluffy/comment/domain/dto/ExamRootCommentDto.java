@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ExamRootCommentDto {
 
+    private static final LocalDateTime EPOCH_TIME = LocalDateTime.of(1970, 1, 1, 0, 0, 0);
+
     private Long id;
     private String content;
     private AuthorDto author;
@@ -35,5 +37,17 @@ public class ExamRootCommentDto {
         this.isDeleted = isDeleted;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+    }
+
+    public ExamRootCommentDto asDeleted() {
+        return new ExamRootCommentDto(
+                -1L,
+                "",
+                AuthorDto.EMPTY,
+                replyCount,
+                true,
+                EPOCH_TIME,
+                EPOCH_TIME
+        );
     }
 }

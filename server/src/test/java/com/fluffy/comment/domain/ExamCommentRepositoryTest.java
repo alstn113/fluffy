@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 import com.fluffy.auth.domain.Member;
 import com.fluffy.auth.domain.MemberRepository;
+import com.fluffy.comment.domain.dto.ExamReplyCommentDto;
 import com.fluffy.comment.domain.dto.ExamRootCommentDto;
-import com.fluffy.comment.domain.dto.ExamRootCommentWithRepliesDto;
 import com.fluffy.exam.domain.Exam;
 import com.fluffy.exam.domain.ExamRepository;
 import com.fluffy.exam.domain.Question;
@@ -151,18 +151,17 @@ class ExamCommentRepositoryTest extends AbstractIntegrationTest {
         examCommentRepository.save(root1.reply("댓글1-답글2", member1.getId()));
 
         // when
-        ExamRootCommentWithRepliesDto dto = examCommentRepository.findRootCommentWithReplies(root1.getId());
+        List<ExamReplyCommentDto> replies = examCommentRepository.findRootCommentWithReplies(root1.getId());
 
         // then
         assertAll(
-                () -> assertThat(dto.id()).isEqualTo(root1.getId()),
-                () -> assertThat(dto.replies()).hasSize(2),
+                () -> assertThat(replies).hasSize(2),
 
-                () -> assertThat(dto.replies().get(0).getContent()).isEqualTo("댓글1-답글1"),
-                () -> assertThat(dto.replies().get(0).getAuthor().getName()).isEqualTo(member1.getName()),
+                () -> assertThat(replies.get(0).getContent()).isEqualTo("댓글1-답글1"),
+                () -> assertThat(replies.get(0).getAuthor().getName()).isEqualTo(member1.getName()),
 
-                () -> assertThat(dto.replies().get(1).getContent()).isEqualTo("댓글1-답글2"),
-                () -> assertThat(dto.replies().get(1).getAuthor().getName()).isEqualTo(member1.getName())
+                () -> assertThat(replies.get(1).getContent()).isEqualTo("댓글1-답글2"),
+                () -> assertThat(replies.get(1).getAuthor().getName()).isEqualTo(member1.getName())
         );
     }
 
@@ -188,15 +187,14 @@ class ExamCommentRepositoryTest extends AbstractIntegrationTest {
         examCommentRepository.save(root1.reply("댓글1-답글2", member1.getId()));
 
         // when
-        ExamRootCommentWithRepliesDto dto = examCommentRepository.findRootCommentWithReplies(root1.getId());
+        List<ExamReplyCommentDto> replies = examCommentRepository.findRootCommentWithReplies(root1.getId());
 
         // then
         assertAll(
-                () -> assertThat(dto.id()).isEqualTo(root1.getId()),
-                () -> assertThat(dto.replies()).hasSize(1),
+                () -> assertThat(replies).hasSize(1),
 
-                () -> assertThat(dto.replies().get(0).getContent()).isEqualTo("댓글1-답글2"),
-                () -> assertThat(dto.replies().get(0).getAuthor().getName()).isEqualTo(member1.getName())
+                () -> assertThat(replies.get(0).getContent()).isEqualTo("댓글1-답글2"),
+                () -> assertThat(replies.get(0).getAuthor().getName()).isEqualTo(member1.getName())
         );
     }
 

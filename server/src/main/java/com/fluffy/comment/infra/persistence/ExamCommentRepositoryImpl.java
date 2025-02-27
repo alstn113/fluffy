@@ -8,7 +8,6 @@ import com.fluffy.comment.domain.QExamComment;
 import com.fluffy.comment.domain.dto.AuthorDto;
 import com.fluffy.comment.domain.dto.ExamReplyCommentDto;
 import com.fluffy.comment.domain.dto.ExamRootCommentDto;
-import com.fluffy.comment.domain.dto.ExamRootCommentWithRepliesDto;
 import com.fluffy.comment.domain.dto.QAuthorDto;
 import com.fluffy.comment.domain.dto.QExamReplyCommentDto;
 import com.fluffy.comment.domain.dto.QExamRootCommentDto;
@@ -68,10 +67,10 @@ public class ExamCommentRepositoryImpl implements ExamCommentRepositoryCustom {
      * 루트 댓글과 삭제되지 않은 답글들을 조회한다.
      */
     @Override
-    public ExamRootCommentWithRepliesDto findRootCommentWithReplies(Long commentId) {
+    public List<ExamReplyCommentDto> findRootCommentWithReplies(Long commentId) {
         QExamComment replyComment = new QExamComment("replyComment");
 
-        List<ExamReplyCommentDto> replies = queryFactory.select(new QExamReplyCommentDto(
+        return queryFactory.select(new QExamReplyCommentDto(
                         replyComment.id,
                         replyComment.content,
                         AUTHOR_PROJECTION,
@@ -81,12 +80,10 @@ public class ExamCommentRepositoryImpl implements ExamCommentRepositoryCustom {
                 ))
                 .from(examComment)
                 .leftJoin(member).on(examComment.memberId.eq(member.id))
-                .leftJoin(replyComment).on(examComment.id.eq(replyComment.parentCommentId)
+                .join(replyComment).on(examComment.id.eq(replyComment.parentCommentId)
                         .and(replyComment.deletedAt.isNull()))
                 .where(examComment.id.eq(commentId))
                 .orderBy(replyComment.createdAt.asc())
                 .fetch();
-
-        return new ExamRootCommentWithRepliesDto(commentId, replies);
     }
 }

@@ -13,6 +13,8 @@ public class AuthorDto {
     private String name;
     private String avatarUrl;
 
+    public static final AuthorDto EMPTY = new AuthorDto(-1L, "", "");
+
     @QueryProjection
     public AuthorDto(Long id, String name, String avatarUrl) {
         this.id = id;

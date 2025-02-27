@@ -8,9 +8,9 @@ export const ExamCommentAPI = {
     return data;
   },
 
-  getReplyComments: async (commentId: number) => {
+  getReplyComments: async (rootCommentId: number) => {
     const { data } = await apiV1Client.get<GetExamReplyCommentsResponse>(
-      `/exams/comments/${commentId}/replies`,
+      `/exams/comments/${rootCommentId}/replies`,
     );
     return data;
   },

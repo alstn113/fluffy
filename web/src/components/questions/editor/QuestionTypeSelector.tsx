@@ -1,6 +1,6 @@
 import { QUESTION_TYPE, QuestionType } from '@/api/questionAPI';
 import useExamEditorStore from '@/stores/useExamEditorStore';
-import { Button } from '@nextui-org/react';
+import { Button } from '@heroui/react';
 
 const QuestionTypeSelector = () => {
   const { handleAddQuestion } = useExamEditorStore();

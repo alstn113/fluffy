@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { QueryErrorResetBoundary } from '@tanstack/react-query';
 import ErrorFallback from './ErrorFallback';
-import { Spinner } from '@nextui-org/react';
+import { Spinner } from '@heroui/react';
 
 interface SuspenseErrorBoundaryProps {
   children: React.ReactNode;

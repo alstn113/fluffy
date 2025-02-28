@@ -11,7 +11,7 @@ import ExamManagementAnalyticsPage from '@/pages/exams/management/ExamManagement
 import ExamManagementSettingsPage from '@/pages/exams/management/ExamManagementSettingsPage';
 import ExamManagementLayout from '@/pages/exams/management/layout/ExamManagementLayout.tsx';
 import BaseLayout from '@/components/layouts/base/BaseLayout.tsx';
-import { NextUIProvider } from '@nextui-org/system';
+import { HeroUIProvider } from '@heroui/react';
 import ExamProgressLayout from '@/pages/exams/progress/layout/ExamProgressLayout';
 import ExamIntroPage from '@/pages/exams/ExamIntroPage';
 import ExamSubmissionsViewPage from './pages/exams/submissions/ExamSubmissionsViewPage';
@@ -23,7 +23,7 @@ const App = () => {
   useGetMe();
 
   return (
-    <NextUIProvider navigate={navigate} useHref={useHref}>
+    <HeroUIProvider navigate={navigate} useHref={useHref}>
       <Routes>
         <Route element={<BaseLayout />}>
           <Route index element={<HomePage />} />
@@ -45,7 +45,7 @@ const App = () => {
           <Route path="settings" element={<ExamManagementSettingsPage />} />
         </Route>
       </Routes>
-    </NextUIProvider>
+    </HeroUIProvider>
   );
 };
 

@@ -1,7 +1,7 @@
 import { SubmittedExamSummaryResponse } from '@/api/examAPI';
 import { Routes } from '@/constants';
 import { fromNowDate } from '@/lib/date.ts';
-import { Card, CardFooter, CardHeader, Divider, Image, Link } from '@nextui-org/react';
+import { Card, CardFooter, CardHeader, Divider, Image, Link } from '@heroui/react';
 import BaseCardBody from '../common/BaseCardBody';
 
 interface SubmittedExamCardProps {

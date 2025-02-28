@@ -2,7 +2,7 @@ import AsyncBoundary from '@/components/AsyncBoundary';
 import useGetExamSummaries from '@/hooks/api/exam/useGetExamSummaries';
 import ExamSummaryCard from '@/components/exams/ExamSummaryCard';
 import { useState } from 'react';
-import { Pagination } from '@nextui-org/react';
+import { Pagination } from '@heroui/react';
 
 const HomePage = () => {
   return (

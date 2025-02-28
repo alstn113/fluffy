@@ -1,7 +1,7 @@
 import useExamEditorStore from '@/stores/useExamEditorStore';
 import { MultipleChoiceQuestionRequest } from '@/api/questionAPI';
 import { DragDropContext, Draggable, Droppable, DropResult } from '@hello-pangea/dnd';
-import { Button, Checkbox, Tooltip } from '@nextui-org/react';
+import { Button, Checkbox, Tooltip } from '@heroui/react';
 import { FaTrashAlt } from 'react-icons/fa';
 import { BsFillQuestionCircleFill } from 'react-icons/bs';
 

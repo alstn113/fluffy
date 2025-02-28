@@ -1,5 +1,5 @@
 import { Routes } from '@/constants';
-import { NavbarBrand, Link } from '@nextui-org/react';
+import { NavbarBrand, Link } from '@heroui/react';
 
 const NavbarLogo = () => {
   return (

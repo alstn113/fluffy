@@ -15,19 +15,19 @@ import {
   NavbarContent,
   NavbarItem,
   useDisclosure,
-} from '@nextui-org/react';
+} from '@heroui/react';
 import { Routes } from '@/constants';
 import useLogout from '@/hooks/useLogout.ts';
 import { useNavigate } from 'react-router';
 import useUser from '@/hooks/useUser.ts';
-import { Avatar } from '@daveyplate/nextui-fixed-avatar';
+import { Avatar } from '@heroui/react';
 import useCreateExam from '@/hooks/api/exam/useCreateExam';
 import { useState } from 'react';
 import NavbarLogo from './NavbarLogo';
 import HeaderLoginButton from './HeaderLoginButton';
 
 const Header = () => {
-  const user = useUser();
+  const { user } = useUser();
   const logout = useLogout();
   const { mutate } = useCreateExam();
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();

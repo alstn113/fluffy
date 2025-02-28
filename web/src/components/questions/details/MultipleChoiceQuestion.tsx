@@ -1,5 +1,5 @@
 import { ChoiceQuestionResponse } from '@/api/questionAPI.ts';
-import { Checkbox, CheckboxGroup } from '@nextui-org/checkbox';
+import { Checkbox, CheckboxGroup } from '@heroui/checkbox';
 import useSubmissionStore from '@/stores/useSubmissionStore';
 
 interface MultipleChoiceQuestionProps {

@@ -1,5 +1,5 @@
 import { ChoiceQuestionResponse } from '@/api/questionAPI.ts';
-import { Radio, RadioGroup } from '@nextui-org/radio';
+import { Radio, RadioGroup } from '@heroui/radio';
 import useSubmissionStore from '@/stores/useSubmissionStore';
 
 interface SingleChoiceQuestionProps {

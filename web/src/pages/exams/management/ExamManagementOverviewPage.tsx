@@ -1,4 +1,4 @@
-import { Divider } from '@nextui-org/react';
+import { Divider } from '@heroui/react';
 import { useParams } from 'react-router';
 import useGetExamWithAnswers from '@/hooks/api/exam/useGetExamWithAnswers';
 import AsyncBoundary from '@/components/AsyncBoundary';

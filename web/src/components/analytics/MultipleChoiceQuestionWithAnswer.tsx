@@ -1,5 +1,5 @@
 import { ChoiceAnswerResponse } from '@/api/submissionAPI';
-import { Checkbox } from '@nextui-org/react';
+import { Checkbox } from '@heroui/react';
 
 interface MultipleChoiceQuestionWithAnswerProps {
   answer: ChoiceAnswerResponse;

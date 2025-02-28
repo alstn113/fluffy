@@ -2,12 +2,13 @@ import AsyncBoundary from '@/components/AsyncBoundary';
 import { Routes } from '@/constants';
 import useUser from '@/hooks/useUser';
 import { fullDate } from '@/lib/date.ts';
-import { Button, Divider } from '@nextui-org/react';
-import toast from 'react-hot-toast';
+import { Button, Divider } from '@heroui/react';
+import { toast } from 'sonner';
 import { useNavigate, useParams } from 'react-router';
 import useGetExamDetailSummary from '@/hooks/api/exam/useGetExamDetailSummary.ts';
 import useExamLikeManager from '@/hooks/api/exam/useExamLikeManager';
 import { PiThumbsUpBold } from 'react-icons/pi';
+import ExamCommentsViewer from '@/components/exams/comments/ExamCommentsViewer';
 
 const ExamIntroPage = () => {
   const params = useParams() as { examId: string };
@@ -25,7 +26,7 @@ const ExamIntroPage = () => {
 };
 
 const ExamProgressContent = ({ examId }: { examId: number }) => {
-  const user = useUser();
+  const { user } = useUser();
   const { data } = useGetExamDetailSummary(examId);
   const navigate = useNavigate();
   const { isLiked, likeCount, toggleLike } = useExamLikeManager({
@@ -78,13 +79,13 @@ const ExamProgressContent = ({ examId }: { examId: number }) => {
       </div>
       <div className="w-full flex justify-center mt-6 gap-4">
         <div className="flex items-center justify-center">
-          <Button onClick={handleExamStart} variant="shadow" color="primary">
+          <Button onPress={handleExamStart} variant="shadow" color="primary">
             시험 응시
           </Button>
         </div>
         <div className="flex items-center justify-center">
           <Button
-            onClick={toggleLike}
+            onPress={toggleLike}
             variant="shadow"
             isIconOnly
             color={isLiked ? 'danger' : 'default'}
@@ -93,6 +94,8 @@ const ExamProgressContent = ({ examId }: { examId: number }) => {
           </Button>
         </div>
       </div>
+      {/* TODO: 댓글 컴포넌트 */}
+      <ExamCommentsViewer examId={examId} />
     </>
   );
 };

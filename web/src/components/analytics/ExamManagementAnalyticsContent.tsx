@@ -8,7 +8,7 @@ import {
   TableHeader,
   TableRow,
   User,
-} from '@nextui-org/react';
+} from '@heroui/react';
 import { Key, useCallback } from 'react';
 import { SubmissionSummaryResponse } from '@/api/submissionAPI.ts';
 import { fullDate } from '@/lib/date.ts';

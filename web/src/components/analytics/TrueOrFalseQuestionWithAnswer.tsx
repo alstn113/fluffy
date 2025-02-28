@@ -1,5 +1,5 @@
 import { ChoiceAnswerResponse } from '@/api/submissionAPI';
-import { Chip } from '@nextui-org/react';
+import { Chip } from '@heroui/react';
 
 interface TrueOrFalseQuestionWithAnswerProps {
   answer: ChoiceAnswerResponse;

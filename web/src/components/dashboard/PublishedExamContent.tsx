@@ -1,4 +1,4 @@
-import { Pagination } from '@nextui-org/react';
+import { Pagination } from '@heroui/react';
 import PublishedExamCard from './PublishedExamCard';
 import useGetMyExamSummaries from '@/hooks/api/exam/useGetMyExamSummaries';
 import { useState } from 'react';

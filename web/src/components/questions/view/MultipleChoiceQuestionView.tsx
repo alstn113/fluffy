@@ -1,6 +1,6 @@
 import useExamEditorStore from '@/stores/useExamEditorStore';
 import { MultipleChoiceQuestionRequest } from '@/api/questionAPI';
-import { Checkbox } from '@nextui-org/react';
+import { Checkbox } from '@heroui/react';
 
 const MultipleChoiceQuestionView = () => {
   const { currentIndex, questions } = useExamEditorStore();

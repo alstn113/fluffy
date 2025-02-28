@@ -1,8 +1,8 @@
 import useExamEditorStore from '@/stores/useExamEditorStore';
 import { SingleChoiceQuestionRequest } from '@/api/questionAPI';
-import { Radio, RadioGroup } from '@nextui-org/radio';
+import { Radio, RadioGroup } from '@heroui/radio';
 import { DragDropContext, Draggable, Droppable, DropResult } from '@hello-pangea/dnd';
-import { Button, Tooltip } from '@nextui-org/react';
+import { Button, Tooltip } from '@heroui/react';
 import { FaTrashAlt } from 'react-icons/fa';
 import { BsFillQuestionCircleFill } from 'react-icons/bs';
 

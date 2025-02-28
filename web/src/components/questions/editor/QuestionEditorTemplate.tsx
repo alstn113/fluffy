@@ -6,7 +6,7 @@ import MultipleChoiceQuestionEditor from './MultipleChoiceQuestionEditor';
 import TrueOrFalseQuestionEditor from './TrueOrFalseQuestionEditor';
 import React from 'react';
 import useExamEditorStore from '@/stores/useExamEditorStore';
-import { Button, Input } from '@nextui-org/react';
+import { Button, Input } from '@heroui/react';
 import MarkdownEditor from '@/components/passage/MarkdownEditor';
 
 interface QuestionEditorTemplateProps {

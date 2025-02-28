@@ -9,7 +9,7 @@ import {
   ModalFooter,
   ModalHeader,
   useDisclosure,
-} from '@nextui-org/react';
+} from '@heroui/react';
 import { useState } from 'react';
 import { Routes } from '@/constants';
 import { FaPlusCircle } from 'react-icons/fa';

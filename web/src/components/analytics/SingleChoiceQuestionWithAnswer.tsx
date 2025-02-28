@@ -1,5 +1,5 @@
 import { ChoiceAnswerResponse } from '@/api/submissionAPI';
-import { Radio, RadioGroup } from '@nextui-org/react';
+import { Radio, RadioGroup } from '@heroui/react';
 
 interface SingleChoiceQuestionWithAnswerProps {
   answer: ChoiceAnswerResponse;

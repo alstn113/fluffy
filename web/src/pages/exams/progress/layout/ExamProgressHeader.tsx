@@ -1,5 +1,5 @@
 import NavbarLogo from '@/components/layouts/base/NavbarLogo';
-import { Navbar, NavbarContent } from '@nextui-org/react';
+import { Navbar, NavbarContent } from '@heroui/react';
 import { FaArrowLeft } from 'react-icons/fa';
 import { Routes } from '@/constants';
 import { Link } from 'react-router';

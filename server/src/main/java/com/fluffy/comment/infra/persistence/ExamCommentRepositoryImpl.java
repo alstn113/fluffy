@@ -50,7 +50,7 @@ public class ExamCommentRepositoryImpl implements ExamCommentRepositoryCustom {
                 .leftJoin(replyComment).on(examComment.id.eq(replyComment.parentCommentId)
                         .and(replyComment.deletedAt.isNull()))
                 .where(examComment.examId.eq(examId).and(examComment.parentCommentId.isNull()))
-                .orderBy(examComment.createdAt.asc())
+                .orderBy(examComment.createdAt.desc())
                 .groupBy(
                         examComment.id,
                         examComment.content,
@@ -78,11 +78,11 @@ public class ExamCommentRepositoryImpl implements ExamCommentRepositoryCustom {
                         replyComment.updatedAt
                 ))
                 .from(examComment)
-                .leftJoin(member).on(examComment.memberId.eq(member.id))
                 .join(replyComment).on(examComment.id.eq(replyComment.parentCommentId)
                         .and(replyComment.deletedAt.isNull()))
+                .leftJoin(member).on(replyComment.memberId.eq(member.id))
                 .where(examComment.id.eq(commentId))
-                .orderBy(replyComment.createdAt.asc())
+                .orderBy(replyComment.createdAt.desc())
                 .fetch();
     }
 }

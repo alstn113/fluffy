@@ -8,12 +8,12 @@ import {
   NavbarContent,
   Tab,
   Tabs,
-} from '@nextui-org/react';
+} from '@heroui/react';
 import { Routes } from '@/constants';
 import useLogout from '@/hooks/useLogout.ts';
 import { useLocation, useParams } from 'react-router';
 import useUser from '@/hooks/useUser.ts';
-import { Avatar } from '@daveyplate/nextui-fixed-avatar';
+import { Avatar } from '@heroui/react';
 import AsyncBoundary from '@/components/AsyncBoundary.tsx';
 import useGetExamWithAnswers from '@/hooks/api/exam/useGetExamWithAnswers.ts';
 import { EXAM_STATUS } from '@/api/examAPI.ts';
@@ -24,7 +24,7 @@ const ExamManagementHeader = () => {
   const params = useParams() as { examId: string };
   const examId = Number(params.examId);
 
-  const user = useUser();
+  const { user } = useUser();
   const logout = useLogout();
 
   return (

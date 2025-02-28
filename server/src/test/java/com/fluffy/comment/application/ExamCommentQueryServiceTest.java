@@ -53,10 +53,12 @@ class ExamCommentQueryServiceTest extends AbstractIntegrationTest {
         // then
         assertAll(
                 () -> assertThat(rootComments).hasSize(2),
-                () -> assertThat(rootComments.get(0).getId()).isEqualTo(root1.getId()),
-                () -> assertThat(rootComments.get(0).getReplyCount()).isEqualTo(1),
-                () -> assertThat(rootComments.get(1).getId()).isEqualTo(root2.getId()),
-                () -> assertThat(rootComments.get(1).getReplyCount()).isZero()
+
+                () -> assertThat(rootComments.get(0).getId()).isEqualTo(root2.getId()),
+                () -> assertThat(rootComments.get(0).getReplyCount()).isZero(),
+
+                () -> assertThat(rootComments.get(1).getId()).isEqualTo(root1.getId()),
+                () -> assertThat(rootComments.get(1).getReplyCount()).isEqualTo(1)
         );
     }
 
@@ -110,15 +112,15 @@ class ExamCommentQueryServiceTest extends AbstractIntegrationTest {
         assertAll(
                 () -> assertThat(rootComments).hasSize(2),
 
-                () -> assertThat(rootComments.get(0).getId()).isEqualTo(root1.getId()),
-                () -> assertThat(rootComments.get(0).getContent()).isEmpty(),
-                () -> assertThat(rootComments.get(0).isDeleted()).isTrue(),
-                () -> assertThat(rootComments.get(0).getReplyCount()).isEqualTo(1),
+                () -> assertThat(rootComments.get(0).getId()).isEqualTo(root3.getId()),
+                () -> assertThat(rootComments.get(0).getContent()).isEqualTo("댓글3"),
+                () -> assertThat(rootComments.get(0).isDeleted()).isFalse(),
+                () -> assertThat(rootComments.get(0).getReplyCount()).isZero(),
 
-                () -> assertThat(rootComments.get(1).getId()).isEqualTo(root3.getId()),
-                () -> assertThat(rootComments.get(1).getContent()).isEqualTo("댓글3"),
-                () -> assertThat(rootComments.get(1).isDeleted()).isFalse(),
-                () -> assertThat(rootComments.get(1).getReplyCount()).isZero()
+                () -> assertThat(rootComments.get(1).getId()).isEqualTo(root1.getId()),
+                () -> assertThat(rootComments.get(1).getContent()).isEmpty(),
+                () -> assertThat(rootComments.get(1).isDeleted()).isTrue(),
+                () -> assertThat(rootComments.get(1).getReplyCount()).isEqualTo(1)
         );
     }
 
@@ -144,8 +146,8 @@ class ExamCommentQueryServiceTest extends AbstractIntegrationTest {
         // then
         assertAll(
                 () -> assertThat(replies).hasSize(2),
-                () -> assertThat(replies.get(0).getId()).isEqualTo(root1reply1.getId()),
-                () -> assertThat(replies.get(1).getId()).isEqualTo(root1reply3.getId())
+                () -> assertThat(replies.get(0).getId()).isEqualTo(root1reply3.getId()),
+                () -> assertThat(replies.get(1).getId()).isEqualTo(root1reply1.getId())
         );
     }
 
@@ -235,14 +237,15 @@ class ExamCommentQueryServiceTest extends AbstractIntegrationTest {
         // then
         assertAll(
                 () -> assertThat(rootComments).hasSize(2),
-                () -> assertThat(rootComments.get(0).getId()).isEqualTo(root1.getId()),
-                () -> assertThat(rootComments.get(0).getContent()).isEmpty(),
-                () -> assertThat(rootComments.get(0).isDeleted()).isTrue(),
+
+                () -> assertThat(rootComments.get(0).getId()).isEqualTo(root2.getId()),
+                () -> assertThat(rootComments.get(0).getContent()).isEqualTo("댓글2"),
+                () -> assertThat(rootComments.get(0).isDeleted()).isFalse(),
                 () -> assertThat(rootComments.get(0).getReplyCount()).isEqualTo(1),
 
-                () -> assertThat(rootComments.get(1).getId()).isEqualTo(root2.getId()),
-                () -> assertThat(rootComments.get(1).getContent()).isEqualTo("댓글2"),
-                () -> assertThat(rootComments.get(1).isDeleted()).isFalse(),
+                () -> assertThat(rootComments.get(1).getId()).isEqualTo(root1.getId()),
+                () -> assertThat(rootComments.get(1).getContent()).isEmpty(),
+                () -> assertThat(rootComments.get(1).isDeleted()).isTrue(),
                 () -> assertThat(rootComments.get(1).getReplyCount()).isEqualTo(1),
 
                 () -> assertThat(root1replies).hasSize(1),

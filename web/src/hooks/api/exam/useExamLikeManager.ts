@@ -22,7 +22,7 @@ const useExamLikeManager = ({
   const [isLiked, setIsLiked] = useState<boolean>(initialIsLiked);
   const [likeCount, setLikeCount] = useState<number>(initialLikeCount);
 
-  const debounceTimeout = useRef<number | null>(null);
+  const debounceTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const debounceInvalidateQueries = () => {
     if (debounceTimeout.current) {

@@ -78,9 +78,9 @@ public class ExamCommentRepositoryImpl implements ExamCommentRepositoryCustom {
                         replyComment.updatedAt
                 ))
                 .from(examComment)
-                .leftJoin(member).on(examComment.memberId.eq(member.id))
                 .join(replyComment).on(examComment.id.eq(replyComment.parentCommentId)
                         .and(replyComment.deletedAt.isNull()))
+                .leftJoin(member).on(replyComment.memberId.eq(member.id))
                 .where(examComment.id.eq(commentId))
                 .orderBy(replyComment.createdAt.desc())
                 .fetch();

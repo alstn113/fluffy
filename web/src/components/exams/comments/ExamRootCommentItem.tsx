@@ -58,7 +58,7 @@ const ExamRootCommentItem = ({ examId, comment }: ExamRootCommentItemProps) => {
           <>
             <div className="flex items-center space-x-2 mt-2">
               <button
-                className="text-sm text-gray-500"
+                className="text-sm text-gray-500 rounded-full hover:bg-gray-100 p-2 transition-colors duration-200"
                 onClick={() => setReplyInputVisible(!replyInputVisible)}
               >
                 답글
@@ -82,7 +82,7 @@ const ExamRootCommentItem = ({ examId, comment }: ExamRootCommentItemProps) => {
         {comment.replyCount > 0 && (
           <>
             <button
-              className="flex items-center text-sm font-medium text-blue-600 mt-2"
+              className="flex items-center text-sm font-medium text-blue-600 rounded-full hover:bg-blue-50 p-2 transition-colors duration-200"
               onClick={() => setReplyVisible(!replyVisible)}
             >
               {replyVisible ? (

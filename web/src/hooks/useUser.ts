@@ -5,8 +5,9 @@ import useGetMe from './useGetMe';
 const useUser = () => {
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData<MyInfoResponse>(useGetMe.getkey());
+  const isLoggedIn = !!user;
 
-  return user as MyInfoResponse;
+  return { user, isLoggedIn } as { user: MyInfoResponse; isLoggedIn: boolean };
 };
 
 export default useUser;

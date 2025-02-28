@@ -17,7 +17,7 @@ const useExamLikeManager = ({
   initialLikeCount,
 }: UseExamLikeManagerProps) => {
   const queryClient = useQueryClient();
-  const user = useUser();
+  const { user } = useUser();
 
   const [isLiked, setIsLiked] = useState<boolean>(initialIsLiked);
   const [likeCount, setLikeCount] = useState<number>(initialLikeCount);

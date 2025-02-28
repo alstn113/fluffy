@@ -26,7 +26,7 @@ const ExamIntroPage = () => {
 };
 
 const ExamProgressContent = ({ examId }: { examId: number }) => {
-  const user = useUser();
+  const { user } = useUser();
   const { data } = useGetExamDetailSummary(examId);
   const navigate = useNavigate();
   const { isLiked, likeCount, toggleLike } = useExamLikeManager({

@@ -12,7 +12,12 @@ const ExamReplyCommentList = ({ rootCommentId, examId }: ExamReplyCommentListPro
   return (
     <div>
       {replyComments.replies.map((reply) => (
-        <ExamReplyCommentItem key={reply.id} reply={reply} examId={examId} />
+        <ExamReplyCommentItem
+          key={reply.id}
+          reply={reply}
+          rootCommentId={rootCommentId}
+          exmaId={examId}
+        />
       ))}
     </div>
   );

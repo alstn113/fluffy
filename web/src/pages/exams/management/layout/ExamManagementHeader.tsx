@@ -24,7 +24,7 @@ const ExamManagementHeader = () => {
   const params = useParams() as { examId: string };
   const examId = Number(params.examId);
 
-  const user = useUser();
+  const { user } = useUser();
   const logout = useLogout();
 
   return (

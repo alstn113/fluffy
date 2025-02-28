@@ -22,7 +22,7 @@ const ExamReplyCommentInput = ({
   onCancel,
   onCommentCreated,
 }: ExamReplyCommentInputProps) => {
-  const user = useUser();
+  const { user } = useUser();
   const [content, setContent] = useState('');
   const [isEditing, setIsEditing] = useState(false);
   const queryClient = useQueryClient();

@@ -27,7 +27,7 @@ import NavbarLogo from './NavbarLogo';
 import HeaderLoginButton from './HeaderLoginButton';
 
 const Header = () => {
-  const user = useUser();
+  const { user } = useUser();
   const logout = useLogout();
   const { mutate } = useCreateExam();
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();

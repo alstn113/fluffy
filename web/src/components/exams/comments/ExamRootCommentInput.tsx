@@ -13,7 +13,7 @@ interface ExamCommentInputProps {
 }
 
 const ExamRootCommentInput = ({ examId }: ExamCommentInputProps) => {
-  const user = useUser();
+  const { user, isLoggedIn } = useUser();
   const [content, setContent] = useState('');
   const [isEditing, setIsEditing] = useState(false);
   const queryClient = useQueryClient();
@@ -80,12 +80,17 @@ const ExamRootCommentInput = ({ examId }: ExamCommentInputProps) => {
     <div className="mb-6">
       <div className="flex space-x-4 py-2">
         <div className="flex-shrink-0">
-          <Avatar src={user.avatarUrl} alt={user.name} size="md" />
+          {isLoggedIn ? (
+            <Avatar src={user.avatarUrl} alt={user.name} size="md" />
+          ) : (
+            <Avatar src="" alt="default-avatar" size="md" />
+          )}
         </div>
         <div className="relative w-full" onFocus={handleFocus} onBlur={handleBlur}>
           <Input
             variant="underlined"
-            placeholder="댓글 추가..."
+            placeholder={isLoggedIn ? '댓글을 입력하세요.' : '로그인 후 댓글을 작성할 수 있습니다.'}
+            isDisabled={!isLoggedIn}
             value={content}
             onChange={(e) => setContent(e.target.value)}
           />

@@ -12,7 +12,7 @@ interface ExamCommentInputProps {
   examId: number;
 }
 
-const ExamCommentInput = ({ examId }: ExamCommentInputProps) => {
+const ExamRootCommentInput = ({ examId }: ExamCommentInputProps) => {
   const user = useUser();
   const [content, setContent] = useState('');
   const [isEditing, setIsEditing] = useState(false);
@@ -36,6 +36,8 @@ const ExamCommentInput = ({ examId }: ExamCommentInputProps) => {
     },
   });
 
+  const trimmedContent = content.trim();
+
   const handleFocus = () => {
     if (isEditing) return;
 
@@ -43,7 +45,6 @@ const ExamCommentInput = ({ examId }: ExamCommentInputProps) => {
   };
 
   const handleSubmit = () => {
-    const trimmedContent = content.trim();
     if (!trimmedContent) return;
 
     setIsEditing(false);
@@ -95,7 +96,7 @@ const ExamCommentInput = ({ examId }: ExamCommentInputProps) => {
                   e.preventDefault();
                 }}
                 onClick={handleSubmit}
-                disabled={!content.trim()}
+                disabled={!trimmedContent}
                 className={`flex items-center justify-center rounded-lg bg-success text-white w-8 h-8 shadow-md hover:shadow-lg transition-shadow ${
                   !content.trim() ? 'opacity-50' : ''
                 }`}
@@ -119,4 +120,4 @@ const ExamCommentInput = ({ examId }: ExamCommentInputProps) => {
   );
 };
 
-export default ExamCommentInput;
+export default ExamRootCommentInput;

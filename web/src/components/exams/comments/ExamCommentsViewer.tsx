@@ -1,6 +1,6 @@
 import useGetExamRootComments from '@/hooks/api/exam/comment/useGetExamRootComments';
 import ExamRootCommentItem from './ExamRootCommentItem';
-import ExamCommentInput from './ExamCommentInput';
+import ExamRootCommentInput from './ExamRootCommentInput';
 
 interface ExamCommentsViewerProps {
   examId: number;
@@ -14,7 +14,7 @@ const ExamCommentsViewer = ({ examId }: ExamCommentsViewerProps) => {
       <div className="flex items-center mb-4">
         <div className="text-xl font-bold">댓글 {rootComments.comments.length}개</div>
       </div>
-      <ExamCommentInput examId={examId} />
+      <ExamRootCommentInput examId={examId} />
       {rootComments.comments.map((comment) => (
         <ExamRootCommentItem key={comment.id} examId={examId} comment={comment} />
       ))}

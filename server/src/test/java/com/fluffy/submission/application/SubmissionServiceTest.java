@@ -1,11 +1,8 @@
 package com.fluffy.submission.application;
 
-import static com.fluffy.auth.domain.OAuth2Provider.GOOGLE;
-import static java.util.concurrent.Executors.newFixedThreadPool;
-import static org.assertj.core.api.Assertions.assertThat;
-
 import com.fluffy.auth.domain.Member;
 import com.fluffy.auth.domain.MemberRepository;
+import static com.fluffy.auth.domain.OAuth2Provider.GOOGLE;
 import com.fluffy.exam.domain.Exam;
 import com.fluffy.exam.domain.ExamRepository;
 import com.fluffy.exam.domain.Question;
@@ -18,6 +15,8 @@ import com.fluffy.support.AbstractIntegrationTest;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
+import static java.util.concurrent.Executors.newFixedThreadPool;
+import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

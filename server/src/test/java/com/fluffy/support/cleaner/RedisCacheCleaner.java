@@ -6,18 +6,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 @Component
-public class RedisDataCleaner implements DataCleaner {
+public class RedisCacheCleaner implements DataCleaner {
 
-    private static final Logger log = LoggerFactory.getLogger(RedisDataCleaner.class);
+    private static final Logger log = LoggerFactory.getLogger(RedisCacheCleaner.class);
 
     @Autowired
     private RedisTemplate<?, ?> redisTemplate;
 
     @Override
-    @Transactional
     public void clear() {
         clearCache();
     }
@@ -28,6 +26,6 @@ public class RedisDataCleaner implements DataCleaner {
                 .serverCommands()
                 .flushDb();
 
-        log.info("[RedisDataCleaner] Redis cache is cleared.");
+        log.info("[RedisCacheCleaner] Redis cache data is cleared.");
     }
 }

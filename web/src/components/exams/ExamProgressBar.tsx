@@ -1,5 +1,5 @@
 import useSubmissionStore from '@/stores/useSubmissionStore';
-import { Progress } from '@nextui-org/react';
+import { Progress } from '@heroui/react';
 
 const ExamProgressBar = () => {
   const { questionLength, currentQuestionIndex } = useSubmissionStore();

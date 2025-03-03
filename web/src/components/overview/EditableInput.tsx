@@ -1,4 +1,4 @@
-import { Input, Textarea } from '@nextui-org/react';
+import { Input, Textarea } from '@heroui/react';
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { HiCheck } from 'react-icons/hi';

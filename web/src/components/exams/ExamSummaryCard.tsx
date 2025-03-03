@@ -1,16 +1,7 @@
 import { ExamSummaryResponse } from '@/api/examAPI';
 import { Routes } from '@/constants';
 import { fromNowDate } from '@/lib/date.ts';
-import {
-  Button,
-  Card,
-  CardFooter,
-  CardHeader,
-  Chip,
-  Divider,
-  Image,
-  Tooltip,
-} from '@nextui-org/react';
+import { Button, Card, CardFooter, CardHeader, Chip, Divider, Image, Tooltip } from '@heroui/react';
 import { useNavigate } from 'react-router';
 import BaseCardBody from '../common/BaseCardBody';
 import { PiListChecksBold, PiThumbsUpBold } from 'react-icons/pi';

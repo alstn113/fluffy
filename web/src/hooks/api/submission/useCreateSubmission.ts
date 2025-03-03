@@ -1,7 +1,7 @@
 import { SubmissionAPI } from '@/api/submissionAPI';
 import { UseMutationOptionsOf } from '../types';
 import { useMutation } from '@tanstack/react-query';
-import toast from 'react-hot-toast';
+import { toast } from 'sonner';
 
 const useCreateSubmission = (options: UseMutationOptionsOf<typeof SubmissionAPI.submit> = {}) => {
   return useMutation({

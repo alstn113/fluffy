@@ -1,7 +1,7 @@
 import useGetMyExamSummaries from '@/hooks/api/exam/useGetMyExamSummaries';
 import { useState } from 'react';
 import DraftExamCard from './DraftExamCard';
-import { Pagination } from '@nextui-org/react';
+import { Pagination } from '@heroui/react';
 
 const DraftExamContent = () => {
   const [page, setPage] = useState(1);

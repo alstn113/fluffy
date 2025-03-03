@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
-public class PostgreSQLDataCleaner implements DataCleaner {
+public class PostgresDatabaseCleaner implements DataCleaner {
 
-    private static final Logger log = LoggerFactory.getLogger(PostgreSQLDataCleaner.class);
+    private static final Logger log = LoggerFactory.getLogger(PostgresDatabaseCleaner.class);
 
     @PersistenceContext
     private EntityManager em;
@@ -28,7 +28,7 @@ public class PostgreSQLDataCleaner implements DataCleaner {
         getTruncateQueries().forEach(query -> em.createNativeQuery(query).executeUpdate());
         em.createNativeQuery("SET CONSTRAINTS ALL IMMEDIATE").executeUpdate();
 
-        log.info("[PostgreSQLDataCleaner] All tables are truncated.");
+        log.info("[PostgresDatabaseCleaner] All tables are truncated.");
     }
 
     @SuppressWarnings("unchecked")

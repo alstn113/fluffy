@@ -9,7 +9,7 @@ import {
   ModalFooter,
   ModalHeader,
   useDisclosure,
-} from '@nextui-org/react';
+} from '@heroui/react';
 import { BsCloudArrowUpFill } from 'react-icons/bs';
 import { useNavigate, useParams } from 'react-router';
 

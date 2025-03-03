@@ -1,4 +1,4 @@
-import { CardBody } from '@nextui-org/react';
+import { CardBody } from '@heroui/react';
 
 interface BaseCardBodyProps {
   title: string;

@@ -1,6 +1,6 @@
 import { QuestionType } from '@/api/questionAPI';
 import useExamEditorStore from '@/stores/useExamEditorStore';
-import { Input } from '@nextui-org/react';
+import { Input } from '@heroui/react';
 import ShortAnswerQuestionView from './ShortAnswerQuestionView';
 import LongAnswerQuestionView from './LongAnswerQuestionView';
 import SingleChoiceQuestionView from './SingleChoiceQuestionView';

@@ -1,5 +1,5 @@
 import AsyncBoundary from '@/components/AsyncBoundary';
-import { Tab, Tabs } from '@nextui-org/react';
+import { Tab, Tabs } from '@heroui/react';
 import { BsFillFileEarmarkCheckFill, BsFillSendCheckFill } from 'react-icons/bs';
 import { PiPencilLineBold } from 'react-icons/pi';
 import NewExamButton from '@/components/exams/NewExamButton';

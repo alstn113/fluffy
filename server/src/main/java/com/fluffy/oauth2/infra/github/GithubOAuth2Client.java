@@ -1,14 +1,13 @@
 package com.fluffy.oauth2.infra.github;
 
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
-import static org.springframework.http.MediaType.APPLICATION_JSON;
-
 import com.fluffy.oauth2.infra.github.dto.GithubAccessTokenRequest;
 import com.fluffy.oauth2.infra.github.dto.GithubAccessTokenResponse;
 import com.fluffy.oauth2.infra.github.dto.GithubUserInfoResponse;
 import java.time.Duration;
 import org.springframework.boot.web.client.ClientHttpRequestFactories;
 import org.springframework.boot.web.client.ClientHttpRequestFactorySettings;
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;

@@ -1,7 +1,5 @@
 package com.fluffy.global.redis.config;
 
-import static org.springframework.data.redis.serializer.RedisSerializationContext.SerializationPair.fromSerializer;
-
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectMapper.DefaultTyping;
@@ -21,6 +19,7 @@ import org.springframework.data.redis.connection.lettuce.LettuceClientConfigurat
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import static org.springframework.data.redis.serializer.RedisSerializationContext.SerializationPair.fromSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @EnableCaching

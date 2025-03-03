@@ -80,11 +80,11 @@ class SubmissionRepositoryTest extends AbstractIntegrationTest {
         assertAll(
                 () -> assertThat(submissionSummaries.size()).isEqualTo(2),
                 () -> assertThat(submissionSummaries.stream()
-                        .map(SubmissionSummaryDto::getId))
+                        .map(SubmissionSummaryDto::id))
                         .containsExactlyElementsOf(List.of(member2Submission.getId(), member1Submission.getId())),
                 () -> assertThat(submissionSummaries.stream()
-                        .map(SubmissionSummaryDto::getParticipant)
-                        .map(ParticipantDto::getId))
+                        .map(SubmissionSummaryDto::participant)
+                        .map(ParticipantDto::id))
                         .containsExactlyElementsOf(List.of(member2.getId(), member1.getId()))
         );
     }

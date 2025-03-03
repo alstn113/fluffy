@@ -77,7 +77,7 @@ class SubmissionQueryServiceTest extends AbstractIntegrationTest {
         // then
         assertAll(
                 () -> assertThat(summaries).hasSize(2),
-                () -> assertThat(summaries.stream().map(SubmissionSummaryDto::getId))
+                () -> assertThat(summaries.stream().map(SubmissionSummaryDto::id))
                         .containsExactlyElementsOf(List.of(submission2.getId(), submission1.getId()))
         );
     }
@@ -133,7 +133,7 @@ class SubmissionQueryServiceTest extends AbstractIntegrationTest {
 
         // then
         assertAll(
-                () -> assertThat(detail.participant().getId()).isEqualTo(submission.getMemberId()),
+                () -> assertThat(detail.participant().id()).isEqualTo(submission.getMemberId()),
                 () -> assertThat(textAnswer.questionId()).isEqualTo(1L),
                 () -> assertThat(textAnswer.type()).isEqualTo("SHORT_ANSWER"),
                 () -> assertThat(textAnswer.text()).isEqualTo("질문"),

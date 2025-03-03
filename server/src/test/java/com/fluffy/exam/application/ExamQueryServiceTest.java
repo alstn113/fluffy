@@ -70,7 +70,7 @@ class ExamQueryServiceTest extends AbstractIntegrationTest {
         assertAll(
                 () -> assertThat(summaries.content()).hasSize(2),
                 () -> assertThat(summaries.pageInfo()).isEqualTo(new PageInfo(0, 2, 3, true, false)),
-                () -> assertThat(summaries.content().stream().map(ExamSummaryDto::getId))
+                () -> assertThat(summaries.content().stream().map(ExamSummaryDto::id))
                         .containsExactlyElementsOf(List.of(exam3.getId(), exam2.getId()))
         );
     }
@@ -118,7 +118,7 @@ class ExamQueryServiceTest extends AbstractIntegrationTest {
         assertAll(
                 () -> assertThat(summaries.content()).hasSize(2),
                 () -> assertThat(summaries.pageInfo()).isEqualTo(new PageInfo(0, 2, 3, true, false)),
-                () -> assertThat(summaries.content().stream().map(MyExamSummaryDto::getId))
+                () -> assertThat(summaries.content().stream().map(MyExamSummaryDto::id))
                         .containsExactlyElementsOf(List.of(exam5.getId(), exam2.getId()))
         );
     }

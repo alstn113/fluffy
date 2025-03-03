@@ -1,7 +1,5 @@
 package com.fluffy.global.web;
 
-import static java.util.Objects.requireNonNull;
-
 import com.fluffy.auth.application.AuthService;
 import com.fluffy.auth.application.response.MyInfoResponse;
 import com.fluffy.global.exception.BaseException;
@@ -9,6 +7,7 @@ import com.fluffy.global.exception.UnauthorizedException;
 import com.fluffy.global.web.cookie.CookieManager;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import static java.util.Objects.requireNonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpHeaders;

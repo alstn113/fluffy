@@ -1,10 +1,9 @@
 package com.fluffy.comment.infra.persistence;
 
 import static com.fluffy.auth.domain.QMember.member;
-import static com.fluffy.comment.domain.QExamComment.examComment;
-
 import com.fluffy.comment.domain.ExamCommentRepositoryCustom;
 import com.fluffy.comment.domain.QExamComment;
+import static com.fluffy.comment.domain.QExamComment.examComment;
 import com.fluffy.comment.domain.dto.AuthorDto;
 import com.fluffy.comment.domain.dto.ExamReplyCommentDto;
 import com.fluffy.comment.domain.dto.ExamRootCommentDto;

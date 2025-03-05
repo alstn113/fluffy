@@ -1,6 +1,6 @@
 package com.fluffy.support;
 
-import com.fluffy.storage.application.StorageClient;
+import com.fluffy.infra.storage.StorageClient;
 import com.fluffy.support.cleaner.DataCleanupExtension;
 import com.fluffy.support.testcontainers.PostgreSQLContainerInitializer;
 import com.fluffy.support.testcontainers.RedisContainerInitializer;

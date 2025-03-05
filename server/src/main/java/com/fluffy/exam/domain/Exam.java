@@ -1,7 +1,7 @@
 package com.fluffy.exam.domain;
 
 import com.fluffy.global.exception.BadRequestException;
-import com.fluffy.global.persistence.AuditableEntity;
+import com.fluffy.infra.persistence.AuditableEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;

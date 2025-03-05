@@ -1,4 +1,4 @@
-package com.fluffy.global.redis.config;
+package com.fluffy.infra.redis.config;
 
 import lombok.RequiredArgsConstructor;
 import org.redisson.Redisson;

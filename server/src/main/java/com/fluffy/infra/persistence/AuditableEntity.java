@@ -1,4 +1,4 @@
-package com.fluffy.global.persistence;
+package com.fluffy.infra.persistence;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

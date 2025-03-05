@@ -1,4 +1,4 @@
-package com.fluffy.global.persistence;
+package com.fluffy.infra.persistence.config;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;

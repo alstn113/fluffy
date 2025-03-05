@@ -1,4 +1,4 @@
-package com.fluffy.global.redis.distributedLock;
+package com.fluffy.infra.redis.distributedLock;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.stereotype.Component;

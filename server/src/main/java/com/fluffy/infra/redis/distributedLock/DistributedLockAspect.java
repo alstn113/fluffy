@@ -1,4 +1,4 @@
-package com.fluffy.global.redis.distributedLock;
+package com.fluffy.infra.redis.distributedLock;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

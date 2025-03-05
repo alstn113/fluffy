@@ -1,4 +1,4 @@
-package com.fluffy.global.redis.distributedLock;
+package com.fluffy.infra.redis.distributedLock;
 
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;

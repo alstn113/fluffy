@@ -53,13 +53,35 @@ export const ExamAPI = {
     return data;
   },
 
-  uploadImage: async ({ examId, image }: { examId: number; image: File }) => {
-    const formData = new FormData();
-    formData.append('image', image);
+  getPresignedUrl: async ({ examId, fileSize, imageName }: ExamImagePresigendUrlRequest) => {
+    const { data } = await apiV1Client.post<{ presignedUrl: string }>(
+      `/exams/${examId}/images/presigned-url`,
+      {
+        imageName,
+        fileSize,
+      },
+    );
 
-    const { data } = await apiV1Client.post<{ path: string }>(`/exams/${examId}/images`, formData, {
-      headers: { 'Content-Type': 'multipart/form-data' },
+    return data;
+  },
+
+  uploadImage: async ({ examId, image }: { examId: number; image: File }) => {
+    console.log(image);
+    const { presignedUrl } = await ExamAPI.getPresignedUrl({
+      examId,
+      imageName: image.name,
+      fileSize: image.size,
     });
+
+    console.log(presignedUrl);
+
+    const { data } = await apiV1Client.put<void>(presignedUrl, image, {
+      headers: {
+        'Content-Type': image.type,
+      },
+    });
+
+    console.log(data);
 
     return data;
   },
@@ -201,4 +223,10 @@ interface UpdateExamTitleParams {
 interface UpdateExamDescriptionParams {
   examId: number;
   request: { description: string };
+}
+
+interface ExamImagePresigendUrlRequest {
+  imageName: string;
+  fileSize: number;
+  examId: number;
 }

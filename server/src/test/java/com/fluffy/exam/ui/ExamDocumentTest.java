@@ -1,17 +1,19 @@
 package com.fluffy.exam.ui;
 
-import com.fluffy.exam.application.request.question.LongAnswerQuestionAppRequest;
-import com.fluffy.exam.application.request.question.MultipleChoiceAppRequest;
+import com.fluffy.exam.application.request.ExamImagePresignedUrlRequest;
+import com.fluffy.exam.application.request.question.LongAnswerQuestionRequest;
+import com.fluffy.exam.application.request.question.MultipleChoiceRequest;
 import com.fluffy.exam.application.request.question.QuestionOptionRequest;
-import com.fluffy.exam.application.request.question.ShortAnswerQuestionAppRequest;
-import com.fluffy.exam.application.request.question.SingleChoiceQuestionAppRequest;
-import com.fluffy.exam.application.request.question.TrueOrFalseQuestionAppRequest;
+import com.fluffy.exam.application.request.question.ShortAnswerQuestionRequest;
+import com.fluffy.exam.application.request.question.SingleChoiceQuestionRequest;
+import com.fluffy.exam.application.request.question.TrueOrFalseQuestionRequest;
 import com.fluffy.exam.application.response.CreateExamResponse;
 import com.fluffy.exam.application.response.ExamDetailResponse;
 import com.fluffy.exam.application.response.ExamDetailResponse.AnswerQuestionResponse;
 import com.fluffy.exam.application.response.ExamDetailResponse.ChoiceQuestionResponse;
 import com.fluffy.exam.application.response.ExamDetailResponse.ChoiceQuestionResponse.QuestionOptionResponse;
 import com.fluffy.exam.application.response.ExamDetailSummaryResponse;
+import com.fluffy.exam.application.response.ExamImagePresignedUrlResponse;
 import com.fluffy.exam.application.response.ExamWithAnswersResponse;
 import com.fluffy.exam.domain.ExamStatus;
 import com.fluffy.exam.domain.dto.AuthorDto;
@@ -23,7 +25,6 @@ import com.fluffy.exam.ui.request.PublishExamWebRequest;
 import com.fluffy.exam.ui.request.UpdateExamDescriptionWebRequest;
 import com.fluffy.exam.ui.request.UpdateExamQuestionsWebRequest;
 import com.fluffy.exam.ui.request.UpdateExamTitleWebRequest;
-import com.fluffy.exam.ui.response.UploadExamImageResponse;
 import com.fluffy.global.response.PageInfo;
 import com.fluffy.global.response.PageResponse;
 import com.fluffy.support.AbstractDocumentTest;
@@ -36,17 +37,13 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.multipart;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.partWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.restdocs.request.RequestDocumentation.queryParameters;
-import static org.springframework.restdocs.request.RequestDocumentation.requestParts;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -427,15 +424,15 @@ class ExamDocumentTest extends AbstractDocumentTest {
     void publish() throws Exception {
         PublishExamWebRequest request = new PublishExamWebRequest(
                 List.of(
-                        new ShortAnswerQuestionAppRequest("질문1", "지문", "SHORT_ANSWER", "답"),
-                        new LongAnswerQuestionAppRequest("질문2", "지문", "LONG_ANSWER"),
-                        new SingleChoiceQuestionAppRequest("질문3", "지문", "SINGLE_CHOICE",
+                        new ShortAnswerQuestionRequest("질문1", "지문", "SHORT_ANSWER", "답"),
+                        new LongAnswerQuestionRequest("질문2", "지문", "LONG_ANSWER"),
+                        new SingleChoiceQuestionRequest("질문3", "지문", "SINGLE_CHOICE",
                                 List.of(new QuestionOptionRequest("선택1", false),
                                         new QuestionOptionRequest("선택2", true))),
-                        new MultipleChoiceAppRequest("질문4", "지문", "MULTIPLE_CHOICE",
+                        new MultipleChoiceRequest("질문4", "지문", "MULTIPLE_CHOICE",
                                 List.of(new QuestionOptionRequest("선택1", true),
                                         new QuestionOptionRequest("선택2", true))),
-                        new TrueOrFalseQuestionAppRequest("질문5", "지문", "TRUE_OR_FALSE", true)
+                        new TrueOrFalseQuestionRequest("질문5", "지문", "TRUE_OR_FALSE", true)
                 )
         );
 
@@ -469,35 +466,37 @@ class ExamDocumentTest extends AbstractDocumentTest {
     }
 
     @Test
-    @DisplayName("시험에 대한 이미지를 업로드할 수 있다.")
-    void uploadImage() throws Exception {
-        MockMultipartFile imageFile = new MockMultipartFile(
-                "image",
-                "test.jpg",
-                MediaType.IMAGE_JPEG_VALUE,
-                "dummy content".getBytes()
+    @DisplayName("시험 이미지에 대한 Presigend URL을 생성할 수 있다.")
+    void createPresignedUrl() throws Exception {
+        ExamImagePresignedUrlRequest request = new ExamImagePresignedUrlRequest("BLA-BLA.png", 1024L);
+        ExamImagePresignedUrlResponse response = new ExamImagePresignedUrlResponse(
+                "https://cdn.fluffy.run/exams/1/QWER-1234.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=...",
+                "https://cdn.fluffy.run/exams/1/QWER-1234.png"
         );
 
-        String filePath = "https://s3.ap-northeast-2.amazonaws.com/images/4/exams/uuid.png";
-        when(examImageService.uploadImage(any(), any(), any()))
-                .thenReturn(filePath);
+        when(examImageService.createPresignedUrl(any(), any(), any()))
+                .thenReturn(response);
 
-        mockMvc.perform(multipart("/api/v1/exams/{examId}/images", 1L)
-                        .file(imageFile)
-                        .param("examId", "1")
-                        .contentType(MediaType.MULTIPART_FORM_DATA)
+        mockMvc.perform(RestDocumentationRequestBuilders.post("/api/v1/exams/{examId}/images/presigned-url", 1)
+                        .contentType(MediaType.APPLICATION_JSON)
                         .cookie(new Cookie("accessToken", "{ACCESS_TOKEN}"))
+                        .content(objectMapper.writeValueAsString(request))
                 )
                 .andExpectAll(
                         status().isOk(),
-                        content().json(objectMapper.writeValueAsString(new UploadExamImageResponse(filePath)))
+                        content().json(objectMapper.writeValueAsString(response))
                 )
                 .andDo(restDocs.document(
                         pathParameters(
                                 parameterWithName("examId").description("시험 ID")
                         ),
-                        requestParts(
-                                partWithName("image").description("업로드할 이미지 파일")
+                        requestFields(
+                                fieldWithPath("imageName").description("파일 이름"),
+                                fieldWithPath("fileSize").description("파일 크기")
+                        ),
+                        responseFields(
+                                fieldWithPath("presignedUrl").description("Presigned URL"),
+                                fieldWithPath("imageUrl").description("이미지 URL")
                         )
                 ));
     }
@@ -507,15 +506,15 @@ class ExamDocumentTest extends AbstractDocumentTest {
     void updateQuestions() throws Exception {
         UpdateExamQuestionsWebRequest request = new UpdateExamQuestionsWebRequest(
                 List.of(
-                        new ShortAnswerQuestionAppRequest("질문1", "지문", "SHORT_ANSWER", "답"),
-                        new LongAnswerQuestionAppRequest("질문2", "지문", "LONG_ANSWER"),
-                        new SingleChoiceQuestionAppRequest("질문3", "지문", "SINGLE_CHOICE",
+                        new ShortAnswerQuestionRequest("질문1", "지문", "SHORT_ANSWER", "답"),
+                        new LongAnswerQuestionRequest("질문2", "지문", "LONG_ANSWER"),
+                        new SingleChoiceQuestionRequest("질문3", "지문", "SINGLE_CHOICE",
                                 List.of(new QuestionOptionRequest("선택1", false),
                                         new QuestionOptionRequest("선택2", true))),
-                        new MultipleChoiceAppRequest("질문4", "지문", "MULTIPLE_CHOICE",
+                        new MultipleChoiceRequest("질문4", "지문", "MULTIPLE_CHOICE",
                                 List.of(new QuestionOptionRequest("선택1", true),
                                         new QuestionOptionRequest("선택2", true))),
-                        new TrueOrFalseQuestionAppRequest("질문5", "지문", "TRUE_OR_FALSE", true)
+                        new TrueOrFalseQuestionRequest("질문5", "지문", "TRUE_OR_FALSE", true)
                 )
         );
         mockMvc.perform(RestDocumentationRequestBuilders.put("/api/v1/exams/{examId}/questions", 1)

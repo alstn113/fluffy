@@ -2,7 +2,7 @@ package com.fluffy.submission.application.request;
 
 import java.util.List;
 
-public record QuestionResponseAppRequest(
+public record QuestionResponseRequest(
         List<String> answers
 ) {
 }

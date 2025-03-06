@@ -18,12 +18,13 @@
 
 ### 기술 스택
 
-- Spring Boot
+- Spring Boot 3
 - AWS EC2
 - Docker
-- AWS RDS (PostgreSQL)
+- AWS RDS (PostgreSQL 16)
+- AWS ElastiCache (Valkey 8)
 - AWS S3
-- AWS ElastiCache (Valkey)
+- AWS CloudFront
 
 ## 웹 프론트엔드
 

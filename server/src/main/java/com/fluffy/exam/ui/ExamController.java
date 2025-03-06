@@ -3,9 +3,11 @@ package com.fluffy.exam.ui;
 import com.fluffy.exam.application.ExamImageService;
 import com.fluffy.exam.application.ExamQueryService;
 import com.fluffy.exam.application.ExamService;
+import com.fluffy.exam.application.request.ExamImagePresignedUrlRequest;
 import com.fluffy.exam.application.response.CreateExamResponse;
 import com.fluffy.exam.application.response.ExamDetailResponse;
 import com.fluffy.exam.application.response.ExamDetailSummaryResponse;
+import com.fluffy.exam.application.response.ExamImagePresignedUrlResponse;
 import com.fluffy.exam.application.response.ExamWithAnswersResponse;
 import com.fluffy.exam.domain.ExamStatus;
 import com.fluffy.exam.domain.dto.ExamSummaryDto;
@@ -16,7 +18,6 @@ import com.fluffy.exam.ui.request.PublishExamWebRequest;
 import com.fluffy.exam.ui.request.UpdateExamDescriptionWebRequest;
 import com.fluffy.exam.ui.request.UpdateExamQuestionsWebRequest;
 import com.fluffy.exam.ui.request.UpdateExamTitleWebRequest;
-import com.fluffy.exam.ui.response.UploadExamImageResponse;
 import com.fluffy.global.response.PageResponse;
 import com.fluffy.global.web.Accessor;
 import com.fluffy.global.web.Auth;
@@ -34,7 +35,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
@@ -130,15 +130,15 @@ public class ExamController {
     }
 
 
-    @PostMapping("/api/v1/exams/{examId}/images")
-    public ResponseEntity<UploadExamImageResponse> uploadImage(
+    @PostMapping("/api/v1/exams/{examId}/images/presigned-url")
+    public ResponseEntity<ExamImagePresignedUrlResponse> createPresignedUrl(
             @PathVariable Long examId,
-            @RequestParam MultipartFile image,
+            @RequestBody ExamImagePresignedUrlRequest request,
             @Auth Accessor accessor
     ) {
-        String path = examImageService.uploadImage(examId, image, accessor);
+        ExamImagePresignedUrlResponse response = examImageService.createPresignedUrl(examId, request, accessor);
 
-        return ResponseEntity.ok(new UploadExamImageResponse(path));
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("/api/v1/exams/{examId}/questions")

@@ -2,15 +2,15 @@ package com.fluffy.exam.application;
 
 import com.fluffy.auth.domain.Member;
 import com.fluffy.auth.domain.MemberRepository;
-import com.fluffy.exam.application.request.CreateExamAppRequest;
-import com.fluffy.exam.application.request.UpdateExamQuestionsAppRequest;
-import com.fluffy.exam.application.request.question.LongAnswerQuestionAppRequest;
-import com.fluffy.exam.application.request.question.MultipleChoiceAppRequest;
-import com.fluffy.exam.application.request.question.QuestionAppRequest;
+import com.fluffy.exam.application.request.CreateExamRequest;
+import com.fluffy.exam.application.request.UpdateExamQuestionsRequest;
+import com.fluffy.exam.application.request.question.LongAnswerQuestionRequest;
+import com.fluffy.exam.application.request.question.MultipleChoiceRequest;
 import com.fluffy.exam.application.request.question.QuestionOptionRequest;
-import com.fluffy.exam.application.request.question.ShortAnswerQuestionAppRequest;
-import com.fluffy.exam.application.request.question.SingleChoiceQuestionAppRequest;
-import com.fluffy.exam.application.request.question.TrueOrFalseQuestionAppRequest;
+import com.fluffy.exam.application.request.question.QuestionRequest;
+import com.fluffy.exam.application.request.question.ShortAnswerQuestionRequest;
+import com.fluffy.exam.application.request.question.SingleChoiceQuestionRequest;
+import com.fluffy.exam.application.request.question.TrueOrFalseQuestionRequest;
 import com.fluffy.exam.application.response.CreateExamResponse;
 import com.fluffy.exam.domain.Exam;
 import com.fluffy.exam.domain.ExamRepository;
@@ -47,7 +47,7 @@ class ExamServiceTest extends AbstractIntegrationTest {
         // given
         Member member = memberRepository.save(MemberTestData.defaultMember().build());
         Accessor accessor = new Accessor(member.getId());
-        CreateExamAppRequest request = new CreateExamAppRequest("시험 제목", accessor);
+        CreateExamRequest request = new CreateExamRequest("시험 제목", accessor);
 
         // when
         CreateExamResponse response = examService.create(request);
@@ -68,8 +68,8 @@ class ExamServiceTest extends AbstractIntegrationTest {
         Exam existingExam = examRepository.save(Exam.create("시험 제목", member.getId()));
 
         Accessor accessor = new Accessor(member.getId());
-        List<QuestionAppRequest> questionRequests = createQuestionRequests();
-        UpdateExamQuestionsAppRequest request = new UpdateExamQuestionsAppRequest(
+        List<QuestionRequest> questionRequests = createQuestionRequests();
+        UpdateExamQuestionsRequest request = new UpdateExamQuestionsRequest(
                 existingExam.getId(), questionRequests, accessor);
 
         // when
@@ -90,8 +90,8 @@ class ExamServiceTest extends AbstractIntegrationTest {
 
         Member anotherMember = memberRepository.save(MemberTestData.defaultMember().build());
         Accessor accessor = new Accessor(anotherMember.getId());
-        List<QuestionAppRequest> questionRequests = createQuestionRequests();
-        UpdateExamQuestionsAppRequest request = new UpdateExamQuestionsAppRequest(existingExam.getId(),
+        List<QuestionRequest> questionRequests = createQuestionRequests();
+        UpdateExamQuestionsRequest request = new UpdateExamQuestionsRequest(existingExam.getId(),
                 questionRequests, accessor);
 
         // when & then
@@ -99,11 +99,11 @@ class ExamServiceTest extends AbstractIntegrationTest {
                 .isInstanceOf(ForbiddenException.class);
     }
 
-    private List<QuestionAppRequest> createQuestionRequests() {
+    private List<QuestionRequest> createQuestionRequests() {
         return List.of(
-                new ShortAnswerQuestionAppRequest("주관식 질문", "지문", "SHORT_ANSWER", "주관식 질문 정답"),
-                new LongAnswerQuestionAppRequest("서술형 질문", "지문", "LONG_ANSWER"),
-                new SingleChoiceQuestionAppRequest(
+                new ShortAnswerQuestionRequest("주관식 질문", "지문", "SHORT_ANSWER", "주관식 질문 정답"),
+                new LongAnswerQuestionRequest("서술형 질문", "지문", "LONG_ANSWER"),
+                new SingleChoiceQuestionRequest(
                         "객관식 단일 선택 질문", "지문",
                         "SINGLE_CHOICE",
                         List.of(
@@ -111,7 +111,7 @@ class ExamServiceTest extends AbstractIntegrationTest {
                                 new QuestionOptionRequest("객관식 질문 2", false)
                         )
                 ),
-                new MultipleChoiceAppRequest(
+                new MultipleChoiceRequest(
                         "객관식 다중 선택 질문", "지문",
                         "MULTIPLE_CHOICE",
                         List.of(
@@ -120,7 +120,7 @@ class ExamServiceTest extends AbstractIntegrationTest {
                                 new QuestionOptionRequest("객관식 질문 3", true)
                         )
                 ),
-                new TrueOrFalseQuestionAppRequest(
+                new TrueOrFalseQuestionRequest(
                         "참/거짓 질문", "지문",
                         "TRUE_OR_FALSE",
                         false

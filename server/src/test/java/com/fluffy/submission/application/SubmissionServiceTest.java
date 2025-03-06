@@ -7,8 +7,8 @@ import com.fluffy.exam.domain.Exam;
 import com.fluffy.exam.domain.ExamRepository;
 import com.fluffy.exam.domain.Question;
 import com.fluffy.global.web.Accessor;
-import com.fluffy.submission.application.request.QuestionResponseAppRequest;
-import com.fluffy.submission.application.request.SubmissionAppRequest;
+import com.fluffy.submission.application.request.QuestionResponseRequest;
+import com.fluffy.submission.application.request.SubmissionRequest;
 import com.fluffy.submission.domain.Submission;
 import com.fluffy.submission.domain.SubmissionRepository;
 import com.fluffy.support.AbstractIntegrationTest;
@@ -47,9 +47,9 @@ class SubmissionServiceTest extends AbstractIntegrationTest {
         examRepository.save(exam);
 
         // when
-        SubmissionAppRequest request = new SubmissionAppRequest(
+        SubmissionRequest request = new SubmissionRequest(
                 exam.getId(),
-                List.of(new QuestionResponseAppRequest(List.of("답1"))),
+                List.of(new QuestionResponseRequest(List.of("답1"))),
                 new Accessor(member1.getId())
         );
         try (ExecutorService executorService = newFixedThreadPool(2)) {

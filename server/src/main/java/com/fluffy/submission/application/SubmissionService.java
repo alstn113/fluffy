@@ -5,7 +5,7 @@ import com.fluffy.auth.domain.MemberRepository;
 import com.fluffy.exam.domain.Exam;
 import com.fluffy.exam.domain.ExamRepository;
 import com.fluffy.global.exception.BadRequestException;
-import com.fluffy.submission.application.request.SubmissionAppRequest;
+import com.fluffy.submission.application.request.SubmissionRequest;
 import com.fluffy.submission.domain.Submission;
 import com.fluffy.submission.domain.SubmissionRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ public class SubmissionService {
     private final SubmissionLockService submissionLockService;
 
     @Transactional
-    public void submit(SubmissionAppRequest request) {
+    public void submit(SubmissionRequest request) {
         Member member = memberRepository.findByIdOrThrow(request.accessor().id());
         Exam exam = examRepository.findByIdOrThrow(request.examId());
 

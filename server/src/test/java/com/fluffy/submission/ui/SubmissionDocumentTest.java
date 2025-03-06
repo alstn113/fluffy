@@ -1,6 +1,6 @@
 package com.fluffy.submission.ui;
 
-import com.fluffy.submission.application.request.QuestionResponseAppRequest;
+import com.fluffy.submission.application.request.QuestionResponseRequest;
 import com.fluffy.submission.application.response.SubmissionDetailResponse;
 import com.fluffy.submission.application.response.SubmissionDetailResponse.ChoiceAnswerResponse;
 import com.fluffy.submission.application.response.SubmissionDetailResponse.ChoiceResponse;
@@ -159,8 +159,8 @@ class SubmissionDocumentTest extends AbstractDocumentTest {
     @DisplayName("시험 제출을 할 수 있다.")
     void submit() throws Exception {
         SubmissionWebRequest request = new SubmissionWebRequest(List.of(
-                new QuestionResponseAppRequest(List.of("답")),
-                new QuestionResponseAppRequest(List.of("닭은 동물입니다.", "닭은 곤충입니다."))
+                new QuestionResponseRequest(List.of("답")),
+                new QuestionResponseRequest(List.of("닭은 동물입니다.", "닭은 곤충입니다."))
         ));
 
         doNothing().when(submissionService).submit(any());

@@ -1,12 +1,12 @@
 package com.fluffy.exam.application.request;
 
-import com.fluffy.exam.application.request.question.QuestionAppRequest;
+import com.fluffy.exam.application.request.question.QuestionRequest;
 import com.fluffy.global.web.Accessor;
 import java.util.List;
 
-public record PublishExamAppRequest(
+public record PublishExamRequest(
         Long examId,
-        List<QuestionAppRequest> questions,
+        List<QuestionRequest> questions,
         Accessor accessor
 ) {
 }

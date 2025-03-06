@@ -2,11 +2,11 @@ package com.fluffy.exam.application;
 
 import com.fluffy.auth.domain.Member;
 import com.fluffy.auth.domain.MemberRepository;
-import com.fluffy.exam.application.request.CreateExamAppRequest;
-import com.fluffy.exam.application.request.PublishExamAppRequest;
-import com.fluffy.exam.application.request.UpdateExamDescriptionAppRequest;
-import com.fluffy.exam.application.request.UpdateExamQuestionsAppRequest;
-import com.fluffy.exam.application.request.UpdateExamTitleAppRequest;
+import com.fluffy.exam.application.request.CreateExamRequest;
+import com.fluffy.exam.application.request.PublishExamRequest;
+import com.fluffy.exam.application.request.UpdateExamDescriptionRequest;
+import com.fluffy.exam.application.request.UpdateExamQuestionsRequest;
+import com.fluffy.exam.application.request.UpdateExamTitleRequest;
 import com.fluffy.exam.application.response.CreateExamResponse;
 import com.fluffy.exam.domain.Exam;
 import com.fluffy.exam.domain.ExamRepository;
@@ -28,7 +28,7 @@ public class ExamService {
     private final MemberRepository memberRepository;
 
     @Transactional
-    public CreateExamResponse create(CreateExamAppRequest request) {
+    public CreateExamResponse create(CreateExamRequest request) {
         Accessor accessor = request.accessor();
         Member member = memberRepository.findByIdOrThrow(accessor.id());
 
@@ -39,7 +39,7 @@ public class ExamService {
     }
 
     @Transactional
-    public void updateQuestions(UpdateExamQuestionsAppRequest request) {
+    public void updateQuestions(UpdateExamQuestionsRequest request) {
         Exam exam = validateExamAuthor(request.examId(), request.accessor());
 
         List<Question> questions = questionMapper.toQuestions(request.questions());
@@ -47,7 +47,7 @@ public class ExamService {
     }
 
     @Transactional
-    public void publish(PublishExamAppRequest request) {
+    public void publish(PublishExamRequest request) {
         Exam exam = validateExamAuthor(request.examId(), request.accessor());
 
         List<Question> questions = questionMapper.toQuestions(request.questions());
@@ -69,14 +69,14 @@ public class ExamService {
     }
 
     @Transactional
-    public void updateTitle(UpdateExamTitleAppRequest request) {
+    public void updateTitle(UpdateExamTitleRequest request) {
         Exam exam = validateExamAuthor(request.examId(), request.accessor());
 
         exam.updateTitle(request.title());
     }
 
     @Transactional
-    public void updateDescription(UpdateExamDescriptionAppRequest request) {
+    public void updateDescription(UpdateExamDescriptionRequest request) {
         Exam exam = validateExamAuthor(request.examId(), request.accessor());
 
         exam.updateDescription(request.description());

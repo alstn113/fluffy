@@ -1,8 +1,8 @@
 package com.fluffy.exam.application.request.question;
 
-public record LongAnswerQuestionAppRequest(
+public record LongAnswerQuestionRequest(
         String text,
         String passage,
         String type
-) implements QuestionAppRequest {
+) implements QuestionRequest {
 }

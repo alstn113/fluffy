@@ -5,6 +5,7 @@ import ImageLoadingSpinner from './ImageLoadingSpinner';
 import { FiPaperclip } from 'react-icons/fi';
 import { useState } from 'react';
 import useUpload from '@/hooks/useUpload';
+import { toast } from 'sonner';
 
 interface MarkdownEditorProps {
   examId: number;
@@ -46,9 +47,17 @@ const MarkdownEditor = ({ examId, value, onChange }: MarkdownEditorProps) => {
     if (!insertMarkdown) return;
     onChange(insertMarkdown);
 
-    const { path } = await ExamAPI.uploadImage({ examId, image });
-    const finalMarkdown = insertMarkdown.replace(loadingText, `![](${encodeURI(path)})`);
-    onChange(finalMarkdown);
+    try {
+      const { imageUrl } = await ExamAPI.uploadImage({ examId, image });
+      const finalMarkdown = insertMarkdown.replace(loadingText, `![](${encodeURI(imageUrl)})`);
+      onChange(finalMarkdown);
+    } catch (e) {
+      const finalMarkdown = insertMarkdown.replace(loadingText, '');
+      onChange(finalMarkdown);
+
+      toast.error('이미지 업로드에 실패했습니다. 잠시 후 다시 시도해주세요.');
+      console.error(e);
+    }
   };
 
   return (

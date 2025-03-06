@@ -54,7 +54,7 @@ export const ExamAPI = {
   },
 
   getPresignedUrl: async ({ examId, fileSize, imageName }: ExamImagePresigendUrlRequest) => {
-    const { data } = await apiV1Client.post<{ presignedUrl: string }>(
+    const { data } = await apiV1Client.post<ExamImagePresignedUrlResponse>(
       `/exams/${examId}/images/presigned-url`,
       {
         imageName,
@@ -65,25 +65,20 @@ export const ExamAPI = {
     return data;
   },
 
-  uploadImage: async ({ examId, image }: { examId: number; image: File }) => {
-    console.log(image);
-    const { presignedUrl } = await ExamAPI.getPresignedUrl({
+  uploadImage: async ({ examId, image }: UploadImageRequest) => {
+    const { presignedUrl, imageUrl } = await ExamAPI.getPresignedUrl({
       examId,
       imageName: image.name,
       fileSize: image.size,
     });
 
-    console.log(presignedUrl);
-
-    const { data } = await apiV1Client.put<void>(presignedUrl, image, {
+    await apiV1Client.put<void>(presignedUrl, image, {
       headers: {
         'Content-Type': image.type,
       },
     });
 
-    console.log(data);
-
-    return data;
+    return { imageUrl };
   },
 
   updateQuestions: async ({ examId, request }: UpdateExamQuestionsParams) => {
@@ -229,4 +224,14 @@ interface ExamImagePresigendUrlRequest {
   imageName: string;
   fileSize: number;
   examId: number;
+}
+
+interface ExamImagePresignedUrlResponse {
+  presignedUrl: string;
+  imageUrl: string;
+}
+
+interface UploadImageRequest {
+  examId: number;
+  image: File;
 }

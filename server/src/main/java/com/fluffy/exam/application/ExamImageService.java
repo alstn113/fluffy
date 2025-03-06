@@ -9,9 +9,10 @@ import com.fluffy.exam.domain.ExamImage;
 import com.fluffy.exam.domain.ExamImageRepository;
 import com.fluffy.exam.domain.ExamRepository;
 import com.fluffy.global.exception.ForbiddenException;
+import com.fluffy.global.web.Accessor;
 import com.fluffy.global.storage.StorageClient;
 import com.fluffy.global.storage.response.PresignedUrlResponse;
-import com.fluffy.global.web.Accessor;
+import java.net.URI;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -56,6 +57,7 @@ public class ExamImageService {
     private String createImagePath(UUID imageId, String fileName) {
         String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
 
-        return "/exams/%s.%s".formatted(imageId, extension);
+        // 이미지 파일의 경로는 '/'로 시작하면 안 됨.
+        return "exams/%s.%s".formatted(imageId, extension);
     }
 }

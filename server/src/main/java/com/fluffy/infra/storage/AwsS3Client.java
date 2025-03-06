@@ -3,6 +3,7 @@ package com.fluffy.infra.storage;
 import com.fluffy.global.storage.StorageClient;
 import com.fluffy.global.storage.response.PresignedUrlResponse;
 import io.awspring.cloud.s3.S3Template;
+import java.net.URI;
 import java.time.Duration;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -25,14 +26,16 @@ public class AwsS3Client implements StorageClient {
         PutObjectPresignRequest presignRequest = buildPresignedRequest(filePath);
 
         String presignedUrl = s3Presigner.presignPutObject(presignRequest).url().toString();
-        String fileUrl = properties.domain() + filePath;
+        String fileUrl = createFileUrl(filePath);
 
         return new PresignedUrlResponse(presignedUrl, fileUrl);
     }
 
-    @Override
-    public void delete(String filePath) {
-        s3Template.deleteObject(properties.bucket(), filePath);
+
+    private String createFileUrl(String filePath) {
+        URI domain = URI.create(properties.domain());
+
+        return domain.resolve(filePath).toString();
     }
 
     private PutObjectPresignRequest buildPresignedRequest(String filePath) {
@@ -44,5 +47,10 @@ public class AwsS3Client implements StorageClient {
                 .signatureDuration(PRESIGNED_URL_EXPIRATION)
                 .putObjectRequest(requestBuilder.build())
                 .build();
+    }
+
+    @Override
+    public void delete(String filePath) {
+        s3Template.deleteObject(properties.bucket(), filePath);
     }
 }

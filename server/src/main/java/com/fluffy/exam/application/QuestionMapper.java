@@ -1,12 +1,12 @@
 package com.fluffy.exam.application;
 
-import com.fluffy.exam.application.request.question.LongAnswerQuestionAppRequest;
-import com.fluffy.exam.application.request.question.MultipleChoiceAppRequest;
-import com.fluffy.exam.application.request.question.QuestionAppRequest;
+import com.fluffy.exam.application.request.question.LongAnswerQuestionRequest;
+import com.fluffy.exam.application.request.question.MultipleChoiceRequest;
 import com.fluffy.exam.application.request.question.QuestionOptionRequest;
-import com.fluffy.exam.application.request.question.ShortAnswerQuestionAppRequest;
-import com.fluffy.exam.application.request.question.SingleChoiceQuestionAppRequest;
-import com.fluffy.exam.application.request.question.TrueOrFalseQuestionAppRequest;
+import com.fluffy.exam.application.request.question.QuestionRequest;
+import com.fluffy.exam.application.request.question.ShortAnswerQuestionRequest;
+import com.fluffy.exam.application.request.question.SingleChoiceQuestionRequest;
+import com.fluffy.exam.application.request.question.TrueOrFalseQuestionRequest;
 import com.fluffy.exam.application.response.ExamDetailResponse.AnswerQuestionResponse;
 import com.fluffy.exam.application.response.ExamDetailResponse.ChoiceQuestionResponse;
 import com.fluffy.exam.application.response.ExamDetailResponse.QuestionResponse;
@@ -26,25 +26,25 @@ public class QuestionMapper {
 
     private final QuestionOptionMapper questionOptionMapper;
 
-    public List<Question> toQuestions(List<QuestionAppRequest> requests) {
+    public List<Question> toQuestions(List<QuestionRequest> requests) {
         return requests.stream()
                 .map(this::toQuestion)
                 .toList();
     }
 
-    public Question toQuestion(QuestionAppRequest request) {
+    public Question toQuestion(QuestionRequest request) {
         QuestionType questionType = QuestionType.from(request.type());
 
         return switch (questionType) {
-            case SHORT_ANSWER -> toQuestion((ShortAnswerQuestionAppRequest) request);
-            case LONG_ANSWER -> toQuestion((LongAnswerQuestionAppRequest) request);
-            case SINGLE_CHOICE -> toQuestion((SingleChoiceQuestionAppRequest) request);
-            case MULTIPLE_CHOICE -> toQuestion((MultipleChoiceAppRequest) request);
-            case TRUE_OR_FALSE -> toQuestion((TrueOrFalseQuestionAppRequest) request);
+            case SHORT_ANSWER -> toQuestion((ShortAnswerQuestionRequest) request);
+            case LONG_ANSWER -> toQuestion((LongAnswerQuestionRequest) request);
+            case SINGLE_CHOICE -> toQuestion((SingleChoiceQuestionRequest) request);
+            case MULTIPLE_CHOICE -> toQuestion((MultipleChoiceRequest) request);
+            case TRUE_OR_FALSE -> toQuestion((TrueOrFalseQuestionRequest) request);
         };
     }
 
-    private Question toQuestion(ShortAnswerQuestionAppRequest request) {
+    private Question toQuestion(ShortAnswerQuestionRequest request) {
         return Question.shortAnswer(
                 request.text(),
                 request.passage(),
@@ -52,23 +52,23 @@ public class QuestionMapper {
         );
     }
 
-    private Question toQuestion(LongAnswerQuestionAppRequest request) {
+    private Question toQuestion(LongAnswerQuestionRequest request) {
         return Question.longAnswer(request.text(), request.passage());
     }
 
-    private Question toQuestion(SingleChoiceQuestionAppRequest request) {
+    private Question toQuestion(SingleChoiceQuestionRequest request) {
         List<QuestionOption> questionOptions = toQuestionOptions(request.options());
 
         return Question.singleChoice(request.text(), request.passage(), questionOptions);
     }
 
-    private Question toQuestion(MultipleChoiceAppRequest request) {
+    private Question toQuestion(MultipleChoiceRequest request) {
         List<QuestionOption> questionOptions = toQuestionOptions(request.options());
 
         return Question.multipleChoice(request.text(), request.passage(), questionOptions);
     }
 
-    private Question toQuestion(TrueOrFalseQuestionAppRequest request) {
+    private Question toQuestion(TrueOrFalseQuestionRequest request) {
         return Question.trueOrFalse(request.text(), request.passage(), request.trueOrFalse());
     }
 

@@ -6,7 +6,6 @@ import com.fluffy.exam.application.response.ExamDetailSummaryResponse;
 import com.fluffy.exam.application.response.ExamWithAnswersResponse;
 import com.fluffy.exam.domain.Exam;
 import com.fluffy.exam.domain.dto.ExamDetailSummaryDto;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -18,12 +17,6 @@ public class ExamMapper {
 
     public CreateExamResponse toCreateResponse(Exam exam) {
         return new CreateExamResponse(exam.getId(), exam.getTitle());
-    }
-
-    public List<ExamDetailResponse> toResponses(List<Exam> exams) {
-        return exams.stream()
-                .map(this::toDetailResponse)
-                .toList();
     }
 
     public ExamDetailResponse toDetailResponse(Exam exam) {
@@ -52,16 +45,16 @@ public class ExamMapper {
 
     public ExamDetailSummaryResponse toDetailSummaryResponse(ExamDetailSummaryDto dto, boolean isLiked) {
         return new ExamDetailSummaryResponse(
-                dto.getId(),
-                dto.getTitle(),
-                dto.getDescription(),
-                dto.getStatus().name(),
-                dto.getAuthor(),
-                dto.getQuestionCount(),
-                dto.getLikeCount(),
+                dto.id(),
+                dto.title(),
+                dto.description(),
+                dto.status().name(),
+                dto.author(),
+                dto.questionCount(),
+                dto.likeCount(),
                 isLiked,
-                dto.getCreatedAt(),
-                dto.getUpdatedAt()
+                dto.createdAt(),
+                dto.updatedAt()
         );
     }
 }

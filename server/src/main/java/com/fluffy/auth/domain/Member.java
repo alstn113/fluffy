@@ -1,6 +1,6 @@
 package com.fluffy.auth.domain;
 
-import com.fluffy.global.persistence.AuditableEntity;
+import com.fluffy.infra.persistence.AuditableEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

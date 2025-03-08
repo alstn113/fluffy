@@ -26,6 +26,7 @@ spring:
         static: ap-northeast-2
       s3:
         bucket: bucket
+        domain: https://cdn-test.com
 
 
 api-host: http://localhost:8080

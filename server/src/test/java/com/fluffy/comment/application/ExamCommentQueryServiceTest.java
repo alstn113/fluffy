@@ -1,9 +1,5 @@
 package com.fluffy.comment.application;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.assertAll;
-
 import com.fluffy.auth.domain.Member;
 import com.fluffy.auth.domain.MemberRepository;
 import com.fluffy.comment.domain.ExamComment;
@@ -17,6 +13,9 @@ import com.fluffy.global.exception.NotFoundException;
 import com.fluffy.support.AbstractIntegrationTest;
 import com.fluffy.support.data.MemberTestData;
 import java.util.List;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,11 +53,11 @@ class ExamCommentQueryServiceTest extends AbstractIntegrationTest {
         assertAll(
                 () -> assertThat(rootComments).hasSize(2),
 
-                () -> assertThat(rootComments.get(0).getId()).isEqualTo(root2.getId()),
-                () -> assertThat(rootComments.get(0).getReplyCount()).isZero(),
+                () -> assertThat(rootComments.get(0).id()).isEqualTo(root2.getId()),
+                () -> assertThat(rootComments.get(0).replyCount()).isZero(),
 
-                () -> assertThat(rootComments.get(1).getId()).isEqualTo(root1.getId()),
-                () -> assertThat(rootComments.get(1).getReplyCount()).isEqualTo(1)
+                () -> assertThat(rootComments.get(1).id()).isEqualTo(root1.getId()),
+                () -> assertThat(rootComments.get(1).replyCount()).isEqualTo(1)
         );
     }
 
@@ -112,15 +111,15 @@ class ExamCommentQueryServiceTest extends AbstractIntegrationTest {
         assertAll(
                 () -> assertThat(rootComments).hasSize(2),
 
-                () -> assertThat(rootComments.get(0).getId()).isEqualTo(root3.getId()),
-                () -> assertThat(rootComments.get(0).getContent()).isEqualTo("댓글3"),
+                () -> assertThat(rootComments.get(0).id()).isEqualTo(root3.getId()),
+                () -> assertThat(rootComments.get(0).content()).isEqualTo("댓글3"),
                 () -> assertThat(rootComments.get(0).isDeleted()).isFalse(),
-                () -> assertThat(rootComments.get(0).getReplyCount()).isZero(),
+                () -> assertThat(rootComments.get(0).replyCount()).isZero(),
 
-                () -> assertThat(rootComments.get(1).getId()).isEqualTo(root1.getId()),
-                () -> assertThat(rootComments.get(1).getContent()).isEmpty(),
+                () -> assertThat(rootComments.get(1).id()).isEqualTo(root1.getId()),
+                () -> assertThat(rootComments.get(1).content()).isEmpty(),
                 () -> assertThat(rootComments.get(1).isDeleted()).isTrue(),
-                () -> assertThat(rootComments.get(1).getReplyCount()).isEqualTo(1)
+                () -> assertThat(rootComments.get(1).replyCount()).isEqualTo(1)
         );
     }
 
@@ -146,8 +145,8 @@ class ExamCommentQueryServiceTest extends AbstractIntegrationTest {
         // then
         assertAll(
                 () -> assertThat(replies).hasSize(2),
-                () -> assertThat(replies.get(0).getId()).isEqualTo(root1reply3.getId()),
-                () -> assertThat(replies.get(1).getId()).isEqualTo(root1reply1.getId())
+                () -> assertThat(replies.get(0).id()).isEqualTo(root1reply3.getId()),
+                () -> assertThat(replies.get(1).id()).isEqualTo(root1reply1.getId())
         );
     }
 
@@ -182,7 +181,7 @@ class ExamCommentQueryServiceTest extends AbstractIntegrationTest {
         // then
         assertAll(
                 () -> assertThat(replies).hasSize(1),
-                () -> assertThat(replies.get(0).getId()).isEqualTo(root1reply1.getId())
+                () -> assertThat(replies.get(0).id()).isEqualTo(root1reply1.getId())
         );
     }
 
@@ -238,21 +237,21 @@ class ExamCommentQueryServiceTest extends AbstractIntegrationTest {
         assertAll(
                 () -> assertThat(rootComments).hasSize(2),
 
-                () -> assertThat(rootComments.get(0).getId()).isEqualTo(root2.getId()),
-                () -> assertThat(rootComments.get(0).getContent()).isEqualTo("댓글2"),
+                () -> assertThat(rootComments.get(0).id()).isEqualTo(root2.getId()),
+                () -> assertThat(rootComments.get(0).content()).isEqualTo("댓글2"),
                 () -> assertThat(rootComments.get(0).isDeleted()).isFalse(),
-                () -> assertThat(rootComments.get(0).getReplyCount()).isEqualTo(1),
+                () -> assertThat(rootComments.get(0).replyCount()).isEqualTo(1),
 
-                () -> assertThat(rootComments.get(1).getId()).isEqualTo(root1.getId()),
-                () -> assertThat(rootComments.get(1).getContent()).isEmpty(),
+                () -> assertThat(rootComments.get(1).id()).isEqualTo(root1.getId()),
+                () -> assertThat(rootComments.get(1).content()).isEmpty(),
                 () -> assertThat(rootComments.get(1).isDeleted()).isTrue(),
-                () -> assertThat(rootComments.get(1).getReplyCount()).isEqualTo(1),
+                () -> assertThat(rootComments.get(1).replyCount()).isEqualTo(1),
 
                 () -> assertThat(root1replies).hasSize(1),
-                () -> assertThat(root1replies.get(0).getId()).isEqualTo(root1reply1.getId()),
+                () -> assertThat(root1replies.get(0).id()).isEqualTo(root1reply1.getId()),
 
                 () -> assertThat(root2replies).hasSize(1),
-                () -> assertThat(root2replies.get(0).getId()).isEqualTo(root2reply1.getId())
+                () -> assertThat(root2replies.get(0).id()).isEqualTo(root2reply1.getId())
         );
     }
 

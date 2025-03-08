@@ -1,12 +1,11 @@
 package com.fluffy.oauth2.application;
 
-import static java.util.stream.Collectors.toMap;
-
 import com.fluffy.auth.domain.OAuth2Provider;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
+import static java.util.stream.Collectors.toMap;
 import org.springframework.stereotype.Component;
 
 @Component

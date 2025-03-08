@@ -1,9 +1,5 @@
 package com.fluffy.exam.application;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.assertAll;
-
 import com.fluffy.auth.domain.Member;
 import com.fluffy.auth.domain.MemberRepository;
 import com.fluffy.exam.application.response.ExamDetailResponse;
@@ -23,6 +19,9 @@ import com.fluffy.global.web.Accessor;
 import com.fluffy.support.AbstractIntegrationTest;
 import com.fluffy.support.data.MemberTestData;
 import java.util.List;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,7 +69,7 @@ class ExamQueryServiceTest extends AbstractIntegrationTest {
         assertAll(
                 () -> assertThat(summaries.content()).hasSize(2),
                 () -> assertThat(summaries.pageInfo()).isEqualTo(new PageInfo(0, 2, 3, true, false)),
-                () -> assertThat(summaries.content().stream().map(ExamSummaryDto::getId))
+                () -> assertThat(summaries.content().stream().map(ExamSummaryDto::id))
                         .containsExactlyElementsOf(List.of(exam3.getId(), exam2.getId()))
         );
     }
@@ -118,7 +117,7 @@ class ExamQueryServiceTest extends AbstractIntegrationTest {
         assertAll(
                 () -> assertThat(summaries.content()).hasSize(2),
                 () -> assertThat(summaries.pageInfo()).isEqualTo(new PageInfo(0, 2, 3, true, false)),
-                () -> assertThat(summaries.content().stream().map(MyExamSummaryDto::getId))
+                () -> assertThat(summaries.content().stream().map(MyExamSummaryDto::id))
                         .containsExactlyElementsOf(List.of(exam5.getId(), exam2.getId()))
         );
     }

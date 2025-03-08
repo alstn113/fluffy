@@ -1,12 +1,11 @@
 package com.fluffy.exam.domain;
 
+import com.fluffy.global.exception.BadRequestException;
+import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Assertions.tuple;
 import static org.junit.jupiter.api.Assertions.assertAll;
-
-import com.fluffy.global.exception.BadRequestException;
-import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

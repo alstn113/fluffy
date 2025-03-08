@@ -5,8 +5,8 @@ import com.fluffy.exam.domain.Exam;
 import com.fluffy.exam.domain.Question;
 import com.fluffy.exam.domain.QuestionOption;
 import com.fluffy.global.exception.BadRequestException;
-import com.fluffy.submission.application.request.QuestionResponseAppRequest;
-import com.fluffy.submission.application.request.SubmissionAppRequest;
+import com.fluffy.submission.application.request.QuestionResponseRequest;
+import com.fluffy.submission.application.request.SubmissionRequest;
 import com.fluffy.submission.application.response.SubmissionDetailResponse;
 import com.fluffy.submission.application.response.SubmissionDetailResponse.AnswerBaseResponse;
 import com.fluffy.submission.application.response.SubmissionDetailResponse.ChoiceAnswerResponse;
@@ -24,9 +24,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class SubmissionMapper {
 
-    public Submission toSubmission(Exam exam, Long memberId, SubmissionAppRequest request) {
+    public Submission toSubmission(Exam exam, Long memberId, SubmissionRequest request) {
         List<Question> questions = exam.getQuestionGroup().toList();
-        List<QuestionResponseAppRequest> questionResponseRequests = request.questionResponses();
+        List<QuestionResponseRequest> questionResponseRequests = request.questionResponses();
 
         validateQuestionSize(questions, questionResponseRequests);
 
@@ -37,7 +37,7 @@ public class SubmissionMapper {
         return new Submission(request.examId(), memberId, answers);
     }
 
-    private void validateQuestionSize(List<Question> questions, List<QuestionResponseAppRequest> requests) {
+    private void validateQuestionSize(List<Question> questions, List<QuestionResponseRequest> requests) {
         int questionSize = questions.size();
         int questionResponseRequestSize = requests.size();
 
@@ -47,7 +47,7 @@ public class SubmissionMapper {
         }
     }
 
-    private Answer toAnswer(Question question, QuestionResponseAppRequest request) {
+    private Answer toAnswer(Question question, QuestionResponseRequest request) {
         if (request.answers().isEmpty()) {
             throw new BadRequestException("질문에 대한 응답이 비어 있습니다.");
         }
@@ -59,7 +59,7 @@ public class SubmissionMapper {
         };
     }
 
-    public Answer toTextAnswer(Question question, QuestionResponseAppRequest request) {
+    public Answer toTextAnswer(Question question, QuestionResponseRequest request) {
         if (request.answers().size() != 1) {
             throw new BadRequestException("텍스트 응답은 하나만 제출할 수 있습니다.");
         }
@@ -67,7 +67,7 @@ public class SubmissionMapper {
         return Answer.textAnswer(question.getId(), request.answers().getFirst());
     }
 
-    public Answer toSingleChoiceAnswer(Question question, QuestionResponseAppRequest request) {
+    public Answer toSingleChoiceAnswer(Question question, QuestionResponseRequest request) {
         if (request.answers().size() != 1) {
             throw new BadRequestException("응답은 하나만 제출할 수 있습니다.");
         }
@@ -83,7 +83,7 @@ public class SubmissionMapper {
         return Answer.choiceAnswer(question.getId(), List.of(new Choice(questionOption.getId())));
     }
 
-    public Answer toMultipleChoiceAnswer(Question question, QuestionResponseAppRequest request) {
+    public Answer toMultipleChoiceAnswer(Question question, QuestionResponseRequest request) {
         List<QuestionOption> options = question.getOptionGroup().toList();
         List<String> choices = request.answers();
 

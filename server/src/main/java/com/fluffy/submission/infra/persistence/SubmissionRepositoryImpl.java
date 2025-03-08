@@ -3,7 +3,6 @@ package com.fluffy.submission.infra.persistence;
 
 import static com.fluffy.auth.domain.QMember.member;
 import static com.fluffy.submission.domain.QSubmission.submission;
-
 import com.fluffy.submission.domain.SubmissionRepositoryCustom;
 import com.fluffy.submission.domain.dto.MySubmissionSummaryDto;
 import com.fluffy.submission.domain.dto.ParticipantDto;

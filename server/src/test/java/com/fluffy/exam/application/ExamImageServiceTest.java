@@ -1,23 +1,24 @@
 package com.fluffy.exam.application;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-
 import com.fluffy.auth.domain.Member;
 import com.fluffy.auth.domain.MemberRepository;
+import com.fluffy.exam.application.request.ExamImagePresignedUrlRequest;
+import com.fluffy.exam.application.response.ExamImagePresignedUrlResponse;
 import com.fluffy.exam.domain.Exam;
 import com.fluffy.exam.domain.ExamImageRepository;
 import com.fluffy.exam.domain.ExamRepository;
-import com.fluffy.global.exception.BadRequestException;
 import com.fluffy.global.exception.ForbiddenException;
+import com.fluffy.global.storage.response.PresignedUrlResponse;
 import com.fluffy.global.web.Accessor;
 import com.fluffy.support.AbstractIntegrationTest;
 import com.fluffy.support.data.MemberTestData;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,81 +38,41 @@ class ExamImageServiceTest extends AbstractIntegrationTest {
     private ExamImageRepository examImageRepository;
 
     @Test
-    @DisplayName("시험 제작 시 시험 문제에 대한 이미지를 업로드할 수 있다.")
-    void uploadImage() {
-        // given
+    @DisplayName("시험 이미지에 대한 Presigend URL을 생성할 수 있다.")
+    void createPresignedUrl() {
         Member member = createMember();
         Exam exam = createExam(member);
+
+        String presignedUrl = "https://cdn.fluffy.run/exams/1/QWER-1234.png?X-Amz-BLABLA=1234";
+        String fileUrl = "https://cdn.fluffy.run/exams/1/QWER-1234.png";
+        when(storageClient.getPresignedUrl(any()))
+                .thenReturn(new PresignedUrlResponse(presignedUrl, fileUrl));
+
+        ExamImagePresignedUrlRequest request = new ExamImagePresignedUrlRequest("BLA-BLA.png", 1024L);
         Accessor accessor = new Accessor(member.getId());
-        MultipartFile image = createMockMultipartFile();
 
-        // when
-        String returnImageUrl = "https://fluffy-bucket.amazonaws.com/images/4/exams/uuid.png";
-        when(storageClient.upload(any(), any())).thenReturn(returnImageUrl);
-        String imageUrl = examImageService.uploadImage(exam.getId(), image, accessor);
+        ExamImagePresignedUrlResponse response = examImageService.createPresignedUrl(exam.getId(), request, accessor);
 
-        // then
         assertAll(
-                () -> assertThat(imageUrl).isEqualTo(returnImageUrl),
+                () -> assertThat(response.presignedUrl()).isEqualTo(presignedUrl),
+                () -> assertThat(response.imageUrl()).isEqualTo(fileUrl),
                 () -> assertThat(examImageRepository.findAll()).hasSize(1)
         );
     }
 
     @Test
-    @DisplayName("시험 제작자가 아닌 경우 해당 시험에 대해 이미지를 업로드할 수 없다.")
-    void uploadImage_notAuthor() {
-        // given
+    @DisplayName("시험에 대한 작성자만 해당 Presigned URL을 생성할 수 있다.")
+    void createPresignedUrlWithDifferentAuthor() {
         Member member = createMember();
-        Exam exam = createExam(member);
-
         Member anotherMember = createAnotherMember();
+        Exam exam = createExam(anotherMember);
 
-        Long examId = exam.getId();
-        MultipartFile image = createMockMultipartFile();
-        Accessor accessor = new Accessor(anotherMember.getId());
-
-        // when & then
-        assertThatThrownBy(() -> examImageService.uploadImage(examId, image, accessor))
-                .isInstanceOf(ForbiddenException.class)
-                .hasMessage("시험 작성자만 이미지를 업로드할 수 있습니다.");
-    }
-
-    @Test
-    @DisplayName("이미지 파일이 비어있는 경우 이미지를 업로드할 수 없다.")
-    void uploadImage_emptyImage() {
-        // given
-        Member member = createMember();
-        Exam exam = createExam(member);
-
-        Long examId = exam.getId();
-        MultipartFile image = new MockMultipartFile("image", "image.png", "image/png", new byte[0]);
+        ExamImagePresignedUrlRequest request = new ExamImagePresignedUrlRequest("BLA-BLA.png", 1024L);
         Accessor accessor = new Accessor(member.getId());
 
-        // when & then
-        assertThatThrownBy(() -> examImageService.uploadImage(examId, image, accessor))
-                .isInstanceOf(BadRequestException.class)
-                .hasMessage("이미지 파일이 비어있습니다.");
-    }
-
-    @Test
-    @DisplayName("외부 이미지 저장소에 이미지 업로드 실패 시 저장된 이미지 정보를 삭제한다.")
-    void uploadImage_fail() {
-        // given
-        Member member = createMember();
-        Exam exam = createExam(member);
         Long examId = exam.getId();
-        MultipartFile image = createMockMultipartFile();
-        Accessor accessor = new Accessor(member.getId());
-
-        // when
-        when(storageClient.upload(any(), any())).thenThrow(new RuntimeException());
-
-        // then
-        assertAll(
-                () -> assertThatThrownBy(() -> examImageService.uploadImage(examId, image, accessor))
-                        .isInstanceOf(RuntimeException.class),
-                () -> assertThat(examImageRepository.findAll()).isEmpty()
-        );
+        assertThatThrownBy(() -> examImageService.createPresignedUrl(examId, request, accessor))
+                .isInstanceOf(ForbiddenException.class);
     }
 
     private Member createMember() {

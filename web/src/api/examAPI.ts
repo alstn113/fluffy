@@ -53,15 +53,33 @@ export const ExamAPI = {
     return data;
   },
 
-  uploadImage: async ({ examId, image }: { examId: number; image: File }) => {
-    const formData = new FormData();
-    formData.append('image', image);
-
-    const { data } = await apiV1Client.post<{ path: string }>(`/exams/${examId}/images`, formData, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    });
+  getPresignedUrl: async ({ examId, fileSize, imageName }: ExamImagePresigendUrlRequest) => {
+    const { data } = await apiV1Client.post<ExamImagePresignedUrlResponse>(
+      `/exams/${examId}/images/presigned-url`,
+      {
+        imageName,
+        fileSize,
+      },
+    );
 
     return data;
+  },
+
+  uploadImage: async ({ examId, image }: UploadImageRequest) => {
+    const { presignedUrl, imageUrl } = await ExamAPI.getPresignedUrl({
+      examId,
+      imageName: image.name,
+      fileSize: image.size,
+    });
+
+    await apiV1Client.put<void>(presignedUrl, image, {
+      headers: {
+        'Content-Type': image.type,
+      },
+      withCredentials: false,
+    });
+
+    return { imageUrl };
   },
 
   updateQuestions: async ({ examId, request }: UpdateExamQuestionsParams) => {
@@ -201,4 +219,20 @@ interface UpdateExamTitleParams {
 interface UpdateExamDescriptionParams {
   examId: number;
   request: { description: string };
+}
+
+interface ExamImagePresigendUrlRequest {
+  imageName: string;
+  fileSize: number;
+  examId: number;
+}
+
+interface ExamImagePresignedUrlResponse {
+  presignedUrl: string;
+  imageUrl: string;
+}
+
+interface UploadImageRequest {
+  examId: number;
+  image: File;
 }

@@ -7,17 +7,11 @@ import lombok.Getter;
 @Getter
 public enum QuestionType {
 
-    SHORT_ANSWER(true),
-    LONG_ANSWER(false),
-    SINGLE_CHOICE(true),
-    MULTIPLE_CHOICE(true),
-    TRUE_OR_FALSE(true);
-
-    private final boolean autoGraded;
-
-    QuestionType(boolean autoGraded) {
-        this.autoGraded = autoGraded;
-    }
+    SHORT_ANSWER,
+    LONG_ANSWER,
+    SINGLE_CHOICE,
+    MULTIPLE_CHOICE,
+    TRUE_OR_FALSE;
 
     public static QuestionType from(String value) {
         return Arrays.stream(values())

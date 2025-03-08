@@ -1,23 +1,22 @@
 package com.fluffy.submission.application;
 
-import static com.fluffy.auth.domain.OAuth2Provider.GOOGLE;
-import static java.util.concurrent.Executors.newFixedThreadPool;
-import static org.assertj.core.api.Assertions.assertThat;
-
 import com.fluffy.auth.domain.Member;
 import com.fluffy.auth.domain.MemberRepository;
+import static com.fluffy.auth.domain.OAuth2Provider.GOOGLE;
 import com.fluffy.exam.domain.Exam;
 import com.fluffy.exam.domain.ExamRepository;
 import com.fluffy.exam.domain.Question;
 import com.fluffy.global.web.Accessor;
-import com.fluffy.submission.application.request.QuestionResponseAppRequest;
-import com.fluffy.submission.application.request.SubmissionAppRequest;
+import com.fluffy.submission.application.request.QuestionResponseRequest;
+import com.fluffy.submission.application.request.SubmissionRequest;
 import com.fluffy.submission.domain.Submission;
 import com.fluffy.submission.domain.SubmissionRepository;
 import com.fluffy.support.AbstractIntegrationTest;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
+import static java.util.concurrent.Executors.newFixedThreadPool;
+import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,9 +47,9 @@ class SubmissionServiceTest extends AbstractIntegrationTest {
         examRepository.save(exam);
 
         // when
-        SubmissionAppRequest request = new SubmissionAppRequest(
+        SubmissionRequest request = new SubmissionRequest(
                 exam.getId(),
-                List.of(new QuestionResponseAppRequest(List.of("답1"))),
+                List.of(new QuestionResponseRequest(List.of("답1"))),
                 new Accessor(member1.getId())
         );
         try (ExecutorService executorService = newFixedThreadPool(2)) {

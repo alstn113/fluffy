@@ -9,7 +9,7 @@ import org.testcontainers.containers.GenericContainer;
 
 public class RedisContainerInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
-    private static final GenericContainer<?> REDIS = new GenericContainer<>("redis:7-alpine")
+    private static final GenericContainer<?> REDIS = new GenericContainer<>("valkey/valkey:8-alpine")
             .withExposedPorts(6379);
 
     static {

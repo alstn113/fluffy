@@ -39,6 +39,7 @@ spring:
         static: ${AWS_S3_REGION}
       s3:
         bucket: ${AWS_S3_BUCKET}
+        domain: ${AWS_CLOUDFRONT_S3_DOMAIN}
   servlet:
     multipart:
       max-file-size: 5MB
@@ -119,6 +120,7 @@ spring:
         static: ${AWS_S3_REGION}
       s3:
         bucket: ${AWS_S3_BUCKET}
+        domain: ${AWS_CLOUDFRONT_S3_DOMAIN}
   servlet:
     multipart:
       max-file-size: 10MB

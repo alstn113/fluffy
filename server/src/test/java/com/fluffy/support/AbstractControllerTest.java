@@ -1,29 +1,28 @@
 package com.fluffy.support;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fluffy.auth.api.AuthController;
 import com.fluffy.auth.application.AuthService;
-import com.fluffy.comment.api.ExamCommentController;
+import com.fluffy.auth.ui.AuthController;
 import com.fluffy.comment.application.ExamCommentQueryService;
 import com.fluffy.comment.application.ExamCommentService;
-import com.fluffy.exam.api.ExamController;
-import com.fluffy.exam.api.ExamLikeController;
+import com.fluffy.comment.ui.ExamCommentController;
 import com.fluffy.exam.application.ExamImageService;
 import com.fluffy.exam.application.ExamLikeService;
 import com.fluffy.exam.application.ExamQueryService;
 import com.fluffy.exam.application.ExamService;
+import com.fluffy.exam.ui.ExamController;
+import com.fluffy.exam.ui.ExamLikeController;
 import com.fluffy.global.web.Accessor;
 import com.fluffy.global.web.AuthArgumentResolver;
 import com.fluffy.global.web.cookie.CookieManager;
-import com.fluffy.oauth2.api.OAuth2Controller;
 import com.fluffy.oauth2.application.OAuth2Service;
-import com.fluffy.submission.api.SubmissionController;
+import com.fluffy.oauth2.ui.OAuth2Controller;
 import com.fluffy.submission.application.SubmissionQueryService;
 import com.fluffy.submission.application.SubmissionService;
+import com.fluffy.submission.ui.SubmissionController;
 import org.junit.jupiter.api.BeforeEach;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;

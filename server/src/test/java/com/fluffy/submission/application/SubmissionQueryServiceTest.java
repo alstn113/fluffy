@@ -1,9 +1,5 @@
 package com.fluffy.submission.application;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.assertAll;
-
 import com.fluffy.auth.domain.Member;
 import com.fluffy.auth.domain.MemberRepository;
 import com.fluffy.exam.domain.Exam;
@@ -20,6 +16,9 @@ import com.fluffy.submission.domain.dto.SubmissionSummaryDto;
 import com.fluffy.support.AbstractIntegrationTest;
 import com.fluffy.support.data.MemberTestData;
 import java.util.List;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,7 +76,7 @@ class SubmissionQueryServiceTest extends AbstractIntegrationTest {
         // then
         assertAll(
                 () -> assertThat(summaries).hasSize(2),
-                () -> assertThat(summaries.stream().map(SubmissionSummaryDto::getId))
+                () -> assertThat(summaries.stream().map(SubmissionSummaryDto::id))
                         .containsExactlyElementsOf(List.of(submission2.getId(), submission1.getId()))
         );
     }
@@ -133,7 +132,7 @@ class SubmissionQueryServiceTest extends AbstractIntegrationTest {
 
         // then
         assertAll(
-                () -> assertThat(detail.participant().getId()).isEqualTo(submission.getMemberId()),
+                () -> assertThat(detail.participant().id()).isEqualTo(submission.getMemberId()),
                 () -> assertThat(textAnswer.questionId()).isEqualTo(1L),
                 () -> assertThat(textAnswer.type()).isEqualTo("SHORT_ANSWER"),
                 () -> assertThat(textAnswer.text()).isEqualTo("질문"),

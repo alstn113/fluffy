@@ -48,6 +48,7 @@
 
 ### 기술 스택
 
+- Kotlin
 - Spring Boot 3
 - Spring Dat JPA
 - Querydsl
@@ -58,7 +59,7 @@
 - REST Docs
 - Flyway
 - Testcontainers
-
+- 
 ## 웹 프론트엔드
 
 ### 기술 스택

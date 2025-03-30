@@ -1,9 +1,6 @@
 name: Server CI
 
 on:
-  push:
-    branches: [main]
-    paths: ['server/**']
   pull_request:
     types: [opened, synchronize, reopened]
     branches: [main]

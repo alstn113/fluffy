@@ -20,6 +20,7 @@ spring:
       hibernate:
         format_sql: true
         highlight_sql: true
+        default_batch_fetch_size: 30
     hibernate:
       ddl-auto: create-drop
   data:
@@ -103,6 +104,7 @@ spring:
       hibernate:
         format_sql: true
         highlight_sql: true
+        default_batch_fetch_size: 30
     hibernate:
       ddl-auto: validate
   data:

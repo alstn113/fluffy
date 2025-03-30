@@ -6,6 +6,7 @@ spring:
       hibernate:
         format_sql: true
         highlight_sql: true
+        default_batch_fetch_size: 30
   flyway:
     enabled: true
     baseline-on-migrate: true
@@ -48,4 +49,9 @@ auth:
       client-id: client-id-client-id-client-id-client-id-client
       client-secret: client-secret-client-secret-client-secret-client-secret
       redirect-uri: ${api-host}/api/v1/auth/oauth2/callback/github
+      client-uri: ${client-host}
+    google:
+      client-id: client-id-client-id-client-id-client-id-client
+      client-secret: client-secret-client-secret-client-secret-client-secret
+      redirect-uri: ${api-host}/api/v1/auth/oauth2/callback/google
       client-uri: ${client-host}

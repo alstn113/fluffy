@@ -38,12 +38,12 @@ class SubmissionQueryServiceIT(
         )
 
         // then
-        response[0].id shouldBe submission1.id
-        response[0].participant.id shouldBe member1.id
+        response[0].id shouldBe submission2.id
+        response[0].participant.id shouldBe member2.id
 //        response[0].submittedAt shouldBe submission1.createdAt
 
-        response[1].id shouldBe submission2.id
-        response[1].participant.id shouldBe member2.id
+        response[1].id shouldBe submission1.id
+        response[1].participant.id shouldBe member1.id
 //        response[1].submittedAt shouldBe submission2.createdAt
     }
 

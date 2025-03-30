@@ -18,7 +18,8 @@
 
 ### 기술 스택
 
-- Spring Boot 3 (Kotlin)
+- Kotlin
+- Spring Boot
 - AWS EC2
 - Docker
 - AWS RDS (PostgreSQL 16)

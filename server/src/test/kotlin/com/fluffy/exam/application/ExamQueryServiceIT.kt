@@ -34,10 +34,10 @@ class ExamQueryServiceIT(
         // given
         val member = memberRepository.save(MemberFixture.create())
 
-        val exam1 = createExam(memberId = member.id, isPublished = true, questionCount = 5, likeCount = 3)
-        val exam2 = createExam(memberId = member.id, isPublished = false, questionCount = 3)
+        createExam(memberId = member.id, isPublished = true, questionCount = 5, likeCount = 3)
+        createExam(memberId = member.id, isPublished = false, questionCount = 3)
         val exam3 = createExam(memberId = member.id, isPublished = true, questionCount = 3)
-        val exam4 = createExam(memberId = member.id, isPublished = false, questionCount = 2)
+        createExam(memberId = member.id, isPublished = false, questionCount = 2)
         val exam5 = createExam(memberId = member.id, isPublished = true, questionCount = 2, likeCount = 3)
 
         // when
@@ -69,10 +69,10 @@ class ExamQueryServiceIT(
         val member2 = memberRepository.save(MemberFixture.create())
 
         val exam1 = createExam(memberId = member1.id, isPublished = true, questionCount = 5, likeCount = 3)
-        val exam2 = createExam(memberId = member1.id, isPublished = false, questionCount = 3)
-        val exam3 = createExam(memberId = member2.id, isPublished = true, questionCount = 3)
+        createExam(memberId = member1.id, isPublished = false, questionCount = 3)
+        createExam(memberId = member2.id, isPublished = true, questionCount = 3)
         val exam4 = createExam(memberId = member1.id, isPublished = true, questionCount = 2)
-        val exam5 = createExam(memberId = member2.id, isPublished = false, questionCount = 2, likeCount = 3)
+        createExam(memberId = member2.id, isPublished = false, questionCount = 2, likeCount = 3)
 
         // when
         val pageRequest = PageRequest.of(0, 2)
@@ -163,7 +163,7 @@ class ExamQueryServiceIT(
             questionCount = questionCount,
             likeCount = 3
         )
-        val submission = createSubmission(
+        createSubmission(
             examId = exam.id,
             memberId = member.id,
             answerCount = questionCount
@@ -203,7 +203,7 @@ class ExamQueryServiceIT(
         val exam1 = createExam(memberId = member.id, isPublished = true, questionCount = 1, likeCount = 3)
         val exam2 = createExam(memberId = member.id, isPublished = true, questionCount = 2)
 
-        val submission1 = submissionRepository.save(
+        submissionRepository.save(
             createSubmission(
                 examId = exam1.id,
                 memberId = member.id,

@@ -115,8 +115,8 @@ class SubmissionQueryServiceIT(
         val exam2 = createExam(memberId = member2.id)
 
         val submission1 = createSubmission(examId = exam1.id, memberId = member1.id)
-        val submission2 = createSubmission(examId = exam1.id, memberId = member2.id)
-        val submission3 = createSubmission(examId = exam2.id, memberId = member1.id)
+        createSubmission(examId = exam1.id, memberId = member2.id)
+        createSubmission(examId = exam2.id, memberId = member1.id)
         val submission4 = createSubmission(examId = exam1.id, memberId = member1.id)
 
         // when

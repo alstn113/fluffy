@@ -54,10 +54,10 @@ class ExamRepositoryIT(
         val member1 = memberRepository.save(MemberFixture.create())
         val member2 = memberRepository.save(MemberFixture.create())
 
-        val publishedExam1 = createExam(member1.id, questionCount = 2)
-        val draftExam1 = createExam(member1.id, published = false)
+        createExam(member1.id, questionCount = 2)
+        createExam(member1.id, published = false)
         val publishedExam2 = createExam(member2.id, questionCount = 3)
-        val draftExam2 = createExam(member2.id, published = false)
+        createExam(member2.id, published = false)
         val publishedExam3 = createExam(member2.id, questionCount = 5)
 
         // when
@@ -80,10 +80,10 @@ class ExamRepositoryIT(
         val another = memberRepository.save(MemberFixture.create())
 
         val publishedExam1 = createExam(me.id, questionCount = 4)
-        val draftExam1 = createExam(me.id, published = false)
-        val publishedExam2 = createExam(another.id, questionCount = 3)
-        val draftExam2 = createExam(me.id, published = false)
-        val publishedExam3 = createExam(another.id, questionCount = 5)
+        createExam(me.id, published = false)
+        createExam(another.id, questionCount = 3)
+        createExam(me.id, published = false)
+        createExam(another.id, questionCount = 5)
         val publishedExam4 = createExam(me.id, questionCount = 2)
 
         // when
@@ -112,12 +112,12 @@ class ExamRepositoryIT(
         val publishedExam1 = createExam(member1.id)
         val publishedExam2 = createExam(member1.id)
 
-        val exam1Submission1 = createSubmission(
+        createSubmission(
             examId = publishedExam1.id,
             memberId = member1.id,
             answers = listOf(Answer.textAnswer("답1", 1L))
         )
-        val exam2Submission1 = createSubmission(
+        createSubmission(
             examId = publishedExam2.id,
             memberId = member2.id,
             answers = listOf(Answer.textAnswer("답2", 2L))

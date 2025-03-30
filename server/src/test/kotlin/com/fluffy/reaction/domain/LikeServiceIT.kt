@@ -80,6 +80,7 @@ class LikeServiceIT(
 
         // then
         val reactionList = reactionRepository.findAll()
+        response shouldBe reaction.id
         reactionList.size shouldBe 1
         reactionList[0].id shouldBe reaction.id
         reactionList[0].targetType shouldBe like.target.name

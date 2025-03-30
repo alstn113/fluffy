@@ -37,6 +37,6 @@ class PostgresDatabaseCleaner(
                 WHERE schemaname = 'public'
                 """.trimIndent()
 
-        return em.createNativeQuery(sql).resultList as List<String>
+        return em.createNativeQuery(sql).resultList.mapNotNull { it as? String }
     }
 }

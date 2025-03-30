@@ -70,13 +70,13 @@ class ExamCommentRepositoryIT(
                 content = "root1",
             )
         )
-        val root1reply1 = examCommentRepository.save(
+        examCommentRepository.save(
             root1.reply(
                 memberId = member2.id,
                 content = "root1reply1",
             )
         )
-        val root1reply2 = examCommentRepository.save(
+        examCommentRepository.save(
             root1.reply(
                 memberId = member2.id,
                 content = "root1reply2",
@@ -96,7 +96,7 @@ class ExamCommentRepositoryIT(
                 content = "root3",
             )
         )
-        val root3reply1 = examCommentRepository.save(
+        examCommentRepository.save(
             root3.reply(
                 memberId = member2.id,
                 content = "root3reply1",

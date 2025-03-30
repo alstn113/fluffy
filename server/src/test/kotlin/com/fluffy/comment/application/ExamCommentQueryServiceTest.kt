@@ -58,14 +58,14 @@ class ExamCommentQueryServiceTest : BehaviorSpec({
                 )
                 every { examCommentRepository.findRootComments(any()) } returns deletedRootComments
 
-                val actual = examCommentQueryService.getRootComments(examId)
+                val response  = examCommentQueryService.getRootComments(examId)
                 val expected = listOf(
                     ExamRootCommentDtoFixture.create(id = 1L, isDeleted = true).asDeleted(),
                     ExamRootCommentDtoFixture.create(id = 2L, isDeleted = false)
                 )
 
                 Then("삭제된 댓글을 마스킹 처리한 루트 댓글 정보를 반환한다.") {
-                    actual shouldBe expected
+                    response shouldBe expected
                 }
             }
         }

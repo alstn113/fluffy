@@ -15,6 +15,7 @@ import com.fluffy.reaction.domain.ReactionType
 import com.fluffy.submission.domain.Answer
 import com.fluffy.submission.domain.Submission
 import com.fluffy.submission.domain.SubmissionRepository
+import com.fluffy.submission.domain.findByIdOrThrow
 import com.fluffy.support.AbstractIntegrationTest
 import io.kotest.matchers.collections.shouldContainExactly
 import io.kotest.matchers.shouldBe
@@ -310,6 +311,8 @@ class ExamQueryServiceIT(
 
         val save = submissionRepository.save(submission)
         println("생성후 : " + save.createdAt)
+        val found = submissionRepository.findByIdOrThrow(save.id)
+        println("조회후 : " + found.createdAt)
         return save
     }
 }

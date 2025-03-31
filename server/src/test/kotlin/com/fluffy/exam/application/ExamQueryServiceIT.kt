@@ -246,6 +246,10 @@ class ExamQueryServiceIT(
 
         response.content[1].examId shouldBe exam2.id
         response.content[1].submissionCount shouldBe 1
+        println("확인 response.content[1].lastSubmissionDate 6자리 = ${response.content[1].lastSubmissionDate}")
+        println("truncate = " + response.content[1].lastSubmissionDate.truncatedTo(ChronoUnit.MICROS))
+        println("확인 submission2.createdAt 9자리 = ${submission2.createdAt}")
+        println("truncate = " + submission2.createdAt.truncatedTo(ChronoUnit.MICROS))
         response.content[1].lastSubmissionDate shouldBe submission2.createdAt.truncatedTo(ChronoUnit.MICROS)
 
         response.pageInfo.currentPage shouldBe 0

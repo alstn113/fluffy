@@ -1,12 +1,11 @@
 package com.fluffy.infra.persistence
 
-import jakarta.persistence.Column
-import jakarta.persistence.EntityListeners
-import jakarta.persistence.MappedSuperclass
+import jakarta.persistence.*
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.time.LocalDateTime
+import java.time.temporal.ChronoUnit
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener::class)
@@ -21,4 +20,15 @@ abstract class AuditableEntity {
     @Column(nullable = false, columnDefinition = "TIMESTAMP(6)")
     var updatedAt: LocalDateTime = LocalDateTime.MIN
         protected set
+
+    @PrePersist
+    fun prePersist() {
+        createdAt = createdAt.truncatedTo(ChronoUnit.MICROS)
+        updatedAt = updatedAt.truncatedTo(ChronoUnit.MICROS)
+    }
+
+    @PreUpdate
+    fun preUpdate() {
+        updatedAt = updatedAt.truncatedTo(ChronoUnit.MICROS)
+    }
 }

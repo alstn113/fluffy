@@ -204,26 +204,20 @@ class ExamQueryServiceIT(
         val exam1 = createExam(memberId = member.id, isPublished = true, questionCount = 1, likeCount = 3)
         val exam2 = createExam(memberId = member.id, isPublished = true, questionCount = 2)
 
-        submissionRepository.save(
-            createSubmission(
-                examId = exam1.id,
-                memberId = member.id,
-                answerCount = 1
-            )
+        createSubmission(
+            examId = exam1.id,
+            memberId = member.id,
+            answerCount = 1
         )
-        val submission2 = submissionRepository.save(
-            createSubmission(
-                examId = exam2.id,
-                memberId = member.id,
-                answerCount = 2
-            )
+        val submission2 = createSubmission(
+            examId = exam2.id,
+            memberId = member.id,
+            answerCount = 2
         )
-        val submission3 = submissionRepository.save(
-            createSubmission(
-                examId = exam1.id,
-                memberId = member.id,
-                answerCount = 1
-            )
+        val submission3 = createSubmission(
+            examId = exam1.id,
+            memberId = member.id,
+            answerCount = 1
         )
 
         // when
@@ -312,7 +306,10 @@ class ExamQueryServiceIT(
             memberId = memberId,
             answers = answers,
         )
+        println("생성전 " + submission.createdAt)
 
-        return submissionRepository.save(submission)
+        val save = submissionRepository.save(submission)
+        println("생성후 : " + save.createdAt)
+        return save
     }
 }

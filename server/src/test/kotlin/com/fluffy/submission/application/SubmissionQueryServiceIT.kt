@@ -40,11 +40,11 @@ class SubmissionQueryServiceIT(
         // then
         response[0].id shouldBe submission2.id
         response[0].participant.id shouldBe member2.id
-        response[0].submittedAt shouldBe submission1.createdAt
+        response[0].submittedAt shouldBe submission2.createdAt
 
         response[1].id shouldBe submission1.id
         response[1].participant.id shouldBe member1.id
-        response[1].submittedAt shouldBe submission2.createdAt
+        response[1].submittedAt shouldBe submission1.createdAt
     }
 
     @Test
@@ -81,7 +81,7 @@ class SubmissionQueryServiceIT(
         val submission1 = createSubmission(examId = exam1.id, memberId = member1.id)
         createSubmission(examId = exam1.id, memberId = member2.id)
         createSubmission(examId = exam2.id, memberId = member1.id)
-        val submission4 = createSubmission(examId = exam1.id, memberId = member1.id)
+        val submission2 = createSubmission(examId = exam1.id, memberId = member1.id)
 
         // when
         val response = submissionQueryService.getMySubmissionSummaries(
@@ -90,8 +90,8 @@ class SubmissionQueryServiceIT(
         )
 
         // then
-        response[0].submissionId shouldBe submission4.id
-        response[0].submittedAt shouldBe submission4.createdAt
+        response[0].submissionId shouldBe submission2.id
+        response[0].submittedAt shouldBe submission2.createdAt
 
         response[1].submissionId shouldBe submission1.id
         response[1].submittedAt shouldBe submission1.createdAt

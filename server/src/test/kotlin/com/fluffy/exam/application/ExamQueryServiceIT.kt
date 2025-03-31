@@ -237,6 +237,8 @@ class ExamQueryServiceIT(
 
         response.content[0].examId shouldBe exam1.id
         response.content[0].submissionCount shouldBe 2
+        print("확인 submission3.createdAt = ${submission3.createdAt}")
+        print("확인 response.content[0].lastSubmissionDate = ${response.content[0].lastSubmissionDate}")
 //        response.content[0].lastSubmissionDate shouldBe submission3.createdAt
 
         response.content[1].examId shouldBe exam2.id

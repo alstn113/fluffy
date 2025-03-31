@@ -238,14 +238,15 @@ class ExamQueryServiceIT(
 
         response.content[0].examId shouldBe exam1.id
         response.content[0].submissionCount shouldBe 2
-        print("확인 response.content[0].lastSubmissionDate 6자리 = ${response.content[0].lastSubmissionDate}")
-        print("truncate = " + response.content[0].lastSubmissionDate.truncatedTo(ChronoUnit.MICROS))
-        print("확인 submission3.createdAt 9자리 = ${submission3.createdAt}")
-        response.content[0].lastSubmissionDate shouldBe submission3.createdAt
+        println("확인 response.content[0].lastSubmissionDate 6자리 = ${response.content[0].lastSubmissionDate}")
+        println("truncate = " + response.content[0].lastSubmissionDate.truncatedTo(ChronoUnit.MICROS))
+        println("확인 submission3.createdAt 9자리 = ${submission3.createdAt}")
+        println("truncate = " + submission3.createdAt.truncatedTo(ChronoUnit.MICROS))
+        response.content[0].lastSubmissionDate shouldBe submission3.createdAt.truncatedTo(ChronoUnit.MICROS)
 
         response.content[1].examId shouldBe exam2.id
         response.content[1].submissionCount shouldBe 1
-        response.content[1].lastSubmissionDate shouldBe submission2.createdAt
+        response.content[1].lastSubmissionDate shouldBe submission2.createdAt.truncatedTo(ChronoUnit.MICROS)
 
         response.pageInfo.currentPage shouldBe 0
         response.pageInfo.totalPages shouldBe 1

@@ -58,7 +58,7 @@ class ExamCommentQueryServiceTest : BehaviorSpec({
                 )
                 every { examCommentRepository.findRootComments(any()) } returns deletedRootComments
 
-                val response  = examCommentQueryService.getRootComments(examId)
+                val response = examCommentQueryService.getRootComments(examId)
                 val expected = listOf(
                     ExamRootCommentDtoFixture.create(id = 1L, isDeleted = true).asDeleted(),
                     ExamRootCommentDtoFixture.create(id = 2L, isDeleted = false)

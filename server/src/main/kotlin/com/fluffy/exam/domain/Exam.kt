@@ -3,7 +3,6 @@ package com.fluffy.exam.domain
 import com.fluffy.global.exception.BadRequestException
 import com.fluffy.infra.persistence.AuditableEntity
 import jakarta.persistence.*
-import java.time.LocalDateTime
 
 @Entity
 class Exam(
@@ -73,7 +72,7 @@ class Exam(
         questions.forEach { it.updateExam(this) }
         this._questions.addAll(questions)
 
-        this.updatedAt = LocalDateTime.now()
+        updateTimestamp()
     }
 
     fun publish() {

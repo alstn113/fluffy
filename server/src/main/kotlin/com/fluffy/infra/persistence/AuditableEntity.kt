@@ -12,12 +12,12 @@ import java.time.temporal.ChronoUnit
 abstract class AuditableEntity {
 
     @CreatedDate
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = false, updatable = false, columnDefinition = "TIMESTAMP(6)")
     var createdAt: LocalDateTime = LocalDateTime.MIN
         protected set
 
     @LastModifiedDate
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TIMESTAMP(6)")
     var updatedAt: LocalDateTime = LocalDateTime.MIN
         protected set
 

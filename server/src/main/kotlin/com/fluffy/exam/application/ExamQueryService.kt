@@ -17,6 +17,7 @@ import com.fluffy.global.web.Accessor
 import com.fluffy.reaction.domain.Like
 import com.fluffy.reaction.domain.LikeQueryService
 import com.fluffy.reaction.domain.LikeTarget
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -51,7 +52,7 @@ class ExamQueryService(
     }
 
     @Transactional(readOnly = true)
-//    @Cacheable(value = ["examDetail"], key = "#examId")
+    @Cacheable(value = ["examDetail"], key = "#examId")
     fun getExamDetail(examId: Long): ExamDetailResponse {
         val exam = examRepository.findByIdOrThrow(examId)
 

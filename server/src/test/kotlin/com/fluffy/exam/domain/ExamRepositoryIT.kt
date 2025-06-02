@@ -20,7 +20,7 @@ import org.springframework.data.domain.PageRequest
 class ExamRepositoryIT(
     private val examRepository: ExamRepository,
     private val memberRepository: MemberRepository,
-    private val submissionRepository: SubmissionRepository
+    private val submissionRepository: SubmissionRepository,
 ) : AbstractIntegrationTest() {
 
     @Test
@@ -170,7 +170,7 @@ class ExamRepositoryIT(
     private fun createSubmission(
         examId: Long,
         memberId: Long,
-        answers: List<Answer>
+        answers: List<Answer>,
     ): Submission {
         val submission = Submission.create(
             examId = examId,

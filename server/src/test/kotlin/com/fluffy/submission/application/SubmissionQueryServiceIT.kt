@@ -17,7 +17,7 @@ class SubmissionQueryServiceIT(
     private val submissionQueryService: SubmissionQueryService,
     private val memberRepository: MemberRepository,
     private val examRepository: ExamRepository,
-    private val submissionRepository: SubmissionRepository
+    private val submissionRepository: SubmissionRepository,
 ) : AbstractIntegrationTest() {
 
     @Test

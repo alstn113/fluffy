@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class LikeQueryServiceIT(
     private val likeQueryService: LikeQueryService,
     private val memberRepository: MemberRepository,
-    private val reactionRepository: ReactionRepository
+    private val reactionRepository: ReactionRepository,
 ) : AbstractIntegrationTest() {
 
     @Test

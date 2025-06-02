@@ -1,13 +1,13 @@
 # 플러피(Fluffy), 온라인 시험 문제 제작 및 관리 서비스
 
-**▷ 개발 기간 : 2024.11 ~ 현재</br>**
+**▷ 개발 기간 : 2024.11 ~ 2025.04** </br>
 **▷ 개발 인원 : 1명**
 
 ## 프로젝트 소개
 
-플러피는 온라인에서 시험 문제를 제작하고 관리하며, 직접 응시할 수도 있는 플랫폼입니다. 
+플러피는 온라인에서 시험 문제를 제작하고 관리하며, 직접 응시할 수도 있는 플랫폼입니다.
 
-이 프로젝트는 CS(Computer Science)를 공부하는 과정에서 시작되었습니다. 공부를 하다 보면 단순히 개념을 읽고 이해하는 것보다, 직접 문제를 만들어보고 해결하는 과정이 훨씬 더 효과적이라는 생각이 들었습니다. 스스로 문제를 출제하면 개념을 더 깊이 이해할 수 있고, 다른 사람들과 문제를 공유하면 함께 성장할 수 있다는 점에 주목했습니다. 
+이 프로젝트는 CS(Computer Science)를 공부하는 과정에서 시작되었습니다. 공부를 하다 보면 단순히 개념을 읽고 이해하는 것보다, 직접 문제를 만들어보고 해결하는 과정이 훨씬 더 효과적이라는 생각이 들었습니다. 스스로 문제를 출제하면 개념을 더 깊이 이해할 수 있고, 다른 사람들과 문제를 공유하면 함께 성장할 수 있다는 점에 주목했습니다.
 
 플러피와 함께 더 깊이 이해하고, 더 효과적으로 학습하는 경험을 만들어 보세요! ⛅
 
@@ -16,7 +16,8 @@
 <details>
   <summary>시험 문제 제작</summary>
 
-  https://github.com/user-attachments/assets/c133b12c-8efd-480f-a62b-74b5defe1d71
+https://github.com/user-attachments/assets/c133b12c-8efd-480f-a62b-74b5defe1d71
+
 </details>
 
 <details>
@@ -54,12 +55,12 @@
 - Querydsl
 - AWS (EC2, RDS, ElastiCache, S3, CloudFront)
 - Docker
-- PostgreSQL 18
+- PostgreSQL 16
 - Valkey 8
 - REST Docs
 - Flyway
 - Testcontainers
-- 
+
 ## 웹 프론트엔드
 
 ### 기술 스택
@@ -70,4 +71,3 @@
 - Tanstack Query
 - Zustand
 - Vercel
-

@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test
 class ExamCommentRepositoryIT(
     private val examCommentRepository: ExamCommentRepository,
     private val examRepository: ExamRepository,
-    private val memberRepository: MemberRepository
+    private val memberRepository: MemberRepository,
 ) : AbstractIntegrationTest() {
 
     @Test

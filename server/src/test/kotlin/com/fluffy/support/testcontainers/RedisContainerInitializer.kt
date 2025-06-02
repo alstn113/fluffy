@@ -8,7 +8,7 @@ import org.testcontainers.containers.GenericContainer
 class RedisContainerInitializer : ApplicationContextInitializer<ConfigurableApplicationContext> {
 
     companion object {
-        private val REDIS = GenericContainer("valkey/valkey:8-alpine")
+        private val REDIS = GenericContainer("valkey/valkey:8.0.1-alpine")
             .withExposedPorts(6379)
 
         init {

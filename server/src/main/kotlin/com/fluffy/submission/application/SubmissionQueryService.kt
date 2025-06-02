@@ -41,7 +41,7 @@ class SubmissionQueryService(
             throw ForbiddenException("해당 시험 제출을 조회할 권한이 없습니다.")
         }
 
-        val submitter = memberRepository.findByIdOrThrow(accessor.id)
+        val submitter = memberRepository.findByIdOrThrow(submission.memberId)
 
         return SubmissionAssembler.toDetailResponse(exam, submission, submitter)
     }

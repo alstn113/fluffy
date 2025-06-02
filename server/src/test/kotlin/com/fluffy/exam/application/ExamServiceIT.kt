@@ -20,7 +20,7 @@ class ExamServiceIT(
     private val examService: ExamService,
     private val memberRepository: MemberRepository,
     private val examRepository: ExamRepository,
-    private val questionRepository: QuestionRepository
+    private val questionRepository: QuestionRepository,
 ) : AbstractIntegrationTest() {
 
     @Test

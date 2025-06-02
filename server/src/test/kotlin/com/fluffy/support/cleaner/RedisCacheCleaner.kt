@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class RedisCacheCleaner(
-    private val redisTemplate: RedisTemplate<String, String>
+    private val redisTemplate: RedisTemplate<String, String>,
 ) : DataCleaner {
 
     companion object {

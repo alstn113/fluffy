@@ -5,8 +5,8 @@ export const fromNowDate = (date: string | Date): string => {
   const d = date instanceof Date ? date : new Date(date);
   const now = Date.now();
   const diff = now - d.getTime();
-  // less than 3 minutes
-  if (diff < 1000 * 60 * 3) {
+  // less than 1 minutes
+  if (diff < 1000 * 60 * 1) {
     return '방금 전';
   }
 

@@ -8,7 +8,7 @@ import org.testcontainers.containers.PostgreSQLContainer
 class PostgreSQLContainerInitializer : ApplicationContextInitializer<ConfigurableApplicationContext> {
 
     companion object {
-        private val POSTGRESQL = PostgreSQLContainer("postgres:16-alpine")
+        private val POSTGRESQL = PostgreSQLContainer("postgres:16.3-alpine")
 
         init {
             POSTGRESQL.start()

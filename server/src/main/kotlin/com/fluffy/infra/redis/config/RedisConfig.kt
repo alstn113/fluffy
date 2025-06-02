@@ -25,7 +25,7 @@ import java.time.Duration
 @Configuration
 @EnableCaching
 class RedisConfig(
-    private val properties: RedisProperties
+    private val properties: RedisProperties,
 ) {
 
     @Bean
@@ -75,7 +75,7 @@ class RedisConfig(
             .activateDefaultTyping(
                 validator,
                 DefaultTyping.EVERYTHING,
-                JsonTypeInfo.As.PROPERTY
+                JsonTypeInfo.As.PROPERTY,
             )
     }
 }

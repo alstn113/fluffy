@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank
 
 data class CreateExamCommentWebRequest(
     @field:NotBlank val content: String,
-    val parentCommentId: Long?
+    val parentCommentId: Long?,
 ) {
 
     fun toAppRequest(examId: Long, memberId: Long): CreateExamCommentRequest {
@@ -13,7 +13,7 @@ data class CreateExamCommentWebRequest(
             content = content,
             examId = examId,
             memberId = memberId,
-            parentCommentId = parentCommentId
+            parentCommentId = parentCommentId,
         )
     }
 }

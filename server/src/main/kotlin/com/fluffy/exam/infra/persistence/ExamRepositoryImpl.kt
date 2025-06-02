@@ -1,16 +1,21 @@
 package com.fluffy.exam.infra.persistence
 
-import com.fluffy.auth.domain.QMember.member
+import com.fluffy.auth.domain.QMember.Companion.member
 import com.fluffy.exam.domain.ExamRepositoryCustom
 import com.fluffy.exam.domain.ExamStatus
-import com.fluffy.exam.domain.QExam.exam
-import com.fluffy.exam.domain.QQuestion.question
-import com.fluffy.exam.domain.dto.*
+import com.fluffy.exam.domain.QExam.Companion.exam
+import com.fluffy.exam.domain.QQuestion.Companion.question
+import com.fluffy.exam.domain.dto.AuthorDto
+import com.fluffy.exam.domain.dto.ExamDetailSummaryDto
+import com.fluffy.exam.domain.dto.ExamSummaryDto
+import com.fluffy.exam.domain.dto.MyExamSummaryDto
+import com.fluffy.exam.domain.dto.SubmittedExamSummaryDto
 import com.fluffy.reaction.domain.LikeTarget
-import com.fluffy.reaction.domain.QReaction.reaction
+import com.fluffy.reaction.domain.QReaction.Companion.reaction
 import com.fluffy.reaction.domain.ReactionStatus
 import com.fluffy.reaction.domain.ReactionType
-import com.fluffy.submission.domain.QSubmission.submission
+import com.fluffy.submission.domain.QSubmission.Companion.submission
+import com.querydsl.core.types.Projections
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
@@ -19,14 +24,15 @@ import org.springframework.stereotype.Repository
 
 @Repository
 class ExamRepositoryImpl(
-    private val queryFactory: JPAQueryFactory
+    private val queryFactory: JPAQueryFactory,
 ) : ExamRepositoryCustom {
 
     companion object {
-        private val AUTHOR_PROJECTION = QAuthorDto(
+        private val AUTHOR_PROJECTION = Projections.constructor(
+            AuthorDto::class.java,
             member.id,
             member.name,
-            member.avatarUrl
+            member.avatarUrl,
         )
     }
 
@@ -44,7 +50,8 @@ class ExamRepositoryImpl(
 
         val content = queryFactory
             .selectDistinct(
-                QExamSummaryDto(
+                Projections.constructor(
+                    ExamSummaryDto::class.java,
                     exam.id,
                     exam._title.value,
                     exam._description.value,
@@ -53,8 +60,8 @@ class ExamRepositoryImpl(
                     question.countDistinct(),
                     reaction.countDistinct(),
                     exam.createdAt,
-                    exam.updatedAt
-                )
+                    exam.updatedAt,
+                ),
             )
             .from(exam)
             .leftJoin(member).on(exam.memberId.eq(member.id))
@@ -63,7 +70,7 @@ class ExamRepositoryImpl(
                 exam.id.eq(reaction.targetId)
                     .and(reaction.targetType.eq(LikeTarget.EXAM.name))
                     .and(reaction.type.eq(ReactionType.LIKE))
-                    .and(reaction.status.eq(ReactionStatus.ACTIVE))
+                    .and(reaction.status.eq(ReactionStatus.ACTIVE)),
             )
             .where(exam.id.`in`(examIds))
             .groupBy(
@@ -75,7 +82,7 @@ class ExamRepositoryImpl(
                 member.name,
                 member.avatarUrl,
                 exam.createdAt,
-                exam.updatedAt
+                exam.updatedAt,
             )
             .orderBy(exam.updatedAt.desc())
             .fetch()
@@ -107,7 +114,8 @@ class ExamRepositoryImpl(
 
         val content = queryFactory
             .selectDistinct(
-                QMyExamSummaryDto(
+                Projections.constructor(
+                    MyExamSummaryDto::class.java,
                     exam.id,
                     exam._title.value,
                     exam._description.value,
@@ -115,8 +123,8 @@ class ExamRepositoryImpl(
                     AUTHOR_PROJECTION,
                     question.countDistinct(),
                     exam.createdAt,
-                    exam.updatedAt
-                )
+                    exam.updatedAt,
+                ),
             )
             .from(exam)
             .leftJoin(member).on(exam.memberId.eq(member.id))
@@ -131,7 +139,7 @@ class ExamRepositoryImpl(
                 member.name,
                 member.avatarUrl,
                 exam.createdAt,
-                exam.updatedAt
+                exam.updatedAt,
             )
             .orderBy(exam.updatedAt.desc())
             .fetch()
@@ -164,14 +172,15 @@ class ExamRepositoryImpl(
 
         val content = queryFactory
             .select(
-                QSubmittedExamSummaryDto(
+                Projections.constructor(
+                    SubmittedExamSummaryDto::class.java,
                     exam.id,
                     exam._title.value,
                     exam._description.value,
                     AUTHOR_PROJECTION,
                     submission.countDistinct(),
-                    submission.createdAt.max()
-                )
+                    submission.createdAt.max(),
+                ),
             )
             .from(exam)
             .leftJoin(member).on(exam.memberId.eq(member.id))
@@ -183,7 +192,7 @@ class ExamRepositoryImpl(
                 exam._description.value,
                 member.id,
                 member.name,
-                member.avatarUrl
+                member.avatarUrl,
             )
             .orderBy(submission.createdAt.max().desc())
             .fetch()
@@ -206,7 +215,8 @@ class ExamRepositoryImpl(
     override fun findExamDetailSummary(examId: Long): ExamDetailSummaryDto? {
         return queryFactory
             .select(
-                QExamDetailSummaryDto(
+                Projections.constructor(
+                    ExamDetailSummaryDto::class.java,
                     exam.id,
                     exam._title.value,
                     exam._description.value,
@@ -215,8 +225,8 @@ class ExamRepositoryImpl(
                     question.countDistinct(),
                     reaction.countDistinct(),
                     exam.createdAt,
-                    exam.updatedAt
-                )
+                    exam.updatedAt,
+                ),
             )
             .from(exam)
             .leftJoin(member).on(exam.memberId.eq(member.id))
@@ -225,7 +235,7 @@ class ExamRepositoryImpl(
                 exam.id.eq(reaction.targetId)
                     .and(reaction.targetType.eq(LikeTarget.EXAM.name))
                     .and(reaction.type.eq(ReactionType.LIKE))
-                    .and(reaction.status.eq(ReactionStatus.ACTIVE))
+                    .and(reaction.status.eq(ReactionStatus.ACTIVE)),
             )
             .where(exam.id.eq(examId))
             .groupBy(
@@ -237,7 +247,7 @@ class ExamRepositoryImpl(
                 member.name,
                 member.avatarUrl,
                 exam.createdAt,
-                exam.updatedAt
+                exam.updatedAt,
             )
             .fetchOne()
     }

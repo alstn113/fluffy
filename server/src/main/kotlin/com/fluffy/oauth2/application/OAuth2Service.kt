@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
 @Service
 class OAuth2Service(
     private val oauth2Context: OAuth2Context,
-    private val authService: AuthService
+    private val authService: AuthService,
 ) {
 
     fun getOAuth2LoginUrl(provider: OAuth2Provider, next: String): String {

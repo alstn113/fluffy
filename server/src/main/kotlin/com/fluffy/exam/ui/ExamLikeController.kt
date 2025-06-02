@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class ExamLikeController(
-    private val examLikeService: ExamLikeService
+    private val examLikeService: ExamLikeService,
 ) {
 
     @PostMapping("/api/v1/exams/{examId}/like")
     fun like(
         @PathVariable examId: Long,
-        @Auth accessor: Accessor
+        @Auth accessor: Accessor,
     ): ResponseEntity<Unit> {
         examLikeService.like(examId, accessor)
 
@@ -27,7 +27,7 @@ class ExamLikeController(
     @DeleteMapping("/api/v1/exams/{examId}/like")
     fun unlike(
         @PathVariable examId: Long,
-        @Auth accessor: Accessor
+        @Auth accessor: Accessor,
     ): ResponseEntity<Unit> {
         examLikeService.unlike(examId, accessor)
 

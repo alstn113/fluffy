@@ -1,7 +1,13 @@
 package com.fluffy.reaction.domain
 
 import com.fluffy.infra.persistence.AuditableEntity
-import jakarta.persistence.*
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import jakarta.persistence.EnumType
+import jakarta.persistence.Enumerated
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
 
 @Entity
 class Reaction(
@@ -48,7 +54,7 @@ class Reaction(
                 targetId = targetId,
                 memberId = memberId,
                 type = type,
-                status = ReactionStatus.ACTIVE
+                status = ReactionStatus.ACTIVE,
             )
         }
     }

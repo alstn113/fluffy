@@ -16,7 +16,7 @@ import java.time.Duration
 @Component
 class GoogleOAuth2Client(
     private val properties: GoogleOAuth2Properties,
-    restClientBuilder: RestClient.Builder
+    restClientBuilder: RestClient.Builder,
 ) {
 
     private val restClient = createRestClient(restClientBuilder)
@@ -39,7 +39,7 @@ class GoogleOAuth2Client(
             clientId = properties.clientId,
             clientSecret = properties.clientSecret,
             grantType = "authorization_code",
-            redirectUri = properties.redirectUri
+            redirectUri = properties.redirectUri,
         )
 
         return restClient.post()

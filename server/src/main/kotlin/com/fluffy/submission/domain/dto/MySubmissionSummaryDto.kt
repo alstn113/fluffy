@@ -1,9 +1,8 @@
 package com.fluffy.submission.domain.dto
 
-import com.querydsl.core.annotations.QueryProjection
 import java.time.LocalDateTime
 
-data class MySubmissionSummaryDto @QueryProjection constructor(
+data class MySubmissionSummaryDto(
     val submissionId: Long,
-    val submittedAt: LocalDateTime
+    val submittedAt: LocalDateTime,
 )

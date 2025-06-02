@@ -9,7 +9,7 @@ data class UpdateExamDescriptionWebRequest(val description: String) {
         return UpdateExamDescriptionRequest(
             examId = examId,
             description = description,
-            accessor = accessor
+            accessor = accessor,
         )
     }
 }

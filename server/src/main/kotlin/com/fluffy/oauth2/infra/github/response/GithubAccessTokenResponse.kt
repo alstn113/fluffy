@@ -7,5 +7,5 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming
 data class GithubAccessTokenResponse(
     val accessToken: String,
     val tokenType: String,
-    val scope: String
+    val scope: String,
 )

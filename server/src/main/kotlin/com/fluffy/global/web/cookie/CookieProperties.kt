@@ -9,5 +9,5 @@ data class CookieProperties(
     val secure: Boolean,
     val domain: String,
     val path: String,
-    val maxAge: Long
+    val maxAge: Long,
 )

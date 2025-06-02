@@ -26,7 +26,7 @@ class DataInitializer(
     private val memberRepository: MemberRepository,
     private val examRepository: ExamRepository,
     private val reactionRepository: ReactionRepository,
-    private val examCommentRepository: ExamCommentRepository
+    private val examCommentRepository: ExamCommentRepository,
 ) : ApplicationRunner {
 
     override fun run(args: ApplicationArguments) {

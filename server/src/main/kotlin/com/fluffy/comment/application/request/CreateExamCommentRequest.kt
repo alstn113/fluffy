@@ -4,5 +4,5 @@ data class CreateExamCommentRequest(
     val content: String,
     val examId: Long,
     val memberId: Long,
-    val parentCommentId: Long?
+    val parentCommentId: Long?,
 )

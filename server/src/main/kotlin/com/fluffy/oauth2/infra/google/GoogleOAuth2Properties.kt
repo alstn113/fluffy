@@ -8,5 +8,5 @@ data class GoogleOAuth2Properties(
     @field:NotBlank val clientId: String,
     @field:NotBlank val clientSecret: String,
     @field:NotBlank val redirectUri: String,
-    @field:NotBlank val clientUri: String
+    @field:NotBlank val clientUri: String,
 )

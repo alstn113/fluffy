@@ -9,7 +9,7 @@ import org.springframework.web.util.UriComponentsBuilder
 @Component
 class GithubOAuth2Strategy(
     private val githubOAuth2Client: GithubOAuth2Client,
-    private val properties: GithubOAuth2Properties
+    private val properties: GithubOAuth2Properties,
 ) : OAuth2Strategy {
 
     override fun buildOAuth2LoginUrl(next: String): String {

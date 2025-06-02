@@ -10,7 +10,7 @@ import java.util.*
 
 @Component
 class JwtTokenProvider(
-    properties: JwtTokenProperties
+    properties: JwtTokenProperties,
 ) : TokenProvider {
 
     private val secretKey = Keys.hmacShaKeyFor(properties.secretKey.toByteArray(StandardCharsets.UTF_8))

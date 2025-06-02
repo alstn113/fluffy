@@ -23,7 +23,7 @@ class ExamImageService(
     fun createExamImage(
         examId: Long,
         request: ExamImagePresignedUrlRequest,
-        accessor: Accessor
+        accessor: Accessor,
     ): String {
         validateExamAuthor(examId, accessor)
 

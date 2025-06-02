@@ -25,7 +25,7 @@ data class AnswerQuestionWithAnswersResponse(
     override val text: String,
     override val passage: String,
     override val type: String,
-    val correctAnswer: String?
+    val correctAnswer: String?,
 ) : QuestionWithAnswersResponse
 
 data class ChoiceQuestionWithAnswersResponse(
@@ -33,11 +33,11 @@ data class ChoiceQuestionWithAnswersResponse(
     override val text: String,
     override val passage: String,
     override val type: String,
-    val options: List<QuestionOptionWithAnswersResponse>
+    val options: List<QuestionOptionWithAnswersResponse>,
 ) : QuestionWithAnswersResponse
 
 data class QuestionOptionWithAnswersResponse(
     val id: Long,
     val text: String,
-    val isCorrect: Boolean
+    val isCorrect: Boolean,
 )

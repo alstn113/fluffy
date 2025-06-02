@@ -7,5 +7,5 @@ data class SubmissionDetailResponse(
     val id: Long,
     val answers: List<AnswerBaseResponse>,
     val participant: ParticipantDto,
-    val submittedAt: LocalDateTime
+    val submittedAt: LocalDateTime,
 )

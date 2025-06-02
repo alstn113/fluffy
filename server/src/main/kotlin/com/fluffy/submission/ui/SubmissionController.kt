@@ -10,18 +10,22 @@ import com.fluffy.submission.domain.dto.SubmissionSummaryDto
 import com.fluffy.submission.ui.request.SubmissionWebRequest
 import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class SubmissionController(
     private val submissionService: SubmissionService,
-    private val submissionQueryService: SubmissionQueryService
+    private val submissionQueryService: SubmissionQueryService,
 ) {
 
     @GetMapping("/api/v1/exams/{examId}/submissions")
     fun getSummaries(
         @PathVariable examId: Long,
-        @Auth accessor: Accessor
+        @Auth accessor: Accessor,
     ): ResponseEntity<List<SubmissionSummaryDto>> {
         val response = submissionQueryService.getSummariesByExamId(examId, accessor)
 
@@ -32,7 +36,7 @@ class SubmissionController(
     fun getDetail(
         @PathVariable examId: Long,
         @PathVariable submissionId: Long,
-        @Auth accessor: Accessor
+        @Auth accessor: Accessor,
     ): ResponseEntity<SubmissionDetailResponse> {
         val response = submissionQueryService.getDetail(examId, submissionId, accessor)
 
@@ -42,7 +46,7 @@ class SubmissionController(
     @GetMapping("/api/v1/exams/{examId}/submissions/me")
     fun getMySubmissionSummaries(
         @PathVariable examId: Long,
-        @Auth accessor: Accessor
+        @Auth accessor: Accessor,
     ): ResponseEntity<List<MySubmissionSummaryDto>> {
         val response = submissionQueryService.getMySubmissionSummaries(examId, accessor)
 
@@ -53,7 +57,7 @@ class SubmissionController(
     fun submit(
         @PathVariable examId: Long,
         @RequestBody @Valid request: SubmissionWebRequest,
-        @Auth accessor: Accessor
+        @Auth accessor: Accessor,
     ): ResponseEntity<Unit> {
         val appRequest = request.toAppRequest(examId, accessor)
 

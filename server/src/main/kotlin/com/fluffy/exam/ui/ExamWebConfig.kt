@@ -6,7 +6,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
 @Configuration
 class ExamWebConfig(
-    private val examStatusConverter: ExamStatusConverter
+    private val examStatusConverter: ExamStatusConverter,
 ) : WebMvcConfigurer {
 
     override fun addFormatters(registry: FormatterRegistry) {

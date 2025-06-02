@@ -13,5 +13,5 @@ data class JwtTokenProperties(
 
     @field:NotNull
     @field:Positive
-    val expirationTime: Long
+    val expirationTime: Long,
 )

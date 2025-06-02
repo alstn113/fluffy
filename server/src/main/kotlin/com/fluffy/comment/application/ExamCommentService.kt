@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional
 class ExamCommentService(
     private val memberRepository: MemberRepository,
     private val examRepository: ExamRepository,
-    private val examCommentRepository: ExamCommentRepository
+    private val examCommentRepository: ExamCommentRepository,
 ) {
 
     @Transactional
@@ -54,7 +54,7 @@ class ExamCommentService(
         val rootExamComment = ExamComment.create(
             content = content,
             examId = examId,
-            memberId = memberId
+            memberId = memberId,
         )
 
         return examCommentRepository.save(rootExamComment)

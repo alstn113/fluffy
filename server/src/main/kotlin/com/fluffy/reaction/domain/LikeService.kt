@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 class LikeService(
-    private val reactionRepository: ReactionRepository
+    private val reactionRepository: ReactionRepository,
 ) {
 
     @Transactional

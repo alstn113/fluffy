@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 class LikeQueryService(
-    private val reactionRepository: ReactionRepository
+    private val reactionRepository: ReactionRepository,
 ) {
 
     @Transactional(readOnly = true)
@@ -17,7 +17,7 @@ class LikeQueryService(
             like.target.name,
             like.targetId,
             accessor.id,
-            ReactionType.LIKE
+            ReactionType.LIKE,
         )?.status == ReactionStatus.ACTIVE
     }
 }

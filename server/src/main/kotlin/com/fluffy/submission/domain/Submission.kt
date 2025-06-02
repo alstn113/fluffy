@@ -1,7 +1,13 @@
 package com.fluffy.submission.domain
 
 import com.fluffy.infra.persistence.AuditableEntity
-import jakarta.persistence.*
+import jakarta.persistence.CascadeType
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.OneToMany
 
 @Entity
 class Submission private constructor(

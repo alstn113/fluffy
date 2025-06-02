@@ -5,7 +5,7 @@ import com.fluffy.auth.domain.Member
 data class AuthorResponse(
     val id: Long,
     val name: String,
-    val avatarUrl: String
+    val avatarUrl: String,
 ) {
 
     companion object {
@@ -14,7 +14,7 @@ data class AuthorResponse(
             return AuthorResponse(
                 member.id,
                 member.name,
-                member.avatarUrl
+                member.avatarUrl,
             )
         }
     }

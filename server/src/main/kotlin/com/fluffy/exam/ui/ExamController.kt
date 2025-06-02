@@ -29,7 +29,7 @@ class ExamController(
     @GetMapping("/api/v1/exams")
     fun getPublishedExamSummaries(
         @RequestParam(defaultValue = "0") page: Int,
-        @RequestParam(defaultValue = "10") size: Int
+        @RequestParam(defaultValue = "10") size: Int,
     ): ResponseEntity<PageResponse<ExamSummaryDto>> {
         val pageable = PageRequest.of(page, size)
         val response = examQueryService.getPublishedExamSummaries(pageable)
@@ -42,7 +42,7 @@ class ExamController(
         @RequestParam(defaultValue = "0") page: Int,
         @RequestParam(defaultValue = "10") size: Int,
         @RequestParam(value = "status", defaultValue = "draft") status: ExamStatus,
-        @Auth accessor: Accessor
+        @Auth accessor: Accessor,
     ): ResponseEntity<PageResponse<MyExamSummaryDto>> {
         val pageable = PageRequest.of(page, size)
         val response = examQueryService.getMyExamSummaries(pageable, status, accessor)
@@ -53,7 +53,7 @@ class ExamController(
     @GetMapping("/api/v1/exams/{examId}/summary")
     fun getExamDetailSummary(
         @PathVariable examId: Long,
-        @Auth(required = false) accessor: Accessor
+        @Auth(required = false) accessor: Accessor,
     ): ResponseEntity<ExamDetailSummaryResponse> {
         val response = examQueryService.getExamDetailSummary(examId, accessor)
 
@@ -70,7 +70,7 @@ class ExamController(
     @GetMapping("/api/v1/exams/{examId}/with-answers")
     fun getExamWithAnswers(
         @PathVariable examId: Long,
-        @Auth accessor: Accessor
+        @Auth accessor: Accessor,
     ): ResponseEntity<ExamWithAnswersResponse> {
         val response = examQueryService.getExamWithAnswers(examId, accessor)
 
@@ -81,7 +81,7 @@ class ExamController(
     fun getSubmittedExamSummaries(
         @RequestParam(defaultValue = "0") page: Int,
         @RequestParam(defaultValue = "10") size: Int,
-        @Auth accessor: Accessor
+        @Auth accessor: Accessor,
     ): ResponseEntity<PageResponse<SubmittedExamSummaryDto>> {
         val pageable = PageRequest.of(page, size)
         val response = examQueryService.getSubmittedExamSummaries(pageable, accessor)
@@ -92,7 +92,7 @@ class ExamController(
     @PostMapping("/api/v1/exams")
     fun create(
         @RequestBody @Valid request: CreateExamWebRequest,
-        @Auth accessor: Accessor
+        @Auth accessor: Accessor,
     ): ResponseEntity<CreateExamResponse> {
         val response = examService.create(request.toAppRequest(accessor))
         val location = URI.create("/api/v1/exams/${response.id}")
@@ -104,7 +104,7 @@ class ExamController(
     fun publish(
         @PathVariable examId: Long,
         @RequestBody @Valid request: PublishExamWebRequest,
-        @Auth accessor: Accessor
+        @Auth accessor: Accessor,
     ): ResponseEntity<Unit> {
         val appRequest = request.toAppRequest(examId, accessor)
         examService.publish(appRequest)
@@ -116,7 +116,7 @@ class ExamController(
     fun createPresignedUrl(
         @PathVariable examId: Long,
         @RequestBody request: ExamImagePresignedUrlRequest,
-        @Auth accessor: Accessor
+        @Auth accessor: Accessor,
     ): ResponseEntity<ExamImagePresignedUrlResponse> {
         val imagePath = examImageService.createExamImage(examId, request, accessor)
         val response = examImageService.generatePresignedUrl(imagePath)
@@ -128,7 +128,7 @@ class ExamController(
     fun updateQuestions(
         @PathVariable examId: Long,
         @RequestBody @Valid request: UpdateExamQuestionsWebRequest,
-        @Auth accessor: Accessor
+        @Auth accessor: Accessor,
     ): ResponseEntity<Unit> {
         val appRequest = request.toAppRequest(examId, accessor)
         examService.updateQuestions(appRequest)
@@ -140,7 +140,7 @@ class ExamController(
     fun updateTitle(
         @PathVariable examId: Long,
         @RequestBody @Valid request: UpdateExamTitleWebRequest,
-        @Auth accessor: Accessor
+        @Auth accessor: Accessor,
     ): ResponseEntity<Unit> {
         val appRequest = request.toAppRequest(examId, accessor)
         examService.updateTitle(appRequest)
@@ -152,7 +152,7 @@ class ExamController(
     fun updateDescription(
         @PathVariable examId: Long,
         @RequestBody @Valid request: UpdateExamDescriptionWebRequest,
-        @Auth accessor: Accessor
+        @Auth accessor: Accessor,
     ): ResponseEntity<Unit> {
         examService.updateDescription(request.toAppRequest(examId, accessor))
 

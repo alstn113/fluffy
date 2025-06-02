@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration
 
 @Configuration
 class QuerydslConfig(
-    @PersistenceContext private val em: EntityManager
+    @PersistenceContext private val em: EntityManager,
 ) {
 
     @Bean

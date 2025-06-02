@@ -8,7 +8,7 @@ data class CreateExamWebRequest(val title: String) {
     fun toAppRequest(accessor: Accessor): CreateExamRequest {
         return CreateExamRequest(
             title = title,
-            accessor = accessor
+            accessor = accessor,
         )
     }
 }

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class SubmissionLockService(
-    private val submissionRepository: SubmissionRepository
+    private val submissionRepository: SubmissionRepository,
 ) {
 
     @DistributedLock(key = "#lockName")

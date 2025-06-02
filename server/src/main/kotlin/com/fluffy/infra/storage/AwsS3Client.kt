@@ -14,7 +14,7 @@ import java.time.Duration
 class AwsS3Client(
     private val s3Template: S3Template,
     private val s3Presigner: S3Presigner,
-    private val properties: AwsS3ClientProperties
+    private val properties: AwsS3ClientProperties,
 ) : StorageClient {
 
     companion object {

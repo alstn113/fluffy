@@ -5,5 +5,5 @@ import jakarta.validation.constraints.NotNull
 
 data class ExamImagePresignedUrlRequest(
     @field:NotNull @field:NotBlank val imageName: String,
-    val fileSize: Long
+    val fileSize: Long,
 )

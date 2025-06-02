@@ -9,7 +9,7 @@ data class GithubUserInfoResponse(
     val id: String,
     val login: String,
     val avatarUrl: String,
-    val email: String?
+    val email: String?,
 ) {
 
     fun toOAuth2UserInfo(): OAuth2UserInfo {
@@ -17,7 +17,7 @@ data class GithubUserInfoResponse(
             id,
             login,
             email,
-            avatarUrl
+            avatarUrl,
         )
     }
 }

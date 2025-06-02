@@ -9,7 +9,7 @@ data class GoogleUserInfoResponse(
     val id: String,
     val email: String,
     val name: String,
-    val picture: String
+    val picture: String,
 ) {
 
     fun toOAuth2UserInfo(): OAuth2UserInfo {
@@ -17,7 +17,7 @@ data class GoogleUserInfoResponse(
             id,
             name,
             email,
-            picture
+            picture,
         )
     }
 }

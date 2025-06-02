@@ -9,7 +9,7 @@ import org.springframework.web.util.UriComponentsBuilder
 @Component
 class GoogleOAuth2Strategy(
     private val googleOAuth2Client: GoogleOAuth2Client,
-    private val properties: GoogleOAuth2Properties
+    private val properties: GoogleOAuth2Properties,
 ) : OAuth2Strategy {
 
     override fun buildOAuth2LoginUrl(next: String): String {

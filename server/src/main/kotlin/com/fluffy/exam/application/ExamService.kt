@@ -1,6 +1,10 @@
 package com.fluffy.exam.application
 
-import com.fluffy.exam.application.request.*
+import com.fluffy.exam.application.request.CreateExamRequest
+import com.fluffy.exam.application.request.PublishExamRequest
+import com.fluffy.exam.application.request.UpdateExamDescriptionRequest
+import com.fluffy.exam.application.request.UpdateExamQuestionsRequest
+import com.fluffy.exam.application.request.UpdateExamTitleRequest
 import com.fluffy.exam.application.response.CreateExamResponse
 import com.fluffy.exam.domain.Exam
 import com.fluffy.exam.domain.ExamRepository

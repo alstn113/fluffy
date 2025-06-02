@@ -1,10 +1,8 @@
 package com.fluffy.submission.domain.dto
 
-import com.querydsl.core.annotations.QueryProjection
-
-data class ParticipantDto @QueryProjection constructor(
+data class ParticipantDto(
     val id: Long,
     val name: String,
     val email: String?,
-    val avatarUrl: String
+    val avatarUrl: String,
 )

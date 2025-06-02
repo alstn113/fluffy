@@ -2,7 +2,11 @@ package com.fluffy.comment.domain
 
 import com.fluffy.global.exception.BadRequestException
 import com.fluffy.infra.persistence.AuditableEntity
-import jakarta.persistence.*
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
 import java.time.LocalDateTime
 
 @Entity
@@ -46,7 +50,7 @@ class ExamComment(
                 content = content,
                 examId = examId,
                 memberId = memberId,
-                parentCommentId = null
+                parentCommentId = null,
             )
         }
     }
@@ -64,7 +68,7 @@ class ExamComment(
             content = content,
             examId = examId,
             memberId = memberId,
-            parentCommentId = id
+            parentCommentId = id,
         )
     }
 

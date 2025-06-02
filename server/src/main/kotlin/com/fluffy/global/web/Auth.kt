@@ -5,5 +5,5 @@ package com.fluffy.global.web
 @Retention(AnnotationRetention.RUNTIME)
 annotation class Auth(
 
-    val required: Boolean = true
+    val required: Boolean = true,
 )

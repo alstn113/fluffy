@@ -16,7 +16,7 @@ import java.time.Duration
 @Component
 class GithubOAuth2Client(
     private val properties: GithubOAuth2Properties,
-    restClientBuilder: RestClient.Builder
+    restClientBuilder: RestClient.Builder,
 ) {
 
     private val restClient = createRestClient(restClientBuilder)

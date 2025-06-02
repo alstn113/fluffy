@@ -32,7 +32,7 @@ class AuthArgumentResolver(
         parameter: MethodParameter,
         mavContainer: ModelAndViewContainer?,
         webRequest: NativeWebRequest,
-        binderFactory: WebDataBinderFactory?
+        binderFactory: WebDataBinderFactory?,
     ): Accessor {
         val auth = requireNotNull(parameter.getParameterAnnotation(Auth::class.java))
         val response = requireNotNull(webRequest.getNativeResponse(HttpServletResponse::class.java))

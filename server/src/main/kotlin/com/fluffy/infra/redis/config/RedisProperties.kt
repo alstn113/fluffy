@@ -8,10 +8,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties
 data class RedisProperties(
     @field:NotBlank val host: String,
     @field:NotNull val port: Int,
-    @field:NotNull val ssl: SSL
+    @field:NotNull val ssl: SSL,
 ) {
 
     data class SSL(
-        @field:NotNull val enabled: Boolean
+        @field:NotNull val enabled: Boolean,
     )
 }

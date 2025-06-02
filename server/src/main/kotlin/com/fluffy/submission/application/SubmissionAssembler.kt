@@ -25,7 +25,7 @@ object SubmissionAssembler {
         return Submission.create(
             examId = exam.id,
             memberId = memberId,
-            answers = answers
+            answers = answers,
         )
     }
 
@@ -47,14 +47,14 @@ object SubmissionAssembler {
             id = member.id,
             name = member.name,
             email = member.email,
-            avatarUrl = member.avatarUrl
+            avatarUrl = member.avatarUrl,
         )
 
         return SubmissionDetailResponse(
             id = submission.id,
             participant = participant,
             answers = answers,
-            submittedAt = submission.createdAt
+            submittedAt = submission.createdAt,
         )
     }
 }

@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 class ExamLikeService(
-    private val likeService: LikeService
+    private val likeService: LikeService,
 ) {
 
     @Transactional

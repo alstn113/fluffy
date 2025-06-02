@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class OAuth2StrategyRegistry(
-    strategies: Set<OAuth2Strategy>
+    strategies: Set<OAuth2Strategy>,
 ) {
 
     private val strategies: Map<OAuth2Provider, OAuth2Strategy> = strategies.associateBy { it.getProvider() }

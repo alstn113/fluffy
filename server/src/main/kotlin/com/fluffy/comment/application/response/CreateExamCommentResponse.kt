@@ -10,7 +10,7 @@ data class CreateExamCommentResponse(
     val examId: Long,
     val parentCommentId: Long?,
     val author: AuthorResponse,
-    val createdAt: LocalDateTime
+    val createdAt: LocalDateTime,
 ) {
 
     companion object {
@@ -22,7 +22,7 @@ data class CreateExamCommentResponse(
                 examComment.examId,
                 examComment.parentCommentId,
                 AuthorResponse.from(member),
-                examComment.createdAt
+                examComment.createdAt,
             )
         }
     }

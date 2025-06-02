@@ -4,7 +4,7 @@ import org.springframework.data.domain.Page
 
 data class PageResponse<T>(
     val pageInfo: PageInfo,
-    val content: List<T>
+    val content: List<T>,
 ) {
     companion object {
         fun <T> of(page: Page<T>): PageResponse<T> {
@@ -14,9 +14,9 @@ data class PageResponse<T>(
                     page.totalPages,
                     page.totalElements,
                     page.hasNext(),
-                    page.hasPrevious()
+                    page.hasPrevious(),
                 ),
-                page.content
+                page.content,
             )
         }
     }

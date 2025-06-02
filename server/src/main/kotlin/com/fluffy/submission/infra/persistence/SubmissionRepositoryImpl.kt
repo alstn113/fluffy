@@ -1,34 +1,39 @@
 package com.fluffy.submission.infra.persistence
 
-import com.fluffy.auth.domain.QMember.member
-import com.fluffy.submission.domain.QSubmission.submission
+import com.fluffy.auth.domain.QMember.Companion.member
+import com.fluffy.submission.domain.QSubmission.Companion.submission
 import com.fluffy.submission.domain.SubmissionRepositoryCustom
-import com.fluffy.submission.domain.dto.*
+import com.fluffy.submission.domain.dto.MySubmissionSummaryDto
+import com.fluffy.submission.domain.dto.ParticipantDto
+import com.fluffy.submission.domain.dto.SubmissionSummaryDto
+import com.querydsl.core.types.Projections
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.stereotype.Repository
 
 @Repository
 class SubmissionRepositoryImpl(
-    private val queryFactory: JPAQueryFactory
+    private val queryFactory: JPAQueryFactory,
 ) : SubmissionRepositoryCustom {
 
     companion object {
-        private val PARTICIPANT_PROJECTION = QParticipantDto(
+        private val PARTICIPANT_PROJECTION = Projections.constructor(
+            ParticipantDto::class.java,
             member.id,
             member.name,
             member.email,
-            member.avatarUrl
+            member.avatarUrl,
         )
     }
 
     override fun findSubmissionSummariesByExamId(examId: Long): List<SubmissionSummaryDto> {
         return queryFactory
             .select(
-                QSubmissionSummaryDto(
+                Projections.constructor(
+                    SubmissionSummaryDto::class.java,
                     submission.id,
                     PARTICIPANT_PROJECTION,
-                    submission.createdAt
-                )
+                    submission.createdAt,
+                ),
             )
             .from(submission)
             .leftJoin(member).on(submission.memberId.eq(member.id))
@@ -40,10 +45,11 @@ class SubmissionRepositoryImpl(
     override fun findMySubmissionSummaries(examId: Long, memberId: Long): List<MySubmissionSummaryDto> {
         return queryFactory
             .select(
-                QMySubmissionSummaryDto(
+                Projections.constructor(
+                    MySubmissionSummaryDto::class.java,
                     submission.id,
-                    submission.createdAt
-                )
+                    submission.createdAt,
+                ),
             )
             .from(submission)
             .where(submission.examId.eq(examId), submission.memberId.eq(memberId))

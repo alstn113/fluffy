@@ -10,7 +10,7 @@ data class PublishExamWebRequest(val questions: List<QuestionRequest>) {
         return PublishExamRequest(
             examId = examId,
             questions = questions,
-            accessor = accessor
+            accessor = accessor,
         )
     }
 }

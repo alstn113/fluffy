@@ -4,5 +4,5 @@ data class TrueOrFalseQuestionRequest(
     override val text: String,
     override val passage: String,
     override val type: String,
-    val trueOrFalse: Boolean
+    val trueOrFalse: Boolean,
 ) : QuestionRequest

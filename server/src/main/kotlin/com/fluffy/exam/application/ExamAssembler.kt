@@ -26,7 +26,7 @@ object ExamAssembler {
             status = exam.status.name,
             questions = questions,
             createdAt = exam.createdAt,
-            updatedAt = exam.updatedAt
+            updatedAt = exam.updatedAt,
         )
     }
 
@@ -40,7 +40,7 @@ object ExamAssembler {
             status = exam.status.name,
             questions = questions,
             createdAt = exam.createdAt,
-            updatedAt = exam.updatedAt
+            updatedAt = exam.updatedAt,
         )
     }
 

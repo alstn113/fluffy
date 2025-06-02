@@ -25,7 +25,7 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class ExamQueryService(
     private val examRepository: ExamRepository,
-    private val likeQueryService: LikeQueryService
+    private val likeQueryService: LikeQueryService,
 ) {
 
     @Transactional(readOnly = true)

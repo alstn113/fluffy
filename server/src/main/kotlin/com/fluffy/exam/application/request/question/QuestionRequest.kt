@@ -8,14 +8,14 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.As
     use = JsonTypeInfo.Id.NAME,
     include = As.EXISTING_PROPERTY,
     property = "type",
-    visible = true
+    visible = true,
 )
 @JsonSubTypes(
     JsonSubTypes.Type(value = ShortAnswerQuestionRequest::class, name = "SHORT_ANSWER"),
     JsonSubTypes.Type(value = LongAnswerQuestionRequest::class, name = "LONG_ANSWER"),
     JsonSubTypes.Type(value = SingleChoiceQuestionRequest::class, name = "SINGLE_CHOICE"),
     JsonSubTypes.Type(value = MultipleChoiceQuestionRequest::class, name = "MULTIPLE_CHOICE"),
-    JsonSubTypes.Type(value = TrueOrFalseQuestionRequest::class, name = "TRUE_OR_FALSE")
+    JsonSubTypes.Type(value = TrueOrFalseQuestionRequest::class, name = "TRUE_OR_FALSE"),
 )
 interface QuestionRequest {
 

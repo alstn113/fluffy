@@ -2,7 +2,16 @@ package com.fluffy.exam.domain
 
 import com.fluffy.global.exception.BadRequestException
 import com.fluffy.infra.persistence.AuditableEntity
-import jakarta.persistence.*
+import jakarta.persistence.CascadeType
+import jakarta.persistence.Column
+import jakarta.persistence.Embedded
+import jakarta.persistence.Entity
+import jakarta.persistence.EnumType
+import jakarta.persistence.Enumerated
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.OneToMany
 
 @Entity
 class Exam(
@@ -54,7 +63,7 @@ class Exam(
                 description = ExamDescription.empty(),
                 status = ExamStatus.DRAFT,
                 memberId = memberId,
-                isSingleAttempt = false
+                isSingleAttempt = false,
             )
         }
     }

@@ -1,11 +1,26 @@
 package com.fluffy.exam.application
 
-import com.fluffy.exam.application.request.question.*
-import com.fluffy.exam.application.response.*
+import com.fluffy.exam.application.request.question.LongAnswerQuestionRequest
+import com.fluffy.exam.application.request.question.MultipleChoiceQuestionRequest
+import com.fluffy.exam.application.request.question.QuestionOptionRequest
+import com.fluffy.exam.application.request.question.QuestionRequest
+import com.fluffy.exam.application.request.question.ShortAnswerQuestionRequest
+import com.fluffy.exam.application.request.question.SingleChoiceQuestionRequest
+import com.fluffy.exam.application.request.question.TrueOrFalseQuestionRequest
+import com.fluffy.exam.application.response.AnswerQuestionResponse
+import com.fluffy.exam.application.response.AnswerQuestionWithAnswersResponse
+import com.fluffy.exam.application.response.ChoiceQuestionResponse
+import com.fluffy.exam.application.response.ChoiceQuestionWithAnswersResponse
+import com.fluffy.exam.application.response.QuestionResponse
+import com.fluffy.exam.application.response.QuestionWithAnswersResponse
 import com.fluffy.exam.domain.Question
 import com.fluffy.exam.domain.QuestionOption
 import com.fluffy.exam.domain.QuestionType
-import com.fluffy.exam.domain.QuestionType.*
+import com.fluffy.exam.domain.QuestionType.LONG_ANSWER
+import com.fluffy.exam.domain.QuestionType.MULTIPLE_CHOICE
+import com.fluffy.exam.domain.QuestionType.SHORT_ANSWER
+import com.fluffy.exam.domain.QuestionType.SINGLE_CHOICE
+import com.fluffy.exam.domain.QuestionType.TRUE_OR_FALSE
 
 object QuestionAssembler {
 
@@ -31,7 +46,7 @@ object QuestionAssembler {
         return Question.shortAnswer(
             request.text,
             request.passage,
-            request.correctAnswer
+            request.correctAnswer,
         )
     }
 
@@ -81,7 +96,7 @@ object QuestionAssembler {
             question.id,
             question.text,
             question.passage,
-            question.type.name
+            question.type.name,
         )
     }
 
@@ -91,7 +106,7 @@ object QuestionAssembler {
             question.text,
             question.passage,
             question.type.name,
-            QuestionOptionAssembler.toResponses(question.options)
+            QuestionOptionAssembler.toResponses(question.options),
         )
     }
 
@@ -112,7 +127,7 @@ object QuestionAssembler {
             question.text,
             question.passage,
             question.type.name,
-            question.correctAnswer
+            question.correctAnswer,
         )
     }
 
@@ -122,7 +137,7 @@ object QuestionAssembler {
             question.text,
             question.passage,
             question.type.name,
-            QuestionOptionAssembler.toWithAnswersResponses(question.options)
+            QuestionOptionAssembler.toWithAnswersResponses(question.options),
         )
     }
 }

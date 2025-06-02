@@ -1,20 +1,24 @@
 package com.fluffy.comment.infra.persistence
 
-import com.fluffy.auth.domain.QMember.member
+import com.fluffy.auth.domain.QMember.Companion.member
 import com.fluffy.comment.domain.ExamCommentRepositoryCustom
 import com.fluffy.comment.domain.QExamComment
-import com.fluffy.comment.domain.QExamComment.examComment
-import com.fluffy.comment.domain.dto.*
+import com.fluffy.comment.domain.QExamComment.Companion.examComment
+import com.fluffy.comment.domain.dto.AuthorDto
+import com.fluffy.comment.domain.dto.ExamReplyCommentDto
+import com.fluffy.comment.domain.dto.ExamRootCommentDto
+import com.querydsl.core.types.Projections
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.stereotype.Repository
 
 @Repository
 class ExamCommentRepositoryImpl(
-    private val queryFactory: JPAQueryFactory
+    private val queryFactory: JPAQueryFactory,
 ) : ExamCommentRepositoryCustom {
 
     companion object {
-        private val AUTHOR_PROJECTION = QAuthorDto(
+        private val AUTHOR_PROJECTION = Projections.constructor(
+            AuthorDto::class.java,
             member.id,
             member.name,
             member.avatarUrl
@@ -28,7 +32,8 @@ class ExamCommentRepositoryImpl(
         val replyComment = QExamComment("replyComment")
 
         return queryFactory.select(
-            QExamRootCommentDto(
+            Projections.constructor(
+                ExamRootCommentDto::class.java,
                 examComment.id,
                 examComment.content,
                 AUTHOR_PROJECTION,
@@ -65,7 +70,8 @@ class ExamCommentRepositoryImpl(
         val replyComment = QExamComment("replyComment")
 
         return queryFactory.select(
-            QExamReplyCommentDto(
+            Projections.constructor(
+                ExamReplyCommentDto::class.java,
                 replyComment.id,
                 replyComment.content,
                 AUTHOR_PROJECTION,

@@ -5,5 +5,5 @@ import com.fluffy.global.web.Accessor
 data class SubmissionRequest(
     val examId: Long,
     val questionResponses: List<QuestionResponseRequest>,
-    val accessor: Accessor
+    val accessor: Accessor,
 )

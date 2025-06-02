@@ -10,7 +10,7 @@ object MemberAssembler {
             id = member.id,
             email = member.email,
             name = member.name,
-            avatarUrl = member.avatarUrl
+            avatarUrl = member.avatarUrl,
         )
     }
 }

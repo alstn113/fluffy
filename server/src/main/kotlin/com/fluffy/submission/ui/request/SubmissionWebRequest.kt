@@ -5,7 +5,7 @@ import com.fluffy.submission.application.request.QuestionResponseRequest
 import com.fluffy.submission.application.request.SubmissionRequest
 
 data class SubmissionWebRequest(
-    val questionResponses: List<QuestionResponseRequest>
+    val questionResponses: List<QuestionResponseRequest>,
 ) {
 
     fun toAppRequest(examId: Long, accessor: Accessor): SubmissionRequest {

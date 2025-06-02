@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component
 @Component
 class DistributedLockAspect(
     private val redissonClient: RedissonClient,
-    private val aopForTransaction: AopForTransaction
+    private val aopForTransaction: AopForTransaction,
 ) {
 
     companion object {
@@ -27,7 +27,7 @@ class DistributedLockAspect(
         val key = LOCK_PREFIX + CustomSpringELParser.getDynamicValue(
             signature.parameterNames,
             joinPoint.args,
-            distributedLock.key
+            distributedLock.key,
         )
 
         val rLock = redissonClient.getLock(key)
@@ -35,7 +35,7 @@ class DistributedLockAspect(
             val isLocked = rLock.tryLock(
                 distributedLock.waitTime,
                 distributedLock.leaseTime,
-                distributedLock.timeUnit
+                distributedLock.timeUnit,
             )
             if (!isLocked) {
                 return false

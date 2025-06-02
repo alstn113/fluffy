@@ -4,7 +4,7 @@ import com.fluffy.infra.persistence.AuditableEntity
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
-import java.util.*
+import java.util.UUID
 
 @Entity
 class ExamImage private constructor(
@@ -46,7 +46,7 @@ class ExamImage private constructor(
                 memberId = memberId,
                 examId = examId,
                 path = imagePath,
-                fileSize = fileSize
+                fileSize = fileSize,
             )
         }
 

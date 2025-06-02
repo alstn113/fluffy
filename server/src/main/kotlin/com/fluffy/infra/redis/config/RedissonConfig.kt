@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration
 
 @Configuration
 class RedissonConfig(
-    private val properties: RedisProperties
+    private val properties: RedisProperties,
 ) {
 
     companion object {

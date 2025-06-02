@@ -10,7 +10,7 @@ data class UpdateExamQuestionsWebRequest(val questions: List<QuestionRequest>) {
         return UpdateExamQuestionsRequest(
             examId = examId,
             questions = questions,
-            accessor = accessor
+            accessor = accessor,
         )
     }
 }

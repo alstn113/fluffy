@@ -8,7 +8,7 @@ import jakarta.persistence.Embeddable
 data class ExamTitle(
 
     @field:Column(name = "title", nullable = false)
-    val value: String
+    val value: String,
 ) {
 
     companion object {

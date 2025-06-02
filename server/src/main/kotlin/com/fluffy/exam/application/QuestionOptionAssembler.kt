@@ -13,7 +13,7 @@ object QuestionOptionAssembler {
     private fun toResponse(questionOption: QuestionOption): QuestionOptionResponse {
         return QuestionOptionResponse(
             questionOption.id,
-            questionOption.text
+            questionOption.text,
         )
     }
 
@@ -25,7 +25,7 @@ object QuestionOptionAssembler {
         return QuestionOptionWithAnswersResponse(
             questionOption.id,
             questionOption.text,
-            questionOption.isCorrect
+            questionOption.isCorrect,
         )
     }
 }

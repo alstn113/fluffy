@@ -4,5 +4,5 @@ import org.springframework.http.HttpStatus
 
 class ForbiddenException(
     message: String,
-    cause: Throwable? = null
+    cause: Throwable? = null,
 ) : CoreException(HttpStatus.FORBIDDEN, message, cause)

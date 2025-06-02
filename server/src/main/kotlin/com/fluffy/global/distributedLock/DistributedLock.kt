@@ -18,5 +18,5 @@ annotation class DistributedLock(
     /**
      * 락을 유지할 시간
      */
-    val leaseTime: Long = 3L
+    val leaseTime: Long = 3L,
 )

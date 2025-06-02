@@ -8,6 +8,6 @@ interface ReactionRepository : JpaRepository<Reaction, Long> {
         targetType: String,
         targetId: Long,
         memberId: Long,
-        type: ReactionType
+        type: ReactionType,
     ): Reaction?
 }

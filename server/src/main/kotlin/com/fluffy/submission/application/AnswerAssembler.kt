@@ -2,7 +2,11 @@ package com.fluffy.submission.application
 
 import com.fluffy.exam.domain.Question
 import com.fluffy.exam.domain.QuestionOption
-import com.fluffy.exam.domain.QuestionType.*
+import com.fluffy.exam.domain.QuestionType.LONG_ANSWER
+import com.fluffy.exam.domain.QuestionType.MULTIPLE_CHOICE
+import com.fluffy.exam.domain.QuestionType.SHORT_ANSWER
+import com.fluffy.exam.domain.QuestionType.SINGLE_CHOICE
+import com.fluffy.exam.domain.QuestionType.TRUE_OR_FALSE
 import com.fluffy.global.exception.BadRequestException
 import com.fluffy.submission.application.request.QuestionResponseRequest
 import com.fluffy.submission.application.response.AnswerBaseResponse
@@ -84,7 +88,7 @@ object AnswerAssembler {
             question.text,
             question.type.name,
             answer.text,
-            question.correctAnswer
+            question.correctAnswer,
         )
     }
 
@@ -94,7 +98,7 @@ object AnswerAssembler {
             question.id,
             question.text,
             question.type.name,
-            toChoiceResponses(question.options, answer.choices)
+            toChoiceResponses(question.options, answer.choices),
         )
     }
 
@@ -104,7 +108,7 @@ object AnswerAssembler {
                 option.id,
                 option.text,
                 option.isCorrect,
-                choices.any { choice -> choice.questionOptionId == option.id }
+                choices.any { choice -> choice.questionOptionId == option.id },
             )
         }
     }

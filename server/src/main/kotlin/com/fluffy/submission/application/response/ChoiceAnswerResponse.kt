@@ -5,5 +5,5 @@ data class ChoiceAnswerResponse(
     override val questionId: Long,
     override val text: String,
     override val type: String,
-    val choices: List<ChoiceResponse>
+    val choices: List<ChoiceResponse>,
 ) : AnswerBaseResponse

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class AuthController(
     private val authService: AuthService,
-    private val cookieManager: CookieManager
+    private val cookieManager: CookieManager,
 ) {
     @GetMapping("/api/v1/auth/me")
     fun getMyInfo(@Auth accessor: Accessor): ResponseEntity<MyInfoResponse> {

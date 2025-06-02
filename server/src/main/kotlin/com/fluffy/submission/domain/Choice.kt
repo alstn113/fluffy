@@ -7,5 +7,5 @@ import jakarta.persistence.Embeddable
 data class Choice(
 
     @field:Column(nullable = false)
-    val questionOptionId: Long
+    val questionOptionId: Long,
 )

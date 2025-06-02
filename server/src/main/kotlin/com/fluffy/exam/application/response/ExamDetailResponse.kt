@@ -32,7 +32,7 @@ data class ChoiceQuestionResponse(
     override val text: String,
     override val passage: String,
     override val type: String,
-    val options: List<QuestionOptionResponse>
+    val options: List<QuestionOptionResponse>,
 ) : QuestionResponse
 
 

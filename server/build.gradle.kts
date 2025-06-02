@@ -2,11 +2,11 @@ plugins {
     id("org.springframework.boot") version "3.4.4"
     id("io.spring.dependency-management") version "1.1.7"
     id("org.asciidoctor.jvm.convert") version "3.3.2"
+    id("com.google.devtools.ksp") version "1.9.25-1.0.20"
 
     kotlin("jvm") version "1.9.25"
     kotlin("plugin.spring") version "1.9.25"
     kotlin("plugin.jpa") version "1.9.25"
-    kotlin("kapt") version "1.9.25"
 }
 
 val asciidoctorExt = "asciidoctorExt"
@@ -30,11 +30,12 @@ repositories {
 val snippetsDir = file("build/generated-snippets")
 
 val jjwtVersion by extra("0.12.6")
-val querydslVersion by extra("5.1.0")
+val querydslVersion by extra("6.11")
+val redissonVersion by extra("3.33.0")
 val kotestVersion by extra("5.9.1")
 val mockkVersion by extra("1.13.17")
 val springMockkVersion by extra("4.0.2")
-val testcontainersVersion by extra("1.20.5")
+val testcontainersVersion by extra("1.21.1")
 
 dependencies {
     // spring
@@ -54,15 +55,14 @@ dependencies {
     implementation("org.flywaydb:flyway-database-postgresql")
 
     // querydsl
-    implementation("com.querydsl:querydsl-jpa:$querydslVersion:jakarta")
-    kapt("com.querydsl:querydsl-apt:$querydslVersion:jakarta")
-    kapt("jakarta.annotation:jakarta.annotation-api")
-    kapt("jakarta.persistence:jakarta.persistence-api")
+    implementation("io.github.openfeign.querydsl:querydsl-jpa:${querydslVersion}")
+    annotationProcessor("io.github.openfeign.querydsl:querydsl-apt:${querydslVersion}:jpa")
+    annotationProcessor("jakarta.persistence:jakarta.persistence-api")
+    ksp("io.github.openfeign.querydsl:querydsl-ksp-codegen:${querydslVersion}")
 
     // redis
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
-    implementation("org.springframework.boot:spring-boot-starter-cache")
-    implementation("org.redisson:redisson-spring-boot-starter:3.33.0")
+    implementation("org.redisson:redisson-spring-boot-starter:${redissonVersion}")
 
     // jwt
     implementation("io.jsonwebtoken:jjwt-api:$jjwtVersion")

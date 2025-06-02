@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class ExamCommentQueryService(
     private val examRepository: ExamRepository,
-    private val examCommentRepository: ExamCommentRepository
+    private val examCommentRepository: ExamCommentRepository,
 ) {
 
     @Transactional(readOnly = true)

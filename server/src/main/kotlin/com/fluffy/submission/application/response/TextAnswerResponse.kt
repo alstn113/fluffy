@@ -6,5 +6,5 @@ data class TextAnswerResponse(
     override val text: String,
     override val type: String,
     val answer: String,
-    val correctAnswer: String?
+    val correctAnswer: String?,
 ) : AnswerBaseResponse

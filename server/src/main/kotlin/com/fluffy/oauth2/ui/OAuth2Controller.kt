@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class OAuth2Controller(
     private val oauth2Service: OAuth2Service,
-    private val cookieManager: CookieManager
+    private val cookieManager: CookieManager,
 ) {
 
     @GetMapping("/api/v1/auth/oauth2/redirect/{provider}")
     fun oauth2Redirect(
         @PathVariable provider: OAuth2Provider,
         @RequestParam(value = "next", defaultValue = "/") next: String,
-        response: HttpServletResponse
+        response: HttpServletResponse,
     ) {
         val redirectUrl = oauth2Service.getOAuth2LoginUrl(provider, next)
 
@@ -33,7 +33,7 @@ class OAuth2Controller(
         @PathVariable provider: OAuth2Provider,
         @RequestParam("code") code: String,
         @RequestParam(value = "next", defaultValue = "/") next: String,
-        response: HttpServletResponse
+        response: HttpServletResponse,
     ) {
         val tokenResponse: TokenResponse = oauth2Service.oauth2Login(provider, code)
         val accessTokenCookie = cookieManager.createAccessTokenCookie(tokenResponse.accessToken)

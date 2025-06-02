@@ -8,7 +8,7 @@ data class OAuth2UserInfo(
     val socialId: String,
     val name: String,
     val email: String?,
-    val avatarUrl: String
+    val avatarUrl: String,
 ) {
 
     fun toMember(provider: OAuth2Provider): Member {
@@ -17,7 +17,7 @@ data class OAuth2UserInfo(
             provider = provider,
             socialId = socialId,
             name = name,
-            avatarUrl = avatarUrl
+            avatarUrl = avatarUrl,
         )
     }
 }

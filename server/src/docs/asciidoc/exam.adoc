@@ -32,9 +32,9 @@ operation::exam-document-test/create-exam[]
 
 operation::exam-document-test/publish[]
 
-=== 시험 지문 이미지 업로드
+=== 시험 이미지 업로드 URL 생성
 
-operation::exam-document-test/upload-image[]
+operation::exam-document-test/create-presigned-url[]
 
 === 시험 문제 수정
 

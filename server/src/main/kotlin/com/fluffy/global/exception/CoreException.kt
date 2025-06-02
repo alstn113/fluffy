@@ -5,5 +5,5 @@ import org.springframework.http.HttpStatus
 abstract class CoreException(
     val status: HttpStatus,
     message: String,
-    cause: Throwable? = null
+    cause: Throwable? = null,
 ) : RuntimeException(message, cause)

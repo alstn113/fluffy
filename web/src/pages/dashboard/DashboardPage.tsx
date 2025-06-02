@@ -6,8 +6,24 @@ import NewExamButton from '@/components/exams/NewExamButton';
 import DraftExamContent from '@/components/dashboard/DraftExamContent';
 import PublishedExamContent from '@/components/dashboard/PublishedExamContent';
 import SubmittedExamContent from '@/components/dashboard/SubmittedExamContent';
+import { useSearchParams } from 'react-router';
+
+const TABS = {
+  draft: 'draft',
+  published: 'published',
+  submissions: 'submissions',
+} as const;
+type TabKey = keyof typeof TABS;
 
 const DashboardPage = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialTab = (searchParams.get('tab') as TabKey) || TABS.draft;
+
+  const handleTabChange = (key: string | number) => {
+    const newTab = key as TabKey;
+    setSearchParams({ tab: newTab });
+  };
+
   return (
     <div className="container mx-auto px-5 py-12">
       <div className="flex items-center justify-between mb-4">
@@ -28,9 +44,11 @@ const DashboardPage = () => {
             tab: 'max-w-fit px-0 h-12',
             tabContent: 'group-data-[selected=true]:text-[#17C964]',
           }}
+          selectedKey={initialTab}
+          onSelectionChange={handleTabChange}
         >
           <Tab
-            key="draft"
+            key={TABS.draft}
             title={
               <div className="flex items-center space-x-2">
                 <PiPencilLineBold size={20} />
@@ -44,7 +62,7 @@ const DashboardPage = () => {
             </AsyncBoundary>
           </Tab>
           <Tab
-            key="published"
+            key={TABS.published}
             title={
               <div className="flex items-center space-x-2">
                 <BsFillFileEarmarkCheckFill size={20} />
@@ -58,7 +76,7 @@ const DashboardPage = () => {
             </AsyncBoundary>
           </Tab>
           <Tab
-            key="submissions"
+            key={TABS.submissions}
             title={
               <div className="flex items-center space-x-2">
                 <BsFillSendCheckFill size={20} />

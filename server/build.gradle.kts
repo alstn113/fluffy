@@ -1,8 +1,8 @@
 plugins {
     id("org.springframework.boot") version "3.4.4"
     id("io.spring.dependency-management") version "1.1.7"
-    id("org.asciidoctor.jvm.convert") version "3.3.2"
-    id("com.google.devtools.ksp") version "1.9.25-1.0.20"
+    id("org.asciidoctor.jvm.convert") version "4.0.4"
+    id("com.google.devtools.ksp") version "1.9.25-1.0.20" // for querydsl
 
     kotlin("jvm") version "1.9.25"
     kotlin("plugin.spring") version "1.9.25"
@@ -121,15 +121,27 @@ tasks.asciidoctor {
     baseDirFollowsSourceFile()
 }
 
+tasks.resolveMainClassName {
+    dependsOn(copyDocument)
+}
+
+tasks.jar {
+    dependsOn(copyDocument)
+}
+
 val copyDocument = tasks.register<Copy>("copyDocument") {
+    description = "Copy Asciidoctor generated documentation to resources"
+    group = "documentation"
+
     dependsOn(tasks.asciidoctor)
     doFirst {
         delete(file("src/main/resources/static/docs"))
     }
-    from(file("build/docs/asciidoc"))
-    into(file("src/main/resources/static/docs"))
+    from(file("build/docs/asciidoc/"))
+    into(file("build/resources/main/static/docs"))
 }
 
 tasks.bootJar {
     dependsOn(copyDocument)
 }
+

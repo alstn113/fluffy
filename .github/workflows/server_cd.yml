@@ -1,6 +1,7 @@
 name: Server CD
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -38,7 +39,28 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
 
       - name: Build with Gradle
-        run: ./gradlew clean build
+        run: ./gradlew clean bootJar
+
+      - name: Check API docs in bootJar
+        run: |
+          JAR_FILE=$(find build/libs -name "*.jar" | head -n 1)
+
+          if [ -z "$JAR_FILE" ]; then
+            echo "❌ JAR 파일을 찾을 수 없습니다."
+            exit 1
+          fi
+
+          echo "🔍 JAR 파일 경로: $JAR_FILE"
+
+          DOC_FILES=$(jar tf "$JAR_FILE" | grep 'BOOT-INF/classes/static/docs/')
+
+          if [ -z "$DOC_FILES" ]; then
+            echo "❌ static/docs 경로에 포함된 파일이 없습니다."
+            exit 1
+          else
+            echo "✅ JAR에 포함된 docs 파일 목록:"
+            echo "$DOC_FILES"
+          fi
 
       - name: Log in to the Container registry
         uses: docker/login-action@v3
@@ -87,7 +109,6 @@ jobs:
       - name: Compose Docker image and Update Nginx configuration
         env:
           DOCKER_APP_IMAGE: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
-
         run: |
           chmod +x ./scripts/deploy.sh # 실행 권한 부여
           sudo -E ./scripts/deploy.sh # 환경 변수 유지 및 실행

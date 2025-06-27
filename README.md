@@ -40,9 +40,9 @@ https://github.com/user-attachments/assets/c133b12c-8efd-480f-a62b-74b5defe1d71
 
 ## 프로젝트 개요
 
-- [서버 주소](https://api.fluffy.run)
-- [API 명세서](https://api.fluffy.run/docs/index.html)
-- [웹 프론트엔드 주소](https://fluffy.run)
+- [서버 주소 (종료)](https://api.fluffy.run)
+- [API 명세서 (종료)](https://api.fluffy.run/docs/index.html)
+- [웹 프론트엔드 주소 (종료)](https://fluffy.run)
 - [서비스 개발 블로그](https://alstn113.tistory.com/tag/플러피)
 
 ## 서버

@@ -43,7 +43,9 @@ class DistributedLockAspect(
             return aopForTransaction.proceed(joinPoint)
         } finally {
             try {
-                rLock.unlock()
+                if (rLock.isLocked && rLock.isHeldByCurrentThread) {
+                    rLock.unlock()
+                }
             } catch (e: Exception) {
                 log.info("[DistributedLock] Failed to release lock for key: {}", key, e)
             }
